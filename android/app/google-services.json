@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "113842149906",
+    "project_id": "kg-ukeplaner",
+    "storage_bucket": "kg-ukeplaner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113842149906:android:67d8ced2378cce6e6d96cb",
+        "android_client_info": {
+          "package_name": "no.vgs.kg.ukeplaner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113842149906-0o3vknuhbpt2fsjivb63vd7csar3uls6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "no.vgs.kg.ukeplaner",
+            "certificate_hash": "37f9ccc08e6a9b896f1658edcdeeb892d4ba3170"
+          }
+        },
+        {
+          "client_id": "113842149906-v0qf90l5cvsi2o069bmcnegc248c2hku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoKPVkayT-ZiK1BqsSbZRSvfyzaURIpdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113842149906-v0qf90l5cvsi2o069bmcnegc248c2hku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
