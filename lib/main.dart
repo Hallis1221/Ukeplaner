@@ -1,12 +1,24 @@
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 
 FirebaseAnalytics analytics;
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Trace analyticsTrace =
+      FirebasePerformance.instance.newTrace("analytics_trace");
+  Trace appRuntimeTrace =
+      FirebasePerformance.instance.newTrace("appRunTime_trace");
+  appRuntimeTrace.start();
+
+  analyticsTrace.start();
   analytics = FirebaseAnalytics();
+  analyticsTrace.stop();
+
   runApp(MyApp());
+  appRuntimeTrace.stop();
 }
 
 class MyApp extends StatefulWidget {
