@@ -20,6 +20,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       navigatorObservers: [
         FirebaseAnalyticsObserver(
           analytics: analytics,
@@ -28,6 +29,19 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (context) => Text("Inital route"),
       },
+    );
+  }
+}
+
+class SharedScaffold extends StatelessWidget {
+  final Widget body;
+
+  SharedScaffold({@required this.body});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: this.body,
     );
   }
 }
