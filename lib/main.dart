@@ -15,7 +15,7 @@ import 'package:loading/indicator/ball_beat_indicator.dart';
 FirebaseAnalytics analytics;
 bool localDevMode = true;
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(MyApp());
@@ -218,6 +218,7 @@ class _SharedScaffoldState extends State<SharedScaffold> {
       );
     }
     super.initState();
+    messageHandler();
   }
 
   @override
@@ -250,27 +251,14 @@ class ErrorPage extends StatelessWidget {
   }
 }
 
-class MessageHandler extends StatefulWidget {
-  @override
-  _MessageHandlerState createState() => _MessageHandlerState();
-}
+void messageHandler() {
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
 
-class _MessageHandlerState extends State<MessageHandler> {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-
-  @override
-  void initState() {
-    super.initState();
-    // TODO figure out how FCM works and implement it here
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepOrange,
-      ),
-    );
-  }
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
+  // TODO figure out how FCM works and implement it here
 }
