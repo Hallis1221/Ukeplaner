@@ -22,6 +22,31 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(
+          analytics: analytics,
+        ),
+      ],
+      initialRoute: "/connect",
+      routes: {
+        '/connect': (context) {
+          return SharedScaffold(body: Text("2312"));
+        },
+      },
+    );
+  }
+}
+
+class FirebaseConnect extends StatelessWidget {
+  const FirebaseConnect({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
       future: Firebase.initializeApp(),
       builder: (context, snapshot) {
@@ -30,37 +55,41 @@ class MyApp extends StatelessWidget {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           try {
-            Trace analyticsTrace =
+            Trace fbsTrace =
                 FirebasePerformance.instance.newTrace("firebase_startup_trace");
-            analyticsTrace.start();
+            fbsTrace.start();
             analytics = FirebaseAnalytics();
             FlutterError.onError =
                 FirebaseCrashlytics.instance.recordFlutterError;
             FirebaseCrashlytics.instance.checkForUnsentReports();
-            analyticsTrace.stop();
+            fbsTrace.stop();
+            checkConnection().then((connected) {
+              if (connected) {
+                AlertDialog(content: Text("yo"));
+              } else {}
+            });
           } catch (e) {
             throw FlutterError(
               "Failed to start firebase. Error: $e",
             );
           }
-          return MaterialApp(
-            title: 'Flutter Demo',
-            debugShowCheckedModeBanner: false,
-            navigatorObservers: [
-              FirebaseAnalyticsObserver(
-                analytics: analytics,
-              ),
-            ],
-            routes: {
-              '/': (context) {
-                return SharedScaffold(body: MessageHandler());
-              },
-            },
-          );
         }
         return LoadingFlipping.circle();
       },
     );
+  }
+}
+
+Future<bool> checkConnection() async {
+  try {
+    final result = await InternetAddress.lookup('google.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  } on SocketException catch (_) {
+    return false;
   }
 }
 
@@ -90,8 +119,13 @@ class _SharedScaffoldState extends State<SharedScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: this.widget.body,
-    );
+        body: (() {
+      if (widget.body != null) {
+        return widget.body;
+      } else {
+        return Text("Something failed...");
+      }
+    }()));
   }
 }
 
@@ -122,7 +156,6 @@ class _MessageHandlerState extends State<MessageHandler> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepOrange,
-        title: Text('FCM Push Notifications'),
       ),
     );
   }
