@@ -9,6 +9,8 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:loading_animations/loading_animations.dart';
+import 'package:loading/loading.dart';
+import 'package:loading/indicator/ball_beat_indicator.dart';
 
 FirebaseAnalytics analytics;
 bool localDevMode = true;
@@ -22,28 +24,57 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      navigatorObservers: [
-        FirebaseAnalyticsObserver(
-          analytics: analytics,
-        ),
-      ],
-      initialRoute: "/connect",
+    return FirebaseApp(
       routes: {
-        '/connect': (context) {
-          return SharedScaffold(body: Text("2312"));
+        '/': (context) {
+          return VerifyApp(route: '/login');
         },
+        '/login': (context) {
+          return SharedScaffold(body: Text("Login"));
+        }
       },
     );
   }
 }
 
-class FirebaseConnect extends StatelessWidget {
-  const FirebaseConnect({
+class VerifyApp extends StatefulWidget {
+  const VerifyApp({
+    @required this.route,
     Key key,
   }) : super(key: key);
+
+  final String route;
+
+  @override
+  _VerifyAppState createState() => _VerifyAppState();
+}
+
+class _VerifyAppState extends State<VerifyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return SharedScaffold(
+        body: (() {
+      checkConnection().then((connected) {
+        if (connected) {
+          Navigator.pushNamed(
+            context,
+            widget.route,
+          );
+        }
+      });
+    }()));
+  }
+}
+
+class FirebaseApp extends StatelessWidget {
+  const FirebaseApp({
+    @required this.routes,
+    Key key,
+    this.initialRoute = "/",
+  }) : super(key: key);
+
+  final Map<String, Widget Function(BuildContext)> routes;
+  final String initialRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -55,26 +86,35 @@ class FirebaseConnect extends StatelessWidget {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           try {
-            Trace fbsTrace =
+            Trace analyticsTrace =
                 FirebasePerformance.instance.newTrace("firebase_startup_trace");
-            fbsTrace.start();
+            analyticsTrace.start();
             analytics = FirebaseAnalytics();
             FlutterError.onError =
                 FirebaseCrashlytics.instance.recordFlutterError;
             FirebaseCrashlytics.instance.checkForUnsentReports();
-            fbsTrace.stop();
-            checkConnection().then((connected) {
-              if (connected) {
-                AlertDialog(content: Text("yo"));
-              } else {}
-            });
+            analyticsTrace.stop();
           } catch (e) {
             throw FlutterError(
               "Failed to start firebase. Error: $e",
             );
           }
+          var materialApp = MaterialApp(
+            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            navigatorObservers: [
+              FirebaseAnalyticsObserver(
+                analytics: analytics,
+              ),
+            ],
+            initialRoute: initialRoute,
+            routes: routes,
+          );
+          return materialApp;
         }
-        return LoadingFlipping.circle();
+        return LoadingFlipping.circle(
+          duration: Duration(milliseconds: 750),
+        );
       },
     );
   }
