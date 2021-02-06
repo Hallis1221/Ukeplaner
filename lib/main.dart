@@ -30,7 +30,13 @@ class MyApp extends StatelessWidget {
           return VerifyApp(route: '/login');
         },
         '/login': (context) {
-          return SharedScaffold(body: Text("Login"));
+          return SharedScaffold(
+            body: Center(
+              child: Text(
+                "Login",
+              ),
+            ),
+          );
         }
       },
     );
@@ -54,15 +60,73 @@ class _VerifyAppState extends State<VerifyApp> {
   Widget build(BuildContext context) {
     return SharedScaffold(
         body: (() {
-      checkConnection().then((connected) {
-        if (connected) {
-          Navigator.pushNamed(
-            context,
-            widget.route,
-          );
-        }
-      });
+      void tryToConnect() {
+        checkConnection().then(
+          (connected) {
+            if (connected) {
+              Navigator.pushNamed(
+                context,
+                widget.route,
+              );
+            } else {
+              tryToConnect();
+            }
+          },
+        );
+      }
+
+      tryToConnect();
+      return ConnectionAttemptionScreen(route: widget.route);
     }()));
+  }
+}
+
+class ConnectionAttemptionScreen extends StatelessWidget {
+  const ConnectionAttemptionScreen({
+    @required this.route,
+    Key key,
+  }) : super(key: key);
+
+  final String route;
+
+  @override
+  Widget build(BuildContext context) {
+    return new GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, route);
+      },
+      child: Stack(
+        children: [
+          // TODO implement solution to connect offline
+          Container(
+            color: Colors.lightBlue,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AlertDialog(
+                  backgroundColor: Colors.blueAccent,
+                  title: Text(
+                    "Prøver å koble til internett... Trykk hvor som helst på skjermen for å fortsette uten nett",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Loading(
+                    indicator: BallBeatIndicator(),
+                    size: 100.0,
+                    color: Colors.pink,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -163,7 +227,11 @@ class _SharedScaffoldState extends State<SharedScaffold> {
       if (widget.body != null) {
         return widget.body;
       } else {
-        return Text("Something failed...");
+        return Center(
+          child: Text(
+            "Something failed...",
+          ),
+        );
       }
     }()));
   }
@@ -172,7 +240,13 @@ class _SharedScaffoldState extends State<SharedScaffold> {
 class ErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SharedScaffold(body: Text("Something went wrong..."));
+    return SharedScaffold(
+      body: Center(
+        child: Text(
+          "Something went wrong...",
+        ),
+      ),
+    );
   }
 }
 
