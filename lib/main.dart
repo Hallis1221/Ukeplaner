@@ -14,6 +14,7 @@ import 'package:loading/indicator/ball_beat_indicator.dart';
 
 FirebaseAnalytics analytics;
 bool localDevMode = true;
+String messageType = "snackbar";
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,14 +32,112 @@ class MyApp extends StatelessWidget {
         },
         '/login': (context) {
           return SharedScaffold(
-            body: Center(
-              child: Text(
-                "Login",
-              ),
-            ),
+            body: MessageHandler(child: LoginScreen()),
           );
         }
       },
+    );
+  }
+}
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: MaterialButton(
+        onPressed: () {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "Test",
+              ),
+            ),
+          );
+        },
+        child: Text(
+          "Login",
+        ),
+      ),
+    );
+  }
+}
+
+class MessageHandler extends StatefulWidget {
+  const MessageHandler({Key key, @required this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  _MessageHandlerState createState() => _MessageHandlerState();
+}
+
+class _MessageHandlerState extends State<MessageHandler> {
+  static FirebaseFirestore _db = FirebaseFirestore.instance;
+  static FirebaseMessaging fcm = FirebaseMessaging();
+
+  @override
+  void initState() {
+    super.initState();
+    fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+
+        final snackbar = SnackBar(
+          content: Text(
+            message["notification"]["title"],
+          ),
+          action: SnackBarAction(
+            label: "Sjekk ut!",
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  content: ListTile(
+                    title: Text(message["notification"]["title"]),
+                    subtitle: Text(message["notification"]["body"]),
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("ok"),
+                      onPressed: () => Navigator.of(context).pop(),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+        );d
+        Scaffold.of(context).showSnackBar(snackbar);
+      },
+      onResume: (Map<String, dynamic> message) async {
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: ListTile(
+              title: Text(message["notification"]["title"]),
+              subtitle: Text(message["notification"]["body"]),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("ok"),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: widget.child,
     );
   }
 }
@@ -64,7 +163,7 @@ class _VerifyAppState extends State<VerifyApp> {
         checkConnection().then(
           (connected) {
             if (connected) {
-              Navigator.pushNamed(
+              Navigator.pushReplacementNamed(
                 context,
                 widget.route,
               );
@@ -93,7 +192,10 @@ class ConnectionAttemptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return new GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, route);
+        Navigator.pushReplacementNamed(
+          context,
+          route,
+        );
       },
       child: Stack(
         children: [
@@ -163,8 +265,9 @@ class FirebaseApp extends StatelessWidget {
               "Failed to start firebase. Error: $e",
             );
           }
+
           var materialApp = MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Ukeplaner app',
             debugShowCheckedModeBanner: false,
             navigatorObservers: [
               FirebaseAnalyticsObserver(
@@ -200,7 +303,9 @@ Future<bool> checkConnection() async {
 class SharedScaffold extends StatefulWidget {
   final Widget body;
 
-  SharedScaffold({@required this.body});
+  SharedScaffold({
+    @required this.body,
+  });
 
   @override
   _SharedScaffoldState createState() => _SharedScaffoldState();
@@ -218,7 +323,6 @@ class _SharedScaffoldState extends State<SharedScaffold> {
       );
     }
     super.initState();
-    messageHandler();
   }
 
   @override
@@ -249,16 +353,4 @@ class ErrorPage extends StatelessWidget {
       ),
     );
   }
-}
-
-void messageHandler() {
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print('Got a message whilst in the foreground!');
-    print('Message data: ${message.data}');
-
-    if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
-    }
-  });
-  // TODO figure out how FCM works and implement it here
 }
