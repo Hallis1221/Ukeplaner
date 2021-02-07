@@ -14,7 +14,6 @@ import 'package:loading/indicator/ball_beat_indicator.dart';
 
 FirebaseAnalytics analytics;
 bool localDevMode = true;
-String messageType = "snackbar";
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,60 +76,80 @@ class MessageHandler extends StatefulWidget {
 
 class _MessageHandlerState extends State<MessageHandler> {
   static FirebaseFirestore _db = FirebaseFirestore.instance;
-  static FirebaseMessaging fcm = FirebaseMessaging();
+  static FirebaseMessaging _fcm = FirebaseMessaging();
 
   @override
   void initState() {
     super.initState();
-    fcm.configure(
+    _fcm.requestNotificationPermissions(IosNotificationSettings());
+    _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-
-        final snackbar = SnackBar(
-          content: Text(
-            message["notification"]["title"],
-          ),
-          action: SnackBarAction(
-            label: "Sjekk ut!",
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  content: ListTile(
-                    title: Text(message["notification"]["title"]),
-                    subtitle: Text(message["notification"]["body"]),
-                  ),
-                  actions: <Widget>[
-                    FlatButton(
-                      child: Text("ok"),
-                      onPressed: () => Navigator.of(context).pop(),
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
-        );d
-        Scaffold.of(context).showSnackBar(snackbar);
+        print("message");
+        if (message["notification"] != null) {
+          final snackbar = SnackBar(
+            content: Text(
+              message["notification"]["title"],
+            ),
+            action: SnackBarAction(
+              label: "Sjekk ut!",
+              onPressed: () {
+                showNotificationDialog(message);
+              },
+            ),
+          );
+          Scaffold.of(context).showSnackBar(snackbar);
+        }
       },
       onResume: (Map<String, dynamic> message) async {
+        print("resume");
+        showNotificationDialog(message);
       },
       onLaunch: (Map<String, dynamic> message) async {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            content: ListTile(
-              title: Text(message["notification"]["title"]),
-              subtitle: Text(message["notification"]["body"]),
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("ok"),
-                onPressed: () => Navigator.of(context).pop(),
-              )
-            ],
-          ),
-        );
+        print("launched");
+        showNotificationDialog(message);
       },
+    );
+  }
+
+  Future showNotificationDialog(Map<String, dynamic> message) {
+    if (message["data"]["google.message_id"] ==
+        '0:1612718485437491%629c5fec629c5fec') {
+      return null;
+    }
+    if (message["notification"] == null ||
+        message["notification"]["title"] == null ||
+        message["notification"]["body"] == null) {
+      return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: ListTile(
+            title: Text("Du har en ny beskjed!"),
+            subtitle: Text(
+                "Du har fått en ny beskjed, vi ville elsket å vise den til deg, men dessvere var denne meldingen sent fra firebase console som ikke støtter det. Trykk på bjella for å se alle dine meldinger"),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("ok"),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        ),
+      );
+    }
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: ListTile(
+          title: Text(message["notification"]["title"]),
+          subtitle: Text(message["notification"]["body"]),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text("ok"),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
     );
   }
 
@@ -266,7 +285,7 @@ class FirebaseApp extends StatelessWidget {
             );
           }
 
-          var materialApp = MaterialApp(
+          return MaterialApp(
             title: 'Ukeplaner app',
             debugShowCheckedModeBanner: false,
             navigatorObservers: [
@@ -277,7 +296,6 @@ class FirebaseApp extends StatelessWidget {
             initialRoute: initialRoute,
             routes: routes,
           );
-          return materialApp;
         }
         return LoadingFlipping.circle(
           duration: Duration(milliseconds: 750),
