@@ -7,7 +7,6 @@ import 'logic/firebase/authGuider.dart';
 import 'logic/firebase/firebase.dart';
 import 'logic/firebase/fcm.dart';
 import 'logic/network.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
