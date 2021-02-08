@@ -10,13 +10,15 @@ class LoginScreen extends StatelessWidget {
     return Center(
       child: MaterialButton(
         onPressed: () {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "Test",
-              ),
+          SnackBar snackbar = SnackBar(
+            content: Text(
+              "Test",
             ),
           );
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+          /*   Scaffold.of(context).showSnackBar(
+            snackbar,
+          ); */
         },
         child: Text(
           "Login",
