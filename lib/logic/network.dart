@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loading/indicator/ball_beat_indicator.dart';
 import 'package:loading/loading.dart';
-import 'package:ukeplaner/widgets/scaffold.dart';
+
+import '../config.dart';
 
 class VerifyApp extends StatefulWidget {
   const VerifyApp({
@@ -18,9 +20,21 @@ class VerifyApp extends StatefulWidget {
 }
 
 class _VerifyAppState extends State<VerifyApp> {
+  void initState() {
+    if (localDevMode) {
+      String host = Platform.isAndroid ? '10.0.2.2:8080' : 'localhost:8080';
+      FirebaseFirestore.instance.settings = Settings(
+        host: host,
+        sslEnabled: false,
+        persistenceEnabled: false,
+      );
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SharedScaffold(
+    return Scaffold(
         body: (() {
       void tryToConnect() {
         checkConnection().then(

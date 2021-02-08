@@ -1,27 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ukeplaner/logic/firebase/auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({
-    Key key,
-  }) : super(key: key);
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: MaterialButton(
-        onPressed: () {
-          Scaffold.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "Test",
-              ),
-            ),
-          );
-        },
-        child: Text(
-          "Login",
+    return Column(
+      children: [
+        TextField(
+          controller: emailController,
+          decoration: InputDecoration(
+            labelText: "Email",
+          ),
         ),
-      ),
+        TextField(
+          controller: passwordController,
+          decoration: InputDecoration(
+            labelText: "Password",
+          ),
+        ),
+        RaisedButton(
+          child: Text("Sign In"),
+          onPressed: () {
+            context
+                .read<AuthenticationService>()
+                .signIn(
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim(),
+                )
+                .then((value) => print(value));
+          },
+        ),
+      ],
     );
   }
 }
