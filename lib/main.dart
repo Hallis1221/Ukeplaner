@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/screens/temp/home.dart';
 import 'package:ukeplaner/screens/temp/login.dart';
 
-import 'logic/firebase.dart';
+import 'logic/firebase/authGuider.dart';
+import 'logic/firebase/firebase.dart';
 import 'logic/firebase/fcm.dart';
 import 'logic/network.dart';
-import 'widgets/scaffold.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,16 +21,17 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) {
           return VerifyApp(
-            route: '/login',
+            route: '/validate',
           );
         },
-        '/login': (context) {
-          return SharedScaffold(
-            body: LocalMessageHandler(
-              child: LoginScreen(),
+        '/validate': (context) {
+          return Scaffold(
+            body: AuthenticatonWrapper(
+              loggedin: LocalMessageHandler(child: HomeScreen()),
+              login: LoginScreen(),
             ),
           );
-        }
+        },
       },
     );
   }

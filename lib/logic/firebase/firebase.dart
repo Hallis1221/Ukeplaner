@@ -1,13 +1,16 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
+import 'package:provider/provider.dart';
+import 'package:ukeplaner/logic/firebase/auth_service.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
 
-import '../config.dart';
+import '../../config.dart';
 
 class LocalFirebaseApp extends StatelessWidget {
   const LocalFirebaseApp({
@@ -43,16 +46,29 @@ class LocalFirebaseApp extends StatelessWidget {
             );
           }
 
-          return MaterialApp(
-            title: 'Ukeplaner app',
-            debugShowCheckedModeBanner: false,
-            navigatorObservers: [
-              FirebaseAnalyticsObserver(
-                analytics: analytics,
+          return MultiProvider(
+            providers: [
+              Provider<AuthenticationService>(
+                create: (_) => AuthenticationService(
+                  FirebaseAuth.instance,
+                ),
+              ),
+              StreamProvider(
+                create: (context) =>
+                    context.read<AuthenticationService>().authStateChanges,
               ),
             ],
-            initialRoute: initialRoute,
-            routes: routes,
+            child: MaterialApp(
+              title: 'Ukeplaner app',
+              debugShowCheckedModeBanner: false,
+              navigatorObservers: [
+                FirebaseAnalyticsObserver(
+                  analytics: analytics,
+                ),
+              ],
+              initialRoute: initialRoute,
+              routes: routes,
+            ),
           );
         }
         return LoadingFlipping.circle(
