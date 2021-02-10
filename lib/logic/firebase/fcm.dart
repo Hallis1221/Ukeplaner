@@ -34,7 +34,7 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
               },
             ),
           );
-          Scaffold.of(context).showSnackBar(snackbar);
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
       },
       onResume: (Map<String, dynamic> message) async {
