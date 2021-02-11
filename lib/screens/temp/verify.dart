@@ -26,10 +26,10 @@ class VerifyPage extends StatelessWidget {
             ),
             FlatButton(
               onPressed: () {
-                Navigator.of(context).pushReplacementNamed("/validate");
+                context.read<AuthenticationService>().signOut();
               },
               child: Text(
-                "Refresh",
+                "login again",
               ),
             ),
           ],
