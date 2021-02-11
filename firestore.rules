@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+   match /users/{userId}{
+   allow read: if (request.auth != null && (request.auth.token.email_verified == true 
+   || request.auth.uid == userId))
+   allow write, create, update: if request.auth.uid == userId;
+   }   
+   match /users/{userId}/{FCMTokens=**}{
+   allow read: if (request.auth != null && (request.auth.token.email_verified == true 
+   || request.auth.uid == userId))
+   allow write, create, update: if request.auth.uid == userId;
+   }   
+  }
+}
