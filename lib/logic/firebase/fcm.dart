@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'auth_service.dart';
 
 class LocalMessageHandler extends StatefulWidget {
   const LocalMessageHandler({Key key, @required this.child}) : super(key: key);
@@ -18,7 +24,14 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
   @override
   void initState() {
     super.initState();
-    _fcm.requestNotificationPermissions(IosNotificationSettings());
+    if (Platform.isIOS) {
+      _fcm.requestNotificationPermissions(IosNotificationSettings());
+    } else {
+      context
+          .read<AuthenticationService>()
+          .getCurrentUser()
+          .then((user) => saveDeviceToken(user, _fcm, _db));
+    }
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("message");
@@ -95,5 +108,22 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
     return Container(
       child: widget.child,
     );
+  }
+}
+
+saveDeviceToken(User user, _fcm, _db) async {
+  String uid = user.uid;
+  String fcmToken = await _fcm.getToken();
+
+  if (fcmToken != null) {
+    DocumentReference tokenRef =
+        _db.collection("users").doc(uid).collection("FCMTokens").doc(fcmToken);
+    print(tokenRef);
+    print(uid);
+    await tokenRef.set({
+      'token': fcmToken,
+      "createdAt": FieldValue.serverTimestamp(),
+      'platform': Platform.operatingSystem,
+    });
   }
 }

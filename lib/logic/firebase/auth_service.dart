@@ -1,8 +1,14 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/logic/firebase/fcm.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
+  static FirebaseFirestore _db = FirebaseFirestore.instance;
 
   AuthenticationService(
     this._firebaseAuth,
@@ -24,10 +30,24 @@ class AuthenticationService {
 
   Future<String> signUp({String email, String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      await _firebaseAuth
+          .createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          )
+          .then(
+            (UserCredential user) => {
+              _db.collection("users").doc(user.user.uid.toString().trim()).set(
+                {
+                  'createdAt': FieldValue.serverTimestamp(),
+                  'createdPlatform': Platform.operatingSystem,
+                  'email': user.user.email,
+                },
+              ),
+            },
+          );
+      getCurrentUser().then((user) => saveDeviceToken(
+          user, FirebaseMessaging(), FirebaseFirestore.instance));
       return "Signed in";
     } on FirebaseAuthException catch (e) {
       return e.message;
