@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -39,5 +40,19 @@ class AuthenticationService {
 
   Future<User> getCurrentUser() async {
     return _firebaseAuth.currentUser;
+  }
+
+  Future<void> verifyCurrentUser(context) async {
+    try {
+      await _firebaseAuth.currentUser.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            e.message,
+          ),
+        ),
+      );
+    }
   }
 }
