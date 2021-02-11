@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
             labelText: "Password",
           ),
         ),
-        RaisedButton(
+        ElevatedButton(
           child: Text("Sign In"),
           onPressed: () {
             context
@@ -31,7 +31,8 @@ class LoginScreen extends StatelessWidget {
                   email: emailController.text.trim(),
                   password: passwordController.text.trim(),
                 )
-                .then((value) => print(value));
+                .then((value) => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(value.toString().trim()))));
           },
         ),
       ],
