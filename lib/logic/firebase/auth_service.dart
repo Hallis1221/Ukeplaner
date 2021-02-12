@@ -22,6 +22,13 @@ class AuthenticationService {
         email: email,
         password: password,
       );
+      FirebaseAuth.instance.authStateChanges().listen((User user) {
+        if (user == null) {
+          return;
+        }
+        saveDeviceToken(user, FirebaseMessaging(), _db);
+      });
+
       return "Signed in";
     } on FirebaseAuthException catch (e) {
       return e.message;

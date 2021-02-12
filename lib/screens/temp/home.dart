@@ -2,8 +2,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/logic/firebase/auth_service.dart';
-
-RemoteConfig remoteconfig = RemoteConfig.instance as RemoteConfig;
+import 'package:ukeplaner/logic/firebase/firebase.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -17,7 +16,7 @@ class HomeScreen extends StatelessWidget {
         child: MaterialButton(
           onPressed: () => context.read<AuthenticationService>().signOut(),
           child: Text(
-            remoteconfig.getString("hjem_tekst"),
+            remoteConfig.getString('hjem_tekst'),
           ),
         ),
       ),

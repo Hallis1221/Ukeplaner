@@ -18,7 +18,6 @@ class LocalMessageHandler extends StatefulWidget {
 }
 
 class _LocalMessageHandlerState extends State<LocalMessageHandler> {
-  static FirebaseFirestore _db = FirebaseFirestore.instance;
   static FirebaseMessaging _fcm = FirebaseMessaging();
 
   @override
@@ -27,10 +26,7 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
     if (Platform.isIOS) {
       _fcm.requestNotificationPermissions(IosNotificationSettings());
     } else {
-      context
-          .read<AuthenticationService>()
-          .getCurrentUser()
-          .then((user) => saveDeviceToken(user, _fcm, _db));
+      context.read<AuthenticationService>().getCurrentUser();
     }
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
@@ -47,7 +43,7 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
               },
             ),
           );
-          Scaffold.of(context).showSnackBar(snackbar);
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
       },
       onResume: (Map<String, dynamic> message) async {
@@ -118,8 +114,6 @@ saveDeviceToken(User user, _fcm, _db) async {
   if (fcmToken != null) {
     DocumentReference tokenRef =
         _db.collection("users").doc(uid).collection("FCMTokens").doc(fcmToken);
-    print(tokenRef);
-    print(uid);
     await tokenRef.set({
       'token': fcmToken,
       "createdAt": FieldValue.serverTimestamp(),
