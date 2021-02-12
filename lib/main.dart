@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/screens/temp/home.dart';
 import 'package:ukeplaner/screens/temp/login.dart';
