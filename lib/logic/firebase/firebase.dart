@@ -9,7 +9,7 @@ import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/logic/firebase/auth_service.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
-
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import '../../config.dart';
 
 class LocalFirebaseApp extends StatelessWidget {
@@ -32,6 +32,11 @@ class LocalFirebaseApp extends StatelessWidget {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           try {
+            RemoteConfig remoteconfig = RemoteConfig.instance as RemoteConfig;
+            remoteconfig.setDefaults(<String, dynamic>{
+              //skriv nøkellen og verdiene som er defaults her
+              "hjem_tekst": "norge"
+            });
             Trace analyticsTrace =
                 FirebasePerformance.instance.newTrace("firebase_startup_trace");
             analyticsTrace.start();
