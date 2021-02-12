@@ -66,7 +66,7 @@ class AuthenticationService {
     try {
       await _firebaseAuth.currentUser.sendEmailVerification();
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      Scaffold.of(context).showSnackBar(
         SnackBar(
           content: Text(
             e.message,

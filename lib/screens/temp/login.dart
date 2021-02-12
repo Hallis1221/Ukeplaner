@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
                   email: emailController.text.trim(),
                   password: passwordController.text.trim(),
                 )
-                .then((value) => ScaffoldMessenger.of(context).showSnackBar(
+                .then((value) => Scaffold.of(context).showSnackBar(
                     SnackBar(content: Text(value.toString().trim()))));
           },
         ),
