@@ -7,11 +7,27 @@ service cloud.firestore {
    || request.auth.uid == userId))
    allow write, create, update: if request.auth.uid == userId;
    }   
-   match /users/{userId}/{FCMTokens=**}{
+      match /users/{userId}/sensetive/nowrite {
    allow read: if (request.auth != null 
    && (request.auth.token.email_verified == true 
    || request.auth.uid == userId))
-   allow write, create, update: if request.auth.uid == userId;
+   allow write, create, update: if isTeacher();
    }   
+   match /users/{userId}/FCMTokens/{document=**}{
+   allow read: if (request.auth != null 
+   && (request.auth.token.email_verified == true 
+   || request.auth.uid == userId))
+   allow write, create, update: if (request.auth != null && request.auth.uid == userId);
+   }
+      match /codes/joinCodes/students/{studentCode=**}{
+   allow read: if (request.auth != null 
+   && (request.auth.token.email_verified == true 
+   ))
+   allow write, create, update: if isTeacher();
+
+   }
+      function isTeacher(){
+        return get(
+        /databases/$(database)/documents/users/$(request.auth.uid)/sensetive/nowrite).data.role == "teacher"
   }
-}
+}}
