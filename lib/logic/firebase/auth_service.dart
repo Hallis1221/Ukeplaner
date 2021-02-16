@@ -39,20 +39,21 @@ class AuthenticationService {
     try {
       await _firebaseAuth
           .createUserWithEmailAndPassword(
-            email: email,
-            password: password,
-          )
+        email: email,
+        password: password,
+      )
           .then(
-            (UserCredential user) => {
-              _db.collection("users").doc(user.user.uid.toString().trim()).set(
-                {
-                  'createdAt': FieldValue.serverTimestamp(),
-                  'createdPlatform': Platform.operatingSystem,
-                  'email': user.user.email,
-                },
-              ),
+        (UserCredential user) {
+          _db.collection("users").doc(user.user.uid.toString().trim()).set(
+            {
+              'createdAt': FieldValue.serverTimestamp(),
+              'createdPlatform': Platform.operatingSystem,
+              'email': user.user.email,
             },
           );
+          // A users role is not set by the user for security purposes
+        },
+      );
       getCurrentUser().then((user) => saveDeviceToken(
           user, FirebaseMessaging(), FirebaseFirestore.instance));
       return "Signed in";

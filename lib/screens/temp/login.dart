@@ -8,34 +8,39 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextField(
-          controller: emailController,
-          decoration: InputDecoration(
-            labelText: "Email",
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("sdasd"),
+      ),
+      body: Column(
+        children: [
+          TextField(
+            controller: emailController,
+            decoration: InputDecoration(
+              labelText: "Email",
+            ),
           ),
-        ),
-        TextField(
-          controller: passwordController,
-          decoration: InputDecoration(
-            labelText: "Password",
+          TextField(
+            controller: passwordController,
+            decoration: InputDecoration(
+              labelText: "Password",
+            ),
           ),
-        ),
-        ElevatedButton(
-          child: Text("Sign In"),
-          onPressed: () {
-            context
-                .read<AuthenticationService>()
-                .signIn(
-                  email: emailController.text.trim(),
-                  password: passwordController.text.trim(),
-                )
-                .then((value) => Scaffold.of(context).showSnackBar(
-                    SnackBar(content: Text(value.toString().trim()))));
-          },
-        ),
-      ],
+          ElevatedButton(
+            child: Text("Sign In"),
+            onPressed: () {
+              context
+                  .read<AuthenticationService>()
+                  .signIn(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  )
+                  .then((value) => Scaffold.of(context).showSnackBar(
+                      SnackBar(content: Text(value.toString().trim()))));
+            },
+          ),
+        ],
+      ),
     );
   }
 }

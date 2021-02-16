@@ -8,8 +8,8 @@ bool localDevMode = false;
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
 ThemeData theme = ThemeData(
   // start color
-  backgroundColor: Color.fromARGB(100, 244, 243, 249),
-  scaffoldBackgroundColor: Color.fromARGB(100, 244, 243, 249),
+  backgroundColor: Color.fromARGB(255, 244, 243, 249),
+  scaffoldBackgroundColor: Color.fromARGB(255, 244, 243, 249),
   primaryColor: Color.fromARGB(255, 79, 58, 255),
   accentColor: Color.fromARGB(255, 48, 147, 152),
   errorColor: Color.fromARGB(255, 229, 25, 25),

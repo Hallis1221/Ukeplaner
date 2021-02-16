@@ -6,6 +6,7 @@ import 'logic/firebase/authGuider.dart';
 import 'logic/firebase/firebase.dart';
 import 'logic/firebase/fcm.dart';
 import 'logic/network.dart';
+import 'config/config.dart' as config;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return LocalFirebaseApp(
       initialRoute: '/',
+      theme: config.theme,
       routes: {
         '/': (context) {
           return VerifyApp(
@@ -24,11 +26,9 @@ class MyApp extends StatelessWidget {
           );
         },
         '/validate': (context) {
-          return Scaffold(
-            body: AuthenticatonWrapper(
-              loggedin: LocalMessageHandler(child: HomeScreen()),
-              login: LoginScreen(),
-            ),
+          return AuthenticatonWrapper(
+            loggedin: LocalMessageHandler(child: HomeScreen()),
+            login: LoginScreen(),
           );
         },
       },

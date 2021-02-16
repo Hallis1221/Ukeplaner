@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:loading/indicator/ball_beat_indicator.dart';
 import 'package:loading/loading.dart';
 
-import '../config.dart';
+import '../config/config.dart';
 
 class VerifyApp extends StatefulWidget {
   const VerifyApp({
