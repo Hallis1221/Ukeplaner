@@ -10,19 +10,21 @@ import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/logic/firebase/auth_service.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
-import '../../config.dart';
+import '../../config/config.dart';
 
 RemoteConfig remoteConfig;
 
 class LocalFirebaseApp extends StatelessWidget {
   const LocalFirebaseApp({
     @required this.routes,
+    @required this.theme,
     Key key,
     this.initialRoute = "/",
   }) : super(key: key);
 
   final Map<String, Widget Function(BuildContext)> routes;
   final String initialRoute;
+  final ThemeData theme;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +75,7 @@ class LocalFirebaseApp extends StatelessWidget {
             ],
             child: MaterialApp(
               title: 'Ukeplaner app',
+              theme: theme,
               debugShowCheckedModeBanner: false,
               navigatorObservers: [
                 FirebaseAnalyticsObserver(
