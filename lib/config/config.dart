@@ -23,7 +23,6 @@ ThemeData theme = ThemeData(
   appBarTheme: AppBarTheme(
     color: Color.fromARGB(255, 79, 58, 255),
     elevation: 0,
-    titleSpacing: 0,
     centerTitle: true,
   ),
   fontFamily: "NirmalaUI", // TODO import Nirmala UI
