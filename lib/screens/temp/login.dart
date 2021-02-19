@@ -9,8 +9,20 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("sdasd"),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(125.0),
+        child: Container(
+          height: 200,
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.elliptical(
+                MediaQuery.of(context).size.width,
+                100.0,
+              ),
+            ),
+          ),
+        ),
       ),
       body: Column(
         children: [
