@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ukeplaner/config/config.dart';
 
 import 'auth_service.dart';
 
@@ -30,8 +31,8 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
     }
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-        print("message");
         if (message["notification"] != null) {
+          analytics.logEvent(name: "varsel_mottatt_app");
           final snackbar = SnackBar(
             content: Text(
               message["notification"]["title"],
@@ -47,11 +48,11 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
         }
       },
       onResume: (Map<String, dynamic> message) async {
-        print("resume");
+        analytics.logEvent(name: "varsel_mottatt_resume");
         showNotificationDialog(message);
       },
       onLaunch: (Map<String, dynamic> message) async {
-        print("launched");
+        analytics.logEvent(name: "varsel_mottatt_launch");
         showNotificationDialog(message);
       },
     );
