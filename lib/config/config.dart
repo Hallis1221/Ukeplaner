@@ -10,7 +10,7 @@ ThemeData theme = ThemeData(
   // start color
   backgroundColor: Color.fromARGB(255, 244, 243, 249),
   scaffoldBackgroundColor: Color.fromARGB(255, 244, 243, 249),
-  primaryColor: Color.fromARGB(255, 79, 58, 255),
+  primaryColor: Color.fromARGB(255, 79, 68, 255),
   accentColor: Color.fromARGB(255, 48, 147, 152),
   errorColor: Color.fromARGB(255, 229, 25, 25),
   buttonColor: Color.fromARGB(255, 79, 58, 255),
