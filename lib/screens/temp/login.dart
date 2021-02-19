@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/logic/firebase/auth_service.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -41,6 +42,7 @@ class LoginScreen extends StatelessWidget {
           ElevatedButton(
             child: Text("Sign In"),
             onPressed: () {
+              analytics.logLogin();
               context
                   .read<AuthenticationService>()
                   .signIn(
