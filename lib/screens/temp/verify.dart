@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/logic/firebase/authGuider.dart';
 import 'package:ukeplaner/logic/firebase/auth_service.dart';
 
@@ -19,6 +20,7 @@ class VerifyPage extends StatelessWidget {
                 context
                     .read<AuthenticationService>()
                     .verifyCurrentUser(context);
+                analytics.logEvent(name: "bruker_mail_vertifisert");
               },
               child: Text(
                 "Please click to get a verification email",
