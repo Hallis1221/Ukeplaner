@@ -72,6 +72,13 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  fonts:
+    - family: NirmalaUI
+      fonts:
+        - asset: assets/fonts/Nirmala.ttf
+        - asset: assets/fonts/NirmalaB.ttf
+          style: bold
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
