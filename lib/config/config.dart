@@ -25,5 +25,5 @@ ThemeData theme = ThemeData(
     elevation: 0,
     centerTitle: true,
   ),
-  fontFamily: "NirmalaUI", // TODO import Nirmala UI
+  fontFamily: "NirmalaUI",
 );
