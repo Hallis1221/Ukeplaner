@@ -26,4 +26,17 @@ ThemeData theme = ThemeData(
     centerTitle: true,
   ),
   fontFamily: "NirmalaUI",
+  inputDecorationTheme: InputDecorationTheme(
+    filled: false,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(
+          10,
+        ),
+      ),
+      borderSide: BorderSide(
+        color: Color.fromARGB(255, 79, 68, 255),
+      ),
+    ),
+  ),
 );
