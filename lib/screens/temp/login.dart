@@ -14,14 +14,17 @@ class LoginScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(250.0),
-        child: Container(
-          height: 200,
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.elliptical(
-                MediaQuery.of(context).size.width * 4,
-                300,
+        child: GestureDetector(
+          onTap: () => print(" // TODO animation"),
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.elliptical(
+                  MediaQuery.of(context).size.width * 4,
+                  300,
+                ),
               ),
             ),
           ),
@@ -148,8 +151,9 @@ class LoginForm extends StatelessWidget {
         _LoginFormInputfield(
           node: node,
           controller: passwordController,
-          labelText: "Password",
+          labelText: "Passord",
           hintText: "123456",
+          ispassword: true,
           type: TextInputType.visiblePassword,
           textInputAction: TextInputAction.done,
           onFinish: () {
@@ -162,7 +166,7 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-class _LoginFormInputfield extends StatelessWidget {
+class _LoginFormInputfield extends StatefulWidget {
   const _LoginFormInputfield({
     Key key,
     @required this.controller,
@@ -170,6 +174,7 @@ class _LoginFormInputfield extends StatelessWidget {
     @required this.hintText,
     @required this.onFinish,
     @required this.node,
+    this.ispassword = false,
     this.textInputAction = TextInputAction.next,
     this.type = TextInputType.text,
   }) : super(key: key);
@@ -180,26 +185,61 @@ class _LoginFormInputfield extends StatelessWidget {
   final Function onFinish;
   final FocusNode node;
 
+  final bool ispassword;
   final TextInputAction textInputAction;
   final TextInputType type;
+  @override
+  __LoginFormInputfieldState createState() {
+    return __LoginFormInputfieldState(
+        isHidden: (() {
+      if (ispassword) {
+        return true;
+      }
+      return false;
+    }()));
+  }
+}
 
+class __LoginFormInputfieldState extends State<_LoginFormInputfield> {
+  __LoginFormInputfieldState({@required this.isHidden});
+  bool isHidden;
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width / 1.2,
         child: TextField(
-          controller: controller,
-          keyboardType: type,
-          textInputAction: textInputAction,
+          obscureText: isHidden,
+          controller: widget.controller,
+          keyboardType: widget.type,
+          textInputAction: widget.textInputAction,
           onSubmitted: (value) {
-            onFinish();
+            widget.onFinish();
           },
-          onEditingComplete: () => onFinish,
+          onEditingComplete: () => widget.onFinish,
           decoration: InputDecoration(
-            hintText: hintText,
-            labelText: labelText,
+            hintText: widget.hintText,
+            labelText: widget.labelText,
             filled: false,
+            suffix: (() {
+              if (widget.ispassword) {
+                return InkWell(
+                  splashColor: Colors.transparent,
+                  child: Icon((() {
+                    if (isHidden) {
+                      return Icons.visibility;
+                    }
+                    return Icons.visibility_off;
+                  }())),
+                  onTap: () {
+                    setState(() {
+                      isHidden = !isHidden;
+                    });
+                  },
+                );
+              }
+              return Icon(Icons.email);
+            }()),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(
