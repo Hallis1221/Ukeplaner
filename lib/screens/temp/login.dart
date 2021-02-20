@@ -11,15 +11,15 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(125.0),
+        preferredSize: Size.fromHeight(250.0),
         child: Container(
           height: 200,
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.vertical(
               bottom: Radius.elliptical(
-                MediaQuery.of(context).size.width,
-                100.0,
+                MediaQuery.of(context).size.width * 4,
+                300,
               ),
             ),
           ),
@@ -27,34 +27,61 @@ class LoginScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              labelText: "Email",
-            ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Login", sty),
           ),
-          TextField(
-            controller: passwordController,
-            decoration: InputDecoration(
-              labelText: "Password",
-            ),
-          ),
-          ElevatedButton(
-            child: Text("Sign In"),
-            onPressed: () {
-              analytics.logLogin();
-              context
-                  .read<AuthenticationService>()
-                  .signIn(
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                  )
-                  .then((value) => Scaffold.of(context).showSnackBar(
-                      SnackBar(content: Text(value.toString().trim()))));
-            },
+          LoginForm(
+            emailController: emailController,
+            passwordController: passwordController,
           ),
         ],
       ),
+    );
+  }
+}
+
+class LoginForm extends StatelessWidget {
+  const LoginForm({
+    Key key,
+    @required this.emailController,
+    @required this.passwordController,
+  }) : super(key: key);
+
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TextField(
+          controller: emailController,
+          decoration: InputDecoration(
+            labelText: "Email",
+          ),
+        ),
+        TextField(
+          controller: passwordController,
+          decoration: InputDecoration(
+            labelText: "Password",
+          ),
+        ),
+        ElevatedButton(
+          child: Text("Sign In"),
+          onPressed: () {
+            analytics.logLogin();
+            context
+                .read<AuthenticationService>()
+                .signIn(
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim(),
+                )
+                .then((value) => Scaffold.of(context).showSnackBar(
+                    SnackBar(content: Text(value.toString().trim()))));
+          },
+        ),
+      ],
     );
   }
 }
