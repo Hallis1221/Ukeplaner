@@ -10,6 +10,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(250.0),
         child: Container(
@@ -25,60 +26,68 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Stack(
+        alignment: Alignment.bottomCenter,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              "Login",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-                fontSize: 30,
-                letterSpacing: 5,
-                wordSpacing: 0,
-              ),
-            ),
-          ),
-          LoginForm(
-            emailController: emailController,
-            passwordController: passwordController,
-          ),
-          TextButton(
-            child: Container(
-              height: 70,
-              width: 350,
-              child: Center(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  "Sign In",
+                  "Login",
                   style: TextStyle(
-                    color: Theme.of(context).backgroundColor,
-                    fontSize: 25,
                     fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
+                    fontSize: 30,
+                    letterSpacing: 5,
+                    wordSpacing: 0,
                   ),
                 ),
               ),
-            ),
-            style: TextButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                  side: BorderSide(
-                    color: Theme.of(context).primaryColor,
+              LoginForm(
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
+              TextButton(
+                child: Container(
+                  height: 70,
+                  width: 350,
+                  child: Center(
+                    child: Text(
+                      "Sign In",
+                      style: TextStyle(
+                        color: Theme.of(context).backgroundColor,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                )),
-            onPressed: () {
-              analytics.logLogin();
-              context
-                  .read<AuthenticationService>()
-                  .signIn(
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                  )
-                  .then((value) => Scaffold.of(context).showSnackBar(
-                      SnackBar(content: Text(value.toString().trim()))));
-            },
+                ),
+                style: TextButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: BorderSide(
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    )),
+                onPressed: () {
+                  analytics.logLogin();
+
+                  context
+                      .read<AuthenticationService>()
+                      .signIn(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      )
+                      .then((value) => ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(
+                              content: Text(value.toString().trim()))));
+                  passwordController.clear();
+                },
+              ),
+            ],
           ),
         ],
       ),
