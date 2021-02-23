@@ -7,7 +7,12 @@ import 'package:ukeplaner/logic/firebase/auth_service.dart';
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,9 +20,12 @@ class LoginScreen extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(250.0),
         child: GestureDetector(
-          onTap: () => print(
-            " // TODO animation ",
-          ),
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            print(
+              " // TODO animation ",
+            );
+          },
           child: Container(
             height: 200,
             decoration: BoxDecoration(

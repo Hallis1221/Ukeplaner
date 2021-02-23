@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loading/indicator/ball_beat_indicator.dart';
+import 'package:loading/indicator/pacman_indicator.dart';
 import 'package:loading/loading.dart';
 
 import '../config/config.dart';
@@ -95,7 +96,7 @@ class ConnectionAttemptionScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Loading(
-                    indicator: BallBeatIndicator(),
+                    indicator: PacmanIndicator(),
                     size: 100.0,
                     color: Colors.pink,
                   ),
