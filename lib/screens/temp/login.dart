@@ -30,58 +30,112 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              "Login",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+                fontSize: 30,
+                letterSpacing: 5,
+                wordSpacing: 0,
+              ),
+            ),
+          ),
+          LoginForm(
+            emailController: emailController,
+            passwordController: passwordController,
+          ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+            children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(left: 25, right: 25),
+                child: LoginButton(
+                  title: "Login",
+                  height: 70,
+                  fontSize: 25,
+                  onPressed: () => login(
+                    context: context,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
                 child: Text(
-                  "Login",
+                  "Eller",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).primaryColor,
-                    fontSize: 30,
-                    letterSpacing: 5,
+                    fontSize: 15,
+                    letterSpacing: 2,
                     wordSpacing: 0,
                   ),
                 ),
               ),
-              LoginForm(
-                emailController: emailController,
-                passwordController: passwordController,
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 30,
+                  right: 30,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Expanded(
+                      child: LoginButton(
+                        title: "Registrer deg med en kode",
+                        height: 40,
+                        fontSize: 20,
+                        onPressed: () => login(
+                          context: context,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              SubmitButton(),
-              SizedBox(
-                height: 75,
-              ) // TODO temp
             ],
           ),
+          SizedBox(
+            height: 15,
+          )
         ],
       ),
     );
   }
 }
 
-class SubmitButton extends StatelessWidget {
-  const SubmitButton({
+class LoginButton extends StatelessWidget {
+  const LoginButton({
     Key key,
+    @required this.title,
+    @required this.onPressed,
+    this.height,
+    this.width,
+    this.fontSize,
   }) : super(key: key);
+
+  final String title;
+  final Function onPressed;
+  final double height;
+  final double width;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       child: Container(
-        height: 70,
-        width: 350,
+        height: height,
+        width: width,
         child: Center(
           child: Text(
-            "Sign In",
+            title,
             style: TextStyle(
               color: Theme.of(context).backgroundColor,
-              fontSize: 25,
+              fontSize: fontSize,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -96,7 +150,7 @@ class SubmitButton extends StatelessWidget {
             ),
           )),
       onPressed: () {
-        login(context: context);
+        onPressed();
       },
     );
   }
@@ -105,7 +159,6 @@ class SubmitButton extends StatelessWidget {
 void login({
   @required BuildContext context,
 }) {
-  print("h \n e \n r\n e");
   analytics.logLogin();
 
   context
