@@ -15,15 +15,23 @@ class LoginScreen extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(250.0),
         child: GestureDetector(
-          onTap: () => print(" // TODO animation"),
+          onTap: () => print(
+            " // TODO animation ",
+          ),
           child: Container(
             height: 200,
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  blurRadius: 10,
+                  color: Theme.of(context).shadowColor,
+                )
+              ],
               borderRadius: BorderRadius.vertical(
                 bottom: Radius.elliptical(
-                  MediaQuery.of(context).size.width * 4,
-                  300,
+                  MediaQuery.of(context).size.width * 3,
+                  250,
                 ),
               ),
             ),
