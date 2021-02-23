@@ -86,13 +86,13 @@ class LoginScreen extends StatelessWidget {
                   children: <Widget>[
                     Expanded(
                       child: LoginButton(
-                        title: "Registrer deg med en kode",
-                        height: 40,
-                        fontSize: 20,
-                        onPressed: () => login(
-                          context: context,
-                        ),
-                      ),
+                          title: "Registrer deg med en kode",
+                          height: 40,
+                          fontSize: 20,
+                          onPressed: () => Navigator.pushNamed(
+                                context,
+                                "/verify",
+                              )),
                     ),
                   ],
                 ),

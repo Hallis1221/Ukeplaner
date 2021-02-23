@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/logic/firebase/auth_service.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
-import 'package:ukeplaner/screens/temp/verify.dart';
+import 'package:ukeplaner/screens/temp/verifyEmail.dart';
 
 class AuthenticatonWrapper extends StatelessWidget {
   const AuthenticatonWrapper({
@@ -20,7 +20,7 @@ class AuthenticatonWrapper extends StatelessWidget {
     if (firebaseUser != null) {
       try {
         if (!firebaseUser.emailVerified) {
-          return VerifyPage();
+          return VerifyEmailPage();
         }
         return loggedin;
       } catch (e) {

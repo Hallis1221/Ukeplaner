@@ -5,8 +5,8 @@ import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/logic/firebase/authGuider.dart';
 import 'package:ukeplaner/logic/firebase/auth_service.dart';
 
-class VerifyPage extends StatelessWidget {
-  const VerifyPage({Key key}) : super(key: key);
+class VerifyEmailPage extends StatelessWidget {
+  const VerifyEmailPage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
