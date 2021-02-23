@@ -39,7 +39,7 @@ class LocalFirebaseApp extends StatelessWidget {
             remoteConfig = await RemoteConfig.instance;
             final defaults = <String, dynamic>{'hjem_tekst': 'default welcome'};
             await remoteConfig.setDefaults(defaults);
-// For utvikling den er micro sekunder, bør være en time eller lignende i produksjon
+// !! TODO For utvikling den er micro sekunder, bør være en time eller lignende i produksjon
             await remoteConfig.fetch(
                 expiration: const Duration(microseconds: 1));
             await remoteConfig.activateFetched();
