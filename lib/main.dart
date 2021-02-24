@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/screens/register.dart';
 import 'package:ukeplaner/screens/temp/home.dart';
 import 'package:ukeplaner/screens/login.dart';
 import 'package:ukeplaner/screens/temp/verifyEmail.dart';
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
         '/verify': (context) {
           return VerifyPage();
         },
+        '/register': (context) {
+          return RegisterPage();
+        }
       },
     );
   }

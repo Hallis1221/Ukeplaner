@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
-
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class VerifyPage extends StatelessWidget {
   const VerifyPage({Key key}) : super(key: key);
@@ -11,7 +8,6 @@ class VerifyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       resizeToAvoidBottomInset: false,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -113,9 +109,11 @@ class CodeInputter extends StatefulWidget {
 
 class _CodeInputterState extends State<CodeInputter>
     with SingleTickerProviderStateMixin {
-  bool validCode = false;
   bool inputEnabled = true;
-  bool buttonEnabled = false;
+  bool buttonEnabled = true;
+  bool validCode = false;
+  // for å ikke prøve samme kode flere ganger
+  List attemptedCodes = [];
 
   AnimationController animationController;
   TextEditingController codeInputController = TextEditingController();
@@ -152,15 +150,27 @@ class _CodeInputterState extends State<CodeInputter>
                   width: 250,
                   child: PinCodeFields(
                     borderColor: Colors.grey,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.numberWithOptions(
+                      decimal: false,
+                      signed: false,
+                    ),
+                    autoHideKeyboard: true,
                     activeBorderColor: Theme.of(context).primaryColor,
                     length: 4,
                     controller: codeInputController,
-                    onComplete: (value) {
-                      setState(() {
-                        inputEnabled = false;
+                    onComplete: (input) async {
+                      if (attemptedCodes.contains(input)) {
+                        allreadyTriedCode(context);
+                        return;
+                      }
+                      await checkCode(int.parse(input)).then((value) {
+                        setState(() {
+                          validCode = value;
+                          inputEnabled = !value;
+                          buttonEnabled = !value;
+                          attemptedCodes.add(input);
+                        });
                       });
-                      checkCode(value);
                     },
                     enabled: inputEnabled,
                   ),
@@ -175,7 +185,8 @@ class _CodeInputterState extends State<CodeInputter>
                         right: 2.0 - offsetAnimation.value),
                     child: Icon(
                       (() {
-                        if (validCode) {
+                        if (validCode && validCode != null) {
+                          switchScreen();
                           return Icons.check_circle;
                         }
                         return Icons.error_outlined;
@@ -200,8 +211,21 @@ class _CodeInputterState extends State<CodeInputter>
             child: RaisedButton(
               onPressed: (() {
                 if (buttonEnabled) {
-                  return () {
-                    checkCode(codeInputController.text);
+                  return () async {
+                    String input = codeInputController.text;
+                    if (attemptedCodes.contains(input)) {
+                      allreadyTriedCode(context);
+                      return;
+                    }
+                    await checkCode(int.parse(input)).then((value) {
+                      setState(() {
+                        validCode = value;
+                        inputEnabled = !value;
+                        buttonEnabled = !value;
+                        attemptedCodes.add(input);
+                        print(attemptedCodes);
+                      });
+                    });
                   };
                 }
                 return null;
@@ -235,29 +259,34 @@ class _CodeInputterState extends State<CodeInputter>
     );
   }
 
-  void checkCode(String input) {
-    Future<void> getFruit() async {
-      HttpsCallable callable =
-          FirebaseFunctions.instance.httpsCallable('listFruit');
-      final results = await callable.call();
-      List fruit = results
-          .data; // ["Apple", "Banana", "Cherry", "Date", "Fig", "Grapes"]
-      print(fruit);
-    }
-
-    getFruit();
-    // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
-    String code = "1234";
+  void switchScreen() async {
+    await Future.delayed(const Duration(seconds: 1));
+    Navigator.pushNamed(context, "/register");
+    attemptedCodes.remove(codeInputController.text);
+    codeInputController.clear();
+    await Future.delayed(const Duration(milliseconds: 250));
     setState(() {
-      validCode = input == code;
-
-      if (validCode) {
-      } else {
-        animationController.forward(from: 0.0);
-        inputEnabled = true;
-        buttonEnabled = true;
-      }
+      validCode = false;
+      inputEnabled = true;
+      buttonEnabled = false;
     });
-    print(input);
+  }
+
+  void allreadyTriedCode(BuildContext context) {
+    Scaffold.of(context).showSnackBar(new SnackBar(
+      content: Text("Du har allerede prøvd denne koden!"),
+    ));
+    animationController.forward(from: 0.0);
+  }
+
+  Future<bool> checkCode(int input) async {
+    FirebaseFunctions.instance
+        .useFunctionsEmulator(origin: 'http://localhost:5001');
+
+    HttpsCallable callable =
+        FirebaseFunctions.instance.httpsCallable('checkcode');
+    final results = await callable.call(<String, int>{"code": input});
+    // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
+    return results.data;
   }
 }
