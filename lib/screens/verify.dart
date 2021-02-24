@@ -235,7 +235,7 @@ class _CodeInputterState extends State<CodeInputter>
   }
 
   void checkCode(String input) {
-    FirebaseFirestore _db = FirebaseFirestore.instance;
+    // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
     String code = "1234";
     setState(() {
       validCode = input == code;

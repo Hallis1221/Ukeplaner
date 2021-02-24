@@ -8,10 +8,22 @@
     },
     "auth": {
       "port": 9099
+    },
+    "functions": {
+      "port": 5001
     }
   },
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
+  },
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint",
+      "npm --prefix \"$RESOURCE_DIR\" run build"
+    ]
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
   }
 }
