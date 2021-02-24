@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
@@ -102,11 +103,40 @@ class BottomCircle extends StatelessWidget {
   }
 }
 
-class CodeInputter extends StatelessWidget {
+class CodeInputter extends StatefulWidget {
   const CodeInputter({Key key}) : super(key: key);
 
   @override
+  _CodeInputterState createState() => _CodeInputterState();
+}
+
+class _CodeInputterState extends State<CodeInputter>
+    with SingleTickerProviderStateMixin {
+  bool validCode = false;
+  bool inputEnabled = true;
+  bool buttonEnabled = false;
+
+  AnimationController animationController;
+  TextEditingController codeInputController = TextEditingController();
+
+  @override
+  void initState() {
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 500), vsync: this);
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final Animation<double> offsetAnimation = Tween(begin: 0.0, end: 2.0)
+        .chain(CurveTween(curve: Curves.elasticIn))
+        .animate(animationController)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              animationController.reverse();
+            }
+          });
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -124,15 +154,40 @@ class CodeInputter extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     activeBorderColor: Theme.of(context).primaryColor,
                     length: 4,
+                    controller: codeInputController,
                     onComplete: (value) {
-                      print(value);
+                      setState(() {
+                        inputEnabled = false;
+                      });
+                      checkCode(value);
                     },
+                    enabled: inputEnabled,
                   ),
                 ),
               ),
-              Icon(
-                Icons.check_circle,
-                color: Color.fromARGB(255, 58, 204, 108),
+              AnimatedBuilder(
+                animation: offsetAnimation,
+                builder: (context, child) {
+                  return Container(
+                    padding: EdgeInsets.only(
+                        left: offsetAnimation.value + 2.0,
+                        right: 2.0 - offsetAnimation.value),
+                    child: Icon(
+                      (() {
+                        if (validCode) {
+                          return Icons.check_circle;
+                        }
+                        return Icons.error_outlined;
+                      }()),
+                      color: (() {
+                        if (validCode) {
+                          return Colors.green;
+                        }
+                        return Colors.red;
+                      }()),
+                    ),
+                  );
+                },
               )
             ],
           ),
@@ -141,8 +196,15 @@ class CodeInputter extends StatelessWidget {
           padding:
               const EdgeInsets.only(top: 10, bottom: 25, right: 25, left: 25),
           child: Center(
-            child: TextButton(
-              onPressed: () => print("hello world"),
+            child: RaisedButton(
+              onPressed: (() {
+                if (buttonEnabled) {
+                  return () {
+                    checkCode(codeInputController.text);
+                  };
+                }
+                return null;
+              }()),
               child: Container(
                 width: 350,
                 child: Center(
@@ -158,18 +220,33 @@ class CodeInputter extends StatelessWidget {
                   ),
                 ),
               ),
-              style: TextButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(150.0),
-                    side: BorderSide(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  )),
+              color: Theme.of(context).primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(150.0),
+                side: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
             ),
           ),
         )
       ],
     );
+  }
+
+  void checkCode(String input) {
+    FirebaseFirestore _db = FirebaseFirestore.instance;
+    String code = "1234";
+    setState(() {
+      validCode = input == code;
+
+      if (validCode) {
+      } else {
+        animationController.forward(from: 0.0);
+        inputEnabled = true;
+        buttonEnabled = true;
+      }
+    });
+    print(input);
   }
 }
