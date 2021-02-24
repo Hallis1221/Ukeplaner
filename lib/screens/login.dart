@@ -32,23 +32,39 @@ class _LoginScreenState extends State<LoginScreen> {
               " // TODO animation ",
             );
           },
-          child: Container(
-            height: 200,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  blurRadius: 10,
-                  color: Theme.of(context).shadowColor,
-                )
-              ],
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.elliptical(
-                  MediaQuery.of(context).size.width * 3,
-                  250,
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              Container(
+                height: 200,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      blurRadius: 10,
+                      color: Theme.of(context).shadowColor,
+                    )
+                  ],
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.elliptical(
+                      MediaQuery.of(context).size.width * 3,
+                      250,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(top: 60.0, right: 15.0),
+                child: GestureDetector(
+                  onTap: () =>
+                      Navigator.pushReplacementNamed(context, '/welcome'),
+                  child: Icon(
+                    Icons.help,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
