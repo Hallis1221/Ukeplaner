@@ -1,8 +1,8 @@
+import 'package:fancy_on_boarding/fancy_on_boarding.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/screens/register.dart';
 import 'package:ukeplaner/screens/temp/home.dart';
 import 'package:ukeplaner/screens/login.dart';
-import 'package:ukeplaner/screens/temp/verifyEmail.dart';
 import 'package:flutter/services.dart';
 import 'logic/firebase/authGuider.dart';
 import 'logic/firebase/firebase.dart';
@@ -26,7 +26,20 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) {
           return VerifyApp(
-            route: '/validate',
+            route: '/findpage',
+          );
+        },
+        '/findpage': (context) {
+          return Scaffold(
+            body: FancyOnBoarding(
+              doneButtonText: "Done",
+              skipButtonText: "Skip",
+              pageList: [],
+              onDoneButtonPressed: () =>
+                  Navigator.of(context).pushReplacementNamed('/validate'),
+              onSkipButtonPressed: () =>
+                  Navigator.of(context).pushReplacementNamed('/validate'),
+            ),
           );
         },
         '/validate': (context) {
