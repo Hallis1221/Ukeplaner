@@ -15,16 +15,36 @@ class VerifyPage extends StatelessWidget {
           SizedBox(
             height: 25,
           ),
-          Container(
-            height: 280,
-            width: 320,
-            color: Colors.red,
-          ),
+          LogoAndText(),
           InputCard(),
           SizedBox(
             height: 50,
           ),
           BottomCircle(),
+        ],
+      ),
+    );
+  }
+}
+
+class LogoAndText extends StatelessWidget {
+  const LogoAndText({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 280,
+      width: 320,
+      color: Colors.red,
+      child: Column(
+        children: <Widget>[
+          Container(
+            color: Theme.of(context).primaryColor,
+            height: 164,
+            width: 164,
+          ),
         ],
       ),
     );
