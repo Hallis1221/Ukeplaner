@@ -92,9 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       letterSpacing: 5,
                       wordSpacing: 0,
                     ),
-                    onAnimate: (index) {
-                      print("Animating index:" + index.toString());
-                    },
+                    onAnimate: (index) {},
                     onFinished: () {
                       print("Animtion finished");
                     },

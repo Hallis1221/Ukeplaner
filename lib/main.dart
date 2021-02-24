@@ -13,6 +13,7 @@ import 'logic/firebase/fcm.dart';
 import 'logic/network.dart';
 import 'config/config.dart' as config;
 import 'screens/verify.dart';
+import 'screens/welcome_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,26 +42,7 @@ class MyApp extends StatelessWidget {
             body: FancyOnBoarding(
               doneButtonText: "Done",
               skipButtonText: "Skip",
-              pageList: [
-                PageModel(
-                  color: const Color(0xFF678FB4),
-                  heroImagePath: 'assets/png/hotels.png',
-                  title: Text('Hotels',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                        fontSize: 34.0,
-                      )),
-                  body: Text(
-                    'All hotels and hostels are sorted by hospitality rating',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                )
-              ],
+              pageList: pageList,
               onDoneButtonPressed: () =>
                   Navigator.of(context).pushReplacementNamed('/validate'),
               onSkipButtonPressed: () =>

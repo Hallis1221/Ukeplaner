@@ -77,6 +77,9 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  assets:
+    - assets/images/kgLogo.png
+  
   fonts:
     - family: NirmalaUI
       fonts:
