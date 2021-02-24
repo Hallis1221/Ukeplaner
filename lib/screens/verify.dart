@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
@@ -235,6 +236,16 @@ class _CodeInputterState extends State<CodeInputter>
   }
 
   void checkCode(String input) {
+    Future<void> getFruit() async {
+      HttpsCallable callable =
+          FirebaseFunctions.instance.httpsCallable('listFruit');
+      final results = await callable.call();
+      List fruit = results
+          .data; // ["Apple", "Banana", "Cherry", "Date", "Fig", "Grapes"]
+      print(fruit);
+    }
+
+    getFruit();
     // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
     String code = "1234";
     setState(() {
