@@ -82,12 +82,11 @@ startTime(context) async {
 
   if (firstTime != null && !firstTime) {
     // Not first time
-    prefs.setBool('first_time', true);
     return new Timer(_duration,
         () => Navigator.of(context).pushReplacementNamed('/validate'));
   } else {
     // First time
-    prefs.setBool('first_time', true);
+    prefs.setBool('first_time', false);
     return new Timer(_duration,
         () => Navigator.of(context).pushReplacementNamed('/welcome'));
   }
