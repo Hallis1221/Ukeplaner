@@ -262,7 +262,7 @@ class LoginForm extends StatelessWidget {
           node: node,
           controller: emailController,
           labelText: "Email",
-          hintText: "bruker@kg.vgs.no",
+          hintText: "bruker@${website.replaceAll("https://", "")}",
           type: TextInputType.emailAddress,
           onFinish: () {
             print(node.nextFocus());

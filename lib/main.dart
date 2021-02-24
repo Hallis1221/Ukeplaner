@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:fancy_on_boarding/fancy_on_boarding.dart';
 import 'package:loading/loading.dart';
 import 'package:native_shared_preferences/native_shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -39,17 +38,7 @@ class MyApp extends StatelessWidget {
           return Loading();
         },
         '/welcome': (context) {
-          return Scaffold(
-            body: FancyOnBoarding(
-              doneButtonText: "Done",
-              skipButtonText: "Skip",
-              pageList: pageList,
-              onDoneButtonPressed: () =>
-                  Navigator.of(context).pushReplacementNamed('/validate'),
-              onSkipButtonPressed: () =>
-                  Navigator.of(context).pushReplacementNamed('/validate'),
-            ),
-          );
+          return OnBoardingPage();
         },
         '/validate': (context) {
           return AuthenticatonWrapper(

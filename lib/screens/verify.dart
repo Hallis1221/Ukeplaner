@@ -45,7 +45,7 @@ class LogoAndText extends StatelessWidget {
             height: 164,
             width: 164,
             child: Image.asset(
-              'assets/images/kg.png',
+              'assets/images/logo1.png',
             ),
             decoration: BoxDecoration(
               color: Colors.transparent,
