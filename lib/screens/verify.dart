@@ -243,7 +243,6 @@ class _CodeInputterState extends State<CodeInputter>
                         inputEnabled = !value;
                         buttonEnabled = !value;
                         attemptedCodes.add(input);
-                        print(attemptedCodes);
                       });
                     });
                   };
@@ -300,8 +299,9 @@ class _CodeInputterState extends State<CodeInputter>
   }
 
   Future<bool> checkCode(int input) async {
+    /*
     FirebaseFunctions.instance
-        .useFunctionsEmulator(origin: 'http://localhost:5001');
+        .useFunctionsEmulator(origin: 'http://localhost:5001'); */
 
     HttpsCallable callable =
         FirebaseFunctions.instance.httpsCallable('checkcode');
