@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/logic/firebase/auth_service.dart';
+import 'package:animated_text/animated_text.dart';
 
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
@@ -13,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool animatedText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +24,10 @@ class _LoginScreenState extends State<LoginScreen> {
         child: GestureDetector(
           onTap: () {
             FocusScope.of(context).unfocus();
+            setState(() {
+              animatedText = !animatedText;
+            });
+
             print(
               " // TODO animation ",
             );
@@ -50,18 +56,51 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Text(
-              "Login",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-                fontSize: 30,
-                letterSpacing: 5,
-                wordSpacing: 0,
-              ),
-            ),
-          ),
+              padding: const EdgeInsets.all(10.0),
+              child: (() {
+                if (!animatedText) {
+                  return Text(
+                    "Login",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 30,
+                      letterSpacing: 5,
+                      wordSpacing: 0,
+                    ),
+                  );
+                }
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 40,
+                  child: AnimatedText(
+                    alignment: Alignment.center,
+                    speed: Duration(milliseconds: 1000),
+                    controller: AnimatedTextController.loop,
+                    displayTime: Duration(milliseconds: 1000),
+                    wordList: [
+                      'Login for en',
+                      'enklere',
+                      'raskere',
+                      'penere',
+                      'ukeplan.'
+                    ],
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 30,
+                      letterSpacing: 5,
+                      wordSpacing: 0,
+                    ),
+                    onAnimate: (index) {
+                      print("Animating index:" + index.toString());
+                    },
+                    onFinished: () {
+                      print("Animtion finished");
+                    },
+                  ),
+                );
+              }())),
           LoginForm(
             emailController: emailController,
             passwordController: passwordController,
