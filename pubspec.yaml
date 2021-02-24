@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 0.3.61+AnimationHotFix
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -38,8 +38,8 @@ dependencies:
   flutter_pin_code_fields: ^1.1.0
   loading: ^1.0.2
   loading_animations: ^2.1.0
+  native_shared_preferences: ^1.0.5
   provider: ^4.3.3
-  shared_preferences: ^2.0.0
 
 dev_dependencies:
   flutter_test:

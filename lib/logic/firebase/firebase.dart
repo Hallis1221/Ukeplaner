@@ -20,13 +20,11 @@ class LocalFirebaseApp extends StatelessWidget {
     @required this.theme,
     Key key,
     this.initialRoute = "/",
-    this.welcomeScreenPageList,
   }) : super(key: key);
 
   final Map<String, Widget Function(BuildContext)> routes;
   final String initialRoute;
   final ThemeData theme;
-  final List welcomeScreenPageList;
 
   @override
   Widget build(BuildContext context) {
