@@ -35,15 +35,55 @@ class LogoAndText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 280,
+      height: 320,
       width: 320,
-      color: Colors.red,
+      color: Colors.transparent,
       child: Column(
         children: <Widget>[
+          SizedBox(height: 25),
           Container(
-            color: Theme.of(context).primaryColor,
             height: 164,
             width: 164,
+            child: Image.asset(
+              'assets/images/kg.png',
+            ),
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.transparent,
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Text(
+            "Verifikasjon",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 27,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Text(
+              "Tast Inn Den Fire Sifrete Koden Du Har Fått Av Læreren Din",
+              style: TextStyle(
+                fontSize: 14,
+                wordSpacing: 1,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
@@ -183,14 +223,22 @@ class _CodeInputterState extends State<CodeInputter>
                         allreadyTriedCode(context);
                         return;
                       }
-                      await checkCode(int.parse(input)).then((value) {
-                        setState(() {
-                          validCode = value;
-                          inputEnabled = !value;
-                          buttonEnabled = !value;
-                          attemptedCodes.add(input);
+                      try {
+                        await checkCode(int.parse(input)).then((value) {
+                          setState(() {
+                            validCode = value;
+                            inputEnabled = !value;
+                            buttonEnabled = !value;
+                            attemptedCodes.add(input);
+                            if (value == false) {
+                              animationController.forward(from: 0.0);
+                            }
+                          });
                         });
-                      });
+                      } catch (e) {
+                        animationController.forward(from: 0.0);
+                        codeInputController.clear();
+                      }
                     },
                     enabled: inputEnabled,
                   ),
@@ -237,14 +285,22 @@ class _CodeInputterState extends State<CodeInputter>
                       allreadyTriedCode(context);
                       return;
                     }
-                    await checkCode(int.parse(input)).then((value) {
-                      setState(() {
-                        validCode = value;
-                        inputEnabled = !value;
-                        buttonEnabled = !value;
-                        attemptedCodes.add(input);
+                    try {
+                      await checkCode(int.parse(input)).then((value) {
+                        setState(() {
+                          validCode = value;
+                          inputEnabled = !value;
+                          buttonEnabled = !value;
+                          attemptedCodes.add(input);
+                          if (value = false) {
+                            animationController.forward(from: 0.0);
+                          }
+                        });
                       });
-                    });
+                    } catch (e) {
+                      animationController.forward(from: 0.0);
+                      codeInputController.clear();
+                    }
                   };
                 }
                 return null;
