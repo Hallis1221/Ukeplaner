@@ -29,9 +29,14 @@ class VerifyEmailPage extends StatelessWidget {
             FlatButton(
               onPressed: () {
                 context.read<AuthenticationService>().signOut();
+                context
+                    .read<AuthenticationService>()
+                    .signIn(email: tempEmail, password: tempPassword);
+                tempEmail = null;
+                tempPassword = null;
               },
               child: Text(
-                "login again",
+                "refresh",
               ),
             ),
           ],

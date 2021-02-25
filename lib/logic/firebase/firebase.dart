@@ -8,7 +8,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:ukeplaner/logic/firebase/auth_service.dart';
+import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
 import '../../config/config.dart';
 

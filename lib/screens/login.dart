@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/config/config.dart';
-import 'package:ukeplaner/logic/firebase/auth_service.dart';
+import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:animated_text/animated_text.dart';
 
 final TextEditingController emailController = TextEditingController();

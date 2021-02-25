@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'login.dart' as l;
 import 'verify.dart';
 
@@ -55,12 +56,15 @@ class RegisterPage extends StatelessWidget {
               title: "Registrer",
               height: 70,
               fontSize: 25,
-              onPressed: () {
-                print(code);
-                print(firstnameController.text);
-                print(lastnameController.text);
-                print(emailController.text);
-                print(passwordController.text);
+              onPressed: () async {
+                await VerificationSerivice().registerUser(
+                  code: code,
+                  context: context,
+                  email: emailController.text,
+                  password: passwordController.text,
+                  firstname: firstnameController.text,
+                  lastname: lastnameController.text,
+                );
               },
             ),
           ),
