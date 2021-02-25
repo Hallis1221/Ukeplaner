@@ -317,22 +317,22 @@ class LoginForm extends StatelessWidget {
 
     return Column(
       children: [
-        _LoginFormInputfield(
-          node: node,
+        FormInputField(
           controller: emailController,
+          icon: Icon(Icons.email),
           labelText: "Email",
           hintText: "bruker@${website.replaceAll("https://", "")}",
           type: TextInputType.emailAddress,
           onFinish: () {
-            print(node.nextFocus());
+            node.nextFocus();
           },
         ),
         SizedBox(
           height: 15,
         ),
-        _LoginFormInputfield(
-          node: node,
+        FormInputField(
           controller: passwordController,
+          icon: Icon(Icons.visibility),
           labelText: "Passord",
           hintText: "123456",
           ispassword: true,
@@ -348,14 +348,16 @@ class LoginForm extends StatelessWidget {
   }
 }
 
-class _LoginFormInputfield extends StatefulWidget {
-  const _LoginFormInputfield({
+class FormInputField extends StatefulWidget {
+  const FormInputField({
     Key key,
     @required this.controller,
     @required this.labelText,
     @required this.hintText,
     @required this.onFinish,
-    @required this.node,
+    @required this.icon,
+    this.width,
+    this.onChange,
     this.ispassword = false,
     this.textInputAction = TextInputAction.next,
     this.type = TextInputType.text,
@@ -365,14 +367,16 @@ class _LoginFormInputfield extends StatefulWidget {
   final String labelText;
   final String hintText;
   final Function onFinish;
-  final FocusNode node;
+  final Function onChange;
 
+  final double width;
   final bool ispassword;
+  final Icon icon;
   final TextInputAction textInputAction;
   final TextInputType type;
   @override
-  __LoginFormInputfieldState createState() {
-    return __LoginFormInputfieldState(
+  _FormInputFieldState createState() {
+    return _FormInputFieldState(
         isHidden: (() {
       if (ispassword) {
         return true;
@@ -382,14 +386,19 @@ class _LoginFormInputfield extends StatefulWidget {
   }
 }
 
-class __LoginFormInputfieldState extends State<_LoginFormInputfield> {
-  __LoginFormInputfieldState({@required this.isHidden});
+class _FormInputFieldState extends State<FormInputField> {
+  _FormInputFieldState({@required this.isHidden});
   bool isHidden;
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: MediaQuery.of(context).size.width / 1.2,
+        width: (() {
+          if (widget.width == null) {
+            return MediaQuery.of(context).size.width / 1.2;
+          }
+          return widget.width;
+        }()),
         child: TextField(
           obscureText: isHidden,
           controller: widget.controller,
@@ -397,6 +406,9 @@ class __LoginFormInputfieldState extends State<_LoginFormInputfield> {
           textInputAction: widget.textInputAction,
           onSubmitted: (value) {
             widget.onFinish();
+          },
+          onChanged: (value) {
+            widget.onChange();
           },
           onEditingComplete: () => widget.onFinish,
           decoration: InputDecoration(
@@ -420,7 +432,7 @@ class __LoginFormInputfieldState extends State<_LoginFormInputfield> {
                   },
                 );
               }
-              return Icon(Icons.email);
+              return widget.icon;
             }()),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(
