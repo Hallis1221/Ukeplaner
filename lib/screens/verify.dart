@@ -2,6 +2,8 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
+int code;
+
 class VerifyPage extends StatelessWidget {
   const VerifyPage({Key key}) : super(key: key);
 
@@ -335,6 +337,7 @@ class _CodeInputterState extends State<CodeInputter>
   }
 
   void switchScreen() async {
+    code = int.parse(codeInputController.text);
     await Future.delayed(const Duration(seconds: 1));
     Navigator.pushNamed(context, "/register");
     attemptedCodes.remove(codeInputController.text);
