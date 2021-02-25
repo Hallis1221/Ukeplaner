@@ -99,9 +99,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 );
               }())),
-          LoginForm(
-            emailController: emailController,
-            passwordController: passwordController,
+          Column(
+            children: [
+              LoginForm(
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
+              ForgotPassword()
+            ],
           ),
           Column(
             children: <Widget>[
@@ -156,6 +161,46 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 15,
           )
         ],
+      ),
+    );
+  }
+}
+
+class ForgotPassword extends StatelessWidget {
+  const ForgotPassword({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomRight,
+      child: GestureDetector(
+        onTap: () {
+          if (emailController.text.isEmpty) {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content:
+                    Text("Skriv inn en email for å resete passordet ditt!"),
+              ),
+            );
+          }
+        },
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.only(
+              right: 36.0,
+              top: 5,
+            ),
+            child: Text(
+              "Glemt passord?",
+              style: TextStyle(
+                color: Color.fromARGB(255, 229, 25, 25),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
