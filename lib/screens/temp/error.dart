@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ukeplaner/logic/firebase/auth_service.dart';
+import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:provider/provider.dart';
 
 class ErrorPage extends StatelessWidget {

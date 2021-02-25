@@ -30,7 +30,7 @@ class RegisterPage extends StatelessWidget {
         children: [
           Center(
             child: Text(
-              "Login",
+              "Registrering",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColor,
@@ -57,6 +57,10 @@ class RegisterPage extends StatelessWidget {
               fontSize: 25,
               onPressed: () {
                 print(code);
+                print(firstnameController.text);
+                print(lastnameController.text);
+                print(emailController.text);
+                print(passwordController.text);
               },
             ),
           ),

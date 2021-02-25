@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -101,5 +102,19 @@ class AuthenticationService {
         content: Text("Sjekk eposten din, $email"),
       ),
     );
+  }
+}
+
+class VerificationSerivice {
+  Future<bool> checkCode(int input) async {
+    /*
+    FirebaseFunctions.instance
+        .useFunctionsEmulator(origin: 'http://localhost:5001'); */
+
+    HttpsCallable callable =
+        FirebaseFunctions.instance.httpsCallable('checkcode');
+    final results = await callable.call(<String, int>{"code": input});
+    // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
+    return results.data;
   }
 }

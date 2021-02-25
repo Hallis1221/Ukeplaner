@@ -1,6 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
+import 'package:ukeplaner/logic/firebase/auth_services.dart';
 
 int code;
 
@@ -226,7 +227,9 @@ class _CodeInputterState extends State<CodeInputter>
                         return;
                       }
                       try {
-                        await checkCode(int.parse(input)).then((value) {
+                        await VerificationSerivice()
+                            .checkCode(int.parse(input))
+                            .then((value) {
                           setState(() {
                             validCode = value;
                             inputEnabled = !value;
@@ -288,7 +291,9 @@ class _CodeInputterState extends State<CodeInputter>
                       return;
                     }
                     try {
-                      await checkCode(int.parse(input)).then((value) {
+                      await VerificationSerivice()
+                          .checkCode(int.parse(input))
+                          .then((value) {
                         setState(() {
                           validCode = value;
                           inputEnabled = !value;
@@ -355,17 +360,5 @@ class _CodeInputterState extends State<CodeInputter>
       content: Text("Du har allerede prøvd denne koden!"),
     ));
     animationController.forward(from: 0.0);
-  }
-
-  Future<bool> checkCode(int input) async {
-    /*
-    FirebaseFunctions.instance
-        .useFunctionsEmulator(origin: 'http://localhost:5001'); */
-
-    HttpsCallable callable =
-        FirebaseFunctions.instance.httpsCallable('checkcode');
-    final results = await callable.call(<String, int>{"code": input});
-    // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
-    return results.data;
   }
 }
