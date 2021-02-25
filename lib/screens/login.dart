@@ -35,24 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Stack(
             alignment: Alignment.topRight,
             children: [
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      blurRadius: 10,
-                      color: Theme.of(context).shadowColor,
-                    )
-                  ],
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.elliptical(
-                      MediaQuery.of(context).size.width * 3,
-                      250,
-                    ),
-                  ),
-                ),
-              ),
+              TopDecorationHalfCircle(),
               Padding(
                 padding: const EdgeInsets.only(top: 60.0, right: 15.0),
                 child: GestureDetector(
@@ -173,6 +156,34 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 15,
           )
         ],
+      ),
+    );
+  }
+}
+
+class TopDecorationHalfCircle extends StatelessWidget {
+  const TopDecorationHalfCircle({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            blurRadius: 10,
+            color: Theme.of(context).shadowColor,
+          )
+        ],
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.elliptical(
+            MediaQuery.of(context).size.width * 3,
+            250,
+          ),
+        ),
       ),
     );
   }

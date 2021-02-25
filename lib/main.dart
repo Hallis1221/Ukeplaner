@@ -4,7 +4,7 @@ import 'package:loading/loading.dart';
 import 'package:native_shared_preferences/native_shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/screens/register.dart';
-import 'package:ukeplaner/screens/temp/home.dart';
+import 'package:ukeplaner/screens/home.dart';
 import 'package:ukeplaner/screens/login.dart';
 import 'package:flutter/services.dart';
 import 'logic/firebase/authGuider.dart';
