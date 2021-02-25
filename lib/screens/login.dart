@@ -405,10 +405,14 @@ class _FormInputFieldState extends State<FormInputField> {
           keyboardType: widget.type,
           textInputAction: widget.textInputAction,
           onSubmitted: (value) {
-            widget.onFinish();
+            try {
+              widget.onFinish();
+            } catch (e) {}
           },
           onChanged: (value) {
-            widget.onChange();
+            try {
+              widget.onChange();
+            } catch (e) {}
           },
           onEditingComplete: () => widget.onFinish,
           decoration: InputDecoration(
