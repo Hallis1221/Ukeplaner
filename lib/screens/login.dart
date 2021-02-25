@@ -185,6 +185,9 @@ class ForgotPassword extends StatelessWidget {
               ),
             );
           }
+          context
+              .read<AuthenticationService>()
+              .resetCurrentUserPassword(context, email: emailController.text);
         },
         child: Container(
           child: Padding(

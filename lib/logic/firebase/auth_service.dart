@@ -83,4 +83,23 @@ class AuthenticationService {
       );
     }
   }
+
+  Future<void> resetCurrentUserPassword(context, {email}) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            e.message,
+          ),
+        ),
+      );
+    }
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Sjekk eposten din, $email"),
+      ),
+    );
+  }
 }
