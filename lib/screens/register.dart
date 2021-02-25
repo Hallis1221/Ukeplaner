@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/config/config.dart';
 import 'login.dart' as l;
+import 'verify.dart';
 
 TextEditingController emailController = TextEditingController();
 TextEditingController verifyEmailController = TextEditingController();
@@ -54,7 +55,9 @@ class RegisterPage extends StatelessWidget {
               title: "Registrer",
               height: 70,
               fontSize: 25,
-              onPressed: () {},
+              onPressed: () {
+                print(code);
+              },
             ),
           ),
           SizedBox(
@@ -159,7 +162,7 @@ class FirstNameLastName extends StatelessWidget {
         ),
         l.FormInputField(
           icon: Icon(Icons.person),
-          controller: firstnameController,
+          controller: lastnameController,
           hintText: "Nordmann",
           labelText: "Etternavn",
           width: MediaQuery.of(context).size.width / 2.45,
