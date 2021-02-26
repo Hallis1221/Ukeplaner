@@ -163,25 +163,33 @@ class VerificationSerivice {
       (validCode) async {
         if (validCode) {
           try {
-            await context.read<AuthenticationService>().signUp(
+            await context
+                .read<AuthenticationService>()
+                .signUp(
                   firstname: firstname,
                   lastname: lastname,
                   email: email,
                   password: password,
                   code: code,
+                )
+                .then(
+                  (value) => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Bruker registrert."),
+                    ),
+                  ),
                 );
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("Bruker registrert."),
-              ),
-            );
-
-            context.read<AuthenticationService>().signIn(
+            await context
+                .read<AuthenticationService>()
+                .signIn(
                   email: email,
                   password: password,
+                )
+                .then(
+                  (value) =>
+                      Navigator.pushReplacementNamed(context, "/validate"),
                 );
-            Navigator.pushReplacementNamed(context, "/validate");
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
