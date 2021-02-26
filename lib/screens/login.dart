@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 25),
-                child: LoginButton(
+                child: PurpleButton(
                   title: "Login",
                   height: 70,
                   fontSize: 25,
@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Expanded(
-                      child: LoginButton(
+                      child: PurpleButton(
                           title: "Registrer deg med en kode",
                           height: 40,
                           fontSize: 20,
@@ -237,8 +237,8 @@ class TopDecorationHalfCircle extends StatelessWidget {
   }
 }
 
-class LoginButton extends StatelessWidget {
-  const LoginButton({
+class PurpleButton extends StatelessWidget {
+  const PurpleButton({
     Key key,
     @required this.title,
     @required this.onPressed,

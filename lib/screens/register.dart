@@ -52,7 +52,7 @@ class RegisterPage extends StatelessWidget {
               left: 25,
               right: 25,
             ),
-            child: l.LoginButton(
+            child: l.PurpleButton(
               title: "Registrer",
               height: 70,
               fontSize: 25,
@@ -130,8 +130,16 @@ class _RegisterFormState extends State<RegisterForm> {
           controller: passwordController,
           labelText: "Passord",
           ispassword: true,
-          onFinish: () {
+          onFinish: () async {
             widget.node.unfocus();
+            await VerificationSerivice().registerUser(
+              code: code,
+              context: context,
+              email: emailController.text,
+              password: passwordController.text,
+              firstname: firstnameController.text,
+              lastname: lastnameController.text,
+            );
           },
           type: TextInputType.emailAddress,
           textInputAction: TextInputAction.done,

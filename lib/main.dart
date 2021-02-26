@@ -7,6 +7,7 @@ import 'package:ukeplaner/screens/register.dart';
 import 'package:ukeplaner/screens/home.dart';
 import 'package:ukeplaner/screens/login.dart';
 import 'package:flutter/services.dart';
+import 'package:ukeplaner/screens/verifyEmail.dart';
 import 'logic/firebase/authGuider.dart';
 import 'logic/firebase/firebase.dart';
 import 'logic/firebase/fcm.dart';
@@ -48,6 +49,9 @@ class MyApp extends StatelessWidget {
         },
         '/verify': (context) {
           return VerifyPage();
+        },
+        '/verify/email': (context) {
+          return VerifyEmailPage();
         },
         '/register': (context) {
           return RegisterPage();

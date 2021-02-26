@@ -18,7 +18,10 @@ class VerifyPage extends StatelessWidget {
           SizedBox(
             height: 25,
           ),
-          LogoAndText(),
+          LogoAndText(
+            title: "Verifikasjon",
+            text: "Tast Inn Den Fire Sifrete Koden Du Har Fått Av Læreren Din",
+          ),
           InputCard(),
           SizedBox(
             height: 50,
@@ -33,8 +36,12 @@ class VerifyPage extends StatelessWidget {
 class LogoAndText extends StatelessWidget {
   const LogoAndText({
     Key key,
+    @required this.text,
+    @required this.title,
   }) : super(key: key);
 
+  final String title;
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,7 +78,7 @@ class LogoAndText extends StatelessWidget {
             height: 15,
           ),
           Text(
-            "Verifikasjon",
+            title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 27,
@@ -80,7 +87,7 @@ class LogoAndText extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              "Tast Inn Den Fire Sifrete Koden Du Har Fått Av Læreren Din",
+              text,
               style: TextStyle(
                 fontSize: 14,
                 wordSpacing: 1,

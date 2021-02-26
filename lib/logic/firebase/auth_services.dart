@@ -41,7 +41,7 @@ class AuthenticationService {
     }
   }
 
-  Future<String> signUp(
+  Future<Map> signUp(
       {@required String email,
       @required String password,
       @required String firstname,
@@ -70,9 +70,9 @@ class AuthenticationService {
       );
       getCurrentUser().then((user) => saveDeviceToken(
           user, FirebaseMessaging(), FirebaseFirestore.instance));
-      return "Signed in";
+      return {"done": true, "message": "Bruker lagd"};
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      return {"done": false, "message": e.toString()};
     }
   }
 
@@ -172,24 +172,25 @@ class VerificationSerivice {
                   password: password,
                   code: code,
                 )
-                .then(
-                  (value) => ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Bruker registrert."),
-                    ),
-                  ),
-                );
-
-            await context
-                .read<AuthenticationService>()
-                .signIn(
-                  email: email,
-                  password: password,
-                )
-                .then(
-                  (value) =>
-                      Navigator.pushReplacementNamed(context, "/validate"),
-                );
+                .then((value) async {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(value["message"].toString()),
+                ),
+              );
+              if (value["done"]) {
+                await context
+                    .read<AuthenticationService>()
+                    .signIn(
+                      email: email,
+                      password: password,
+                    )
+                    .then(
+                      (value) =>
+                          Navigator.pushReplacementNamed(context, "/validate"),
+                    );
+              }
+            });
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
