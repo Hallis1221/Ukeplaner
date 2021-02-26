@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
-import 'package:ukeplaner/screens/temp/verifyEmail.dart';
+import 'package:ukeplaner/screens/verifyEmail.dart';
 
 class AuthenticatonWrapper extends StatelessWidget {
   const AuthenticatonWrapper({
