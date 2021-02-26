@@ -160,10 +160,10 @@ class VerificationSerivice {
       return false;
     }
     await VerificationSerivice().checkCode(code).then(
-      (validCode) {
+      (validCode) async {
         if (validCode) {
           try {
-            context.read<AuthenticationService>().signUp(
+            await context.read<AuthenticationService>().signUp(
                   firstname: firstname,
                   lastname: lastname,
                   email: email,
