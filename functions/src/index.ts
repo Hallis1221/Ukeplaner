@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 const db = admin.firestore();
 
-exports.checkcode = functions.https.onCall((code: any
+exports.checkcode = functions.https.onCall((code: any, log: boolean = false,
 ) => {
     var valid: Boolean = false;
     const docRef = db.collection('codes').doc('joinCodes');
@@ -31,10 +31,19 @@ exports.checkcode = functions.https.onCall((code: any
         const instance: any = exists();
         if (instance != null && instance["valid"] && (instance["maxUses"] > instance["used"])) {
             valid = true;
-        }else{
-        valid = false;
-    }
+        } else {
+            valid = false;
+        }
+        try {
+
+            if (log) {
+                docRef.update({ studentCodes: { code: { used: instance["used"] } } });
+            }
+
+        } catch (error) {
+            valid = false;
+        }
         return;
     })
-    return (result.then(() => { console.log("Returned " + valid); return(valid);}));
+    return (result.then(() => { console.log("Returned " + valid); return (valid); }));
 });
