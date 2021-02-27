@@ -119,18 +119,15 @@ class AuthenticationService {
 }
 
 class VerificationSerivice {
-  Future<bool> checkCode(
-    int input, {
-    bool log = false,
-  }) async {
+  Future<bool> checkCode(int input, {bool log = false}) async {
     /*
     FirebaseFunctions.instance
-        .useFunctionsEmulator(origin: 'http://localhost:5001'); */
+        .useFunctionsEmulator(origin: 'http://localhost:5001');*/
 
     HttpsCallable callable =
         FirebaseFunctions.instance.httpsCallable('checkcode');
-    final results =
-        await callable.call(<String, dynamic>{"code": input, "log": log});
+    //!! husk at det er et map
+    final results = await callable.call({"code": input, "useLog": log});
     // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
     return results.data;
   }
@@ -165,7 +162,7 @@ class VerificationSerivice {
       return false;
     }
 
-    await VerificationSerivice().checkCode(code).then(
+    await VerificationSerivice().checkCode(code, log: true).then(
       (validCode) async {
         if (validCode) {
           try {
