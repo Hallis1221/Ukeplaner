@@ -40,12 +40,10 @@ exports.checkcode = functions.https.onCall((argumentData) => {
             var codesList = {};
             var list = { "used": instance["used"] + 1, "maxUses": 3, "valid": true };
             if (type == "student") {
-                console.log(type);
                 codesList["studentCodes"] = {};
                 codesList["studentCodes"][key] = list;
             }
             else {
-                console.log(type);
                 codesList["teacherCodes"] = {};
                 codesList["teacherCodes"][key] = list;
             }
