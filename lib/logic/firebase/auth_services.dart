@@ -119,14 +119,18 @@ class AuthenticationService {
 }
 
 class VerificationSerivice {
-  Future<bool> checkCode(int input) async {
+  Future<bool> checkCode(
+    int input, {
+    bool log = false,
+  }) async {
     /*
     FirebaseFunctions.instance
         .useFunctionsEmulator(origin: 'http://localhost:5001'); */
 
     HttpsCallable callable =
         FirebaseFunctions.instance.httpsCallable('checkcode');
-    final results = await callable.call(<String, int>{"code": input});
+    final results =
+        await callable.call(<String, dynamic>{"code": input, "log": log});
     // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
     return results.data;
   }
@@ -138,6 +142,7 @@ class VerificationSerivice {
     @required String firstname,
     @required String lastname,
     @required BuildContext context,
+    bool log = false,
   }) async {
     if (code == null ||
         email.isEmpty ||
@@ -159,6 +164,7 @@ class VerificationSerivice {
     if (!validPassword(password, context)) {
       return false;
     }
+
     await VerificationSerivice().checkCode(code).then(
       (validCode) async {
         if (validCode) {
@@ -179,16 +185,25 @@ class VerificationSerivice {
                 ),
               );
               if (value["done"]) {
-                await context
-                    .read<AuthenticationService>()
-                    .signIn(
-                      email: email,
-                      password: password,
-                    )
-                    .then(
-                      (value) =>
-                          Navigator.pushReplacementNamed(context, "/validate"),
-                    );
+                if (log) {
+                  await VerificationSerivice()
+                      .checkCode(code, log: log)
+                      .then((validCodeI2) {
+                    validCode = validCodeI2;
+                  });
+                }
+                if (validCode) {
+                  await context
+                      .read<AuthenticationService>()
+                      .signIn(
+                        email: email,
+                        password: password,
+                      )
+                      .then(
+                        (value) => Navigator.pushReplacementNamed(
+                            context, "/validate"),
+                      );
+                }
               }
             });
           } catch (e) {
