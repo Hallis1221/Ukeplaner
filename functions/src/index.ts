@@ -4,9 +4,10 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 const db = admin.firestore();
 
-exports.checkcode = functions.https.onCall((code: any, log: boolean = false,
-) => {
+exports.checkcode = functions.https.onCall((argumentData: any, 
+) => {// THIS IS A MAP; DO NOT FORGET
     var valid: Boolean = false;
+    var type: String;
     const docRef = db.collection('codes').doc('joinCodes');
     const result = docRef.get().then((doc: any) => {
         function exists() {
@@ -15,14 +16,16 @@ exports.checkcode = functions.https.onCall((code: any, log: boolean = false,
                 return null;
             }
             var data: any = doc.data()["studentCodes"];
-            var codeData: any = data[code["code"]];
+            var codeData: any = data[argumentData["code"]];
             if (codeData != undefined) {
+                type = "student";
                 return codeData;
             }
 
             data = doc.data()["teacherCodes"];
-            codeData = data[code["code"]];
+            codeData = data[argumentData["code"]];
             if (codeData != undefined) {
+                type = "teacher";
                 return codeData;
             }
             return null;
@@ -34,16 +37,31 @@ exports.checkcode = functions.https.onCall((code: any, log: boolean = false,
         } else {
             valid = false;
         }
-        try {
+        console.log(argumentData["useLog"] == true);
 
-            if (log) {
-                docRef.update({ studentCodes: { code: { used: instance["used"] } } });
-            }
+                if (argumentData["useLog"] == true && valid){
+                    var key: any = argumentData["code"];
+                   
+                   var codesList: any = {};
+                 
+                   var list: any = {"used": instance["used"]+1, "maxUses": 3, "valid": true};
+                  
+                   if (type == "student"){
+                   
+                    codesList["studentCodes"] = {};
+                    codesList["studentCodes"][key] = list; 
+                   }else{
+       
+                    codesList["teacherCodes"] = {};
+                    codesList["teacherCodes"][key] = list; 
+                   }
+                   
+                    docRef.update(codesList)
+                }
 
-        } catch (error) {
-            valid = false;
-        }
         return;
     })
-    return (result.then(() => { console.log("Returned " + valid); return (valid); }));
+    return (result.then(() => {
+        console.log("Returned " + valid);return valid;
+    }));
 });
