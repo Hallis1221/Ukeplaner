@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/logic/firebase/firebase.dart';
+import 'package:ukeplaner/screens/login.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -11,13 +12,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: MaterialButton(
-          onPressed: () => context.read<AuthenticationService>().signOut(),
-          child: Text(
-            remoteConfig.getString('hjem_tekst'),
-          ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(250),
+        child: Stack(
+          alignment: Alignment.topRight,
         ),
+      ),
+      body: Column(
+        children: [],
       ),
     );
   }
