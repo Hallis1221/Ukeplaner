@@ -80,10 +80,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     displayTime: Duration(milliseconds: 1000),
                     wordList: [
                       'Login for en',
-                      'enklere',
-                      'raskere',
-                      'penere',
-                      'ukeplan.'
+                      'Enklere',
+                      'Raskere',
+                      'Penere',
+                      'Ukeplan'
                     ],
                     textStyle: TextStyle(
                       fontWeight: FontWeight.bold,
