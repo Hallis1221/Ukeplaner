@@ -1,3 +1,7 @@
+/* Copyright (C) 2021 Halvor Vivelstad - All Rights Reserved
+ You may not use, distribute and modify this code unless a license is granted. 
+ If so use, distribution and modification can be done under the terms of the license.*/
+
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';

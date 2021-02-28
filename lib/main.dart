@@ -1,3 +1,7 @@
+/* Copyright (C) 2021 Halvor Vivelstad - All Rights Reserved
+ You may not use, distribute or modify this code unless a license is granted. 
+ If so use, distribution and modification can be done under the terms of the license.*/
+
 import 'dart:async';
 
 import 'package:loading/loading.dart';

@@ -1,3 +1,7 @@
+/* Copyright (C) 2021 Halvor Vivelstad - All Rights Reserved
+ You may not use, distribute and modify this code unless a license is granted. 
+ If so use, distribution and modification can be done under the terms of the license.*/
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
