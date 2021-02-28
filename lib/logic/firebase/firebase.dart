@@ -8,7 +8,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
-import 'package:ukeplaner/logic/firebase/auth_services.dart';
+import 'auth_services.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
 import '../../config/config.dart';
 
@@ -39,7 +39,7 @@ class LocalFirebaseApp extends StatelessWidget {
             remoteConfig = await RemoteConfig.instance;
             final defaults = <String, dynamic>{'hjem_tekst': 'default welcome'};
             await remoteConfig.setDefaults(defaults);
-// !! TODO For utvikling den er micro sekunder, bør være en time eller lignende i produksjon
+// For utvikling den er micro sekunder, bør være en time eller lignende i produksjon
             await remoteConfig.fetch(
                 expiration: const Duration(microseconds: 1));
             await remoteConfig.activateFetched();
