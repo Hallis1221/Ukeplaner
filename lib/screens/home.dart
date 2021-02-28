@@ -16,10 +16,19 @@ class HomeScreen extends StatelessWidget {
         preferredSize: Size.fromHeight(250),
         child: Stack(
           alignment: Alignment.topRight,
+          children: [TopDecorationHalfCircle()],
         ),
       ),
       body: Column(
-        children: [],
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 50),
+            child: Text(
+              'Mine Planer',
+              style: TextStyle(fontSize: 22),
+            ),
+          )
+        ],
       ),
     );
   }
