@@ -90,7 +90,6 @@ flutter:
         - asset: assets/fonts/NirmalaB.ttf
           weight: 700
 
-    # OPS, dennne fonten kan brukes via GoogleFonts.Tahoma
     - family: Tahoma
       fonts:
         - asset: assets/fonts/TAHOMA_0.TTF
