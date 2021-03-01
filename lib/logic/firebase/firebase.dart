@@ -48,6 +48,7 @@ class LocalFirebaseApp extends StatelessWidget {
               "verifikasjon_tittel": "Verifikasjon",
               "verifikasjon_tekst":
                   "Tast Inn Den Fire Sifrete Koden Du Har Fått Av Læreren Din",
+              "alltid_vis_intro": false,
             };
             await remoteConfig.setDefaults(defaults);
 // For utvikling den er micro sekunder, bør være en time eller lignende i produksjon
