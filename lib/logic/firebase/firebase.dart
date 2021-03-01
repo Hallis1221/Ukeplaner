@@ -45,6 +45,9 @@ class LocalFirebaseApp extends StatelessWidget {
               'hjem_tekst': 'default welcome',
               "skole_navn": "KG",
               "skole_nettside": "https://kg.vgs.no",
+              "verifikasjon_tittel": "Verifikasjon",
+              "verifikasjon_tekst":
+                  "Tast Inn Den Fire Sifrete Koden Du Har Fått Av Læreren Din",
             };
             await remoteConfig.setDefaults(defaults);
 // For utvikling den er micro sekunder, bør være en time eller lignende i produksjon
