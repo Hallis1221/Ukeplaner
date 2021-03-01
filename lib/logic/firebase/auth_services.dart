@@ -1,10 +1,8 @@
 /* Copyright (C) 2021 Halvor Vivelstad - All Rights Reserved
  You may not use, distribute and modify this code unless a license is granted. 
  If so use, distribution and modification can be done under the terms of the license.*/
-
 import 'dart:io';
 
-import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +10,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/logic/firebase/fcm.dart';
+import 'package:provider/provider.dart';
 
 String tempPassword;
 String tempEmail;
@@ -26,10 +25,7 @@ class AuthenticationService {
 
   Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  Future<String> signIn({
-    String email,
-    String password,
-  }) async {
+  Future<String> signIn({String email, String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -77,7 +73,7 @@ class AuthenticationService {
           // A users role is not set by the user for security purposes
         },
       );
-      analytics.logSignUp(signUpMethod: "normal");
+      analytics.logSignUp(signUpMethod: "viaCode");
       getCurrentUser().then((user) => saveDeviceToken(
           user, FirebaseMessaging(), FirebaseFirestore.instance));
       return {"done": true, "message": "Bruker lagd"};
@@ -112,7 +108,7 @@ class AuthenticationService {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
     } catch (e) {
-      Scaffold.of(context).showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
             e.message,
@@ -120,7 +116,7 @@ class AuthenticationService {
         ),
       );
     }
-    Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text("Sjekk eposten din, $email"),
       ),
