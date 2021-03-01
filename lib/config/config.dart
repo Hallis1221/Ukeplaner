@@ -4,11 +4,12 @@
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/logic/firebase/firebase.dart';
 
 FirebaseAnalytics analytics;
 bool localDevMode = false;
-String website = 'https://kg.vgs.no';
-String schoolName = "KG";
+String website = remoteConfig.getString('skole_nettside');
+String schoolName = remoteConfig.getString('skole_navn');
 
 // ?? https://material.io/design/color
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
