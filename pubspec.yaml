@@ -95,5 +95,11 @@ flutter:
       fonts:
         - asset: assets/fonts/TAHOMA_0.TTF
           weight: 300
+        - asset: assets/fonts/TAHOMAB0.TTF
+          weight: 700
+    - family:  DatePickerCheckMark
+      fonts:
+       - asset: assets/icons/DatePickerCheckMark.ttf
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
