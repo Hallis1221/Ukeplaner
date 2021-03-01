@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 FirebaseAnalytics analytics;
 bool localDevMode = false;
 String website = 'https://kg.vgs.no';
-String schoolName = "kg";
+String schoolName = "KG";
 
 // ?? https://material.io/design/color
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
