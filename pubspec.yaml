@@ -35,6 +35,7 @@ dependencies:
   firebase_performance: ^0.5.0+1
   firebase_remote_config: ^0.6.0
   flutter_pin_code_fields: ^1.1.0
+  google_fonts: ^2.0.0
   introduction_screen: ^1.0.9
   loading: ^1.0.2
   loading_animations: ^2.1.0
@@ -88,10 +89,11 @@ flutter:
         - asset: assets/fonts/Nirmala.ttf
         - asset: assets/fonts/NirmalaB.ttf
           weight: 700
+
+    # OPS, dennne fonten kan brukes via GoogleFonts.Tahoma
     - family: Tahoma
       fonts:
         - asset: assets/fonts/TAHOMA_0.TTF
           weight: 300
-    
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
