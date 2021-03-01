@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
+import 'package:ukeplaner/logic/firebase/firebase.dart';
 
 int code;
 
@@ -22,8 +23,8 @@ class VerifyPage extends StatelessWidget {
             height: 25,
           ),
           LogoAndText(
-            title: "Verifikasjon",
-            text: "Tast Inn Den Fire Sifrete Koden Du Har Fått Av Læreren Din",
+            title: remoteConfig.getString("verifikasjon_tittel"),
+            text: remoteConfig.getString("verifikasjon_tekst"),
           ),
           InputCard(),
           SizedBox(
