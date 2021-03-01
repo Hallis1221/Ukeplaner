@@ -88,9 +88,10 @@ flutter:
         - asset: assets/fonts/Nirmala.ttf
         - asset: assets/fonts/NirmalaB.ttf
           weight: 700
-     - family: Tahoma
-       fonts:
+    - family: Tahoma
+      fonts:
         - asset: assets/fonts/TAHOMA_0.TTF
-          weigth: 300
+          weight: 300
+    
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
