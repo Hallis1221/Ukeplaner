@@ -78,7 +78,9 @@ startTime(context) async {
 
   var _duration = new Duration(seconds: 0);
 
-  if (firstTime != null && !firstTime) {
+  if (firstTime != null &&
+      !firstTime &&
+      !remoteConfig.getBool('alltid_vis_intro')) {
     // Not first time
     return new Timer(_duration,
         () => Navigator.of(context).pushReplacementNamed('/validate'));
