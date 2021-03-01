@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/config/config.dart';
+
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:animated_text/animated_text.dart';
 
@@ -182,7 +183,7 @@ class ForgotPassword extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           if (emailController.text.isEmpty) {
-            Scaffold.of(context).showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content:
                     Text("Skriv inn en email for å resete passordet ditt!"),
@@ -292,8 +293,6 @@ class PurpleButton extends StatelessWidget {
 void login({
   @required BuildContext context,
 }) {
-  analytics.logLogin();
-
   context
       .read<AuthenticationService>()
       .signIn(
