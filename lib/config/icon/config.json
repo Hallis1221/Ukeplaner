@@ -1,5 +1,5 @@
 {
-  "name": "DatePickerCheckMark",
+  "name": "CustomIcons",
   "css_prefix_text": "",
   "css_use_suffix": false,
   "hinting": true,
@@ -7,10 +7,48 @@
   "ascent": 850,
   "glyphs": [
     {
-      "uid": "9de4ac1aec6b1cca1929e1407eecf3db",
-      "css": "calendar-check-o",
+      "uid": "f2b052b559d1d5e3fdd6bb479d0ead71",
+      "css": "calendar_check",
       "code": 62068,
-      "src": "fontawesome"
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "7cb3663c0008b78374b3a435c455fafe",
+      "css": "calendar_alt",
+      "code": 61555,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "e9f1a445968111eab72aacfdce5a3d9f",
+      "css": "checklist",
+      "code": 62209,
+      "src": "octicons"
+    },
+    {
+      "uid": "63ec74ce71635a8fc128c2eef73b96ae",
+      "css": "globe-alt-outline",
+      "code": 59392,
+      "src": "typicons"
+    },
+    {
+      "uid": "f2600038cee14a5eaad6d3ae5a3d5119",
+      "css": "book",
+      "code": 61485,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "f0498949cf24321a204123513ed72337",
+      "css": "ico-menu-light",
+      "code": 59393,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M200 237.5C270.8 245.8 395.8 245.8 470.8 237.5 541.7 229.2 483.3 220.8 333.3 220.8 183.3 220.8 125 229.2 200 237.5ZM283.3 487.5C400 495.8 600 495.8 720.8 487.5 837.5 479.2 741.7 475 500 475 258.3 475 162.5 479.2 283.3 487.5ZM533.3 737.5C604.2 745.8 729.2 745.8 804.2 737.5 875 729.2 816.7 720.8 666.7 720.8 516.7 720.8 458.3 729.2 533.3 737.5Z",
+        "width": 1000
+      },
+      "search": [
+        "ico-menu-light"
+      ]
     }
   ]
 }
