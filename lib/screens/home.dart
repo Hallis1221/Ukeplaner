@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/icons/custom_icons.dart';
 import 'package:ukeplaner/screens/login.dart';
 import '../logic/tekst.dart';
@@ -57,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   MenuButton(
                     onPressed: () {
-                      print('Hei');
+                      print(semesterFormatted(currentSemester));
                     },
                     color: Color.fromARGB(255, 238, 107, 120),
                     icon: CustomIcons.calendar_check,
