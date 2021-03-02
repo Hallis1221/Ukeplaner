@@ -2,6 +2,8 @@
  You may not use, distribute and modify this code unless a license is granted. 
  If so use, distribution and modification can be done under the terms of the license.*/
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart';
@@ -64,10 +66,10 @@ class HomeScreen extends StatelessWidget {
                     icon: CustomIcons.calendar_check,
                     size: 25,
                     title: "Dagsplan",
-                    subTitle: DateFormat("EEEE").format(now).capitalize(),
+                    subTitle: DateFormat("EEEE").format(getDate()).capitalize(),
                     subTitleOnLong:
                         DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
-                            .format(now)
+                            .format(getDate())
                             .capitalize(),
                   ),
                 ],
@@ -77,6 +79,49 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  DateTime getDate() {
+    // TODO skip holidays
+    DateTime currentDateSchool = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      now.hour,
+      now.minute,
+      now.second,
+      now.millisecond,
+      now.microsecond,
+    );
+    if (currentDateSchool.hour >= 17) {
+      // første parantes setter klokka til 00 neste dag.
+      int timeToShift = (24 - currentDateSchool.hour);
+
+      currentDateSchool = currentDateSchool.add(Duration(hours: timeToShift));
+      currentDateSchool = DateTime(
+        currentDateSchool.year,
+        currentDateSchool.month,
+        currentDateSchool.day,
+        currentDateSchool.hour,
+        0,
+        0,
+        0,
+        0,
+      );
+    }
+    switch (currentDateSchool.weekday) {
+      case 6:
+        currentDateSchool = currentDateSchool.add(Duration(days: 2));
+        break;
+      case 7:
+        currentDateSchool = currentDateSchool.add(Duration(days: 1));
+        break;
+      default:
+        currentDateSchool = currentDateSchool;
+    }
+    print(
+        DateFormat(DateFormat.HOUR24_MINUTE_SECOND).format(currentDateSchool));
+    return currentDateSchool;
   }
 }
 
