@@ -64,6 +64,10 @@ class HomeScreen extends StatelessWidget {
                     size: 25,
                     title: "Dagsplan",
                     subTitle: DateFormat("EEEE").format(now).capitalize(),
+                    subTitleOnLong:
+                        DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
+                            .format(now)
+                            .capitalize(),
                   ),
                 ],
               ),
@@ -75,9 +79,10 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class MenuButton extends StatelessWidget {
+class MenuButton extends StatefulWidget {
   const MenuButton({
     Key key,
+    this.subTitleOnLong,
     @required this.onPressed,
     @required this.size,
     @required this.color,
@@ -91,12 +96,33 @@ class MenuButton extends StatelessWidget {
   final Color color;
   final String title;
   final String subTitle;
+  final String subTitleOnLong;
   final IconData icon;
+
+  @override
+  _MenuButtonState createState() => _MenuButtonState(subTitle: subTitle);
+}
+
+class _MenuButtonState extends State<MenuButton> {
+  _MenuButtonState({this.subTitle});
+
+  String subTitle;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
-      onLongPress: onPressed,
+      onTap: widget.onPressed,
+      onLongPressEnd: (details) {
+        if (widget.subTitleOnLong == null) {
+          return;
+        }
+        setState(() {
+          if (subTitle == widget.subTitleOnLong) {
+            subTitle = widget.subTitle;
+          } else {
+            subTitle = widget.subTitleOnLong;
+          }
+        });
+      },
       child: Padding(
         padding: const EdgeInsets.only(top: 20, left: 0),
         child: Row(
@@ -107,12 +133,12 @@ class MenuButton extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Icon(
-                  icon,
-                  size: size,
+                  widget.icon,
+                  size: widget.size,
                   color: Colors.white,
                 ),
               ),
-              fillColor: color,
+              fillColor: widget.color,
               elevation: 0,
             ),
             Container(
@@ -124,7 +150,7 @@ class MenuButton extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      title,
+                      widget.title,
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
