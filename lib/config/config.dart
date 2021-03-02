@@ -25,6 +25,8 @@ String semesterToStartDag = "20";
 String semesterToSluttMaaned = "6";
 String semesterToSluttDag = "18";
 
+//TODO
+List<Map<String, DateTime>> ferier = [];
 // !! DESIGN
 // ?? https://material.io/design/color
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
@@ -120,3 +122,31 @@ bool isCurrentDateInRange(DateTime startDate, DateTime endDate) {
   final currentDate = DateTime.now();
   return currentDate.isAfter(startDate) && currentDate.isBefore(endDate);
 }
+
+Map<String, dynamic> fcmDefaults = <String, dynamic>{
+  'hjem_tekst': 'default welcome',
+  "skole_navn": "KG",
+  "skole_nettside": "https://kg.vgs.no",
+  "verifikasjon_tittel": "Verifikasjon",
+  "verifikasjon_tekst":
+      "Tast Inn Den Fire Sifrete Koden Du Har Fått Av Læreren Din",
+  "alltid_vis_intro": false,
+  "semesterEnStartMaaned": 8,
+  "semesterEnStartDag": 17,
+  "semesterEnSluttMaaned": 1,
+  "semesterEnSluttDag": 20,
+  "semesterToStartMaaned": 1,
+  "semesterToStartDag": 20,
+  "semesterToSluttMaaned": 6,
+  "semesterToSluttDag": 18,
+};
+
+String semesterEnStartMaaned = "8";
+String semesterEnStartDag = "17";
+String semesterEnSluttMaaned = "1";
+String semesterEnSluttDag = "20";
+// semester to
+String semesterToStartMaaned = "1";
+String semesterToStartDag = "20";
+String semesterToSluttMaaned = "6";
+String semesterToSluttDag = "18";
