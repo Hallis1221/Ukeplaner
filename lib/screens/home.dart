@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ukeplaner/icons/custom_icons.dart';
 import 'package:ukeplaner/screens/login.dart';
 import '../logic/tekst.dart';
 
@@ -59,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                       print('Hei');
                     },
                     color: Color.fromARGB(255, 238, 107, 120),
-                    icon: DatePickerCheckMark.calendar_check_o,
+                    icon: CustomIcons.calendar_check,
                     size: 25,
                     title: "Dagsplan",
                     subTitle: DateFormat("EEEE").format(now).capitalize(),
