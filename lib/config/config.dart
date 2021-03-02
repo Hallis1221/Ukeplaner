@@ -83,18 +83,18 @@ DateTime sToStart = DateTime(
   int.parse(semesterToStartDag),
 );
 DateTime sToSlutt = DateTime(
-  DateTime.now().year,
+  getYear(sEnStart, sEnSlutt),
   int.parse(semesterToSluttMaaned),
   int.parse(semesterToSluttDag),
 );
 
 Map<String, DateTime> semesterEn = {
   "start": sEnStart,
-  "slutt": DateTime(getYear(sEnStart, sEnSlutt), 1, 20),
+  "slutt": sEnSlutt,
 };
 Map<String, DateTime> semesterTo = {
-  "start": DateTime(DateTime.now().year, 1, 20),
-  "slutt": DateTime(DateTime.now().year, 6, 18),
+  "start": sToStart,
+  "slutt": sToSlutt,
 };
 
 int currentSemester = getSemester(semesterEn, semesterTo);
