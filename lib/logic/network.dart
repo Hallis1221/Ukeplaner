@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading/indicator/pacman_indicator.dart';
 import 'package:loading/loading.dart';
+import 'package:intl/intl.dart';
 
 import '../config/config.dart';
 
@@ -26,6 +27,7 @@ class VerifyApp extends StatefulWidget {
 
 class _VerifyAppState extends State<VerifyApp> {
   void initState() {
+    Intl.defaultLocale = 'nb_NO';
     if (localDevMode) {
       String host = Platform.isAndroid ? '10.0.2.2:8080' : 'localhost:8080';
       FirebaseFirestore.instance.settings = Settings(
