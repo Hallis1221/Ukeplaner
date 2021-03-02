@@ -14,16 +14,19 @@ bool localDevMode = false;
 String website = remoteConfig.getString('skole_nettside');
 String schoolName = remoteConfig.getString('skole_navn');
 // semester en
-// TODO migrate to Firebase Remote Config (FCM)
-String semesterEnStartMaaned = "8";
-String semesterEnStartDag = "17";
-String semesterEnSluttMaaned = "1";
-String semesterEnSluttDag = "20";
+String semesterEnStartMaaned =
+    remoteConfig.getString("semester_en_slutt_maaned");
+String semesterEnStartDag = remoteConfig.getString("semester_en_start_dag");
+String semesterEnSluttMaaned =
+    remoteConfig.getString("semester_en_slutt_maaned");
+String semesterEnSluttDag = remoteConfig.getString("semester_en_slutt_dag");
 // semester to
-String semesterToStartMaaned = "1";
-String semesterToStartDag = "20";
-String semesterToSluttMaaned = "6";
-String semesterToSluttDag = "18";
+String semesterToStartMaaned =
+    remoteConfig.getString("semester_to_start_maaned");
+String semesterToStartDag = remoteConfig.getString("semester_to_start_dag");
+String semesterToSluttMaaned =
+    remoteConfig.getString("semester_to_slutt_maaned");
+String semesterToSluttDag = remoteConfig.getString("semester_to_slutt_dag");
 
 //TODO
 List<Map<String, DateTime>> ferier = [];
@@ -131,22 +134,12 @@ Map<String, dynamic> fcmDefaults = <String, dynamic>{
   "verifikasjon_tekst":
       "Tast Inn Den Fire Sifrete Koden Du Har Fått Av Læreren Din",
   "alltid_vis_intro": false,
-  "semesterEnStartMaaned": 8,
-  "semesterEnStartDag": 17,
-  "semesterEnSluttMaaned": 1,
-  "semesterEnSluttDag": 20,
-  "semesterToStartMaaned": 1,
-  "semesterToStartDag": 20,
-  "semesterToSluttMaaned": 6,
-  "semesterToSluttDag": 18,
+  "semester_en_start_maaned": 8,
+  "semester_en_start_dag": 17,
+  "semester_en_slutt_maaned": 1,
+  "semester_en_slutt_dag": 20,
+  "semester_to_start_maaned": 1,
+  "semester_to_start_dag": 20,
+  "semester_to_slutt_maaned": 6,
+  "semester_to_slutt_dag": 18,
 };
-
-String semesterEnStartMaaned = "8";
-String semesterEnStartDag = "17";
-String semesterEnSluttMaaned = "1";
-String semesterEnSluttDag = "20";
-// semester to
-String semesterToStartMaaned = "1";
-String semesterToStartDag = "20";
-String semesterToSluttMaaned = "6";
-String semesterToSluttDag = "18";
