@@ -11,7 +11,7 @@ class ErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: FlatButton(
+        child: TextButton(
           onPressed: () => context.read<AuthenticationService>().signOut(),
           child: Text(
             "Something went wrong...",
