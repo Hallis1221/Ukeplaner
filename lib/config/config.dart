@@ -6,25 +6,25 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/logic/firebase/firebase.dart';
 
+// !! DEV
 FirebaseAnalytics analytics;
 bool localDevMode = false;
+
+// !! ADMIN
 String website = remoteConfig.getString('skole_nettside');
 String schoolName = remoteConfig.getString('skole_navn');
-DateTime sEnStart = DateTime(DateTime.now().year, 8, 17);
-//her har ikke år noe å si
-DateTime sEnSlutt = DateTime(DateTime.now().year, 1, 20);
+// semester en
+String semesterEnStartMaaned = "8";
+String semesterEnStartDag = "17";
+String semesterEnSluttMaaned = "1";
+String semesterEnSluttDag = "20";
+// semester to
+String semesterToStartMaaned = "1";
+String semesterToStartDag = "20";
+String semesterToSluttMaaned = "6";
+String semesterToSluttDag = "18";
 
-Map<String, DateTime> semesterEn = {
-  "start": sEnStart,
-  "slutt": DateTime(getYear(sEnStart, sEnSlutt), 1, 20),
-};
-Map<String, DateTime> semesterTo = {
-  "start": DateTime(DateTime.now().year, 1, 20),
-  "slutt": DateTime(DateTime.now().year, 6, 18),
-};
-
-int currentSemester = getSemester(semesterEn, semesterTo);
-
+// !! DESIGN
 // ?? https://material.io/design/color
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
 ThemeData theme = ThemeData(
@@ -62,6 +62,42 @@ ThemeData theme = ThemeData(
   ),
 );
 
+// !! USE CONFIGS TO GENERATE VALUES
+//her har ikke år noe å si
+// Semester en
+DateTime sEnStart = DateTime(
+  DateTime.now().year,
+  int.parse(semesterEnStartMaaned),
+  int.parse(semesterEnStartDag),
+);
+DateTime sEnSlutt = DateTime(
+  DateTime.now().year,
+  int.parse(semesterEnSluttMaaned),
+  int.parse(semesterEnSluttDag),
+);
+
+// Semester to
+DateTime sToStart = DateTime(
+  DateTime.now().year,
+  int.parse(semesterToStartMaaned),
+  int.parse(semesterToStartDag),
+);
+DateTime sToSlutt = DateTime(
+  DateTime.now().year,
+  int.parse(semesterToSluttMaaned),
+  int.parse(semesterToSluttDag),
+);
+
+Map<String, DateTime> semesterEn = {
+  "start": sEnStart,
+  "slutt": DateTime(getYear(sEnStart, sEnSlutt), 1, 20),
+};
+Map<String, DateTime> semesterTo = {
+  "start": DateTime(DateTime.now().year, 1, 20),
+  "slutt": DateTime(DateTime.now().year, 6, 18),
+};
+
+int currentSemester = getSemester(semesterEn, semesterTo);
 int getYear(DateTime timeone, DateTime timetwo) {
   if (timeone.isBefore(timetwo)) {
     return DateTime.now().year + 1;
@@ -76,6 +112,7 @@ int getSemester(
   } else if (isCurrentDateInRange(semesterTo["start"], semesterTo["slutt"])) {
     return 2;
   }
+  return 0;
 }
 
 bool isCurrentDateInRange(DateTime startDate, DateTime endDate) {
