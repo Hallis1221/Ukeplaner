@@ -41,15 +41,7 @@ class LocalFirebaseApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           Future<void> remote() async {
             remoteConfig = await RemoteConfig.instance;
-            final defaults = <String, dynamic>{
-              'hjem_tekst': 'default welcome',
-              "skole_navn": "KG",
-              "skole_nettside": "https://kg.vgs.no",
-              "verifikasjon_tittel": "Verifikasjon",
-              "verifikasjon_tekst":
-                  "Tast Inn Den Fire Sifrete Koden Du Har Fått Av Læreren Din",
-              "alltid_vis_intro": false,
-            };
+            final defaults = fcmDefaults;
             await remoteConfig.setDefaults(defaults);
 // For utvikling den er micro sekunder, bør være en time eller lignende i produksjon
             await remoteConfig.fetch(
