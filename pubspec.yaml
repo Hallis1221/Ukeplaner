@@ -36,6 +36,7 @@ dependencies:
   firebase_remote_config: ^0.6.0
   flutter_pin_code_fields: ^1.1.0
   google_fonts: ^1.1.1
+  intl: ^0.16.0
   introduction_screen: ^1.0.9
   loading: ^1.0.2
   loading_animations: ^2.1.0
@@ -96,9 +97,8 @@ flutter:
           weight: 300
         - asset: assets/fonts/TAHOMAB0.TTF
           weight: 700
-    - family:  DatePickerCheckMark
+    - family: DatePickerCheckMark
       fonts:
-       - asset: assets/icons/DatePickerCheckMark.ttf
-
+        - asset: assets/icons/DatePickerCheckMark.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
