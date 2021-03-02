@@ -4,11 +4,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/logic/firebase/firebase.dart';
 import 'package:ukeplaner/screens/login.dart';
 import '../icons/date_picker_check_mark_icons.dart';
+
+DateTime now = DateTime.now();
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -63,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                     icon: Icons.library_add_check_rounded,
                     size: 25,
                     title: "Dagsplan",
-                    subTitle: "Mandag",
+                    subTitle: DateFormat("EEEE").format(now),
                   ),
                 ],
               ),
