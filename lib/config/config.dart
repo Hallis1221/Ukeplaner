@@ -14,6 +14,7 @@ bool localDevMode = false;
 String website = remoteConfig.getString('skole_nettside');
 String schoolName = remoteConfig.getString('skole_navn');
 // semester en
+// TODO migrate to Firebase Remote Config (FCM)
 String semesterEnStartMaaned = "8";
 String semesterEnStartDag = "17";
 String semesterEnSluttMaaned = "1";
