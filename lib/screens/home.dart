@@ -119,8 +119,7 @@ class HomeScreen extends StatelessWidget {
       default:
         currentDateSchool = currentDateSchool;
     }
-    print(
-        DateFormat(DateFormat.HOUR24_MINUTE_SECOND).format(currentDateSchool));
+    print(semesterFormatted(currentSemester));
     return currentDateSchool;
   }
 }
