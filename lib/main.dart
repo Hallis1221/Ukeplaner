@@ -4,6 +4,7 @@
 
 import 'dart:async';
 
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:loading/loading.dart';
 import 'package:native_shared_preferences/native_shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ import 'screens/welcome_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  initializeDateFormatting("nb_NO");
   runApp(MyApp());
 }
 
