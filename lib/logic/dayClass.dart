@@ -1,3 +1,22 @@
+class CompleteDayClass {
+  String className;
+  String rom;
+  String message;
+  List homework;
+
+  String startTime;
+  String endTime;
+
+  CompleteDayClass({
+    this.startTime,
+    this.endTime,
+    this.className,
+    this.rom,
+    this.message,
+    this.homework,
+  });
+}
+
 class DayClass {
   String className;
   String rom;
