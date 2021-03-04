@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:ukeplaner/config/config.dart' as config;
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
 import 'package:ukeplaner/logic/dayClass.dart';
+import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/logic/tekst.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as cf;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ukeplaner/screens/temp/error.dart';
+import 'package:provider/provider.dart';
 
 import 'login.dart';
 
@@ -17,6 +21,63 @@ class WeekPlan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: makeCompleteDayClass(context),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return ErrorPage();
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          List<DayClass> daySubjectsFormatted = snapshot.data;
+          return Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(120.0),
+              child: _AppBar(),
+            ),
+            body: Column(
+              children: [
+                SizedBox(height: 100),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 25,
+                        color: Colors.red,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: ListView(
+                              scrollDirection: Axis.vertical,
+                              children:
+                                  daySubjectsFormatted.map((DayClass klasse) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(25 / 2),
+                                  child: TimeCard(
+                                    klasseNavn: klasse.className,
+                                    rom: klasse.rom,
+                                    startTid: klasse.startTime,
+                                    sluttTid: klasse.endTime,
+                                  ),
+                                );
+                              }).toList()),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+        return LoadingFlipping.circle(
+          duration: Duration(milliseconds: 750),
+        );
+      },
+    );
+  }
+
+  Future<List<DayClass>> makeCompleteDayClass(BuildContext context) async {
     List<RoughDayClass> daySubjects = [];
     List<DayClass> daySubjectsFormatted = [];
     List<CompleteDayClass> daySubjectsWithMessagesAndHomework = [];
@@ -30,6 +91,7 @@ class WeekPlan extends StatelessWidget {
               startTime: tid.startTime,
               endTime: tid.endTime,
               rom: klasse.rom,
+              classFirestoreID: klasse.classFirestoreID,
             ));
           }
         }
@@ -44,10 +106,21 @@ class WeekPlan extends StatelessWidget {
           rom: klasse.rom,
           startTime: convertDoubleToTime(klasse.startTime),
           endTime: convertDoubleToTime(klasse.endTime),
+          classFirestoreID: klasse.classFirestoreID,
         ),
       );
     }
     for (DayClass klasse in daySubjectsFormatted) {
+      DocumentReference documentReference =
+          config.db.collection("classes").doc(klasse.classFirestoreID);
+
+      print(
+        context.read<AuthenticationService>().getCurrentUser().then(
+              (value) => print(value.uid == "nCdgAarBRWeim543eYTyEVw2cPB2"),
+            ),
+      );
+      print(documentReference.get());
+
       daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
         className: klasse.className,
         rom: klasse.rom,
@@ -55,45 +128,8 @@ class WeekPlan extends StatelessWidget {
         endTime: klasse.endTime,
       ));
     }
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(120.0),
-        child: _AppBar(),
-      ),
-      body: Column(
-        children: [
-          SizedBox(height: 100),
-          Expanded(
-            child: Row(
-              children: [
-                Container(
-                  width: 25,
-                  color: Colors.red,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: ListView(
-                        scrollDirection: Axis.vertical,
-                        children: daySubjectsFormatted.map((DayClass klasse) {
-                          return Padding(
-                            padding: const EdgeInsets.all(25 / 2),
-                            child: TimeCard(
-                              klasseNavn: klasse.className,
-                              rom: klasse.rom,
-                              startTid: klasse.startTime,
-                              sluttTid: klasse.endTime,
-                            ),
-                          );
-                        }).toList()),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+
+    return daySubjectsFormatted;
   }
 }
 
