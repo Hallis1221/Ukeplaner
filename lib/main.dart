@@ -8,11 +8,14 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:loading/loading.dart';
 import 'package:native_shared_preferences/native_shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/logic/class.dart';
+import 'package:ukeplaner/logic/classTimes.dart';
 import 'package:ukeplaner/screens/register.dart';
 import 'package:ukeplaner/screens/home.dart';
 import 'package:ukeplaner/screens/login.dart';
 import 'package:flutter/services.dart';
 import 'package:ukeplaner/screens/verifyEmail.dart';
+import 'package:ukeplaner/screens/weekPlan.dart';
 import 'logic/firebase/authGuider.dart';
 import 'logic/firebase/firebase.dart';
 import 'logic/firebase/fcm.dart';
@@ -26,6 +29,21 @@ void main() {
   initializeDateFormatting("nb_NO");
   runApp(MyApp());
 }
+
+List<Class> classes = [
+  Class(
+    className: "UTV",
+    rom: "U21",
+    times: [
+      ClassTime(
+          dayIndex: 1,
+          startTime: 08.30,
+          endTime: 10.00,
+          aWeeks: true,
+          bWeeks: true)
+    ],
+  )
+];
 
 class MyApp extends StatelessWidget {
   @override
@@ -54,7 +72,12 @@ class MyApp extends StatelessWidget {
           );
         },
         '/home': (context) {
-          return HomeScreen();
+          return WeekPlan(dateToShow: getDate(), subjects: classes);
+        },
+        '/weekplan': (
+          context,
+        ) {
+          return WeekPlan(dateToShow: getDate(), subjects: classes);
         },
         '/verify': (context) {
           return VerifyPage();
