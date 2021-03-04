@@ -57,19 +57,22 @@ class MyApp extends StatelessWidget {
         '/validate': (context) {
           return AuthenticatonWrapper(
             loggedin: FutureBuilder(
-              future: (() {
+              future: (() async {
                 String uid;
-                context
+                await context
                     .read<AuthenticationService>()
                     .getCurrentUser()
                     .then((value) => uid = value.uid);
+                print(uid);
                 DocumentReference _dcRef =
                     config.db.collection("users").doc(uid);
                 return _dcRef.get();
               }()),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  print(snapshot.data);
+                  DocumentSnapshot data = snapshot.data;
+                  print(data.get("classes"));
+
                   return LocalMessageHandler(onDone: '/home');
                 }
                 return LoadingFlipping.circle();
