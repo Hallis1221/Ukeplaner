@@ -5,10 +5,12 @@ class ClassModel {
   String className;
   String rom;
   String teacher;
+  String classFirestoreID;
 
   List<ClassTime> times;
 
   ClassModel({
+    this.classFirestoreID,
     this.teacher,
     this.times,
     this.className,
