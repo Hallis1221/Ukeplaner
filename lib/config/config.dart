@@ -9,6 +9,7 @@ import 'package:ukeplaner/logic/firebase/firebase.dart';
 // !! DEV
 FirebaseAnalytics analytics;
 bool localDevMode = false;
+String currentWeek = "a";
 
 // !! ADMIN
 String website = remoteConfig.getString('skole_nettside');
