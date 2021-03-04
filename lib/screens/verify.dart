@@ -186,6 +186,7 @@ class _CodeInputterState extends State<CodeInputter>
   bool inputEnabled = true;
   bool buttonEnabled = true;
   bool validCode = false;
+
   // for å ikke prøve samme kode flere ganger
   List attemptedCodes = [];
 
@@ -210,11 +211,13 @@ class _CodeInputterState extends State<CodeInputter>
               animationController.reverse();
             }
           });
+    print(MediaQuery.of(context).size.height);
+    double size = MediaQuery.of(context).size.height / 100;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 25, right: 25),
+          padding: EdgeInsets.only(left: size, right: size),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
