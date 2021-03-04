@@ -8,15 +8,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/config/config.dart';
 
 import 'auth_services.dart';
 
 class LocalMessageHandler extends StatefulWidget {
-  const LocalMessageHandler({Key key, @required this.child}) : super(key: key);
+  const LocalMessageHandler({
+    Key key,
+    @required this.onDone,
+  }) : super(key: key);
 
-  final Widget child;
+  final String onDone;
 
   @override
   _LocalMessageHandlerState createState() => _LocalMessageHandlerState();
@@ -48,7 +52,7 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
               },
             ),
           );
-          Scaffold.of(context).showSnackBar(snackbar);
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
         }
       },
       onResume: (Map<String, dynamic> message) async {
@@ -79,7 +83,7 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
                 "Du har fått en ny beskjed, vi ville elsket å vise den til deg, men dessvere var denne meldingen sent fra firebase console som ikke støtter det. Trykk på bjella for å se alle dine meldinger"),
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text("ok"),
               onPressed: () => Navigator.of(context).pop(),
             )
@@ -95,7 +99,7 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
           subtitle: Text(message["notification"]["body"]),
         ),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Text("ok"),
             onPressed: () => Navigator.of(context).pop(),
           )
@@ -106,9 +110,8 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: widget.child,
-    );
+    Navigator.pushReplacementNamed(context, "/home");
+    return LoadingBouncingGrid.circle();
   }
 }
 
