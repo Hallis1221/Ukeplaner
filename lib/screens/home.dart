@@ -59,6 +59,7 @@ class HomeScreen extends StatelessWidget {
                   MenuButton(
                     onPressed: () {
                       print(semesterFormatted(currentSemester));
+                      Navigator.of(context).pushNamed("/weekplan");
                     },
                     color: Color.fromARGB(255, 238, 107, 120),
                     icon: CustomIcons.calendar_check,
@@ -77,48 +78,6 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  DateTime getDate() {
-    // TODO skip holidays
-    DateTime currentDateSchool = DateTime(
-      now.year,
-      now.month,
-      now.day,
-      now.hour,
-      now.minute,
-      now.second,
-      now.millisecond,
-      now.microsecond,
-    );
-    if (currentDateSchool.hour >= 17) {
-      // første parantes setter klokka til 00 neste dag.
-      int timeToShift = (24 - currentDateSchool.hour);
-
-      currentDateSchool = currentDateSchool.add(Duration(hours: timeToShift));
-      currentDateSchool = DateTime(
-        currentDateSchool.year,
-        currentDateSchool.month,
-        currentDateSchool.day,
-        currentDateSchool.hour,
-        0,
-        0,
-        0,
-        0,
-      );
-    }
-    switch (currentDateSchool.weekday) {
-      case 6:
-        currentDateSchool = currentDateSchool.add(Duration(days: 2));
-        break;
-      case 7:
-        currentDateSchool = currentDateSchool.add(Duration(days: 1));
-        break;
-      default:
-        currentDateSchool = currentDateSchool;
-    }
-    print(semesterFormatted(currentSemester));
-    return currentDateSchool;
   }
 }
 
@@ -153,7 +112,9 @@ class _MenuButtonState extends State<MenuButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onPressed,
+      onTap: () {
+        widget.onPressed();
+      },
       onLongPressEnd: (details) {
         if (widget.subTitleOnLong == null) {
           return;
@@ -220,4 +181,46 @@ class _MenuButtonState extends State<MenuButton> {
       ),
     );
   }
+}
+
+DateTime getDate() {
+  // TODO skip holidays
+  DateTime currentDateSchool = DateTime(
+    now.year,
+    now.month,
+    now.day,
+    now.hour,
+    now.minute,
+    now.second,
+    now.millisecond,
+    now.microsecond,
+  );
+  if (currentDateSchool.hour >= 17) {
+    // første parantes setter klokka til 00 neste dag.
+    int timeToShift = (24 - currentDateSchool.hour);
+
+    currentDateSchool = currentDateSchool.add(Duration(hours: timeToShift));
+    currentDateSchool = DateTime(
+      currentDateSchool.year,
+      currentDateSchool.month,
+      currentDateSchool.day,
+      currentDateSchool.hour,
+      0,
+      0,
+      0,
+      0,
+    );
+  }
+  switch (currentDateSchool.weekday) {
+    case 6:
+      currentDateSchool = currentDateSchool.add(Duration(days: 2));
+      break;
+    case 7:
+      currentDateSchool = currentDateSchool.add(Duration(days: 1));
+      break;
+    default:
+      currentDateSchool = currentDateSchool;
+  }
+  print(semesterFormatted(currentSemester));
+  return currentDateSchool;
 }
