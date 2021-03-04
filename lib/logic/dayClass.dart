@@ -23,8 +23,10 @@ class DayClass {
 
   String startTime;
   String endTime;
+  String classFirestoreID;
 
   DayClass({
+    this.classFirestoreID,
     this.startTime,
     this.endTime,
     this.className,
@@ -35,11 +37,13 @@ class DayClass {
 class RoughDayClass {
   String className;
   String rom;
+  String classFirestoreID;
 
   double startTime;
   double endTime;
 
   RoughDayClass({
+    this.classFirestoreID,
     this.startTime,
     this.endTime,
     this.className,
