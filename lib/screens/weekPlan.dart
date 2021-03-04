@@ -19,6 +19,7 @@ class WeekPlan extends StatelessWidget {
   Widget build(BuildContext context) {
     List<RoughDayClass> daySubjects = [];
     List<DayClass> daySubjectsFormatted = [];
+    List<CompleteDayClass> daySubjectsWithMessagesAndHomework = [];
     for (ClassModel klasse in subjects) {
       for (ClassTime tid in klasse.times) {
         if ((config.currentWeek == "a" && tid.aWeeks) ||
@@ -45,6 +46,13 @@ class WeekPlan extends StatelessWidget {
           endTime: convertDoubleToTime(klasse.endTime),
         ),
       );
+    }
+    for (DayClass klasse in daySubjectsFormatted) {
+      daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
+          className: klasse.className,
+          rom: klasse.rom,
+          startTime: klasse.startTime,
+          endTime: klasse.endTime));
     }
     return Scaffold(
       appBar: PreferredSize(
