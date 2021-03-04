@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/config/config.dart' as config;
 import 'package:ukeplaner/logic/class.dart';
+import 'package:ukeplaner/logic/classTimes.dart';
+import 'package:ukeplaner/logic/dayClass.dart';
+import 'package:ukeplaner/screens/home.dart';
 
 import 'login.dart';
 
@@ -8,13 +12,20 @@ class WeekPlan extends StatelessWidget {
       : super(key: key);
 
   final DateTime dateToShow;
-  final List<Class> subjects;
+  final List<ClassModel> subjects;
 
   @override
   Widget build(BuildContext context) {
-    for (Class item in subjects) {
-      print(dateToShow);
-      print(item.rom.toString());
+    List<DayClass> daySubjects = [];
+    for (ClassModel klasse in subjects) {
+      for (ClassTime tid in klasse.times) {
+        if ((config.currentWeek == "a" && tid.aWeeks) ||
+            (config.currentWeek == "b" && tid.bWeeks)) {
+          if (tid.dayIndex == dateToShow.day) {
+            print("ready");
+          }
+        }
+      }
     }
     return Scaffold(
       appBar: PreferredSize(
@@ -36,9 +47,11 @@ class WeekPlan extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20.0),
                     child: ListView(
                         scrollDirection: Axis.vertical,
-                        children: subjects.map((klasse) {
-                          print(klasse.className);
-                          return TimeCard();
+                        children: daySubjects.map((DayClass klasse) {
+                          return TimeCard(
+                            klasseNavn: klasse.className,
+                            rom: klasse.rom,
+                          );
                         }).toList()),
                   ),
                 )
