@@ -110,8 +110,13 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
 
   @override
   Widget build(BuildContext context) {
-    Navigator.pushReplacementNamed(context, "/home");
-    return LoadingBouncingGrid.circle();
+    return FutureBuilder(builder: (context, snapshot) {
+      Future.delayed(const Duration(milliseconds: 250),
+          () => Navigator.pushReplacementNamed(context, "/home"));
+      return LoadingFlipping.circle(
+        duration: Duration(milliseconds: 750),
+      );
+    });
   }
 }
 
