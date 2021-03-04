@@ -12,3 +12,18 @@ class DayClass {
     this.rom,
   });
 }
+
+class RoughDayClass {
+  String className;
+  String rom;
+
+  double startTime;
+  double endTime;
+
+  RoughDayClass({
+    this.startTime,
+    this.endTime,
+    this.className,
+    this.rom,
+  });
+}
