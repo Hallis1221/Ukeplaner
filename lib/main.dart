@@ -32,6 +32,7 @@ void main() {
 
 List<ClassModel> classes = [
   new ClassModel(
+    classFirestoreID: "XhL71xpigGpmHXfdUBvX",
     className: "UTV",
     rom: "U21",
     teacher: "emmved",
