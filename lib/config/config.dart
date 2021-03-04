@@ -2,8 +2,11 @@
  You may not use, distribute and modify this code unless a license is granted. 
  If so use, distribution and modification can be done under the terms of the license.*/
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/logic/class.dart';
+import 'package:ukeplaner/logic/classTimes.dart';
 import 'package:ukeplaner/logic/firebase/firebase.dart';
 
 // !! DEV
@@ -144,3 +147,36 @@ Map<String, dynamic> fcmDefaults = <String, dynamic>{
   "semester_to_slutt_maaned": 6,
   "semester_to_slutt_dag": 18,
 };
+List<ClassModel> cloudClasses = [];
+List<ClassModel> classes = [
+  new ClassModel(
+    classFirestoreID: "XhL71xpigGpmHXfdUBvX",
+    className: "UTV",
+    rom: "U21",
+    teacher: "emmved",
+    times: [
+      ClassTime(
+        dayIndex: 5,
+        startTime: 08.30,
+        endTime: 10.00,
+        aWeeks: true,
+        bWeeks: true,
+      ),
+    ],
+  ),
+  new ClassModel(
+    className: "Matte",
+    rom: "U21",
+    teacher: "emmved",
+    times: [
+      ClassTime(
+        dayIndex: 5,
+        startTime: 10.20,
+        endTime: 11.55,
+        aWeeks: true,
+        bWeeks: true,
+      ),
+    ],
+  )
+];
+FirebaseFirestore db = FirebaseFirestore.instance;
