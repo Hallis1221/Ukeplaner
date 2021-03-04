@@ -49,9 +49,12 @@ class MyApp extends StatelessWidget {
         },
         '/validate': (context) {
           return AuthenticatonWrapper(
-            loggedin: LocalMessageHandler(child: HomeScreen()),
+            loggedin: LocalMessageHandler(onDone: '/home'),
             login: LoginScreen(),
           );
+        },
+        '/home': (context) {
+          return HomeScreen();
         },
         '/verify': (context) {
           return VerifyPage();
