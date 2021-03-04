@@ -34,11 +34,26 @@ List<ClassModel> classes = [
   new ClassModel(
     className: "UTV",
     rom: "U21",
+    teacher: "emmved",
     times: [
       ClassTime(
         dayIndex: 5,
         startTime: 08.30,
         endTime: 10.00,
+        aWeeks: true,
+        bWeeks: true,
+      ),
+    ],
+  ),
+  new ClassModel(
+    className: "Matte",
+    rom: "U21",
+    teacher: "emmved",
+    times: [
+      ClassTime(
+        dayIndex: 5,
+        startTime: 10.20,
+        endTime: 11.55,
         aWeeks: true,
         bWeeks: true,
       ),
