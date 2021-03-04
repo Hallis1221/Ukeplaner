@@ -4,7 +4,7 @@ import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
 import 'package:ukeplaner/logic/dayClass.dart';
 import 'package:ukeplaner/logic/tekst.dart';
-import 'package:ukeplaner/screens/home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as cf;
 
 import 'login.dart';
 
@@ -243,7 +243,7 @@ class _AppBar extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 60.0, left: 15.0),
             child: GestureDetector(
-              onTap: () => Navigator.pushReplacementNamed(context, '/welcome'),
+              onTap: () => Navigator.pop(context),
               child: Icon(
                 Icons.arrow_back,
                 color: Colors.white,
