@@ -113,12 +113,12 @@ class WeekPlan extends StatelessWidget {
     for (DayClass klasse in daySubjectsFormatted) {
       DocumentReference documentReference =
           config.db.collection("classes").doc(klasse.classFirestoreID);
+      String uid;
+      await context.read<AuthenticationService>().getCurrentUser().then(
+            (value) => uid = (value.uid),
+          );
+      print(uid);
 
-      print(
-        context.read<AuthenticationService>().getCurrentUser().then(
-              (value) => print(value.uid == "nCdgAarBRWeim543eYTyEVw2cPB2"),
-            ),
-      );
       print(documentReference.get());
 
       daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
