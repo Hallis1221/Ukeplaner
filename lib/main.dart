@@ -30,17 +30,18 @@ void main() {
   runApp(MyApp());
 }
 
-List<Class> classes = [
-  Class(
+List<ClassModel> classes = [
+  new ClassModel(
     className: "UTV",
     rom: "U21",
     times: [
       ClassTime(
-          dayIndex: 1,
-          startTime: 08.30,
-          endTime: 10.00,
-          aWeeks: true,
-          bWeeks: true)
+        dayIndex: 5,
+        startTime: 08.30,
+        endTime: 10.00,
+        aWeeks: true,
+        bWeeks: true,
+      ),
     ],
   )
 ];
