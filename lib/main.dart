@@ -4,16 +4,20 @@
 
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:loading/loading.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:native_shared_preferences/native_shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
+import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/screens/register.dart';
 import 'package:ukeplaner/screens/home.dart';
 import 'package:ukeplaner/screens/login.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:ukeplaner/screens/verifyEmail.dart';
 import 'package:ukeplaner/screens/weekPlan.dart';
 import 'logic/firebase/authGuider.dart';
@@ -29,38 +33,6 @@ void main() {
   initializeDateFormatting("nb_NO");
   runApp(MyApp());
 }
-
-List<ClassModel> classes = [
-  new ClassModel(
-    classFirestoreID: "XhL71xpigGpmHXfdUBvX",
-    className: "UTV",
-    rom: "U21",
-    teacher: "emmved",
-    times: [
-      ClassTime(
-        dayIndex: 5,
-        startTime: 08.30,
-        endTime: 10.00,
-        aWeeks: true,
-        bWeeks: true,
-      ),
-    ],
-  ),
-  new ClassModel(
-    className: "Matte",
-    rom: "U21",
-    teacher: "emmved",
-    times: [
-      ClassTime(
-        dayIndex: 5,
-        startTime: 10.20,
-        endTime: 11.55,
-        aWeeks: true,
-        bWeeks: true,
-      ),
-    ],
-  )
-];
 
 class MyApp extends StatelessWidget {
   @override
@@ -84,17 +56,35 @@ class MyApp extends StatelessWidget {
         },
         '/validate': (context) {
           return AuthenticatonWrapper(
-            loggedin: LocalMessageHandler(onDone: '/home'),
+            loggedin: FutureBuilder(
+              future: (() {
+                String uid;
+                context
+                    .read<AuthenticationService>()
+                    .getCurrentUser()
+                    .then((value) => uid = value.uid);
+                DocumentReference _dcRef =
+                    config.db.collection("users").doc(uid);
+                return _dcRef.get();
+              }()),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  print(snapshot.data);
+                  return LocalMessageHandler(onDone: '/home');
+                }
+                return LoadingFlipping.circle();
+              },
+            ),
             login: LoginScreen(),
           );
         },
         '/home': (context) {
-          return WeekPlan(dateToShow: getDate(), subjects: classes);
+          return HomeScreen();
         },
         '/weekplan': (
           context,
         ) {
-          return WeekPlan(dateToShow: getDate(), subjects: classes);
+          return WeekPlan(dateToShow: getDate(), subjects: config.classes);
         },
         '/verify': (context) {
           return VerifyPage();
