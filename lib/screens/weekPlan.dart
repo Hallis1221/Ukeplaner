@@ -3,6 +3,7 @@ import 'package:ukeplaner/config/config.dart' as config;
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
 import 'package:ukeplaner/logic/dayClass.dart';
+import 'package:ukeplaner/logic/tekst.dart';
 import 'package:ukeplaner/screens/home.dart';
 
 import 'login.dart';
@@ -16,16 +17,34 @@ class WeekPlan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<DayClass> daySubjects = [];
+    List<RoughDayClass> daySubjects = [];
+    List<DayClass> daySubjectsFormatted = [];
     for (ClassModel klasse in subjects) {
       for (ClassTime tid in klasse.times) {
         if ((config.currentWeek == "a" && tid.aWeeks) ||
             (config.currentWeek == "b" && tid.bWeeks)) {
           if (tid.dayIndex == dateToShow.day) {
-            print("ready");
+            daySubjects.add(new RoughDayClass(
+              className: klasse.className,
+              startTime: tid.startTime,
+              endTime: tid.endTime,
+              rom: klasse.rom,
+            ));
           }
         }
       }
+    }
+    daySubjects
+        .sort((classA, classB) => classA.startTime.compareTo(classB.startTime));
+    for (RoughDayClass klasse in daySubjects) {
+      daySubjectsFormatted.add(
+        new DayClass(
+          className: klasse.className,
+          rom: klasse.rom,
+          startTime: convertDoubleToTime(klasse.startTime),
+          endTime: convertDoubleToTime(klasse.endTime),
+        ),
+      );
     }
     return Scaffold(
       appBar: PreferredSize(
@@ -47,10 +66,15 @@ class WeekPlan extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 20.0),
                     child: ListView(
                         scrollDirection: Axis.vertical,
-                        children: daySubjects.map((DayClass klasse) {
-                          return TimeCard(
-                            klasseNavn: klasse.className,
-                            rom: klasse.rom,
+                        children: daySubjectsFormatted.map((DayClass klasse) {
+                          return Padding(
+                            padding: const EdgeInsets.all(25 / 2),
+                            child: TimeCard(
+                              klasseNavn: klasse.className,
+                              rom: klasse.rom,
+                              startTid: klasse.startTime,
+                              sluttTid: klasse.endTime,
+                            ),
                           );
                         }).toList()),
                   ),
