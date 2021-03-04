@@ -49,10 +49,11 @@ class WeekPlan extends StatelessWidget {
     }
     for (DayClass klasse in daySubjectsFormatted) {
       daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
-          className: klasse.className,
-          rom: klasse.rom,
-          startTime: klasse.startTime,
-          endTime: klasse.endTime));
+        className: klasse.className,
+        rom: klasse.rom,
+        startTime: klasse.startTime,
+        endTime: klasse.endTime,
+      ));
     }
     return Scaffold(
       appBar: PreferredSize(
