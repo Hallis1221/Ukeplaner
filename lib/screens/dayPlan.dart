@@ -24,13 +24,16 @@ class DayPlan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: makeCompleteDayClass(context),
+      future: makeCompleteDayClass(context,
+          subjects: subjects, dateToShow: dateToShow),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return ErrorPage();
         }
         if (snapshot.connectionState == ConnectionState.done) {
-          List<DayClass> daySubjectsFormatted = snapshot.data;
+          List<CompleteDayClass> daySubjectsFormatted = snapshot.data;
+          List brukteFarger = [];
+
           return Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(120.0),
@@ -51,8 +54,8 @@ class DayPlan extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 20.0),
                           child: ListView(
                               scrollDirection: Axis.vertical,
-                              children:
-                                  daySubjectsFormatted.map((DayClass klasse) {
+                              children: daySubjectsFormatted
+                                  .map((CompleteDayClass klasse) {
                                 return Padding(
                                   padding: const EdgeInsets.all(25 / 2),
                                   child: TimeCard(
@@ -60,11 +63,16 @@ class DayPlan extends StatelessWidget {
                                     rom: klasse.rom,
                                     startTid: klasse.startTime,
                                     sluttTid: klasse.endTime,
+                                    message: klasse.message,
                                     color: (() {
                                       Random rnd = new Random();
                                       int min = 0,
                                           max = config.cardColors.length;
                                       int r = min + rnd.nextInt(max - min);
+                                      while (brukteFarger.contains(r)) {
+                                        r = min + rnd.nextInt(max - min);
+                                      }
+                                      brukteFarger.add(r);
                                       return config.cardColors[r];
                                     }()),
                                   ),
@@ -85,61 +93,75 @@ class DayPlan extends StatelessWidget {
       },
     );
   }
+}
 
-  Future<List<DayClass>> makeCompleteDayClass(BuildContext context) async {
-    List<RoughDayClass> daySubjects = [];
-    List<DayClass> daySubjectsFormatted = [];
-    List<CompleteDayClass> daySubjectsWithMessagesAndHomework = [];
-    for (ClassModel klasse in subjects) {
-      for (ClassTime tid in klasse.times) {
-        if ((config.currentWeek == "a" && tid.aWeeks) ||
-            (config.currentWeek == "b" && tid.bWeeks)) {
-          if (tid.dayIndex == dateToShow.day) {
-            daySubjects.add(new RoughDayClass(
-              className: klasse.className,
-              startTime: tid.startTime,
-              endTime: tid.endTime,
-              rom: klasse.rom,
-              classFirestoreID: klasse.classFirestoreID,
-            ));
-          }
+Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
+    {@required subjects, @required dateToShow}) async {
+  List<RoughDayClass> daySubjects = [];
+  List<DayClass> daySubjectsFormatted = [];
+  List<CompleteDayClass> daySubjectsWithMessagesAndHomework = [];
+
+  for (ClassModel klasse in subjects) {
+    for (ClassTime tid in klasse.times) {
+      if ((config.currentWeek == "a" && tid.aWeeks) ||
+          (config.currentWeek == "b" && tid.bWeeks)) {
+        if (tid.dayIndex == dateToShow.day) {
+          daySubjects.add(new RoughDayClass(
+            className: klasse.className,
+            startTime: tid.startTime,
+            endTime: tid.endTime,
+            rom: klasse.rom,
+            classFirestoreID: klasse.classFirestoreID,
+          ));
+        } else {
+          // TODO remove
+
         }
       }
     }
-    daySubjects
-        .sort((classA, classB) => classA.startTime.compareTo(classB.startTime));
-    for (RoughDayClass klasse in daySubjects) {
-      daySubjectsFormatted.add(
-        new DayClass(
-          className: klasse.className,
-          rom: klasse.rom,
-          startTime: convertDoubleToTime(klasse.startTime),
-          endTime: convertDoubleToTime(klasse.endTime),
-          classFirestoreID: klasse.classFirestoreID,
-        ),
-      );
-    }
-    for (DayClass klasse in daySubjectsFormatted) {
-      DocumentReference documentReference =
-          config.db.collection("classes").doc(klasse.classFirestoreID);
-      String uid;
-      await context.read<AuthenticationService>().getCurrentUser().then(
-            (value) => uid = (value.uid),
-          );
-      print(uid);
+  }
+  daySubjects
+      .sort((classA, classB) => classA.startTime.compareTo(classB.startTime));
+  for (RoughDayClass klasse in daySubjects) {
+    daySubjectsFormatted.add(
+      new DayClass(
+        className: klasse.className,
+        rom: klasse.rom,
+        startTime: convertDoubleToTime(klasse.startTime),
+        endTime: convertDoubleToTime(klasse.endTime),
+        classFirestoreID: klasse.classFirestoreID,
+      ),
+    );
+  }
+  for (DayClass klasse in daySubjectsFormatted) {
+    DocumentReference documentReference =
+        config.db.collection("classes").doc(klasse.classFirestoreID);
+    String uid;
+    await context.read<AuthenticationService>().getCurrentUser().then(
+          (value) => uid = (value.uid),
+        );
+    print(uid);
 
-      print(documentReference.get());
+    print(documentReference.get());
 
-      daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
+    daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
         className: klasse.className,
         rom: klasse.rom,
         startTime: klasse.startTime,
         endTime: klasse.endTime,
-      ));
-    }
-
-    return daySubjectsFormatted;
+        // TODO change
+        message: "Dette er en beskjed som kan være lagt ut av læreren."));
   }
+  if (daySubjectsWithMessagesAndHomework.length == 0) {
+    daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
+        className: "Fri! ",
+        startTime: "Hele ",
+        endTime: "Dagen",
+        homework: [],
+        message: "Det er ingen timer satt opp i dag!",
+        rom: "Verden!"));
+  }
+  return daySubjectsWithMessagesAndHomework;
 }
 
 class TimeCard extends StatelessWidget {
@@ -229,7 +251,8 @@ class TimeCard extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
-            Center(
+            Padding(
+              padding: EdgeInsets.all(15),
               child: Text(
                 message,
                 style: TextStyle(
