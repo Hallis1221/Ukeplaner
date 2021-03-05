@@ -12,8 +12,8 @@ import 'package:provider/provider.dart';
 
 import 'login.dart';
 
-class WeekPlan extends StatelessWidget {
-  const WeekPlan({Key key, @required this.dateToShow, @required this.subjects})
+class DayPlan extends StatelessWidget {
+  const DayPlan({Key key, @required this.dateToShow, @required this.subjects})
       : super(key: key);
 
   final DateTime dateToShow;
