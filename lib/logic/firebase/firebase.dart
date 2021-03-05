@@ -12,6 +12,7 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:ukeplaner/screens/dayPlan.dart';
 import 'auth_services.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
 import '../../config/config.dart';
@@ -24,11 +25,15 @@ class LocalFirebaseApp extends StatelessWidget {
     @required this.theme,
     Key key,
     this.initialRoute = "/",
+    @required this.subjects,
+    @required this.dateToShow,
   }) : super(key: key);
 
   final Map<String, Widget Function(BuildContext)> routes;
   final String initialRoute;
   final ThemeData theme;
+  final List subjects;
+  final DateTime dateToShow;
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +86,28 @@ class LocalFirebaseApp extends StatelessWidget {
               title: 'Ukeplaner app',
               theme: theme,
               debugShowCheckedModeBanner: false,
+              onGenerateRoute: (settings) {
+                if (settings.name == "/dayplan") {
+                  return PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        DayPlan(dateToShow: dateToShow, subjects: subjects),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      var begin = Offset(1.0, 0.0);
+                      var end = Offset.zero;
+                      var curve = Curves.ease;
+
+                      var tween = Tween(begin: begin, end: end)
+                          .chain(CurveTween(curve: curve));
+                      return SlideTransition(
+                        position: animation.drive(tween),
+                        child: child,
+                      );
+                    },
+                  );
+                }
+                return MaterialPageRoute(builder: (_) => ErrorPage());
+              },
               navigatorObservers: [
                 FirebaseAnalyticsObserver(
                   analytics: analytics,
