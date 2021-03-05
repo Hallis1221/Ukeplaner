@@ -40,6 +40,15 @@ List<Map<String, DateTime>> ferier = [];
 // !! DESIGN
 // ?? https://material.io/design/color
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
+
+List<Color> cardColors = [
+  Color.fromARGB(255, 254, 216, 176),
+  Color.fromARGB(255, 112, 217, 82),
+  Color.fromARGB(255, 255, 135, 147),
+  Color.fromARGB(255, 255, 242, 125),
+  Color.fromARGB(255, 105, 237, 243),
+  Color.fromARGB(255, 212, 228, 254),
+];
 ThemeData theme = ThemeData(
   // start color
   backgroundColor: Color.fromARGB(255, 244, 243, 249),
