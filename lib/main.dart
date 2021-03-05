@@ -54,7 +54,15 @@ class MyApp extends StatelessWidget {
           login: LoginScreen(),
         ),
         '/home': HomeScreen(),
-        '/dayplan': DayPlan(dateToShow: getDate(), subjects: config.classes),
+        '/dayplan': FutureBuilder(
+          future: getClasses(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return DayPlan(dateToShow: getDate(), subjects: snapshot.data);
+            }
+            return LoadingFlipping.circle();
+          },
+        ),
         '/verify': VerifyPage(),
         '/verify/email': VerifyEmailPage(),
         '/register': RegisterPage(),
@@ -96,14 +104,14 @@ class FutureValidateBuilder extends StatelessWidget {
             return;
           }
         });
-        print(uid);
+
         DocumentReference _dcRef = config.db.collection("users").doc(uid);
         return _dcRef.get();
       }()),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           DocumentSnapshot data = snapshot.data;
-          print(data.get("classes"));
+          config.cloudClassesCodes = data.get("classes");
 
           return LocalMessageHandler(onDone: '/home');
         }
@@ -138,4 +146,8 @@ startTime(context) async {
     return new Timer(_duration,
         () => Navigator.of(context).pushReplacementNamed('/welcome'));
   }
+}
+
+Future<List<ClassModel>> getClasses() async {
+  return config.classes;
 }
