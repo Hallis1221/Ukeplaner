@@ -159,7 +159,7 @@ Map<String, dynamic> fcmDefaults = <String, dynamic>{
   "semester_to_slutt_maaned": 6,
   "semester_to_slutt_dag": 18,
 };
-List<ClassModel> cloudClasses = [];
+List<dynamic> cloudClassesCodes = [];
 List<ClassModel> classes = [
   new ClassModel(
     classFirestoreID: "XhL71xpigGpmHXfdUBvX",
@@ -174,6 +174,13 @@ List<ClassModel> classes = [
         aWeeks: true,
         bWeeks: true,
       ),
+      ClassTime(
+        dayIndex: 1,
+        startTime: 10.00,
+        endTime: 11.50,
+        aWeeks: true,
+        bWeeks: true,
+      ),
     ],
   ),
   new ClassModel(
@@ -185,6 +192,34 @@ List<ClassModel> classes = [
         dayIndex: 5,
         startTime: 10.20,
         endTime: 11.55,
+        aWeeks: true,
+        bWeeks: true,
+      ),
+      ClassTime(
+        dayIndex: 1,
+        startTime: 08.30,
+        endTime: 10.00,
+        aWeeks: true,
+        bWeeks: true,
+      ),
+    ],
+  ),
+  new ClassModel(
+    className: "Matte",
+    rom: "U21",
+    teacher: "emmved",
+    times: [
+      ClassTime(
+        dayIndex: 4,
+        startTime: 10.20,
+        endTime: 11.55,
+        aWeeks: true,
+        bWeeks: true,
+      ),
+      ClassTime(
+        dayIndex: 1,
+        startTime: 12.30,
+        endTime: 14.00,
         aWeeks: true,
         bWeeks: true,
       ),
