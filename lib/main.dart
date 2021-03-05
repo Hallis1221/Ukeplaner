@@ -19,7 +19,7 @@ import 'package:ukeplaner/screens/login.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/screens/verifyEmail.dart';
-import 'package:ukeplaner/screens/weekPlan.dart';
+import 'package:ukeplaner/screens/dayPlan.dart';
 import 'logic/firebase/authGuider.dart';
 import 'logic/firebase/firebase.dart';
 import 'logic/firebase/fcm.dart';
@@ -58,11 +58,18 @@ class MyApp extends StatelessWidget {
           return AuthenticatonWrapper(
             loggedin: FutureBuilder(
               future: (() async {
-                String uid;
+                String uid = "";
+
                 await context
                     .read<AuthenticationService>()
                     .getCurrentUser()
-                    .then((value) => uid = value.uid);
+                    .then((value) {
+                  try {
+                    uid = value.uid;
+                  } catch (e) {
+                    return;
+                  }
+                });
                 print(uid);
                 DocumentReference _dcRef =
                     config.db.collection("users").doc(uid);
@@ -87,7 +94,7 @@ class MyApp extends StatelessWidget {
         '/weekplan': (
           context,
         ) {
-          return WeekPlan(dateToShow: getDate(), subjects: config.classes);
+          return DayPlan(dateToShow: getDate(), subjects: config.classes);
         },
         '/verify': (context) {
           return VerifyPage();
