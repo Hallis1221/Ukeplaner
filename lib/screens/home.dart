@@ -58,7 +58,6 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   MenuButton(
                     onPressed: () {
-                      print(semesterFormatted(currentSemester));
                       Navigator.of(context).pushNamed("/dayplan");
                     },
                     color: Color.fromARGB(255, 238, 107, 120),
@@ -185,6 +184,7 @@ class _MenuButtonState extends State<MenuButton> {
 
 DateTime getDate() {
   // TODO skip holidays
+
   DateTime currentDateSchool = DateTime(
     now.year,
     now.month,
@@ -195,6 +195,7 @@ DateTime getDate() {
     now.millisecond,
     now.microsecond,
   );
+
   if (currentDateSchool.hour >= 17) {
     // første parantes setter klokka til 00 neste dag.
     int timeToShift = (24 - currentDateSchool.hour);
@@ -211,16 +212,20 @@ DateTime getDate() {
       0,
     );
   }
-  switch (currentDateSchool.weekday) {
-    case 6:
-      currentDateSchool = currentDateSchool.add(Duration(days: 2));
-      break;
-    case 7:
-      currentDateSchool = currentDateSchool.add(Duration(days: 1));
-      break;
-    default:
-      currentDateSchool = currentDateSchool;
+
+  if (currentDateSchool.day >= 6) {
+    // sett dagen til mandag
+    currentDateSchool = DateTime(
+      currentDateSchool.year,
+      currentDateSchool.month,
+      1,
+      currentDateSchool.hour,
+      0,
+      0,
+      0,
+      0,
+    );
   }
-  print(semesterFormatted(currentSemester));
+
   return currentDateSchool;
 }
