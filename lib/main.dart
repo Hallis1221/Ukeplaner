@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) {
           return HomeScreen();
         },
-        '/weekplan': (
+        '/dayplan': (
           context,
         ) {
           return DayPlan(dateToShow: getDate(), subjects: config.classes);
