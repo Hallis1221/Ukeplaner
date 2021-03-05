@@ -69,10 +69,14 @@ class DayPlan extends StatelessWidget {
                                       int min = 0,
                                           max = config.cardColors.length;
                                       int r = min + rnd.nextInt(max - min);
-                                      while (brukteFarger.contains(r)) {
-                                        r = min + rnd.nextInt(max - min);
+                                      int maxColorsLen = brukteFarger.length;
+                                      if (maxColorsLen >= max) {
+                                        while (brukteFarger.contains(r)) {
+                                          r = min + rnd.nextInt(max - min);
+                                        }
+                                        brukteFarger.add(r);
                                       }
-                                      brukteFarger.add(r);
+
                                       return config.cardColors[r];
                                     }()),
                                   ),
