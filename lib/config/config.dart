@@ -4,6 +4,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
@@ -13,6 +14,7 @@ import 'package:ukeplaner/logic/firebase/firebase.dart';
 FirebaseAnalytics analytics;
 bool localDevMode = false;
 String currentWeek = "a";
+var remoteConfig;
 
 // !! ADMIN
 String website = remoteConfig.getString('skole_nettside');
@@ -20,6 +22,7 @@ String schoolName = remoteConfig.getString('skole_navn');
 // semester en
 String semesterEnStartMaaned =
     remoteConfig.getString("semester_en_slutt_maaned");
+
 String semesterEnStartDag = remoteConfig.getString("semester_en_start_dag");
 String semesterEnSluttMaaned =
     remoteConfig.getString("semester_en_slutt_maaned");
