@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:ukeplaner/config/config.dart' as config;
@@ -42,7 +44,7 @@ class DayPlan extends StatelessWidget {
                     children: [
                       Container(
                         width: 25,
-                        color: Colors.red,
+                        color: Colors.transparent,
                       ),
                       Expanded(
                         child: Padding(
@@ -58,6 +60,13 @@ class DayPlan extends StatelessWidget {
                                     rom: klasse.rom,
                                     startTid: klasse.startTime,
                                     sluttTid: klasse.endTime,
+                                    color: (() {
+                                      Random rnd = new Random();
+                                      int min = 0,
+                                          max = config.cardColors.length;
+                                      int r = min + rnd.nextInt(max - min);
+                                      return config.cardColors[r];
+                                    }()),
                                   ),
                                 );
                               }).toList()),
