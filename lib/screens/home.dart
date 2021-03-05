@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                   MenuButton(
                     onPressed: () {
                       print(semesterFormatted(currentSemester));
-                      Navigator.of(context).pushNamed("/weekplan");
+                      Navigator.of(context).pushNamed("/dayplan");
                     },
                     color: Color.fromARGB(255, 238, 107, 120),
                     icon: CustomIcons.calendar_check,
