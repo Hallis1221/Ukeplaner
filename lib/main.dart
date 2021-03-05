@@ -20,6 +20,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/screens/verifyEmail.dart';
 import 'package:ukeplaner/screens/dayPlan.dart';
+import 'config/config.dart';
 import 'logic/firebase/authGuider.dart';
 import 'logic/firebase/firebase.dart';
 import 'logic/firebase/fcm.dart';
@@ -28,10 +29,14 @@ import 'config/config.dart' as config;
 import 'screens/verify.dart';
 import 'screens/welcome_screen.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting("nb_NO");
-  runApp(MyApp());
+
+  await remote(remoteConfig).then((value) {
+    config.remoteConfig = value;
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -42,69 +47,67 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       theme: config.theme,
       routes: {
-        '/': (context) {
-          return VerifyApp(
-            route: '/findpage',
-          );
-        },
-        '/findpage': (context) {
-          startTime(context);
-          return Loading();
-        },
-        '/welcome': (context) {
-          return OnBoardingPage();
-        },
-        '/validate': (context) {
-          return AuthenticatonWrapper(
-            loggedin: FutureBuilder(
-              future: (() async {
-                String uid = "";
+        '/findpage': FindPage(),
+        '/welcome': OnBoardingPage(),
+        '/validate': AuthenticatonWrapper(
+          loggedin: FutureValidateBuilder(),
+          login: LoginScreen(),
+        ),
+        '/home': HomeScreen(),
+        '/dayplan': DayPlan(dateToShow: getDate(), subjects: config.classes),
+        '/verify': VerifyPage(),
+        '/verify/email': VerifyEmailPage(),
+        '/register': RegisterPage(),
+      },
+    );
+  }
+}
 
-                await context
-                    .read<AuthenticationService>()
-                    .getCurrentUser()
-                    .then((value) {
-                  try {
-                    uid = value.uid;
-                  } catch (e) {
-                    return;
-                  }
-                });
-                print(uid);
-                DocumentReference _dcRef =
-                    config.db.collection("users").doc(uid);
-                return _dcRef.get();
-              }()),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  DocumentSnapshot data = snapshot.data;
-                  print(data.get("classes"));
+class FindPage extends StatelessWidget {
+  const FindPage({
+    Key key,
+  }) : super(key: key);
 
-                  return LocalMessageHandler(onDone: '/home');
-                }
-                return LoadingFlipping.circle();
-              },
-            ),
-            login: LoginScreen(),
-          );
-        },
-        '/home': (context) {
-          return HomeScreen();
-        },
-        '/dayplan': (
-          context,
-        ) {
-          return DayPlan(dateToShow: getDate(), subjects: config.classes);
-        },
-        '/verify': (context) {
-          return VerifyPage();
-        },
-        '/verify/email': (context) {
-          return VerifyEmailPage();
-        },
-        '/register': (context) {
-          return RegisterPage();
+  @override
+  Widget build(BuildContext context) {
+    startTime(context);
+    return Loading();
+  }
+}
+
+class FutureValidateBuilder extends StatelessWidget {
+  const FutureValidateBuilder({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: (() async {
+        String uid = "";
+
+        await context
+            .read<AuthenticationService>()
+            .getCurrentUser()
+            .then((value) {
+          try {
+            uid = value.uid;
+          } catch (e) {
+            return;
+          }
+        });
+        print(uid);
+        DocumentReference _dcRef = config.db.collection("users").doc(uid);
+        return _dcRef.get();
+      }()),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          DocumentSnapshot data = snapshot.data;
+          print(data.get("classes"));
+
+          return LocalMessageHandler(onDone: '/home');
         }
+        return LoadingFlipping.circle();
       },
     );
   }
