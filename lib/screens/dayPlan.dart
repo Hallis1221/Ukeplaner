@@ -8,6 +8,7 @@ import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
 import 'package:ukeplaner/logic/dayClass.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
+import 'package:ukeplaner/logic/leske.dart';
 import 'package:ukeplaner/logic/tekst.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ukeplaner/screens/home.dart';
@@ -82,7 +83,13 @@ class _DayPlanState extends State<DayPlan> {
                                     startTid: klasse.startTime,
                                     sluttTid: klasse.endTime,
                                     message: klasse.message,
-                                    lekser: [1],
+                                    lekser: [
+                                      // TODO make come from the class
+                                      new Lekse(
+                                          tittel: "Campus oppgaver",
+                                          beskrivelse:
+                                              "Gjør oppgaver på campus inkrement")
+                                    ],
                                     color: (() {
                                       Random rnd = new Random();
                                       int min = 0,
@@ -214,24 +221,39 @@ class TimeCard extends StatelessWidget {
   final String sluttTid;
   final String message;
   final Color color;
-  final List lekser;
+  final List<Lekse> lekser;
 
   @override
   Widget build(BuildContext context) {
-    Widget lekseTekst =
-        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-      ListTile(
-        title: Text("lekse en"),
-        subtitle: Text("beskrivelse"),
-      ),
-    ]);
+    Widget lekseTekst = Container(
+        color: Colors.transparent,
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: lekser
+                .map(
+                  (e) => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Center(
+                        child: ListTile(
+                          title: Text(e.tittel),
+                          subtitle: Text(e.beskrivelse),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+                .toList()));
     return GestureDetector(
       onTap: () {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
             content: Container(
-              height: 250,
               child: ListTile(
                 title: Text("Lekser"),
                 subtitle: lekseTekst,
