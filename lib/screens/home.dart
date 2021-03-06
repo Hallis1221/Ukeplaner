@@ -188,7 +188,8 @@ class _MenuButtonState extends State<MenuButton> {
   }
 }
 
-Map<String, dynamic> getDate() {
+Map<String, dynamic> getDate({int addDays = 0}) {
+  int skipDays = addDays;
   // TODO skip holidays
 
   DateTime currentDateSchool = DateTime(
@@ -219,31 +220,17 @@ Map<String, dynamic> getDate() {
     );
   }
 
-  currentDateSchool = DateTime(
-    currentDateSchool.year,
-    currentDateSchool.month,
-    currentDateSchool.day,
-    currentDateSchool.hour,
-    0,
-    0,
-    0,
-    0,
-  );
   currentDateSchool = skipWeekend(currentDateSchool)["dateTime"];
-  currentDateSchool = DateTime(
-    currentDateSchool.year,
-    currentDateSchool.month,
-    currentDateSchool.day,
-    currentDateSchool.hour,
-    0,
-    0,
-    0,
-    0,
-  );
 
   int weekIndex =
       (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
           1;
+
+  for (var i = 0; i < skipDays; i++) {
+    currentDateSchool = currentDateSchool.add(Duration(days: 1));
+    currentDateSchool = skipWeekend(currentDateSchool)["dateTime"];
+  }
+
 // TODO add the ability to add days
   return {'weekIndex': weekIndex, 'dateTime': currentDateSchool};
 }
