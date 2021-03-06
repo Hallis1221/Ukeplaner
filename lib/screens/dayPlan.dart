@@ -10,12 +10,13 @@ import 'package:ukeplaner/logic/dayClass.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/logic/tekst.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ukeplaner/screens/home.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
 import 'package:provider/provider.dart';
 
 import 'login.dart';
 
-class DayPlan extends StatelessWidget {
+class DayPlan extends StatefulWidget {
   const DayPlan({Key key, @required this.dateToShow, @required this.subjects})
       : super(key: key);
 
@@ -23,10 +24,24 @@ class DayPlan extends StatelessWidget {
   final List<ClassModel> subjects;
 
   @override
+  _DayPlanState createState() => _DayPlanState();
+}
+
+Map<String, dynamic> dateToShow;
+
+class _DayPlanState extends State<DayPlan> {
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: makeCompleteDayClass(context,
-          subjects: subjects, dateToShow: dateToShow),
+          subjects: widget.subjects,
+          dateToShow: (() {
+            if (dateToShow != null) {
+              return dateToShow;
+            } else {
+              return widget.dateToShow;
+            }
+          }())),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return ErrorPage();
@@ -38,7 +53,9 @@ class DayPlan extends StatelessWidget {
           return Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(120.0),
-              child: _AppBar(),
+              child: _AppBar(onTap: () {
+                setState(() {});
+              }),
             ),
             body: Column(
               children: [
@@ -306,8 +323,10 @@ class TimeCard extends StatelessWidget {
 class _AppBar extends StatelessWidget {
   const _AppBar({
     Key key,
+    this.onTap,
   }) : super(key: key);
 
+  final Function onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -317,6 +336,9 @@ class _AppBar extends StatelessWidget {
         print(
           " // TODO animation ",
         );
+        if (onTap != null) {
+          onTap();
+        }
       },
       child: Stack(
         alignment: Alignment.topLeft,
