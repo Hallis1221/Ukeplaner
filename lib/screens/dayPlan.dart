@@ -218,103 +218,133 @@ class TimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(
-          35,
-        ),
+    Widget lekseTekst =
+        Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      ListTile(
+        title: Text("lekse en"),
+        subtitle: Text("beskrivelse"),
       ),
-      width: MediaQuery.of(context).size.width / 1.5,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 5, right: 10, left: 10, bottom: 15),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                child: Row(
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: Text(
-                          klasseNavn,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+    ]);
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: Container(
+              height: 250,
+              child: ListTile(
+                title: Text("Lekser"),
+                subtitle: lekseTekst,
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text("ok"),
+                onPressed: () => Navigator.of(context).pop(),
+              )
+            ],
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(
+            35,
+          ),
+        ),
+        width: MediaQuery.of(context).size.width / 1.5,
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 5, right: 10, left: 10, bottom: 15),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  child: Row(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            klasseNavn,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Column(
-                          children: [
-                            Text(
-                              rom,
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Column(
+                            children: [
+                              Text(
+                                rom,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "$startTid - $sluttTid",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey,
+                              Text(
+                                "$startTid - $sluttTid",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: EdgeInsets.all(15),
-              child: Text(
-                message,
-                style: TextStyle(
-                  color: Colors.grey,
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: EdgeInsets.all(15),
+                child: Text(
+                  message,
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
                 ),
               ),
-            ),
-            (() {
-              if (lekser != null) {
-                return Column(
-                  children: [
-                    SizedBox(
-                      height: 15,
-                    ),
-                    (() {
-                      if (lekser.length <= 1) {
-                        return Text(
-                            "Du har ${lekser.length} lekse. Trykk for å se den");
-                      } else {
-                        return Text(
-                            "Du har ${lekser.length} lekser. Trykk for å se de");
-                      }
-                    }())
-                  ],
-                );
-              } else {
-                return SizedBox();
-              }
-            }()),
-          ],
+              (() {
+                if (lekser != null) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 15,
+                      ),
+                      (() {
+                        if (lekser.length <= 1) {
+                          return Text(
+                              "Du har ${lekser.length} lekse. Trykk for å se den");
+                        } else {
+                          return Text(
+                              "Du har ${lekser.length} lekser. Trykk for å se de");
+                        }
+                      }())
+                    ],
+                  );
+                } else {
+                  return SizedBox();
+                }
+              }()),
+            ],
+          ),
         ),
       ),
     );
