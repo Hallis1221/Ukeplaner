@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:ukeplaner/config/config.dart' as config;
 import 'package:ukeplaner/logic/class.dart';
@@ -100,7 +101,7 @@ class DayPlan extends StatelessWidget {
 }
 
 Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
-    {@required subjects, @required dateToShow}) async {
+    {@required subjects, @required DateTime dateToShow}) async {
   List<RoughDayClass> daySubjects = [];
   List<DayClass> daySubjectsFormatted = [];
   List<CompleteDayClass> daySubjectsWithMessagesAndHomework = [];
@@ -124,6 +125,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
       }
     }
   }
+  print(dateToShow.day);
   daySubjects
       .sort((classA, classB) => classA.startTime.compareTo(classB.startTime));
   for (RoughDayClass klasse in daySubjects) {
@@ -138,16 +140,23 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
     );
   }
   for (DayClass klasse in daySubjectsFormatted) {
-    DocumentReference documentReference =
-        config.db.collection("classes").doc(klasse.classFirestoreID);
     String uid;
+    DocumentSnapshot drData;
     await context.read<AuthenticationService>().getCurrentUser().then(
           (value) => uid = (value.uid),
         );
-    print(uid);
-
-    print(documentReference.get());
-
+    var dateId = "${dateToShow.year}.${dateToShow.month}.${dateToShow.day}";
+    print(dateId);
+    if (klasse.classFirestoreID != null) {
+      DocumentReference documentReference =
+          config.db.collection("classes").doc(klasse.classFirestoreID);
+      documentReference.get().then((value) {
+        drData = value;
+        print(drData.data());
+      });
+    } else if (klasse.classFirestoreID == null) {
+      continue;
+    }
     daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
         className: klasse.className,
         rom: klasse.rom,
