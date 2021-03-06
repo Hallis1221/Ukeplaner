@@ -44,7 +44,7 @@ exports.checkcode = functions.https.onCall((argumentData: any,
                    
                    var codesList: any = {};
                  
-                   var list: any = {"used": instance["used"]+1, "maxUses": 3, "valid": true};
+                   var list: any = {"used": instance["used"]+1, "maxUses": instance["maxUses"], "valid": instance["valid"]};
                   
                    if (type == "student"){
                    
