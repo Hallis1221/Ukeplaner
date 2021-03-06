@@ -144,35 +144,36 @@ class _MenuButtonState extends State<MenuButton> {
               fillColor: widget.color,
               elevation: 0,
             ),
-            Container(
-              color: Colors.transparent,
-              width: 200,
-              height: 55,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      widget.title,
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 38, 58, 80),
+            Expanded(
+              child: Container(
+                color: Colors.transparent,
+                height: 55,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        widget.title,
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 38, 58, 80),
+                        ),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Text(
-                      subTitle,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text(
+                        subTitle,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
           ],
@@ -213,12 +214,25 @@ DateTime getDate() {
     );
   }
 
-  if (currentDateSchool.day >= 6) {
+  if (currentDateSchool.day == 6) {
     // sett dagen til mandag
     currentDateSchool = DateTime(
       currentDateSchool.year,
       currentDateSchool.month,
-      1,
+      currentDateSchool.day + 2,
+      currentDateSchool.hour,
+      0,
+      0,
+      0,
+      0,
+    );
+  }
+  if (currentDateSchool.day == 7) {
+    // sett dagen til mandag
+    currentDateSchool = DateTime(
+      currentDateSchool.year,
+      currentDateSchool.month,
+      currentDateSchool.day + 1,
       currentDateSchool.hour,
       0,
       0,
