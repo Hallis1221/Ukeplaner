@@ -2,6 +2,7 @@
  You may not use, distribute and modify this code unless a license is granted. 
  If so use, distribution and modification can be done under the terms of the license.*/
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +13,8 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:ukeplaner/logic/class.dart';
+import 'package:ukeplaner/logic/classTimes.dart';
 import 'package:ukeplaner/screens/dayPlan.dart';
 import '../network.dart';
 import 'auth_services.dart';
@@ -108,6 +111,7 @@ class LocalFirebaseApp extends StatelessWidget {
                       ],
                       routes: {
                         '/': (context) {
+                          getClassesFromFirebase(context);
                           return VerifyApp(
                             route: '/findpage',
                           );
@@ -123,7 +127,7 @@ class LocalFirebaseApp extends StatelessWidget {
               });
         }
         return LoadingFlipping.circle(
-          duration: Duration(milliseconds: 750),
+          duration: Duration(milliseconds: 10000),
         );
       },
     );
@@ -138,4 +142,44 @@ Future<RemoteConfig> remote(RemoteConfig remoteConfig) async {
   await remoteConfigInstance.fetch(expiration: const Duration(microseconds: 1));
   await remoteConfigInstance.activateFetched();
   return remoteConfigInstance;
+}
+
+Future<void> getClassesFromFirebase(BuildContext context) async {
+  for (String classId in cloudClassesCodes) {
+    if (fetchedClasses) {
+      return;
+    }
+
+    DocumentReference documentReference = db.collection("classes").doc(classId);
+
+    await documentReference.get().then((value) async {
+      Map<String, dynamic> data = value.data();
+
+      List<ClassTime> times = [];
+      for (var time in data["tider"]) {
+        times.add(
+          new ClassTime(
+            aWeeks: time["aWeeks"],
+            bWeeks: time["bWeeks"],
+            dayIndex: time["dayIndex"],
+            startTime: double.parse(time["startTime"].toString()),
+            endTime: double.parse(time["endTime"].toString()),
+          ),
+        );
+      }
+      ClassModel newClass = new ClassModel(
+          classFirestoreID: classId,
+          className: data["name"],
+          rom: data["rom"],
+          teacher: data["teacher"],
+          times: times);
+      if (classes.contains(newClass) == false) {
+        print(1);
+        classes.add(newClass);
+      }
+    });
+    fetchedClasses = true;
+  }
+
+  return;
 }
