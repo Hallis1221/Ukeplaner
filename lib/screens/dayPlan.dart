@@ -82,6 +82,7 @@ class _DayPlanState extends State<DayPlan> {
                                     startTid: klasse.startTime,
                                     sluttTid: klasse.endTime,
                                     message: klasse.message,
+                                    lekser: [1],
                                     color: (() {
                                       Random rnd = new Random();
                                       int min = 0,
