@@ -144,9 +144,22 @@ Future<RemoteConfig> remote(RemoteConfig remoteConfig) async {
   return remoteConfigInstance;
 }
 
+List<String> doneIds = [];
 Future<void> getClassesFromFirebase(BuildContext context) async {
+  //TODO
+  /*User user;
+  await context.read<AuthenticationService>().getCurrentUser().then((value) {
+    user = value;
+    DocumentReference documentReference = db.collection("users").doc(user.uid);
+    documentReference.get().then((value) {
+      print(1);
+      cloudClassesCodes = value.data()["classes"];
+    });
+  });*/
+
   for (String classId in cloudClassesCodes) {
-    if (fetchedClasses) {
+    print("doneId: $classId");
+    if (fetchedClasses || doneIds.contains(classId)) {
       return;
     }
 
@@ -178,8 +191,9 @@ Future<void> getClassesFromFirebase(BuildContext context) async {
         classes.add(newClass);
       }
     });
-    fetchedClasses = true;
-  }
 
+    doneIds.add(classId);
+  }
+  fetchedClasses = true;
   return;
 }
