@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/icons/custom_icons.dart';
+import 'package:ukeplaner/logic/firebase/auth_services.dart';
+import 'package:ukeplaner/logic/firebase/firebase.dart';
 import 'package:ukeplaner/screens/login.dart';
 import '../logic/tekst.dart';
+import 'package:provider/provider.dart';
 
 DateTime now = DateTime.now();
 
@@ -216,8 +219,52 @@ Map<String, dynamic> getDate() {
     );
   }
 
-  if (currentDateSchool.day == 6) {
+  currentDateSchool = DateTime(
+    currentDateSchool.year,
+    currentDateSchool.month,
+    currentDateSchool.day,
+    currentDateSchool.hour,
+    0,
+    0,
+    0,
+    0,
+  );
+  currentDateSchool = skipWeekend(currentDateSchool)["dateTime"];
+  currentDateSchool = DateTime(
+    currentDateSchool.year,
+    currentDateSchool.month,
+    currentDateSchool.day,
+    currentDateSchool.hour,
+    0,
+    0,
+    0,
+    0,
+  );
+
+  int weekIndex =
+      (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
+          1;
+// TODO add the ability to add days
+  return {'weekIndex': weekIndex, 'dateTime': currentDateSchool};
+}
+
+DateTime findFirstDateOfTheWeek(DateTime dateTime) {
+  return dateTime.subtract(Duration(days: dateTime.weekday - 1));
+}
+
+DateTime findLastDateOfTheWeek(DateTime dateTime) {
+  return dateTime.add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
+}
+
+Map<String, dynamic> skipWeekend(currentDateSchool) {
+  int daysSkiped = 0;
+  int weekIndex =
+      (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
+          1;
+  print(currentDateSchool.day);
+  if (weekIndex == 6) {
     // sett dagen til mandag
+    weekIndex = 1;
     currentDateSchool = DateTime(
       currentDateSchool.year,
       currentDateSchool.month,
@@ -228,9 +275,12 @@ Map<String, dynamic> getDate() {
       0,
       0,
     );
+    daysSkiped = 2;
   }
-  if (currentDateSchool.day == 7) {
+
+  if (weekIndex >= 7) {
     // sett dagen til mandag
+    weekIndex = 1;
     currentDateSchool = DateTime(
       currentDateSchool.year,
       currentDateSchool.month,
@@ -241,17 +291,7 @@ Map<String, dynamic> getDate() {
       0,
       0,
     );
+    daysSkiped = 1;
   }
-  int weekIndex =
-      (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
-          1;
-  return {'weekIndex': weekIndex, 'dateTime': currentDateSchool};
-}
-
-DateTime findFirstDateOfTheWeek(DateTime dateTime) {
-  return dateTime.subtract(Duration(days: dateTime.weekday - 1));
-}
-
-DateTime findLastDateOfTheWeek(DateTime dateTime) {
-  return dateTime.add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
+  return {"dateTime": currentDateSchool, "daysSkiped": daysSkiped};
 }
