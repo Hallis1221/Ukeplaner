@@ -159,8 +159,9 @@ Map<String, dynamic> fcmDefaults = <String, dynamic>{
   "semester_to_slutt_maaned": 6,
   "semester_to_slutt_dag": 18,
 };
-List<dynamic> cloudClassesCodes = [];
-List<ClassModel> classes = [
+List<dynamic> cloudClassesCodes = ["XhL71xpigGpmHXfdUBvX"];
+List<ClassModel> classes = [];
+/*[
   new ClassModel(
     classFirestoreID: "XhL71xpigGpmHXfdUBvX",
     className: "UTV",
@@ -184,6 +185,7 @@ List<ClassModel> classes = [
     ],
   ),
   new ClassModel(
+    classFirestoreID: "XhL71xpigGpmHXfdUBvX",
     className: "Matte",
     rom: "U21",
     teacher: "emmved",
@@ -225,5 +227,6 @@ List<ClassModel> classes = [
       ),
     ],
   )
-];
+];*/
+bool fetchedClasses = false;
 FirebaseFirestore db = FirebaseFirestore.instance;
