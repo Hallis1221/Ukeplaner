@@ -19,7 +19,7 @@ class DayPlan extends StatelessWidget {
   const DayPlan({Key key, @required this.dateToShow, @required this.subjects})
       : super(key: key);
 
-  final DateTime dateToShow;
+  final Map<String, dynamic> dateToShow;
   final List<ClassModel> subjects;
 
   @override
@@ -101,7 +101,7 @@ class DayPlan extends StatelessWidget {
 }
 
 Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
-    {@required subjects, @required DateTime dateToShow}) async {
+    {@required subjects, @required Map<String, dynamic> dateToShow}) async {
   List<RoughDayClass> daySubjects = [];
   List<DayClass> daySubjectsFormatted = [];
   List<CompleteDayClass> daySubjectsWithMessagesAndHomework = [];
@@ -110,7 +110,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
     for (ClassTime tid in klasse.times) {
       if ((config.currentWeek == "a" && tid.aWeeks) ||
           (config.currentWeek == "b" && tid.bWeeks)) {
-        if (tid.dayIndex == dateToShow.day) {
+        if (tid.dayIndex == dateToShow["weekIndex"]) {
           daySubjects.add(new RoughDayClass(
             className: klasse.className,
             startTime: tid.startTime,
@@ -125,7 +125,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
       }
     }
   }
-  print(dateToShow.day);
+  print(dateToShow["weekIndex"]);
   daySubjects
       .sort((classA, classB) => classA.startTime.compareTo(classB.startTime));
   for (RoughDayClass klasse in daySubjects) {
@@ -145,7 +145,8 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
     await context.read<AuthenticationService>().getCurrentUser().then(
           (value) => uid = (value.uid),
         );
-    var dateId = "${dateToShow.year}.${dateToShow.month}.${dateToShow.day}";
+    var dateId =
+        "${dateToShow["dateTime"].year}.${dateToShow["dateTime"].month}.${dateToShow["dateTime"].day}";
     print(dateId);
     if (klasse.classFirestoreID != null) {
       DocumentReference documentReference =
