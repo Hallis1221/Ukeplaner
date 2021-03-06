@@ -140,31 +140,31 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
     );
   }
   for (DayClass klasse in daySubjectsFormatted) {
-    String uid;
-    DocumentSnapshot drData;
-    await context.read<AuthenticationService>().getCurrentUser().then(
+    String dateId =
+        "${dateToShow["dateTime"].year}.${dateToShow["dateTime"].month}.${dateToShow["dateTime"].day}";
+    /* await context.read<AuthenticationService>().getCurrentUser().then(
           (value) => uid = (value.uid),
         );
-    var dateId =
-        "${dateToShow["dateTime"].year}.${dateToShow["dateTime"].month}.${dateToShow["dateTime"].day}";
+*/
     print(dateId);
     if (klasse.classFirestoreID != null) {
-      DocumentReference documentReference =
-          config.db.collection("classes").doc(klasse.classFirestoreID);
-      documentReference.get().then((value) {
-        drData = value;
-        print(drData.data());
+      DocumentReference documentReference = config.db
+          .collection("classes")
+          .doc(klasse.classFirestoreID)
+          .collection("classes")
+          .doc(dateId);
+      await documentReference.get().then((value) {
+        daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
+            className: klasse.className,
+            rom: klasse.rom,
+            startTime: klasse.startTime,
+            endTime: klasse.endTime,
+            // TODO change
+            message: value.data()["message"]));
       });
     } else if (klasse.classFirestoreID == null) {
       continue;
     }
-    daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
-        className: klasse.className,
-        rom: klasse.rom,
-        startTime: klasse.startTime,
-        endTime: klasse.endTime,
-        // TODO change
-        message: "Dette er en beskjed som kan være lagt ut av læreren."));
   }
   if (daySubjectsWithMessagesAndHomework.length == 0) {
     daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
