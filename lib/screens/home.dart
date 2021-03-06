@@ -231,7 +231,6 @@ Map<String, dynamic> getDate({int addDays = 0}) {
     currentDateSchool = skipWeekend(currentDateSchool)["dateTime"];
   }
 
-// TODO add the ability to add days
   return {'weekIndex': weekIndex, 'dateTime': currentDateSchool};
 }
 
