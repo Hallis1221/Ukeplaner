@@ -64,10 +64,12 @@ class HomeScreen extends StatelessWidget {
                     icon: CustomIcons.calendar_check,
                     size: 25,
                     title: "Dagsplan",
-                    subTitle: DateFormat("EEEE").format(getDate()).capitalize(),
+                    subTitle: DateFormat("EEEE")
+                        .format(getDate()["dateTime"])
+                        .capitalize(),
                     subTitleOnLong:
                         DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
-                            .format(getDate())
+                            .format(getDate()["dateTime"])
                             .capitalize(),
                   ),
                 ],
@@ -183,7 +185,7 @@ class _MenuButtonState extends State<MenuButton> {
   }
 }
 
-DateTime getDate() {
+Map<String, dynamic> getDate() {
   // TODO skip holidays
 
   DateTime currentDateSchool = DateTime(
@@ -240,6 +242,16 @@ DateTime getDate() {
       0,
     );
   }
+  int weekIndex =
+      (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
+          1;
+  return {'weekIndex': weekIndex, 'dateTime': currentDateSchool};
+}
 
-  return currentDateSchool;
+DateTime findFirstDateOfTheWeek(DateTime dateTime) {
+  return dateTime.subtract(Duration(days: dateTime.weekday - 1));
+}
+
+DateTime findLastDateOfTheWeek(DateTime dateTime) {
+  return dateTime.add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
 }
