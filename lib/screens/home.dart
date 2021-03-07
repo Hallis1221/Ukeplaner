@@ -90,9 +90,9 @@ class HomeScreen extends StatelessWidget {
                       Navigator.of(context).pushNamed('/testPlan');
                     },
                     size: 25,
-                    color: Colors.blue,
-                    title: 'Ukeplan',
-                    subTitle: 'Uke 8',
+                    color: Colors.yellow,
+                    title: 'Prøveplan',
+                    subTitle: 'Termin 1',
                     icon: CustomIcons.checklist,
                   ),
                   MaterialButton(
