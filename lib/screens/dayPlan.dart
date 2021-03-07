@@ -72,10 +72,19 @@ class _DayPlanState extends State<DayPlan> {
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return Text(
-                            DateFormat('EEEE')
-                                .format(getDate(addDays: index)['dateTime'])
-                                .capitalize(),
+                          return Row(
+                            children: [
+                              Text(
+                                DateFormat('EEEE')
+                                    .format(getDate(addDays: index)['dateTime'])
+                                    .capitalize()
+                                    .onlyThreeFirst(),
+                                style: TextStyle(fontSize: 24),
+                              ),
+                              SizedBox(
+                                width: 140,
+                              )
+                            ],
                           );
                         },
                       ),
