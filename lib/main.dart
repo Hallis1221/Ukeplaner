@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
           future: getClasses(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return DayPlan(dateToShow: getDate(), subjects: snapshot.data);
+              return DayPlan(subjects: snapshot.data);
             }
             return LoadingFlipping.circle();
           },
