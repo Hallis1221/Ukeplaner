@@ -75,6 +75,32 @@ class HomeScreen extends StatelessWidget {
                             .format(getDate()["dateTime"])
                             .capitalize(),
                   ),
+                  MenuButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/testPlan');
+                    },
+                    size: 25,
+                    color: Colors.blue,
+                    title: 'Ukeplan',
+                    subTitle: 'Uke 8',
+                    icon: CustomIcons.calendar_alt,
+                  ),
+                  MenuButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/testPlan');
+                    },
+                    size: 25,
+                    color: Colors.blue,
+                    title: 'Ukeplan',
+                    subTitle: 'Uke 8',
+                    icon: CustomIcons.checklist,
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      context.read<AuthenticationService>().signOut();
+                    },
+                    child: Text('logg ut'),
+                  )
                 ],
               ),
             ),
