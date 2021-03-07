@@ -60,7 +60,13 @@ class _DayPlanState extends State<DayPlan> {
             ),
             body: Column(
               children: [
-                SizedBox(height: 100),
+                Column(
+                  children: [
+                    Container(
+                      height: 100,
+                    ),
+                  ],
+                ),
                 Expanded(
                   child: Row(
                     children: [
