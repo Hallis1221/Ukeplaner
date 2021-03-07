@@ -187,7 +187,6 @@ Future<void> getClassesFromFirebase(BuildContext context) async {
           teacher: data["teacher"],
           times: times);
       if (classes.contains(newClass) == false) {
-        print(1);
         classes.add(newClass);
       }
     });
