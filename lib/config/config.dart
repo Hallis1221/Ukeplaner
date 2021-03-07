@@ -231,3 +231,4 @@ List<ClassModel> classes = [];
 bool fetchedClasses = false;
 FirebaseFirestore db = FirebaseFirestore.instance;
 int currentPageSelected = 0;
+Map<String, dynamic> classMessagesCache = {};
