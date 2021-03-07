@@ -8,12 +8,10 @@ import '../screens/home.dart';
 class DaySelector extends StatelessWidget {
   const DaySelector({
     Key key,
-    @required this.scrollController,
-    @required this.parent,
+    @required this.onTap,
   }) : super(key: key);
 
-  final ScrollController scrollController;
-  final State parent;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +28,8 @@ class DaySelector extends StatelessWidget {
         itemBuilder: (_, index) {
           return GestureDetector(
             onTap: () {
-              // ignore: invalid_use_of_protected_member
-              parent.setState(() {
-                currentPageSelected = index;
-              });
+              currentPageSelected = index;
+              onTap();
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
