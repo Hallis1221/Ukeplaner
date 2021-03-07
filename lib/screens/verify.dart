@@ -212,7 +212,7 @@ class _CodeInputterState extends State<CodeInputter>
               animationController.reverse();
             }
           });
-    print(MediaQuery.of(context).size.height);
+
     double size = MediaQuery.of(context).size.height / 100;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
