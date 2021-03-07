@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:ukeplaner/config/config.dart' as config;
+import 'package:ukeplaner/elements/daySelector.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
 import 'package:ukeplaner/logic/dayClass.dart';
@@ -33,6 +34,10 @@ Map<String, dynamic> dateToShow;
 class _DayPlanState extends State<DayPlan> {
   @override
   Widget build(BuildContext context) {
+    ScrollController scrollController = ScrollController(
+        initialScrollOffset:
+            125 * double.parse(config.currentPageSelected.toString()),
+        keepScrollOffset: true);
     return FutureBuilder(
       future: makeCompleteDayClass(context,
           subjects: widget.subjects,
@@ -65,29 +70,9 @@ class _DayPlanState extends State<DayPlan> {
                     SizedBox(
                       height: 25,
                     ),
-                    Container(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.red,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Row(
-                            children: [
-                              Text(
-                                DateFormat('EEEE')
-                                    .format(getDate(addDays: index)['dateTime'])
-                                    .capitalize()
-                                    .onlyThreeFirst(),
-                                style: TextStyle(fontSize: 24),
-                              ),
-                              SizedBox(
-                                width: 140,
-                              )
-                            ],
-                          );
-                        },
-                      ),
+                    DaySelector(
+                      scrollController: scrollController,
+                      parent: this,
                     ),
                     SizedBox(
                       height: 25,
