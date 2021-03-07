@@ -2,6 +2,22 @@ extension StringExtension on String {
   String capitalize() {
     return "${this[0].toUpperCase()}${this.substring(1)}";
   }
+
+  String onlyThreeFirst() {
+    String newString = "";
+
+    int ranTrough = 0;
+    this.runes.forEach((char) {
+      ranTrough += 1;
+      String character = new String.fromCharCode(char);
+      if (ranTrough <= 3) {
+        newString = newString + character;
+      } else {
+        return;
+      }
+    });
+    return newString;
+  }
 }
 
 String semesterFormatted(semester) {
