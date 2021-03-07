@@ -18,8 +18,10 @@ import 'package:ukeplaner/screens/home.dart';
 import 'package:ukeplaner/screens/login.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:ukeplaner/screens/testPlan.dart';
 import 'package:ukeplaner/screens/verifyEmail.dart';
 import 'package:ukeplaner/screens/dayPlan.dart';
+import 'package:ukeplaner/screens/weekPlan.dart';
 import 'config/config.dart';
 import 'logic/firebase/authGuider.dart';
 import 'logic/firebase/firebase.dart';
@@ -54,6 +56,8 @@ class MyApp extends StatelessWidget {
           login: LoginScreen(),
         ),
         '/home': HomeScreen(),
+        '/testPlan': Testplan(),
+        '/weekPlan': WeekPlan(),
         '/dayplan': FutureBuilder(
           future: getClasses(),
           builder: (context, snapshot) {
