@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:scroll_snap_list/scroll_snap_list.dart';
 import 'package:ukeplaner/config/config.dart';
 import '../logic/tekst.dart';
 import '../screens/home.dart';
@@ -20,11 +21,13 @@ class DaySelector extends StatelessWidget {
       height: 100,
       width: MediaQuery.of(context).size.width,
       color: Colors.transparent,
-      child: ListView.builder(
+      child: ScrollSnapList(
+        itemSize: ((MediaQuery.of(context).size.width / 8) * 2) + 40,
+        onItemFocus: null,
+        initialIndex: double.parse(currentPageSelected.toString()),
+        itemCount: 14,
         scrollDirection: Axis.horizontal,
-        controller: scrollController,
-        itemCount: 31,
-        itemBuilder: (context, index) {
+        itemBuilder: (_, index) {
           return GestureDetector(
             onTap: () {
               // ignore: invalid_use_of_protected_member
@@ -36,29 +39,28 @@ class DaySelector extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(
-                  width: (() {
-                    if (index == 0) {
-                      return MediaQuery.of(context).size.width / 2.5;
-                    } else {
-                      return MediaQuery.of(context).size.width / 4;
-                    }
-                  }()),
+                  width: MediaQuery.of(context).size.width / 8,
                 ),
-                Text(
-                  DateFormat('EEEE')
-                      .format(getDate(addDays: index)['dateTime'])
-                      .capitalize()
-                      .onlyThreeFirst(),
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: (() {
-                      if (currentPageSelected == index) {
-                        return Color.fromARGB(255, 113, 137, 255);
-                      } else {
-                        return Color.fromARGB(255, 126, 126, 126);
-                      }
-                    }()),
+                Container(
+                  child: Text(
+                    DateFormat('EEEE')
+                        .format(getDate(addDays: index)['dateTime'])
+                        .capitalize()
+                        .onlyThreeFirst(),
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: (() {
+                        if (currentPageSelected == index) {
+                          return Color.fromARGB(255, 113, 137, 255);
+                        } else {
+                          return Color.fromARGB(255, 126, 126, 126);
+                        }
+                      }()),
+                    ),
                   ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 8,
                 ),
               ],
             ),
