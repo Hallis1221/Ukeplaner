@@ -10,6 +10,7 @@ import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/logic/firebase/firebase.dart';
 import 'package:ukeplaner/screens/login.dart';
 import '../logic/tekst.dart';
+import 'package:week_of_year/week_of_year.dart';
 import 'package:provider/provider.dart';
 
 DateTime now = DateTime.now();
@@ -21,6 +22,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime date = getDate()["dateTime"];
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(250),
@@ -82,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                     size: 25,
                     color: Colors.blue,
                     title: 'Ukeplan',
-                    subTitle: 'Uke 8',
+                    subTitle: 'Uke ${date.weekOfYear.toString()}',
                     icon: CustomIcons.calendar_alt,
                   ),
                   MenuButton(
