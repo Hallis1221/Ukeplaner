@@ -62,8 +62,26 @@ class _DayPlanState extends State<DayPlan> {
               children: [
                 Column(
                   children: [
+                    SizedBox(
+                      height: 25,
+                    ),
                     Container(
                       height: 100,
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.red,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Text(
+                            DateFormat('EEEE')
+                                .format(getDate(addDays: index)['dateTime'])
+                                .capitalize(),
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
                     ),
                   ],
                 ),
