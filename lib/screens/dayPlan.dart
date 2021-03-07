@@ -19,37 +19,25 @@ import 'package:provider/provider.dart';
 import 'login.dart';
 
 class DayPlan extends StatefulWidget {
-  const DayPlan({Key key, @required this.dateToShow, @required this.subjects})
-      : super(key: key);
+  const DayPlan({Key key, @required this.subjects}) : super(key: key);
 
-  final Map<String, dynamic> dateToShow;
   final List<ClassModel> subjects;
 
   @override
   _DayPlanState createState() => _DayPlanState();
 }
 
-Map<String, dynamic> dateToShow;
+Map<String, dynamic> dateToShow = getDate(addDays: config.currentPageSelected);
 
 class _DayPlanState extends State<DayPlan> {
   @override
   Widget build(BuildContext context) {
-    ScrollController scrollController = ScrollController(
-        initialScrollOffset:
-            125 * double.parse(config.currentPageSelected.toString()),
-        keepScrollOffset: true);
     return FutureBuilder(
       future: makeCompleteDayClass(context,
-          subjects: widget.subjects,
-          dateToShow: (() {
-            if (dateToShow != null) {
-              return dateToShow;
-            } else {
-              return widget.dateToShow;
-            }
-          }())),
+          subjects: widget.subjects, dateToShow: dateToShow),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
+          print(snapshot.error);
           return ErrorPage();
         }
         if (snapshot.connectionState == ConnectionState.done) {
@@ -71,8 +59,14 @@ class _DayPlanState extends State<DayPlan> {
                       height: 25,
                     ),
                     DaySelector(
-                      scrollController: scrollController,
-                      parent: this,
+                      onTap: () {
+                        setState(() {
+                          config.currentPageSelected =
+                              config.currentPageSelected;
+                          dateToShow =
+                              getDate(addDays: config.currentPageSelected);
+                        });
+                      },
                     ),
                     SizedBox(
                       height: 25,
@@ -148,7 +142,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
   List<RoughDayClass> daySubjects = [];
   List<DayClass> daySubjectsFormatted = [];
   List<CompleteDayClass> daySubjectsWithMessagesAndHomework = [];
-
+  print(dateToShow["weekIndex"]);
   for (ClassModel klasse in subjects) {
     for (ClassTime tid in klasse.times) {
       if ((config.currentWeek == "a" && tid.aWeeks) ||
@@ -168,7 +162,6 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
       }
     }
   }
-  print(dateToShow["weekIndex"]);
   daySubjects
       .sort((classA, classB) => classA.startTime.compareTo(classB.startTime));
   for (RoughDayClass klasse in daySubjects) {
@@ -189,21 +182,27 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
           (value) => uid = (value.uid),
         );
 */
-    print(dateId);
     if (klasse.classFirestoreID != null) {
       DocumentReference documentReference = config.db
           .collection("classes")
           .doc(klasse.classFirestoreID)
           .collection("classes")
           .doc(dateId);
+
       await documentReference.get().then((value) {
+        String message;
+        try {
+          message = value.data()["message"];
+        } catch (e) {
+          message = null;
+        }
         daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
             className: klasse.className,
             rom: klasse.rom,
             startTime: klasse.startTime,
             endTime: klasse.endTime,
             // TODO change
-            message: value.data()["message"]));
+            message: message));
       });
     } else if (klasse.classFirestoreID == null) {
       continue;
@@ -352,15 +351,21 @@ class TimeCard extends StatelessWidget {
               SizedBox(
                 height: 5,
               ),
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Text(
-                  message,
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
+              (() {
+                if (message != null) {
+                  return Padding(
+                    padding: EdgeInsets.all(15),
+                    child: Text(
+                      message,
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              }()),
               (() {
                 if (lekser != null) {
                   return Column(
