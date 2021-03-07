@@ -23,10 +23,10 @@ extension StringExtension on String {
 String semesterFormatted(semester) {
   switch (semester) {
     case 1:
-      return "Termin en";
+      return "Termin 1";
       break;
     case 2:
-      return "Termin to";
+      return "Termin 2";
 
     default:
       return "Du er ikke i en termin!";
