@@ -13,6 +13,7 @@ import 'package:ukeplaner/logic/leske.dart';
 import 'package:ukeplaner/logic/tekst.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ukeplaner/screens/home.dart';
+import 'package:week_of_year/week_of_year.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
 import 'package:provider/provider.dart';
 
@@ -188,22 +189,38 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
           .doc(klasse.classFirestoreID)
           .collection("classes")
           .doc(dateId);
+      String message;
+      try {
+        message =
+            config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]
+                ["message"];
 
-      await documentReference.get().then((value) {
-        String message;
-        try {
-          message = value.data()["message"];
-        } catch (e) {
-          message = null;
-        }
-        daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
-            className: klasse.className,
-            rom: klasse.rom,
-            startTime: klasse.startTime,
-            endTime: klasse.endTime,
-            // TODO change
-            message: message));
-      });
+        continue;
+      } catch (e) {
+        await documentReference.get().then((value) {
+          try {
+            message = value.data()["message"];
+            if (config
+                    .classMessagesCache["${klasse.classFirestoreID}.$dateId"] !=
+                null) {
+              config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]
+                  ["message"] = message;
+            }
+            config.classMessagesCache[klasse.classFirestoreID.toString()] = {
+              "message": message
+            };
+          } catch (e) {
+            message = null;
+          }
+          daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
+              className: klasse.className,
+              rom: klasse.rom,
+              startTime: klasse.startTime,
+              endTime: klasse.endTime,
+              // TODO change
+              message: message));
+        });
+      }
     } else if (klasse.classFirestoreID == null) {
       continue;
     }
@@ -405,6 +422,7 @@ class _AppBar extends StatelessWidget {
   final Function onTap;
   @override
   Widget build(BuildContext context) {
+    DateTime date = getDate(addDays: config.currentPageSelected)["dateTime"];
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -420,6 +438,39 @@ class _AppBar extends StatelessWidget {
         alignment: Alignment.topLeft,
         children: [
           TopDecorationHalfCircle(),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  "Uke ${date.weekOfYear.toString()}",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Divider(
+                  height: 0,
+                  thickness: 1,
+                  endIndent: 150,
+                  indent: 150,
+                  color: Colors.white,
+                ),
+                Text(
+                  DateFormat("MMMM d y").format(date).capitalize(),
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(top: 60.0, left: 15.0),
             child: GestureDetector(
