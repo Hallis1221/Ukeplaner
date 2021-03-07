@@ -68,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                     size: 25,
                     title: "Dagsplan",
                     subTitle: DateFormat("EEEE")
-                        .format(getDate()["dateTime"])
+                        .format(getDate(addDays: 0)["dateTime"])
                         .capitalize(),
                     subTitleOnLong:
                         DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
@@ -92,7 +92,8 @@ class HomeScreen extends StatelessWidget {
                     size: 25,
                     color: Colors.yellow,
                     title: 'Prøveplan',
-                    subTitle: 'Termin 1',
+                    subTitle:
+                        semesterFormatted(getSemester(semesterEn, semesterTo)),
                     icon: CustomIcons.checklist,
                   ),
                   MaterialButton(
@@ -256,6 +257,9 @@ Map<String, dynamic> getDate({int addDays = 0}) {
     currentDateSchool = currentDateSchool.add(Duration(days: 1));
     currentDateSchool = skipWeekend(currentDateSchool)["dateTime"];
   }
+  weekIndex =
+      (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
+          1;
 
   return {'weekIndex': weekIndex, 'dateTime': currentDateSchool};
 }
@@ -273,7 +277,7 @@ Map<String, dynamic> skipWeekend(currentDateSchool) {
   int weekIndex =
       (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
           1;
-  print(currentDateSchool.day);
+
   if (weekIndex == 6) {
     // sett dagen til mandag
     weekIndex = 1;
