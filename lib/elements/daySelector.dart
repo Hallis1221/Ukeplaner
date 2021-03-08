@@ -21,8 +21,12 @@ class DaySelector extends StatelessWidget {
       color: Colors.transparent,
       child: ScrollSnapList(
         itemSize: ((MediaQuery.of(context).size.width / 8) * 2) + 40,
-        onItemFocus: (index) {
+        onItemFocus: (index) async {
+          if (currentPageSelected == index) {
+            return;
+          }
           currentPageSelected = index;
+          await new Future.delayed(const Duration(milliseconds: 500));
           onTap();
         },
         initialIndex: double.parse(currentPageSelected.toString()),
