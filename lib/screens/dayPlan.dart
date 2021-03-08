@@ -192,11 +192,10 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
       List<Lekse> lekser = [];
       try {
         message =
-            config.classMessagesCache["${klasse.classFirestoreID}d.$dateId"]
+            config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]
                 ["message"];
-        lekser =
-            config.classMessagesCache["${klasse.classFirestoreID}d.$dateId"]
-                ["lekser"];
+        lekser = config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]
+            ["lekser"];
         continue;
       } catch (e) {
         await documentReference.get().then((value) {
@@ -212,9 +211,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
               "message": message,
               "lekser": lekser,
             };
-            print(lekser);
           } catch (e) {
-            print(e);
             message = null;
             lekser = [];
           }
