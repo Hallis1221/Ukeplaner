@@ -96,13 +96,7 @@ class _DayPlanState extends State<DayPlan> {
                                     startTid: klasse.startTime,
                                     sluttTid: klasse.endTime,
                                     message: klasse.message,
-                                    lekser: [
-                                      // TODO make come from the class
-                                      new Lekse(
-                                          tittel: "Campus oppgaver",
-                                          beskrivelse:
-                                              "Gjør oppgaver på campus inkrement")
-                                    ],
+                                    lekser: klasse.lekser,
                                     color: (() {
                                       Random rnd = new Random();
                                       int min = 0,
@@ -195,37 +189,45 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
           .collection("classes")
           .doc(dateId);
       String message;
+      List<Lekse> lekser = [];
       try {
         message =
-            config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]
+            config.classMessagesCache["${klasse.classFirestoreID}d.$dateId"]
                 ["message"];
-
+        lekser =
+            config.classMessagesCache["${klasse.classFirestoreID}d.$dateId"]
+                ["lekser"];
         continue;
       } catch (e) {
         await documentReference.get().then((value) {
+          print(1);
           try {
             message = value.data()["message"];
-            if (config
-                    .classMessagesCache["${klasse.classFirestoreID}.$dateId"] !=
-                null) {
-              config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]
-                  ["message"] = message;
+            for (var lekse in value.data()["lekser"]) {
+              lekser.add(new Lekse(
+                  tittel: lekse["tittel"], beskrivelse: lekse["desc"]));
             }
+
             config.classMessagesCache[klasse.classFirestoreID.toString()] = {
-              "message": message
+              "message": message,
+              "lekser": lekser,
             };
+            print(lekser);
           } catch (e) {
+            print(e);
             message = null;
+            lekser = [];
           }
-          daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
-              className: klasse.className,
-              rom: klasse.rom,
-              startTime: klasse.startTime,
-              endTime: klasse.endTime,
-              // TODO change
-              message: message));
         });
       }
+
+      daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
+          className: klasse.className,
+          rom: klasse.rom,
+          startTime: klasse.startTime,
+          endTime: klasse.endTime,
+          message: message,
+          lekser: lekser));
     } else if (klasse.classFirestoreID == null) {
       continue;
     }
@@ -264,12 +266,19 @@ class TimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Lekse> lekserToUse;
+    if (lekser == null) {
+      lekserToUse = [];
+    } else {
+      lekserToUse = lekser;
+    }
+
     Widget lekseTekst = Container(
         color: Colors.transparent,
         child: Column(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: lekser
+            children: lekserToUse
                 .map(
                   (e) => Column(
                     mainAxisSize: MainAxisSize.min,
