@@ -130,8 +130,13 @@ class _DayPlanState extends State<DayPlan> {
             ),
           );
         }
-        return LoadingFlipping.circle(
-          duration: Duration(milliseconds: 750),
+        return Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(120.0),
+            child: _AppBar(onTap: () {
+              setState(() {});
+            }),
+          ),
         );
       },
     );
