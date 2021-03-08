@@ -1,3 +1,5 @@
+import 'package:ukeplaner/logic/leske.dart';
+
 class CompleteDayClass {
   String className;
   String rom;
@@ -7,6 +9,8 @@ class CompleteDayClass {
   String startTime;
   String endTime;
 
+  List<Lekse> lekser;
+
   CompleteDayClass({
     this.startTime,
     this.endTime,
@@ -14,6 +18,7 @@ class CompleteDayClass {
     this.rom,
     this.message,
     this.homework,
+    this.lekser,
   });
 }
 
