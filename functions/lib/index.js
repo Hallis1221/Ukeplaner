@@ -38,7 +38,7 @@ exports.checkcode = functions.https.onCall((argumentData) => {
         if (argumentData["useLog"] == true && valid) {
             var key = argumentData["code"];
             var codesList = {};
-            var list = { "used": instance["used"] + 1, "maxUses": 3, "valid": true };
+            var list = { "used": instance["used"] + 1, "maxUses": instance["maxUses"], "valid": instance["valid"] };
             if (type == "student") {
                 codesList["studentCodes"] = {};
                 codesList["studentCodes"][key] = list;
