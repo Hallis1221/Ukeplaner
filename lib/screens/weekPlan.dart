@@ -29,10 +29,8 @@ class WeekPlan extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  WeekPlanColumn(
-                    weekplanIndex: 1,
-                    week: 10,
-                  ),
+                  for (var i = 1; i <= 5; i++)
+                    WeekPlanColumn(weekplanIndex: i, week: 10)
                 ],
               ),
             ),
@@ -121,11 +119,11 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
           Align(
             alignment: Alignment.centerLeft,
             child: Container(
-              height: 15,
+              height: 18,
               width: 15,
               color: Colors.transparent,
               child: VerticalDivider(
-                thickness: 1.2,
+                thickness: 1.5,
                 color: Colors.black,
               ),
             ),
@@ -134,11 +132,11 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
           Align(
             alignment: Alignment.centerRight,
             child: Container(
-              height: 15,
+              height: 18,
               width: 15,
               color: Colors.transparent,
               child: VerticalDivider(
-                thickness: 1.2,
+                thickness: 1.5,
                 color: Colors.black,
               ),
             ),
