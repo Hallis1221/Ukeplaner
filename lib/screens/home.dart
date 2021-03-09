@@ -79,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   MenuButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/testPlan');
+                      Navigator.of(context).pushNamed('/weekPlan');
                     },
                     size: 25,
                     color: Colors.blue,
