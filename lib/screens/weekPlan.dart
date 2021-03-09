@@ -24,17 +24,19 @@ class WeekPlan extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-              child: Container(
-            color: Colors.green,
-            child: Row(
+            child: Container(
+              color: Colors.green,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   WeekPlanColumn(
                     weekplanIndex: 1,
                     week: 10,
                   ),
-                ]),
-          ))
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
