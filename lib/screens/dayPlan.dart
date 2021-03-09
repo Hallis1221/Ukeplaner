@@ -32,6 +32,15 @@ Map<String, dynamic> dateToShow = getDate(addDays: config.currentPageSelected);
 
 class _DayPlanState extends State<DayPlan> {
   @override
+  void initState() {
+    super.initState();
+    print("currentpage selected: ${config.currentPageSelected}");
+    setState(() {
+      dateToShow = getDate(addDays: config.currentPageSelected);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: makeCompleteDayClass(context,
