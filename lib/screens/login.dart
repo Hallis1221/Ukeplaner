@@ -217,14 +217,15 @@ class ForgotPassword extends StatelessWidget {
 class TopDecorationHalfCircle extends StatelessWidget {
   const TopDecorationHalfCircle({
     Key key,
+    this.color = const Color.fromARGB(255, 79, 68, 255),
   }) : super(key: key);
-
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 200,
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: color,
         boxShadow: <BoxShadow>[
           BoxShadow(
             blurRadius: 10,
