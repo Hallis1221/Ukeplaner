@@ -313,3 +313,25 @@ Map<String, dynamic> skipWeekend(currentDateSchool) {
   }
   return {"dateTime": currentDateSchool, "daysSkiped": daysSkiped};
 }
+
+String getWeekIndexName(int weekIndex) {
+  switch (weekIndex) {
+    case 1:
+      return "man";
+      break;
+    case 2:
+      return "tir";
+      break;
+    case 3:
+      return "ons";
+      break;
+    case 4:
+      return "tor";
+      break;
+    case 5:
+      return "fre";
+      break;
+    default:
+      return "non";
+  }
+}
