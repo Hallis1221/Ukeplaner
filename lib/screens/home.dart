@@ -63,6 +63,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   MenuButton(
                     onPressed: () {
+                      currentPageSelected = 0;
                       Navigator.of(context).pushNamed("/dayplan");
                     },
                     color: Color.fromARGB(255, 238, 107, 120),
