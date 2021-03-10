@@ -38,6 +38,11 @@ String semesterToSluttDag = remoteConfig.getString("semester_to_slutt_dag");
 //TODO
 List<Map<String, DateTime>> ferier = [];
 // !! DESIGN
+Color deiligRed = Color.fromARGB(255, 238, 107, 120);
+Color mildBlue = Color.fromARGB(255, 101, 135, 227);
+Color lysOrange = Color.fromARGB(255, 249, 190, 124);
+Color skoleGreen = Color.fromARGB(255, 48, 147, 152);
+
 // ?? https://material.io/design/color
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
 
@@ -232,3 +237,4 @@ bool fetchedClasses = false;
 FirebaseFirestore db = FirebaseFirestore.instance;
 int currentPageSelected = 0;
 Map<String, dynamic> classMessagesCache = {};
+int addWeeks = 0;
