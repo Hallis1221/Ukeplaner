@@ -453,7 +453,7 @@ class _AppBar extends StatelessWidget {
   final Function onTap;
   @override
   Widget build(BuildContext context) {
-    DateTime date = getDate(addDays: config.currentPageSelected)["dateTime"];
+    DateTime date = getDate(addDays: config.addWeeks * 7)["dateTime"];
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
