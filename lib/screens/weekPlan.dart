@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart';
@@ -8,6 +10,8 @@ import 'package:ukeplaner/screens/login.dart';
 import 'home.dart';
 import 'package:week_of_year/week_of_year.dart';
 import '../logic/tekst.dart';
+
+List brukteFarger = [];
 
 class WeekPlan extends StatelessWidget {
   const WeekPlan({Key key, @required this.subjects}) : super(key: key);
@@ -38,7 +42,7 @@ class WeekPlan extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              color: Colors.green,
+              color: Colors.transparent,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: widgets,
@@ -98,7 +102,26 @@ class WeekPlanColumn extends StatelessWidget {
                 return Expanded(
                   child: ListView(children: [
                     for (CompleteDayClass classe in snapshot.data)
-                      WeekPlanBox(title: classe.className)
+                      WeekPlanBox(
+                        title: classe.className,
+                        color: (() {
+                          Random rnd = new Random();
+                          int min = 0, max = cardColors.length;
+                          int r = min + rnd.nextInt(max - min);
+                          int maxColorsLen = brukteFarger.length;
+                          print("max: $max");
+                          print("maxColorsLen: $maxColorsLen");
+                          if (maxColorsLen <= max) {
+                            while (brukteFarger.contains(r)) {
+                              r = min + rnd.nextInt(max - min);
+                            }
+                            print("brukte: $brukteFarger");
+                            brukteFarger.add(r);
+                          }
+
+                          return cardColors[r];
+                        }()),
+                      )
                   ]),
                 );
               }
@@ -128,10 +151,11 @@ class WeekPlanerTitle extends StatefulWidget {
 class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
   @override
   Widget build(BuildContext context) {
+    Duration difference =
+        getWeekDateDifference(widget.weekplanIndex, widget.week);
     return GestureDetector(
       onTap: () {
-        Duration difference =
-            getWeekDateDifference(widget.weekplanIndex, widget.week);
+        difference = getWeekDateDifference(widget.weekplanIndex, widget.week);
 
         print(difference);
         if (difference.inDays < 0) {
@@ -148,31 +172,24 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              height: 18,
-              width: 15,
-              color: Colors.transparent,
-              child: VerticalDivider(
-                thickness: 1.5,
-                color: Colors.black,
-              ),
+          Text(
+            getWeekIndexName(widget.weekplanIndex).capitalize(),
+            style: TextStyle(
+              fontSize: double.parse((() {
+                if (difference.inDays == 0) {
+                  return 23;
+                } else
+                  return 22;
+              }())
+                  .toString()),
+              color: (() {
+                if (difference.inDays == 0) {
+                  return Color.fromARGB(255, 113, 137, 255);
+                } else
+                  return Color.fromARGB(255, 126, 126, 126);
+              }()),
             ),
           ),
-          Text(getWeekIndexName(widget.weekplanIndex).capitalize()),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              height: 18,
-              width: 15,
-              color: Colors.transparent,
-              child: VerticalDivider(
-                thickness: 1.5,
-                color: Colors.black,
-              ),
-            ),
-          )
         ],
       ),
     );
@@ -194,9 +211,11 @@ Duration getWeekDateDifference(weekplanIndex, week) {
 }
 
 class WeekPlanBox extends StatelessWidget {
-  const WeekPlanBox({Key key, this.title = ""}) : super(key: key);
+  const WeekPlanBox({Key key, this.title = "", this.color = Colors.redAccent})
+      : super(key: key);
 
   final String title;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -205,7 +224,7 @@ class WeekPlanBox extends StatelessWidget {
           width: 62,
           height: 128,
           decoration: BoxDecoration(
-            color: Colors.yellow,
+            color: color,
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           child: Text(title),
