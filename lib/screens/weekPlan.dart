@@ -109,8 +109,7 @@ class WeekPlanColumn extends StatelessWidget {
                           int min = 0, max = cardColors.length;
                           int r = min + rnd.nextInt(max - min);
                           int maxColorsLen = brukteFarger.length;
-                          print("max: $max");
-                          print("maxColorsLen: $maxColorsLen");
+
                           if (maxColorsLen <= max) {
                             while (brukteFarger.contains(r)) {
                               r = min + rnd.nextInt(max - min);
