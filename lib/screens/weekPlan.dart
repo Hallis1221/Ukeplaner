@@ -8,11 +8,11 @@ import 'package:ukeplaner/logic/dayClass.dart';
 import 'package:ukeplaner/screens/dayPlan.dart';
 import 'package:ukeplaner/screens/login.dart';
 import 'home.dart';
+import 'package:swipedetector/swipedetector.dart';
 import 'package:week_of_year/week_of_year.dart';
 import '../logic/tekst.dart';
 
 int totalAmountOfDays = 0;
-int week = 11;
 
 class WeekPlan extends StatefulWidget {
   const WeekPlan({Key key, @required this.subjects}) : super(key: key);
@@ -28,13 +28,14 @@ class _WeekPlanState extends State<WeekPlan> {
     DateTime date = getDate(addDays: currentPageSelected)["dateTime"];
     List<Widget> widgets = [];
     for (var i = 1; i <= 5; i++) {
-      if (getWeekDateDifference(i, 10).inDays < 0) {
+      if (getWeekDateDifference(i, now.weekOfYear + addWeeks).inDays < 0) {
+        print("week: ${now.weekOfYear + addWeeks}");
         continue;
       }
       widgets.add(WeekPlanColumn(
         weekplanIndex: i,
         week: now.weekOfYear + addWeeks,
-        subjects: subjects,
+        subjects: widget.subjects,
       ));
     }
     totalAmountOfDays = widgets.length;
@@ -53,7 +54,7 @@ class _WeekPlanState extends State<WeekPlan> {
                     height: 50,
                   ),
                   Text(
-                    "Uke ${date.weekOfYear.toString()}",
+                    "Uke ${now.weekOfYear + addWeeks}",
                     style: TextStyle(
                       fontSize: 30,
                       color: Colors.white,
@@ -82,12 +83,19 @@ class _WeekPlanState extends State<WeekPlan> {
           ],
         ),
       ),
-      body: GestureDetector(
-        onHorizontalDragUpdate: (details) {
-          if (details.delta.dx > 0) {
-            print("right");
-          } else if (details.delta.dx < 0) {
-            print("left");
+      body: SwipeDetector(
+        onSwipeRight: () {
+          if (addWeeks != 0) {
+            setState(() {
+              addWeeks--;
+            });
+          }
+        },
+        onSwipeLeft: () {
+          if (addWeeks <= 3) {
+            setState(() {
+              addWeeks++;
+            });
           }
         },
         child: Column(
@@ -122,9 +130,8 @@ class WeekPlanColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List brukteFarger = [];
-    if (getWeekDateDifference(weekplanIndex, week).inDays < 0) {
-      return null;
-    }
+
+    if (getWeekDateDifference(weekplanIndex, week).inDays < 0) {}
     return Container(
       width: MediaQuery.of(context).size.width / 5,
       child: Column(
@@ -142,20 +149,26 @@ class WeekPlanColumn extends StatelessWidget {
             future: makeCompleteDayClass(
               context,
               dateToShow: getDate(
-                addDays: getWeekDateDifference(weekplanIndex, week).inDays,
+                addDays: (() {
+                  if (addWeeks != 0) {
+                    //TODO
+                    return addWeeks * 7 + weekplanIndex;
+                  } else {
+                    return getWeekDateDifference(weekplanIndex, week).inDays;
+                  }
+                }()),
+                addWeeks: 0,
               ),
               subjects: subjects,
             ),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                print(
-                  getDate(
-                    addDays: getWeekDateDifference(weekplanIndex, week).inDays,
-                  ),
-                );
+                List<CompleteDayClass> classes = snapshot.data;
+
+                print("weekindex: $weekplanIndex, length: ${classes.length}");
                 return Expanded(
                   child: ListView(children: [
-                    for (CompleteDayClass classe in snapshot.data)
+                    for (CompleteDayClass classe in classes)
                       WeekPlanBox(
                         title: classe.className,
                         color: (() {
