@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/logic/class.dart';
+import 'package:ukeplaner/logic/dayClass.dart';
+import 'package:ukeplaner/screens/dayPlan.dart';
 import 'package:ukeplaner/screens/login.dart';
 import 'home.dart';
 import 'package:week_of_year/week_of_year.dart';
 import '../logic/tekst.dart';
 
 class WeekPlan extends StatelessWidget {
-  const WeekPlan({
-    Key key,
-  }) : super(key: key);
-
+  const WeekPlan({Key key, @required this.subjects}) : super(key: key);
+  final List<ClassModel> subjects;
   @override
   Widget build(BuildContext context) {
+    List<Widget> widgets = [];
+    for (var i = 1; i <= 5; i++) {
+      if (getWeekDateDifference(i, 10).inDays < 0) {
+        continue;
+      }
+      widgets.add(WeekPlanColumn(
+        weekplanIndex: i,
+        week: 10,
+        subjects: subjects,
+      ));
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(115),
@@ -28,10 +41,7 @@ class WeekPlan extends StatelessWidget {
               color: Colors.green,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  for (var i = 1; i <= 5; i++)
-                    WeekPlanColumn(weekplanIndex: i, week: 10)
-                ],
+                children: widgets,
               ),
             ),
           ),
@@ -43,13 +53,20 @@ class WeekPlan extends StatelessWidget {
 
 class WeekPlanColumn extends StatelessWidget {
   const WeekPlanColumn(
-      {Key key, @required this.weekplanIndex, @required this.week})
+      {Key key,
+      @required this.weekplanIndex,
+      @required this.week,
+      @required this.subjects})
       : super(key: key);
 
   final int weekplanIndex;
   final int week;
+  final List<ClassModel> subjects;
   @override
   Widget build(BuildContext context) {
+    if (getWeekDateDifference(weekplanIndex, week).inDays < 0) {
+      return null;
+    }
     return Container(
       width: MediaQuery.of(context).size.width / 5,
       child: Column(
@@ -63,7 +80,31 @@ class WeekPlanColumn extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          WeekPlanBox()
+          FutureBuilder(
+            future: makeCompleteDayClass(
+              context,
+              dateToShow: getDate(
+                addDays: getWeekDateDifference(weekplanIndex, week).inDays,
+              ),
+              subjects: subjects,
+            ),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                print(
+                  getDate(
+                    addDays: getWeekDateDifference(weekplanIndex, week).inDays,
+                  ),
+                );
+                return Expanded(
+                  child: ListView(children: [
+                    for (CompleteDayClass classe in snapshot.data)
+                      WeekPlanBox(title: classe.className)
+                  ]),
+                );
+              }
+              return Container();
+            },
+          )
         ],
       ),
     );
@@ -89,18 +130,9 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        DateTime date = DateTime(now.year, 1, 1);
+        Duration difference =
+            getWeekDateDifference(widget.weekplanIndex, widget.week);
 
-        date =
-            findFirstDateOfTheWeek(date.add(Duration(days: (7 * widget.week))))
-                .add(Duration(days: widget.weekplanIndex - 1));
-
-        now = DateTime(
-          getDate()["dateTime"].year,
-          getDate()["dateTime"].month,
-          getDate()["dateTime"].day,
-        );
-        Duration difference = date.difference(now);
         print(difference);
         if (difference.inDays < 0) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -147,19 +179,41 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
   }
 }
 
-class WeekPlanBox extends StatelessWidget {
-  const WeekPlanBox({
-    Key key,
-  }) : super(key: key);
+Duration getWeekDateDifference(weekplanIndex, week) {
+  DateTime date = DateTime(now.year, 1, 1);
 
+  date = findFirstDateOfTheWeek(date.add(Duration(days: (7 * week))))
+      .add(Duration(days: weekplanIndex - 1));
+  now = DateTime(
+    getDate()["dateTime"].year,
+    getDate()["dateTime"].month,
+    getDate()["dateTime"].day,
+  );
+  Duration difference = date.difference(now);
+  return difference;
+}
+
+class WeekPlanBox extends StatelessWidget {
+  const WeekPlanBox({Key key, this.title = ""}) : super(key: key);
+
+  final String title;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 62,
-      height: 128,
-      decoration: BoxDecoration(
-          color: Colors.yellow,
-          borderRadius: BorderRadius.all(Radius.circular(10))),
+    return Column(
+      children: [
+        Container(
+          width: 62,
+          height: 128,
+          decoration: BoxDecoration(
+            color: Colors.yellow,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Text(title),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+      ],
     );
   }
 }
