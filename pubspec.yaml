@@ -42,6 +42,7 @@ dependencies:
   native_shared_preferences: ^1.0.5
   provider: ^4.3.3
   scroll_snap_list: ^0.6.0
+  swipedetector: ^1.2.0
   url_launcher: ^5.7.0
   week_of_year: ^1.0.1
 
