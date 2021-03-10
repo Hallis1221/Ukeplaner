@@ -12,10 +12,17 @@ import 'package:week_of_year/week_of_year.dart';
 import '../logic/tekst.dart';
 
 int totalAmountOfDays = 0;
+int week = 11;
 
-class WeekPlan extends StatelessWidget {
+class WeekPlan extends StatefulWidget {
   const WeekPlan({Key key, @required this.subjects}) : super(key: key);
   final List<ClassModel> subjects;
+
+  @override
+  _WeekPlanState createState() => _WeekPlanState();
+}
+
+class _WeekPlanState extends State<WeekPlan> {
   @override
   Widget build(BuildContext context) {
     List<Widget> widgets = [];
@@ -25,8 +32,8 @@ class WeekPlan extends StatelessWidget {
       }
       widgets.add(WeekPlanColumn(
         weekplanIndex: i,
-        week: 10,
-        subjects: subjects,
+        week: week,
+        subjects: widget.subjects,
       ));
     }
     totalAmountOfDays = widgets.length;
@@ -38,18 +45,27 @@ class WeekPlan extends StatelessWidget {
           children: [TopDecorationHalfCircle()],
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              color: Colors.transparent,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: widgets,
+      body: GestureDetector(
+        onHorizontalDragUpdate: (details) {
+          if (details.delta.dx > 0) {
+            print("right");
+          } else if (details.delta.dx < 0) {
+            print("left");
+          }
+        },
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                color: Colors.transparent,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: widgets,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
