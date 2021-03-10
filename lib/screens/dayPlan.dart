@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animations/loading_animations.dart';
@@ -150,6 +151,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
     {@required subjects, @required Map<String, dynamic> dateToShow}) async {
   List<RoughDayClass> daySubjects = [];
   List<DayClass> daySubjectsFormatted = [];
+
   List<CompleteDayClass> daySubjectsWithMessagesAndHomework = [];
   print(dateToShow["weekIndex"]);
   for (ClassModel klasse in subjects) {
@@ -171,6 +173,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
       }
     }
   }
+
   daySubjects
       .sort((classA, classB) => classA.startTime.compareTo(classB.startTime));
   for (RoughDayClass klasse in daySubjects) {
@@ -208,7 +211,6 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
         continue;
       } catch (e) {
         await documentReference.get().then((value) {
-          print(1);
           try {
             message = value.data()["message"];
             for (var lekse in value.data()["lekser"]) {
@@ -224,6 +226,15 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
             message = null;
             lekser = [];
           }
+        }).onError((error, stackTrace) {
+          print(error);
+          daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
+              className: "Fri! ",
+              startTime: "Hele ",
+              endTime: "Dagen",
+              homework: [],
+              message: "Det er ingen timer satt opp i dag!",
+              rom: "Verden!"));
         });
       }
 
