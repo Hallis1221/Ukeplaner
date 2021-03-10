@@ -11,7 +11,7 @@ import 'home.dart';
 import 'package:week_of_year/week_of_year.dart';
 import '../logic/tekst.dart';
 
-List brukteFarger = [];
+int totalAmountOfDays = 0;
 
 class WeekPlan extends StatelessWidget {
   const WeekPlan({Key key, @required this.subjects}) : super(key: key);
@@ -29,7 +29,7 @@ class WeekPlan extends StatelessWidget {
         subjects: subjects,
       ));
     }
-
+    totalAmountOfDays = widgets.length;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(115),
@@ -68,6 +68,7 @@ class WeekPlanColumn extends StatelessWidget {
   final List<ClassModel> subjects;
   @override
   Widget build(BuildContext context) {
+    List brukteFarger = [];
     if (getWeekDateDifference(weekplanIndex, week).inDays < 0) {
       return null;
     }
@@ -220,7 +221,7 @@ class WeekPlanBox extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 62,
+          width: double.parse((300 - (50 * totalAmountOfDays)).toString()),
           height: 128,
           decoration: BoxDecoration(
             color: color,
