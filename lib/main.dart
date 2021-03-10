@@ -57,7 +57,17 @@ class MyApp extends StatelessWidget {
         ),
         '/home': HomeScreen(),
         '/testPlan': Testplan(),
-        '/weekPlan': WeekPlan(),
+        '/weekPlan': FutureBuilder(
+          future: getClasses(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return WeekPlan(
+                subjects: snapshot.data,
+              );
+            }
+            return LoadingFlipping.circle();
+          },
+        ),
         '/dayplan': FutureBuilder(
           future: getClasses(),
           builder: (context, snapshot) {
