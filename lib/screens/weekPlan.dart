@@ -25,6 +25,7 @@ class WeekPlan extends StatefulWidget {
 class _WeekPlanState extends State<WeekPlan> {
   @override
   Widget build(BuildContext context) {
+    DateTime date = getDate(addDays: currentPageSelected)["dateTime"];
     List<Widget> widgets = [];
     for (var i = 1; i <= 5; i++) {
       if (getWeekDateDifference(i, 10).inDays < 0) {
@@ -32,17 +33,53 @@ class _WeekPlanState extends State<WeekPlan> {
       }
       widgets.add(WeekPlanColumn(
         weekplanIndex: i,
-        week: week,
-        subjects: widget.subjects,
+        week: now.weekOfYear + addWeeks,
+        subjects: subjects,
       ));
     }
     totalAmountOfDays = widgets.length;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(115),
+        preferredSize: Size.fromHeight(125),
         child: Stack(
           alignment: Alignment.topLeft,
-          children: [TopDecorationHalfCircle()],
+          children: [
+            TopDecorationHalfCircle(),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Text(
+                    "Uke ${date.weekOfYear.toString()}",
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 60.0, left: 15.0),
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  height: 60,
+                  width: 60,
+                  color: Colors.blue,
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
       body: GestureDetector(
