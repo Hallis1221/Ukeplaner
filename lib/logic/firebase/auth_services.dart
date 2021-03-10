@@ -126,8 +126,7 @@ class AuthenticationService {
 
 class VerificationSerivice {
   Future<bool> checkCode(int input, {bool log = false}) async {
-    /*
-    FirebaseFunctions.instance
+    /* FirebaseFunctions.instance
         .useFunctionsEmulator(origin: 'http://localhost:5001');*/
 
     HttpsCallable callable =
@@ -135,6 +134,8 @@ class VerificationSerivice {
     //!! husk at det er et map
     final results = await callable.call({"code": input, "useLog": log});
     // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
+    print(results.data);
+    print(2);
     return results.data;
   }
 
