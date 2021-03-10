@@ -218,8 +218,9 @@ class _MenuButtonState extends State<MenuButton> {
   }
 }
 
-Map<String, dynamic> getDate({int addDays = 0}) {
+Map<String, dynamic> getDate({int addDays = 0, int addWeeks = 0}) {
   int skipDays = addDays;
+  int skipWeeks = addWeeks;
   // TODO skip holidays
 
   DateTime currentDateSchool = DateTime(
@@ -232,7 +233,7 @@ Map<String, dynamic> getDate({int addDays = 0}) {
     now.millisecond,
     now.microsecond,
   );
-
+  currentDateSchool = currentDateSchool.add(Duration(days: (7 * skipWeeks)));
   if (currentDateSchool.hour >= 17) {
     // første parantes setter klokka til 00 neste dag.
     int timeToShift = (24 - currentDateSchool.hour);
@@ -260,6 +261,7 @@ Map<String, dynamic> getDate({int addDays = 0}) {
     currentDateSchool = currentDateSchool.add(Duration(days: 1));
     currentDateSchool = skipWeekend(currentDateSchool)["dateTime"];
   }
+
   weekIndex =
       (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
           1;
