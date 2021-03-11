@@ -164,7 +164,7 @@ Map<String, dynamic> fcmDefaults = <String, dynamic>{
   "semester_to_slutt_maaned": 6,
   "semester_to_slutt_dag": 18,
 };
-List<dynamic> cloudClassesCodes = ["XhL71xpigGpmHXfdUBvX"];
+List<dynamic> cloudClassesCodes = [];
 List<ClassModel> classes = [];
 /*[
   new ClassModel(
