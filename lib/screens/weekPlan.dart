@@ -85,7 +85,7 @@ class _WeekPlanState extends State<WeekPlan> {
       ),
       body: SwipeDetector(
         swipeConfiguration: SwipeConfiguration(
-          verticalSwipeMaxWidthThreshold: 1,
+          verticalSwipeMaxWidthThreshold: 100,
         ),
         onSwipeRight: () {
           if (addWeeks != 0) {
