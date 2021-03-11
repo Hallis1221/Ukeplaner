@@ -116,7 +116,9 @@ class _WeekPlanState extends State<WeekPlan> {
   }
 }
 
-class WeekPlanColumn extends StatelessWidget {
+int daysLeft = 0;
+
+class WeekPlanColumn extends StatefulWidget {
   const WeekPlanColumn(
       {Key key,
       @required this.weekplanIndex,
@@ -127,11 +129,18 @@ class WeekPlanColumn extends StatelessWidget {
   final int weekplanIndex;
   final int week;
   final List<ClassModel> subjects;
+
+  @override
+  _WeekPlanColumnState createState() => _WeekPlanColumnState();
+}
+
+class _WeekPlanColumnState extends State<WeekPlanColumn> {
   @override
   Widget build(BuildContext context) {
+    print("daysleft: $daysLeft");
     List brukteFarger = [];
 
-    if (getWeekDateDifference(weekplanIndex, week).inDays < 0) {}
+    if (getWeekDateDifference(widget.weekplanIndex, widget.week).inDays < 0) {}
     return Container(
       width: MediaQuery.of(context).size.width / 5,
       child: Column(
@@ -140,7 +149,8 @@ class WeekPlanColumn extends StatelessWidget {
             height: 15,
           ),
           Container(
-            child: WeekPlanerTitle(week: week, weekplanIndex: weekplanIndex),
+            child: WeekPlanerTitle(
+                week: widget.week, weekplanIndex: widget.weekplanIndex),
           ),
           SizedBox(
             height: 30,
@@ -152,20 +162,28 @@ class WeekPlanColumn extends StatelessWidget {
                 addDays: (() {
                   if (addWeeks != 0) {
                     //TODO
-                    return addWeeks * 7 + weekplanIndex;
+
+                    return widget.weekplanIndex + 1;
                   } else {
-                    return getWeekDateDifference(weekplanIndex, week).inDays;
+                    print("ting uinder");
+                    print(
+                        getWeekDateDifference(widget.weekplanIndex, widget.week)
+                            .inDays);
+                    return getWeekDateDifference(
+                            widget.weekplanIndex, widget.week)
+                        .inDays;
                   }
                 }()),
                 addWeeks: 0,
               ),
-              subjects: subjects,
+              subjects: widget.subjects,
             ),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 List<CompleteDayClass> classes = snapshot.data;
 
-                print("weekindex: $weekplanIndex, length: ${classes.length}");
+                print(
+                    "weekindex: ${widget.weekplanIndex}, length: ${classes.length}");
                 return Expanded(
                   child: ListView(children: [
                     for (CompleteDayClass classe in classes)
