@@ -80,6 +80,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   MenuButton(
                     onPressed: () {
+                      addWeeks = 0;
                       Navigator.of(context).pushNamed('/weekPlan');
                     },
                     size: 25,
