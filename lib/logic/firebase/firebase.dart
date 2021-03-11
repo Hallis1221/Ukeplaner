@@ -111,7 +111,6 @@ class LocalFirebaseApp extends StatelessWidget {
                       ],
                       routes: {
                         '/': (context) {
-                          getClassesFromFirebase(context);
                           return VerifyApp(
                             route: '/findpage',
                           );
