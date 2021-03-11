@@ -138,7 +138,7 @@ Future<RemoteConfig> remote(RemoteConfig remoteConfig) async {
   final defaults = fcmDefaults;
   await remoteConfigInstance.setDefaults(defaults);
 // For utvikling den er micro sekunder, bør være en time eller lignende i produksjon
-  await remoteConfigInstance.fetch(expiration: const Duration(microseconds: 1));
+  await remoteConfigInstance.fetch(expiration: const Duration(hours: 1));
   await remoteConfigInstance.activateFetched();
   return remoteConfigInstance;
 }
@@ -163,6 +163,10 @@ Future<void> getClassesFromFirebase(BuildContext context) async {
     }
 
     DocumentReference documentReference = db.collection("classes").doc(classId);
+    await context
+        .read<AuthenticationService>()
+        .getCurrentUser()
+        .then((User value) => print(value.uid));
 
     await documentReference.get().then((value) async {
       Map<String, dynamic> data = value.data();
