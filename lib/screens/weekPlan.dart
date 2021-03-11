@@ -95,7 +95,7 @@ class _WeekPlanState extends State<WeekPlan> {
           }
         },
         onSwipeLeft: () {
-          if (addWeeks <= 3) {
+          if (addWeeks <= 2) {
             setState(() {
               addWeeks++;
             });
@@ -153,7 +153,9 @@ class _WeekPlanColumnState extends State<WeekPlanColumn> {
           ),
           Container(
             child: WeekPlanerTitle(
-                week: widget.week, weekplanIndex: widget.weekplanIndex),
+              week: widget.week,
+              weekplanIndex: widget.weekplanIndex,
+            ),
           ),
           SizedBox(
             height: 30,
@@ -250,8 +252,13 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
               SnackBar(content: Text("Du kan bare se datoer i framtiden")));
           return;
         }
-
-        currentPageSelected = difference.inDays;
+        int tempWeeks;
+        if (0 >= addWeeks) {
+          tempWeeks = 1;
+        } else {
+          tempWeeks = addWeeks;
+        }
+        currentPageSelected = widget.weekplanIndex + 1 + ((tempWeeks - 1) * 5);
 
         Navigator.of(context).pushNamed("/dayplan");
         print("cps: $currentPageSelected");
