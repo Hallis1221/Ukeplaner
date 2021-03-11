@@ -34,11 +34,10 @@ import 'screens/welcome_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting("nb_NO");
-
-  await remote(remoteConfig).then((value) {
+  remote(remoteConfig).then((value) {
     config.remoteConfig = value;
-    runApp(MyApp());
   });
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
