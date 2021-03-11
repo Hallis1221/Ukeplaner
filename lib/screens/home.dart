@@ -338,6 +338,7 @@ Map<String, dynamic> skipWeekend(currentDateSchool) {
     );
     daysSkiped = 1;
   }
+
   return {"dateTime": currentDateSchool, "daysSkiped": daysSkiped};
 }
 
