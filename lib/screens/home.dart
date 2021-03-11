@@ -110,9 +110,32 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
+          GetClassesEmptyWIdget()
         ],
       ),
     );
+  }
+}
+
+class GetClassesEmptyWIdget extends StatefulWidget {
+  const GetClassesEmptyWIdget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _GetClassesEmptyWIdgetState createState() => _GetClassesEmptyWIdgetState();
+}
+
+class _GetClassesEmptyWIdgetState extends State<GetClassesEmptyWIdget> {
+  @override
+  void initState() {
+    super.initState();
+    getClassesFromFirebase(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
 
