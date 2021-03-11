@@ -259,7 +259,7 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
         } else {
           tempWeeks = addWeeks;
         }
-        currentPageSelected = widget.weekplanIndex + 1 + ((tempWeeks - 1) * 5);
+        currentPageSelected = widget.weekplanIndex + ((tempWeeks - 1) * 5);
 
         Navigator.of(context).pushNamed("/dayplan");
         print("cps: $currentPageSelected");
