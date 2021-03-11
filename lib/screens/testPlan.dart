@@ -27,7 +27,7 @@ class Testplan extends StatelessWidget {
                 Column(
                   children: tests.map((lekse) {
                     return Text(
-                        "Det er en prøve ${DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY).format(lekse.date)}. \n Den har tittelen ${lekse.title} med beskjeden ${lekse.message}");
+                        "Det er en prøve ${DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY).format(lekse.date)}. \n dDen har tittelen ${lekse.title} med beskjeden ${lekse.message}");
                   }).toList(),
                 )
               ],
