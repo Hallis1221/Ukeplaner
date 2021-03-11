@@ -168,7 +168,8 @@ class _WeekPlanColumnState extends State<WeekPlanColumn> {
                   if (addWeeks != 0) {
                     //TODO
                     print("index: ${widget.weekplanIndex}");
-                    return widget.weekplanIndex;
+                    return widget.weekplanIndex +
+                        (5 - getDate()["dateTime"].weekday);
                   } else {
                     print("ting uinder");
                     print(
