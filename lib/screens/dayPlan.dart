@@ -35,7 +35,6 @@ class _DayPlanState extends State<DayPlan> {
   @override
   void initState() {
     super.initState();
-    print("currentpage selected: ${config.currentPageSelected}");
     setState(() {
       dateToShow = getDate(addDays: config.currentPageSelected);
     });
@@ -453,7 +452,7 @@ class _AppBar extends StatelessWidget {
   final Function onTap;
   @override
   Widget build(BuildContext context) {
-    DateTime date = getDate(addDays: config.addWeeks * 7)["dateTime"];
+    DateTime date = dateToShow["dateTime"];
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
