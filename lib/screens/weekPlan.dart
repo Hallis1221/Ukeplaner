@@ -46,7 +46,7 @@ class _WeekPlanState extends State<WeekPlan> {
           alignment: Alignment.topLeft,
           children: [
             TopDecorationHalfCircle(
-              color: lysOrange,
+              colorOne: lysOrange,
             ),
             Center(
               child: Column(
