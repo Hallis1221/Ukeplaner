@@ -24,11 +24,30 @@ class Testplan extends StatelessWidget {
                   'Maaz er et geni',
                   style: TextStyle(fontSize: 50),
                 ),
-                Column(
-                  children: tests.map((lekse) {
-                    return Text(
-                        "Det er en prøve ${DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY).format(lekse.date)}. \n dDen har tittelen ${lekse.title} med beskjeden ${lekse.message}");
-                  }).toList(),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Column(
+                        children: tests.map((test) {
+                          return Container(
+                            height: 250,
+                            width: 230,
+                            decoration: BoxDecoration(
+                              color: rasmusBlue,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: Row(children: [
+                              Text(test.title),
+                              Text(DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
+                                  .format(test.date))
+                            ]),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
                 )
               ],
             );
