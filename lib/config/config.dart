@@ -43,6 +43,8 @@ Color mildBlue = Color.fromARGB(255, 101, 135, 227);
 Color lysOrange = Color.fromARGB(255, 249, 190, 124);
 Color skoleGreen = Color.fromARGB(255, 48, 147, 152);
 Color rasmusBlue = Color.fromARGB(255, 132, 183, 239);
+Color linearBlue = Color.fromARGB(255, 13, 174, 200);
+Color linearGreen = Color.fromARGB(255, 34, 219, 58);
 
 // ?? https://material.io/design/color
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
