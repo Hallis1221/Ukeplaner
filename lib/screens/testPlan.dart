@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart';
 import '../logic/test.dart';
+import 'login.dart';
 
 class Testplan extends StatelessWidget {
   const Testplan({Key key}) : super(key: key);
@@ -10,6 +11,15 @@ class Testplan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(150),
+        child: Stack(
+          alignment: Alignment.topLeft,
+          children: [
+            TopDecorationHalfCircle(colorOne: linearBlue, colorTwo: linearGreen)
+          ],
+        ),
+      ),
       body: FutureBuilder(
         future: getTests(),
         builder: (context, snapshot) {
@@ -20,10 +30,7 @@ class Testplan extends StatelessWidget {
             }
             return Column(
               children: [
-                Text(
-                  'Maaz er et geni',
-                  style: TextStyle(fontSize: 50),
-                ),
+                SizedBox(height: 150),
                 Expanded(
                   child: ListView(
                     children: [
@@ -38,11 +45,35 @@ class Testplan extends StatelessWidget {
                                 Radius.circular(10),
                               ),
                             ),
-                            child: Row(children: [
-                              Text(test.title),
-                              Text(DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
-                                  .format(test.date))
-                            ]),
+                            child: Column(
+                              children: [
+                                Row(children: [
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    test.title,
+                                    style: TextStyle(fontSize: 26),
+                                  ),
+                                  Expanded(
+                                    child: Container(),
+                                  ),
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 50,
+                                      ),
+                                      Text(DateFormat(
+                                              DateFormat.ABBR_MONTH_WEEKDAY_DAY)
+                                          .format(test.date)),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                ]),
+                              ],
+                            ),
                           );
                         }).toList(),
                       ),
