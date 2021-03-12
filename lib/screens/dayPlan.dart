@@ -504,13 +504,17 @@ class _AppBar extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 60.0, left: 15.0),
             child: GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  height: 60,
+                  width: 70,
+                  color: Colors.blue,
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                )),
           ),
         ],
       ),
