@@ -45,7 +45,9 @@ class _WeekPlanState extends State<WeekPlan> {
         child: Stack(
           alignment: Alignment.topLeft,
           children: [
-            TopDecorationHalfCircle(),
+            TopDecorationHalfCircle(
+              color: lysOrange,
+            ),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -70,8 +72,7 @@ class _WeekPlanState extends State<WeekPlan> {
                 onTap: () => Navigator.pop(context),
                 child: Container(
                   height: 60,
-                  width: 60,
-                  color: Colors.blue,
+                  width: 70,
                   child: Icon(
                     Icons.arrow_back,
                     color: Colors.white,
