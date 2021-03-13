@@ -2,12 +2,16 @@
  You may not use, distribute and modify this code unless a license is granted. 
  If so use, distribution and modification can be done under the terms of the license.*/
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/icons/custom_icons.dart';
+import 'package:ukeplaner/logic/class.dart';
+import 'package:ukeplaner/logic/classTimes.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/logic/firebase/firebase.dart';
+import 'package:ukeplaner/logic/leske.dart';
 import 'package:ukeplaner/screens/login.dart';
 import '../logic/tekst.dart';
 import 'package:week_of_year/week_of_year.dart';
@@ -25,94 +29,184 @@ class HomeScreen extends StatelessWidget {
     DateTime date = getDate()["dateTime"];
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(250),
+        preferredSize: Size.fromHeight(150),
         child: Stack(
           alignment: Alignment.topRight,
           children: [TopDecorationHalfCircle()],
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
         children: [
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20, left: 25),
-            child: Text(
-              'Mine Planer',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 38, 58, 80),
-                letterSpacing: 2,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Container(
-              color: Colors.transparent,
-              width: 400,
-              height: MediaQuery.of(context).size.width / 1.2,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+          GetClassesEmptyWIdget(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              MinePlaner(date: date),
+              Column(
                 children: [
-                  MenuButton(
-                    onPressed: () {
-                      currentPageSelected = 0;
-                      Navigator.of(context).pushNamed("/dayplan");
-                    },
-                    color: Color.fromARGB(255, 238, 107, 120),
-                    icon: CustomIcons.calendar_check,
-                    size: 25,
-                    title: "Dagsplan",
-                    subTitle: DateFormat("EEEE")
-                        .format(getDate(addDays: 0)["dateTime"])
-                        .capitalize(),
-                    subTitleOnLong:
-                        DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
-                            .format(getDate()["dateTime"])
-                            .capitalize(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0, left: 25),
+                    child: Text(
+                      'Mine Planer',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 38, 58, 80),
+                        letterSpacing: 2,
+                      ),
+                    ),
                   ),
-                  MenuButton(
-                    onPressed: () {
-                      addWeeks = 0;
-                      Navigator.of(context).pushNamed('/weekPlan');
-                    },
-                    size: 25,
-                    color: Colors.blue,
-                    title: 'Ukeplan',
-                    subTitle: 'Uke ${date.weekOfYear.toString()}',
-                    icon: CustomIcons.calendar_alt,
-                  ),
-                  MenuButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/testPlan');
-                    },
-                    size: 25,
-                    color: Colors.yellow,
-                    title: 'Prøveplan',
-                    subTitle:
-                        semesterFormatted(getSemester(semesterEn, semesterTo)),
-                    icon: CustomIcons.checklist,
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                      context.read<AuthenticationService>().signOut();
-                    },
-                    child: Text('logg ut'),
+                  Column(
+                    children: [
+                      for (ClassModel classe in classes)
+                        (() {
+                          List lekser = [];
+                          for (ClassTime time in classe.times) {
+                            print(time.dayIndex);
+                            for (var i = 0; i < 21; i++) {
+                              DateTime date = getDate(addDays: i)["dateTime"];
+                              if (date.weekday == time.dayIndex) {
+                                String dateId =
+                                    "${date.year}.${date.month}.${date.day}";
+                                DocumentReference documentReference = db
+                                    .collection("classes")
+                                    .doc(classe.classFirestoreID)
+                                    .collection("classes")
+                                    .doc(dateId);
+                                List<Lekse> lekser = [];
+                                try {
+                                  lekser = classMessagesCache[
+                                          "${classe.classFirestoreID}.$dateId"]
+                                      ["lekser"];
+                                  continue;
+                                } catch (e) {
+                                  documentReference.get().then((value) {
+                                    try {
+                                      for (var lekse
+                                          in value.data()["lekser"]) {
+                                        lekser.add(new Lekse(
+                                            tittel: lekse["tittel"],
+                                            beskrivelse: lekse["desc"]));
+                                      }
+
+                                      classMessagesCache[classe.classFirestoreID
+                                          .toString()] = {
+                                        "lekser": lekser,
+                                      };
+                                    } catch (e) {
+                                      lekser = [];
+                                    }
+                                  });
+                                }
+                                print(lekser);
+                                return Text(classe.className);
+                                try {} catch (e) {}
+                              }
+                            }
+                          }
+                        }())
+                    ],
                   )
                 ],
               ),
-            ),
+            ],
           ),
-          GetClassesEmptyWIdget()
         ],
       ),
+    );
+  }
+}
+
+class MinePlaner extends StatelessWidget {
+  const MinePlaner({
+    Key key,
+    @required this.date,
+  }) : super(key: key);
+
+  final DateTime date;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, left: 25),
+          child: Text(
+            'Mine Planer',
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 38, 58, 80),
+              letterSpacing: 2,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Container(
+            color: Colors.transparent,
+            width: 400,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                MenuButton(
+                  onPressed: () {
+                    currentPageSelected = 0;
+                    Navigator.of(context).pushNamed("/dayplan");
+                  },
+                  color: Color.fromARGB(255, 238, 107, 120),
+                  icon: CustomIcons.calendar_check,
+                  size: 25,
+                  title: "Dagsplan",
+                  subTitle: DateFormat("EEEE")
+                      .format(getDate(addDays: 0)["dateTime"])
+                      .capitalize(),
+                  subTitleOnLong:
+                      DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
+                          .format(getDate()["dateTime"])
+                          .capitalize(),
+                ),
+                MenuButton(
+                  onPressed: () {
+                    addWeeks = 0;
+                    Navigator.of(context).pushNamed('/weekPlan');
+                  },
+                  size: 25,
+                  color: Colors.blue,
+                  title: 'Ukeplan',
+                  subTitle: 'Uke ${date.weekOfYear.toString()}',
+                  icon: CustomIcons.calendar_alt,
+                ),
+                MenuButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/testPlan');
+                  },
+                  size: 25,
+                  color: Colors.yellow,
+                  title: 'Prøveplan',
+                  subTitle:
+                      semesterFormatted(getSemester(semesterEn, semesterTo)),
+                  icon: CustomIcons.checklist,
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    context.read<AuthenticationService>().signOut();
+                  },
+                  child: Text('logg ut'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
