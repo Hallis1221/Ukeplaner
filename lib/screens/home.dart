@@ -9,9 +9,11 @@ import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/icons/custom_icons.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
+import 'package:ukeplaner/logic/dayClass.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/logic/firebase/firebase.dart';
 import 'package:ukeplaner/logic/leske.dart';
+import 'package:ukeplaner/screens/dayPlan.dart';
 import 'package:ukeplaner/screens/login.dart';
 import '../logic/tekst.dart';
 import 'package:week_of_year/week_of_year.dart';
@@ -22,8 +24,9 @@ DateTime now = DateTime.now();
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
     Key key,
+    @required this.subjects,
   }) : super(key: key);
-
+  final List<ClassModel> subjects;
   @override
   Widget build(BuildContext context) {
     DateTime date = getDate()["dateTime"];
@@ -61,47 +64,28 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       for (ClassModel classe in classes)
                         (() {
-                          List lekser = [];
                           for (ClassTime time in classe.times) {
-                            print(time.dayIndex);
                             for (var i = 0; i < 21; i++) {
-                              DateTime date = getDate(addDays: i)["dateTime"];
-                              if (date.weekday == time.dayIndex) {
-                                String dateId =
-                                    "${date.year}.${date.month}.${date.day}";
-                                DocumentReference documentReference = db
-                                    .collection("classes")
-                                    .doc(classe.classFirestoreID)
-                                    .collection("classes")
-                                    .doc(dateId);
-                                List<Lekse> lekser = [];
-                                try {
-                                  lekser = classMessagesCache[
-                                          "${classe.classFirestoreID}.$dateId"]
-                                      ["lekser"];
-                                  continue;
-                                } catch (e) {
-                                  documentReference.get().then((value) {
-                                    try {
-                                      for (var lekse
-                                          in value.data()["lekser"]) {
-                                        lekser.add(new Lekse(
-                                            tittel: lekse["tittel"],
-                                            beskrivelse: lekse["desc"]));
+                              var date = getDate(addDays: i);
+                              if (date["dateTime"].weekday == time.dayIndex) {
+                                return FutureBuilder(
+                                  future: makeCompleteDayClass(context,
+                                      subjects: subjects, dateToShow: date),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                      print(snapshot.data);
+                                      for (CompleteDayClass completeDayClass
+                                          in snapshot.data) {
+                                        for (Lekse lekse
+                                            in completeDayClass.lekser) {
+                                          return Text(lekse.tittel);
+                                        }
                                       }
-
-                                      classMessagesCache[classe.classFirestoreID
-                                          .toString()] = {
-                                        "lekser": lekser,
-                                      };
-                                    } catch (e) {
-                                      lekser = [];
                                     }
-                                  });
-                                }
-                                print(lekser);
-                                return Text(classe.className);
-                                try {} catch (e) {}
+                                    return Container();
+                                  },
+                                );
                               }
                             }
                           }
