@@ -29,6 +29,7 @@ class HomeScreen extends StatelessWidget {
   final List<ClassModel> subjects;
   @override
   Widget build(BuildContext context) {
+    print("HERE!");
     DateTime date = getDate()["dateTime"];
     return Scaffold(
       appBar: PreferredSize(
@@ -40,16 +41,17 @@ class HomeScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          GetClassesEmptyWIdget(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               MinePlaner(date: date),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 0, left: 25),
+                    padding:
+                        const EdgeInsets.only(top: 0, left: 25, bottom: 10),
                     child: Text(
                       'Mine Planer',
                       style: TextStyle(
@@ -60,37 +62,79 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Column(
-                    children: [
-                      for (ClassModel classe in classes)
-                        (() {
-                          for (ClassTime time in classe.times) {
-                            for (var i = 0; i < 21; i++) {
-                              var date = getDate(addDays: i);
-                              if (date["dateTime"].weekday == time.dayIndex) {
-                                return FutureBuilder(
-                                  future: makeCompleteDayClass(context,
-                                      subjects: subjects, dateToShow: date),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.connectionState ==
-                                        ConnectionState.done) {
-                                      print(snapshot.data);
-                                      for (CompleteDayClass completeDayClass
-                                          in snapshot.data) {
-                                        for (Lekse lekse
-                                            in completeDayClass.lekser) {
-                                          return Text(lekse.tittel);
-                                        }
-                                      }
+                  FutureBuilder(
+                    future: getClassesFromFirebase(context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return Column(
+                          children: [
+                            for (ClassModel classe in classes)
+                              (() {
+                                int childsOnRow = 0;
+                                List<Widget> stuffToReturn = [];
+                                for (ClassTime time in classe.times) {
+                                  for (var i = 0; i < 21; i++) {
+                                    var date = getDate(addDays: i);
+                                    if (date["dateTime"].weekday ==
+                                        time.dayIndex) {
+                                      stuffToReturn.add(FutureBuilder(
+                                        future:
+                                            getLekser(context, subjects, date),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                                  ConnectionState.done &&
+                                              snapshot.hasData) {
+                                            List<Widget> rowChildren = [];
+                                            List<Widget> columnOfRows = [];
+                                            for (Widget widget
+                                                in snapshot.data) {
+                                              if (childsOnRow <= 2) {
+                                                rowChildren.add(widget);
+                                              } else {
+                                                columnOfRows.add(Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: rowChildren,
+                                                ));
+                                                rowChildren = [];
+                                              }
+                                              childsOnRow++;
+                                            }
+                                            columnOfRows.add(Row(
+                                              mainAxisAlignment: (() {
+                                                if (rowChildren.length == 1) {
+                                                  return MainAxisAlignment
+                                                      .spaceEvenly;
+                                                } else {
+                                                  return MainAxisAlignment
+                                                      .spaceEvenly;
+                                                }
+                                              }()),
+                                              children: rowChildren,
+                                            ));
+                                            print(
+                                                "columnOfRows: $columnOfRows");
+                                            return Column(
+                                              children: columnOfRows,
+                                            );
+                                          }
+                                          return Container(
+                                            child: Text("OHJ!"),
+                                          );
+                                        },
+                                      ));
                                     }
-                                    return Container();
-                                  },
+                                  }
+                                }
+                                return Column(
+                                  children: stuffToReturn,
                                 );
-                              }
-                            }
-                          }
-                        }())
-                    ],
+                              }())
+                          ],
+                        );
+                      }
+                      return Container();
+                    },
                   )
                 ],
               ),
@@ -100,6 +144,32 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<List> getLekser(context, subjects, date) async {
+  List<Widget> children = [];
+  await makeCompleteDayClass(context, subjects: subjects, dateToShow: date)
+      .then((value) {
+    for (CompleteDayClass completeDayClass in value) {
+      for (Lekse lekse in completeDayClass.lekser) {
+        children.add(Padding(
+          padding: const EdgeInsets.only(left: 7.5, right: 7.5, bottom: 25),
+          child: Container(
+            width: MediaQuery.of(context).size.width / 2.2,
+            height: 250,
+            child: Text(lekse.tittel),
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(
+                35,
+              ),
+            ),
+          ),
+        ));
+      }
+    }
+  });
+  return children;
 }
 
 class MinePlaner extends StatelessWidget {
@@ -192,28 +262,6 @@ class MinePlaner extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class GetClassesEmptyWIdget extends StatefulWidget {
-  const GetClassesEmptyWIdget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _GetClassesEmptyWIdgetState createState() => _GetClassesEmptyWIdgetState();
-}
-
-class _GetClassesEmptyWIdgetState extends State<GetClassesEmptyWIdget> {
-  @override
-  void initState() {
-    super.initState();
-    getClassesFromFirebase(context);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
 
