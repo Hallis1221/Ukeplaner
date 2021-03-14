@@ -512,7 +512,7 @@ class _AppBar extends StatelessWidget {
                 child: Container(
                   height: 60,
                   width: 70,
-                  color: Colors.blue,
+                  color: Colors.transparent,
                   child: Icon(
                     Icons.arrow_back,
                     color: Colors.white,
