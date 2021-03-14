@@ -2,6 +2,8 @@
  You may not use, distribute and modify this code unless a license is granted. 
  If so use, distribution and modification can be done under the terms of the license.*/
 
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -53,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                     padding:
                         const EdgeInsets.only(top: 0, left: 25, bottom: 10),
                     child: Text(
-                      'Mine Planer',
+                      'Lekser',
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -78,8 +80,8 @@ class HomeScreen extends StatelessWidget {
                                     if (date["dateTime"].weekday ==
                                         time.dayIndex) {
                                       stuffToReturn.add(FutureBuilder(
-                                        future:
-                                            getLekser(context, subjects, date),
+                                        future: getLekserWidgets(
+                                            context, subjects, date),
                                         builder: (context, snapshot) {
                                           if (snapshot.connectionState ==
                                                   ConnectionState.done &&
@@ -96,6 +98,7 @@ class HomeScreen extends StatelessWidget {
                                                       MainAxisAlignment.start,
                                                   children: rowChildren,
                                                 ));
+
                                                 rowChildren = [];
                                               }
                                               childsOnRow++;
@@ -104,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                                               mainAxisAlignment: (() {
                                                 if (rowChildren.length == 1) {
                                                   return MainAxisAlignment
-                                                      .spaceEvenly;
+                                                      .start;
                                                 } else {
                                                   return MainAxisAlignment
                                                       .spaceEvenly;
@@ -118,9 +121,7 @@ class HomeScreen extends StatelessWidget {
                                               children: columnOfRows,
                                             );
                                           }
-                                          return Container(
-                                            child: Text("OHJ!"),
-                                          );
+                                          return Container();
                                         },
                                       ));
                                     }
@@ -146,8 +147,9 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-Future<List> getLekser(context, subjects, date) async {
+Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
   List<Widget> children = [];
+  List brukteFarger = [];
   await makeCompleteDayClass(context, subjects: subjects, dateToShow: date)
       .then((value) {
     for (CompleteDayClass completeDayClass in value) {
@@ -156,10 +158,36 @@ Future<List> getLekser(context, subjects, date) async {
           padding: const EdgeInsets.only(left: 7.5, right: 7.5, bottom: 25),
           child: Container(
             width: MediaQuery.of(context).size.width / 2.2,
-            height: 250,
-            child: Text(lekse.tittel),
+            height: 225,
+            child: Column(
+              children: [
+                Text(
+                  lekse.fag,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: (() {
+                Random rnd = new Random();
+                int min = 0, max = cardColors.length;
+                int r = min + rnd.nextInt(max - min);
+                int maxColorsLen = brukteFarger.length;
+
+                if (maxColorsLen <= max) {
+                  while (brukteFarger.contains(r)) {
+                    r = min + rnd.nextInt(max - min);
+                  }
+                  print("brukte: $brukteFarger");
+                  brukteFarger.add(r);
+                }
+
+                return cardColors[r];
+              }()),
               borderRadius: BorderRadius.circular(
                 35,
               ),
