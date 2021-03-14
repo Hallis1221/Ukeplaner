@@ -330,8 +330,7 @@ class WeekPlanBox extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: double.parse((300 - (47.5 * totalAmountOfDays)).toString()),
-          height: 128,
+          width: double.parse((300 - (46 * totalAmountOfDays)).toString()),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -356,7 +355,16 @@ class WeekPlanBox extends StatelessWidget {
                     fontSize: 13,
                   ),
                 ),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  rom,
+                  style: TextStyle(
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
