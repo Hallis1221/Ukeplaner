@@ -196,6 +196,9 @@ class _WeekPlanColumnState extends State<WeekPlanColumn> {
                     for (CompleteDayClass classe in classes)
                       WeekPlanBox(
                         title: classe.className,
+                        rom: classe.rom,
+                        startTime: classe.startTime,
+                        endTime: classe.endTime,
                         color: (() {
                           Random rnd = new Random();
                           int min = 0, max = cardColors.length;
@@ -307,23 +310,55 @@ Duration getWeekDateDifference(weekplanIndex, week) {
 }
 
 class WeekPlanBox extends StatelessWidget {
-  const WeekPlanBox({Key key, this.title = "", this.color = Colors.redAccent})
-      : super(key: key);
+  const WeekPlanBox({
+    Key key,
+    this.color = Colors.redAccent,
+    this.title = "",
+    this.rom = "",
+    this.startTime = "",
+    this.endTime = "",
+  }) : super(key: key);
 
   final String title;
+  final String rom;
+  final String startTime;
+  final String endTime;
+
   final Color color;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          width: double.parse((300 - (50 * totalAmountOfDays)).toString()),
+          width: double.parse((300 - (47.5 * totalAmountOfDays)).toString()),
           height: 128,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-          child: Text(title),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "$startTime - $endTime",
+                  style: TextStyle(
+                    fontSize: 13,
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
         SizedBox(
           height: 15,
