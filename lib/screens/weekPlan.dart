@@ -96,7 +96,7 @@ class _WeekPlanState extends State<WeekPlan> {
           }
         },
         onSwipeLeft: () {
-          if (addWeeks <= 2) {
+          if (addWeeks <= 0) {
             setState(() {
               addWeeks++;
             });
@@ -261,9 +261,9 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
         if (0 >= addWeeks) {
           tempWeeks = 1;
         } else {
-          tempWeeks = addWeeks;
+          tempWeeks = addWeeks + 1;
         }
-        currentPageSelected = widget.weekplanIndex + ((tempWeeks - 1) * 5);
+        currentPageSelected = widget.weekplanIndex + ((tempWeeks - 1) * 5) - 1;
 
         Navigator.of(context).pushNamed("/dayplan");
         print("cps: $currentPageSelected");
