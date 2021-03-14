@@ -158,23 +158,49 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
           padding: const EdgeInsets.only(left: 7.5, right: 7.5, bottom: 25),
           child: Container(
             width: MediaQuery.of(context).size.width / 2.2,
-            height: 225,
             child: Column(
               children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Icon(
+                  (() {
+                    if (iconIndex[lekse.tittel] != null) {
+                      return iconIndex[lekse.tittel];
+                    } else
+                      return iconIndex["default"];
+                  }()),
+                  color: Colors.white,
+                  size: 90,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   lekse.fag,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 25,
                   ),
+                ),
+                Text(
+                  "${DateFormat(DateFormat.WEEKDAY).format(lekse.date).capitalize()} uke ${lekse.date.weekOfYear}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
               ],
             ),
             decoration: BoxDecoration(
               color: (() {
                 Random rnd = new Random();
-                int min = 0, max = cardColors.length;
+                int min = 0, max = lekserColors.length;
                 int r = min + rnd.nextInt(max - min);
                 int maxColorsLen = brukteFarger.length;
 
@@ -186,7 +212,7 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
                   brukteFarger.add(r);
                 }
 
-                return cardColors[r];
+                return lekserColors[r];
               }()),
               borderRadius: BorderRadius.circular(
                 35,
