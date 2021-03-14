@@ -30,7 +30,7 @@ class DaySelector extends StatelessWidget {
           onTap();
         },
         initialIndex: double.parse(currentPageSelected.toString()),
-        itemCount: 14,
+        itemCount: 10,
         scrollDirection: Axis.horizontal,
         itemBuilder: (_, index) {
           return GestureDetector(
