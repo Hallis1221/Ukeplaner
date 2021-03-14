@@ -215,7 +215,10 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
             message = value.data()["message"];
             for (var lekse in value.data()["lekser"]) {
               lekser.add(new Lekse(
-                  tittel: lekse["tittel"], beskrivelse: lekse["desc"]));
+                  tittel: lekse["tittel"],
+                  beskrivelse: lekse["desc"],
+                  fag: klasse.className,
+                  date: dateToShow["dateTime"]));
             }
 
             config.classMessagesCache[klasse.classFirestoreID.toString()] = {
