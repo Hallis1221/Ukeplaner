@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/config/config.dart' as config;
 import '../logic/test.dart';
 import 'login.dart';
 
@@ -16,7 +16,8 @@ class Testplan extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topLeft,
           children: [
-            TopDecorationHalfCircle(colorOne: linearBlue, colorTwo: linearGreen)
+            TopDecorationHalfCircle(
+                colorOne: config.linearBlue, colorTwo: config.linearGreen)
           ],
         ),
       ),
@@ -40,7 +41,7 @@ class Testplan extends StatelessWidget {
                             height: 250,
                             width: 230,
                             decoration: BoxDecoration(
-                              color: rasmusBlue,
+                              color: config.rasmusBlue,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(10),
                               ),
@@ -92,9 +93,11 @@ class Testplan extends StatelessWidget {
 
 Future<List<Test>> getTests() async {
   List<Test> tests = [];
-  for (String code in cloudClassesCodes) {
+  for (String code in config.cloudClassesCodes) {
     var currentTest;
-    DocumentReference documentReference = db.collection("classes").doc(code);
+    DocumentReference documentReference =
+        config.db.collection("classes").doc(code);
+    config.analytics.logEvent(name: "get_classes_$code");
     await documentReference.get().then((value) {
       currentTest = value.data()["tests"];
       for (var test in currentTest) {
