@@ -429,26 +429,26 @@ class TimeCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Future<dynamic> showLekse(BuildContext context, Widget lekseTekst) {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Container(
-          child: ListTile(
-            title: Text("Lekser"),
-            subtitle: lekseTekst,
-          ),
+Future<dynamic> showLekse(BuildContext context, Widget lekseTekst) {
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      content: Container(
+        child: ListTile(
+          title: Text("Lekser"),
+          subtitle: lekseTekst,
         ),
-        actions: <Widget>[
-          TextButton(
-            child: Text("ok"),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
       ),
-    );
-  }
+      actions: <Widget>[
+        TextButton(
+          child: Text("ok"),
+          onPressed: () => Navigator.of(context).pop(),
+        )
+      ],
+    ),
+  );
 }
 
 class _AppBar extends StatelessWidget {
