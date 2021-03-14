@@ -318,23 +318,7 @@ class TimeCard extends StatelessWidget {
                 .toList()));
     return GestureDetector(
       onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            content: Container(
-              child: ListTile(
-                title: Text("Lekser"),
-                subtitle: lekseTekst,
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text("ok"),
-                onPressed: () => Navigator.of(context).pop(),
-              )
-            ],
-          ),
-        );
+        showLekse(context, lekseTekst);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -442,6 +426,26 @@ class TimeCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Future<dynamic> showLekse(BuildContext context, Widget lekseTekst) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Container(
+          child: ListTile(
+            title: Text("Lekser"),
+            subtitle: lekseTekst,
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text("ok"),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
       ),
     );
   }
