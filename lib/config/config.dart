@@ -253,3 +253,5 @@ FirebaseFirestore db = FirebaseFirestore.instance;
 int currentPageSelected = 0;
 Map<String, dynamic> classMessagesCache = {};
 int addWeeks = 0;
+String firstName;
+String lastName;
