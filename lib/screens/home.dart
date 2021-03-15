@@ -39,7 +39,11 @@ class HomeScreen extends StatelessWidget {
         preferredSize: Size.fromHeight(150),
         child: Stack(
           alignment: Alignment.topRight,
-          children: [TopDecorationHalfCircle()],
+          children: [
+            TopDecorationHalfCircle(
+              title: "$firstName $lastName",
+            )
+          ],
         ),
       ),
       body: ListView(
