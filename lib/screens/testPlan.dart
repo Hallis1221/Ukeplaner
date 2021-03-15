@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firestore_cache/firestore_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart' as config;
@@ -98,7 +99,8 @@ Future<List<Test>> getTests() async {
     DocumentReference documentReference =
         config.db.collection("classes").doc(code);
     config.analytics.logEvent(name: "get_classes_$code");
-    await documentReference.get().then((value) {
+    print("got_$code");
+    await FirestoreCache.getDocument(documentReference).then((value) {
       currentTest = value.data()["tests"];
       for (var test in currentTest) {
         Timestamp timeStamp = test["date"];
