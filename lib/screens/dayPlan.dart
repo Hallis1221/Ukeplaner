@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firestore_cache/firestore_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animations/loading_animations.dart';
@@ -203,29 +204,47 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
       String message;
       List<Lekse> lekser = [];
       try {
+        if (config.classMessagesCache["${klasse.classFirestoreID}.$dateId"] ==
+            null) {
+          print("object");
+          print(
+              config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]);
+          throw FlutterError(message);
+        }
         message =
             config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]
-                ["message"];
+                ["message"]["data"];
         lekser = config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]
-            ["lekser"];
+            ["lekser"]["data"];
         continue;
       } catch (e) {
         config.analytics
             .logEvent(name: "get_class_${klasse.classFirestoreID}_$dateId");
-        await documentReference.get().then((value) {
+        print("got_${klasse.classFirestoreID}.$dateId");
+
+        await FirestoreCache.getDocument(documentReference).then((value) {
           try {
             message = value.data()["message"];
             for (var lekse in value.data()["lekser"]) {
-              lekser.add(new Lekse(
+              lekser.add(
+                new Lekse(
                   tittel: lekse["tittel"],
                   beskrivelse: lekse["desc"],
                   fag: klasse.className,
-                  date: dateToShow["dateTime"]));
+                  date: dateToShow["dateTime"],
+                ),
+              );
             }
 
             config.classMessagesCache[klasse.classFirestoreID.toString()] = {
-              "message": message,
-              "lekser": lekser,
+              "message": {
+                "data": message,
+                "stored": true,
+              },
+              "lekser": {
+                "data": lekser,
+                "stored": true,
+              },
             };
           } catch (e) {
             message = null;
