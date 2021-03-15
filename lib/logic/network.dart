@@ -39,6 +39,7 @@ class _VerifyAppState extends State<VerifyApp> {
         persistenceEnabled: false,
       );
     }
+
     super.initState();
   }
 
