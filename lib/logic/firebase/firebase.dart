@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:firestore_cache/firestore_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
@@ -169,7 +170,8 @@ Future<void> getClassesFromFirebase(BuildContext context) async {
         .then((User value) => print(value.uid));
 
     analytics.logEvent(name: "get_class_$classId");
-    await documentReference.get().then((value) async {
+    print("got_$classId");
+    await FirestoreCache.getDocument(documentReference).then((value) async {
       Map<String, dynamic> data = value.data();
 
       List<ClassTime> times = [];
