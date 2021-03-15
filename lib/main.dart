@@ -5,6 +5,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firestore_cache/firestore_cache.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:loading/loading.dart';
 import 'package:loading_animations/loading_animations.dart';
@@ -129,12 +130,13 @@ class FutureValidateBuilder extends StatelessWidget {
         });
 
         DocumentReference _dcRef = config.db.collection("users").doc(uid);
-        return _dcRef.get();
+        return FirestoreCache.getDocument(_dcRef);
       }()),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           DocumentSnapshot data = snapshot.data;
           analytics.logEvent(name: "get_classes");
+          print("got_classes");
           config.cloudClassesCodes = data.get("classes");
 
           return LocalMessageHandler(onDone: '/home');
@@ -174,4 +176,17 @@ startTime(context) async {
 
 Future<List<ClassModel>> getClasses() async {
   return config.classes;
+}
+
+Future<QuerySnapshot> _getDocs() async {
+  final DocumentReference cacheDocRef = db.doc('status/status');
+  final String cacheField = 'updatedAt';
+  final Query query = db.collection('classes');
+  final QuerySnapshot snapshot = await FirestoreCache.getDocuments(
+    query: query,
+    cacheDocRef: cacheDocRef,
+    firestoreCacheField: cacheField,
+  );
+
+  return snapshot;
 }
