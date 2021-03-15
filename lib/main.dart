@@ -178,7 +178,7 @@ Future<List<ClassModel>> getClasses() async {
   return config.classes;
 }
 
-Future<QuerySnapshot> _getDocs() async {
+Future<QuerySnapshot> getDocs() async {
   final DocumentReference cacheDocRef = db.doc('status/status');
   final String cacheField = 'updatedAt';
   final Query query = db.collection('classes');
