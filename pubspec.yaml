@@ -40,6 +40,7 @@ dependencies:
   introduction_screen: ^1.0.9
   loading: ^1.0.2
   loading_animations: ^2.1.0
+  modal_bottom_sheet: ^2.0.0
   native_shared_preferences: ^1.0.5
   provider: ^4.3.3
   scroll_snap_list: ^0.6.0
