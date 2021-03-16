@@ -36,6 +36,8 @@ class AuthenticatonWrapper extends StatelessWidget {
           firstName = value.data()["firstname"];
           lastName = value.data()["lastname"];
         });
+        _dcr = _dcr.collection("sensetive").doc("nowrite");
+        FirestoreCache.getDocument(_dcr).then((value) => print(value.data()));
         return loggedin;
       } catch (e) {
         return ErrorPage();
