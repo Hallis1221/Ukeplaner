@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/icons/custom_icons.dart';
 import 'dayPlan.dart';
@@ -78,7 +79,37 @@ class HomeScreen extends StatelessWidget {
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: RawMaterialButton(
-                              onPressed: null,
+                              onPressed: () {
+                                showMaterialModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => SingleChildScrollView(
+                                    controller:
+                                        ModalScrollController.of(context),
+                                    child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              1.2,
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Text(
+                                            "Ny Lekse",
+                                            style: TextStyle(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color.fromARGB(
+                                                  255, 38, 58, 80),
+                                              letterSpacing: 2,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                               shape: CircleBorder(),
                               child: Padding(
                                 padding: const EdgeInsets.all(2.5),
