@@ -103,7 +103,31 @@ class HomeScreen extends StatelessWidget {
                                                   255, 38, 58, 80),
                                               letterSpacing: 2,
                                             ),
-                                          )
+                                          ),
+                                          (() {
+                                            TextEditingController
+                                                lekseTitleController =
+                                                TextEditingController();
+                                            return Form(
+                                              child: Column(
+                                                children: [
+                                                  FormInputField(
+                                                    controller:
+                                                        lekseTitleController,
+                                                    labelText: "Tittel",
+                                                    hintText: "Lekse tittel",
+                                                    onFinish: () {
+                                                      // TODO
+                                                      print(lekseTitleController
+                                                          .text);
+                                                    },
+                                                    icon: Icon(Icons.title),
+                                                  ),
+                                                  KlasseField()
+                                                ],
+                                              ),
+                                            );
+                                          }())
                                         ],
                                       ),
                                     ),
@@ -206,6 +230,39 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class KlasseField extends StatefulWidget {
+  const KlasseField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _KlasseFieldState createState() => _KlasseFieldState();
+}
+
+class _KlasseFieldState extends State<KlasseField> {
+  String hintText = "Velg klasse";
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      hint: Text(
+        hintText,
+        style: TextStyle(color: Colors.black),
+      ),
+      items: classes.map((ClassModel value) {
+        return new DropdownMenuItem<String>(
+          value: value.className,
+          child: new Text(value.className),
+        );
+      }).toList(),
+      onChanged: (String newValue) {
+        setState(() {
+          this.hintText = newValue;
+        });
+      },
     );
   }
 }
