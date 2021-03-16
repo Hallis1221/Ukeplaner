@@ -57,16 +57,43 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 0, left: 25, bottom: 10),
-                    child: Text(
-                      'Lekser',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 38, 58, 80),
-                        letterSpacing: 2,
-                      ),
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                      left: 25,
+                      bottom: 10,
+                      right: 0,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Lekser',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 38, 58, 80),
+                            letterSpacing: 2,
+                          ),
+                        ),
+                        Expanded(
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: RawMaterialButton(
+                              onPressed: null,
+                              shape: CircleBorder(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(2.5),
+                                child: Icon(
+                                  Icons.add,
+                                  size: 40,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              fillColor: mildBlue,
+                              elevation: 0,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                   FutureBuilder(
