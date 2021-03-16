@@ -255,3 +255,4 @@ Map<String, dynamic> classMessagesCache = {};
 int addWeeks = 0;
 String firstName;
 String lastName;
+bool isTeacher = false;
