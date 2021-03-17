@@ -340,7 +340,6 @@ class _KlasseFieldState extends State<KlasseField> {
         );
       }).toList(),
       onChanged: (String newValue) {
-        print(3);
         for (ClassModel klasse in classes) {
           if (klasse.classFirestoreID == newValue) {
             chossenId = klasse.classFirestoreID;
@@ -349,12 +348,13 @@ class _KlasseFieldState extends State<KlasseField> {
               while (tid.dayIndex != date.weekday) {
                 date = date.add(Duration(days: 1));
               }
+
               tider.add(date);
+              tider.add(date.add(Duration(days: 7)));
             }
 
             setState(() {
-              this.hintText = DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
-                  .format(tider[0]);
+              this.hintText = klasse.className;
             });
           }
         }
