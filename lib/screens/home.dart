@@ -34,6 +34,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("HERE!");
+
     DateTime date = getDate()["dateTime"];
     return Scaffold(
       appBar: PreferredSize(
@@ -82,56 +83,7 @@ class HomeScreen extends StatelessWidget {
                               onPressed: () {
                                 showMaterialModalBottomSheet(
                                   context: context,
-                                  builder: (context) => SingleChildScrollView(
-                                    controller:
-                                        ModalScrollController.of(context),
-                                    child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              1.2,
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                          Text(
-                                            "Ny Lekse",
-                                            style: TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 38, 58, 80),
-                                              letterSpacing: 2,
-                                            ),
-                                          ),
-                                          (() {
-                                            TextEditingController
-                                                lekseTitleController =
-                                                TextEditingController();
-                                            return Form(
-                                              child: Column(
-                                                children: [
-                                                  FormInputField(
-                                                    controller:
-                                                        lekseTitleController,
-                                                    labelText: "Tittel",
-                                                    hintText: "Lekse tittel",
-                                                    onFinish: () {
-                                                      // TODO
-                                                      print(lekseTitleController
-                                                          .text);
-                                                    },
-                                                    icon: Icon(Icons.title),
-                                                  ),
-                                                  KlasseField()
-                                                ],
-                                              ),
-                                            );
-                                          }())
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                  builder: (context) => NewLekse(),
                                 );
                               },
                               shape: CircleBorder(),
@@ -229,6 +181,100 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class NewLekse extends StatelessWidget {
+  const NewLekse({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      controller: ModalScrollController.of(context),
+      child: Container(
+        height: MediaQuery.of(context).size.height / 1.2,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              "Ny Lekse",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(255, 38, 58, 80),
+                letterSpacing: 2,
+              ),
+            ),
+            (() {
+              final node = FocusScope.of(context);
+              TextEditingController lekseTitleController =
+                  TextEditingController();
+              TextEditingController lekseBeskController =
+                  TextEditingController();
+              return Form(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: FormInputField(
+                              controller: lekseTitleController,
+                              textInputAction: TextInputAction.done,
+                              labelText: "Tittel",
+                              hintText: "Lekse tittel",
+                              onFinish: () {
+                                node.unfocus();
+                              },
+                              icon: Icon(Icons.title),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 30,
+                          ),
+                          KlasseField()
+                        ],
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: FormInputField(
+                              controller: lekseBeskController,
+                              type: TextInputType.multiline,
+                              textInputAction: TextInputAction.done,
+                              labelText: "Beskrivelse",
+                              hintText: "Lekse beskrivelse",
+                              onFinish: () {
+                                node.unfocus();
+                              },
+                              icon: Icon(Icons.title),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }())
+          ],
+        ),
       ),
     );
   }
