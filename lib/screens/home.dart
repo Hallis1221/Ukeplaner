@@ -5,6 +5,7 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -25,6 +26,10 @@ import 'package:provider/provider.dart';
 
 DateTime now = DateTime.now();
 List<DateTime> tider = [];
+String chossenTid;
+String chossenId;
+TextEditingController lekseTitleController = TextEditingController();
+TextEditingController lekseBeskController = TextEditingController();
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -83,6 +88,7 @@ class HomeScreen extends StatelessWidget {
                             alignment: Alignment.centerRight,
                             child: RawMaterialButton(
                               onPressed: () {
+                                tider = [];
                                 showMaterialModalBottomSheet(
                                   context: context,
                                   builder: (context) => NewLekse(),
@@ -188,8 +194,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-String chossenId;
-
 class NewLekse extends StatelessWidget {
   const NewLekse({
     Key key,
@@ -218,10 +222,7 @@ class NewLekse extends StatelessWidget {
             ),
             (() {
               final node = FocusScope.of(context);
-              TextEditingController lekseTitleController =
-                  TextEditingController();
-              TextEditingController lekseBeskController =
-                  TextEditingController();
+
               return Form(
                 child: Column(
                   children: [
@@ -239,7 +240,7 @@ class NewLekse extends StatelessWidget {
                               labelText: "Tittel",
                               hintText: "Lekse tittel",
                               onFinish: () {
-                                node.unfocus();
+                                node.nextFocus();
                               },
                               icon: Icon(Icons.title),
                             ),
@@ -251,28 +252,32 @@ class NewLekse extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: FormInputField(
-                              controller: lekseBeskController,
-                              type: TextInputType.multiline,
-                              textInputAction: TextInputAction.done,
-                              labelText: "Beskrivelse",
-                              hintText: "Lekse beskrivelse",
-                              onFinish: () {
-                                node.unfocus();
-                              },
-                              icon: Icon(Icons.title),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: FormInputField(
+                                controller: lekseBeskController,
+                                type: TextInputType.multiline,
+                                textInputAction: TextInputAction.done,
+                                labelText: "Beskrivelse",
+                                hintText: "Lekse beskrivelse",
+                                onFinish: () {
+                                  node.nextFocus();
+                                },
+                                icon: Icon(Icons.title),
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 30,
-                        ),
-                      ],
+                          SizedBox(
+                            width: 30,
+                          ),
+                          KlasseDatoField(),
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
@@ -280,10 +285,11 @@ class NewLekse extends StatelessWidget {
                           height: 50,
                           width: MediaQuery.of(context).size.width / 1.5,
                           title: "Legg til",
-                          onPressed: () {
+                          onPressed: () async {
                             if (lekseBeskController.text.isEmpty ||
                                 lekseTitleController.text.isEmpty ||
-                                chossenId.isEmpty) {
+                                chossenId == null ||
+                                chossenTid == null) {
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
@@ -301,6 +307,28 @@ class NewLekse extends StatelessWidget {
                                   ],
                                 ),
                               );
+                            } else {
+                              DocumentReference lekse = db
+                                  .collection("classes")
+                                  .doc(chossenId)
+                                  .collection("classes")
+                                  .doc(chossenTid);
+                              await lekse.get().then((value) {
+                                List lekser;
+                                try {
+                                  lekser = value["lekser"];
+                                } catch (e) {
+                                  lekser = [];
+                                }
+
+                                lekser.add({
+                                  "tittel": "Beskrivelse",
+                                  "desc": "i hvertfall ikke beskrivelse"
+                                });
+                                lekse.set({"lekser": lekser});
+                              });
+                              print(
+                                  "ValgtID: $chossenId, ValgtTid: $chossenTid, tittel: ${lekseTitleController.text}, besk: ${lekseBeskController.text}");
                             }
                           }),
                     ),
@@ -358,6 +386,42 @@ class _KlasseFieldState extends State<KlasseField> {
             });
           }
         }
+      },
+    );
+  }
+}
+
+class KlasseDatoField extends StatefulWidget {
+  const KlasseDatoField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _KlasseDatoFieldState createState() => _KlasseDatoFieldState();
+}
+
+class _KlasseDatoFieldState extends State<KlasseDatoField> {
+  String hintText = "Velg klasse";
+  @override
+  Widget build(BuildContext context) {
+    print(tider);
+    return DropdownButton<String>(
+      hint: Text(
+        hintText,
+        style: TextStyle(color: Colors.black),
+      ),
+      items: tider.map((DateTime value) {
+        return new DropdownMenuItem<String>(
+          value: "${value.year}.${value.month}.${value.day}",
+          child: new Text(
+              DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY).format(value)),
+        );
+      }).toList(),
+      onChanged: (String newValue) {
+        chossenTid = newValue;
+        setState(() {
+          this.hintText = newValue;
+        });
       },
     );
   }
