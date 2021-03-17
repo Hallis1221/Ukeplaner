@@ -37,6 +37,7 @@ class HomeScreen extends StatelessWidget {
 
     DateTime date = getDate()["dateTime"];
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(150),
         child: Stack(
@@ -186,6 +187,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+String chossenId;
+
 class NewLekse extends StatelessWidget {
   const NewLekse({
     Key key,
@@ -196,7 +199,8 @@ class NewLekse extends StatelessWidget {
     return SingleChildScrollView(
       controller: ModalScrollController.of(context),
       child: Container(
-        height: MediaQuery.of(context).size.height / 1.2,
+        height: MediaQuery.of(context).size.height / 2 +
+            MediaQuery.of(context).viewInsets.bottom,
         child: Column(
           children: [
             SizedBox(
@@ -269,6 +273,36 @@ class NewLekse extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: PurpleButton(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          title: "Legg til",
+                          onPressed: () {
+                            if (lekseBeskController.text.isEmpty ||
+                                lekseTitleController.text.isEmpty ||
+                                chossenId.isEmpty) {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  content: Container(
+                                    child: ListTile(
+                                      title: Text("Minst et felt er tomt!"),
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text("ok"),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                          }),
+                    ),
                   ],
                 ),
               );
@@ -305,6 +339,11 @@ class _KlasseFieldState extends State<KlasseField> {
         );
       }).toList(),
       onChanged: (String newValue) {
+        for (ClassModel klasse in classes) {
+          if (klasse.className == newValue) {
+            chossenId = klasse.classFirestoreID;
+          }
+        }
         setState(() {
           this.hintText = newValue;
         });
