@@ -308,6 +308,8 @@ class NewLekse extends StatelessWidget {
                                 ),
                               );
                             } else {
+                              lekseBeskController.clear();
+                              lekseTitleController.clear();
                               DocumentReference lekse = db
                                   .collection("classes")
                                   .doc(chossenId)
@@ -327,6 +329,23 @@ class NewLekse extends StatelessWidget {
                                 });
                                 lekse.set({"lekser": lekser});
                               });
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  content: Container(
+                                    child: ListTile(
+                                      title: Text("Leksen er lagt til."),
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text("ok"),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                    )
+                                  ],
+                                ),
+                              );
                               print(
                                   "ValgtID: $chossenId, ValgtTid: $chossenTid, tittel: ${lekseTitleController.text}, besk: ${lekseBeskController.text}");
                             }
