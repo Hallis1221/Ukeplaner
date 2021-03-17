@@ -385,6 +385,7 @@ class FormInputField extends StatefulWidget {
     this.ispassword = false,
     this.textInputAction = TextInputAction.next,
     this.type = TextInputType.text,
+    this.maxLines = 1,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -395,6 +396,7 @@ class FormInputField extends StatefulWidget {
 
   final double width;
   final bool ispassword;
+  final int maxLines;
   final Icon icon;
   final TextInputAction textInputAction;
   final TextInputType type;
@@ -424,6 +426,13 @@ class _FormInputFieldState extends State<FormInputField> {
           return widget.width;
         }()),
         child: TextField(
+          maxLines: (() {
+            if (widget.ispassword) {
+              return 1;
+            } else {
+              return widget.maxLines;
+            }
+          }()),
           obscureText: isHidden,
           controller: widget.controller,
           keyboardType: widget.type,
