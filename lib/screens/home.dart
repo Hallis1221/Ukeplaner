@@ -324,8 +324,8 @@ class NewLekse extends StatelessWidget {
                                 }
 
                                 lekser.add({
-                                  "tittel": "Beskrivelse",
-                                  "desc": "i hvertfall ikke beskrivelse"
+                                  "tittel": lekseTitleController.text,
+                                  "desc": lekseBeskController.text
                                 });
                                 lekse.set({"lekser": lekser});
                               });
