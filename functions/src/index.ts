@@ -3,7 +3,7 @@ import * as admin from "firebase-admin";
 
 admin.initializeApp();
 const db = admin.firestore();
-const fcm = admin.messaging();
+// const fcm = admin.messaging();
 
 exports.checkcode = functions.https.onCall((argumentData: any,
 ) => {// THIS IS A MAP; DO NOT FORGET
