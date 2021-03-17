@@ -1,10 +1,11 @@
-const functions = require("firebase-functions");
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
 
-const admin = require('firebase-admin');
 admin.initializeApp();
 const db = admin.firestore();
+const fcm = admin.messaging();
 
-exports.checkcode = functions.https.onCall((argumentData: any, 
+exports.checkcode = functions.https.onCall((argumentData: any,
 ) => {// THIS IS A MAP; DO NOT FORGET
     var valid: Boolean = false;
     var type: String;
@@ -38,29 +39,34 @@ exports.checkcode = functions.https.onCall((argumentData: any,
             valid = false;
         }
 
-                if (argumentData["useLog"] == true && valid){
-                    var key: any = argumentData["code"];
-                   
-                   var codesList: any = {};
-                 
-                   var list: any = {"used": parseInt(instance["used"])+1, "maxUses": instance["maxUses"], "valid": instance["valid"]};
-                  
-                   if (type == "student"){
-                   
-                    codesList["studentCodes"] = {};
-                    codesList["studentCodes"][key] = list; 
-                   }else{
-       
-                    codesList["teacherCodes"] = {};
-                    codesList["teacherCodes"][key] = list; 
-                   }
-                   
-                    docRef.update(codesList)
-                }
+        if (argumentData["useLog"] == true && valid) {
+            var key: any = argumentData["code"];
+
+            var codesList: any = {};
+
+            var list: any = { "used": parseInt(instance["used"]) + 1, "maxUses": instance["maxUses"], "valid": instance["valid"] };
+
+            if (type == "student") {
+
+                codesList["studentCodes"] = {};
+                codesList["studentCodes"][key] = list;
+            } else {
+
+                codesList["teacherCodes"] = {};
+                codesList["teacherCodes"][key] = list;
+            }
+
+            docRef.update(codesList)
+        }
 
         return;
     })
     return (result.then(() => {
-        console.log("Returned " + valid);return valid;
+        console.log("Returned " + valid); return valid;
     }));
 });
+
+export const sendLekse = functions.firestore.document("classes/{classId}/classes{classTime}/").onWrite(async (snapshot: any) => {
+// TODO
+});
+
