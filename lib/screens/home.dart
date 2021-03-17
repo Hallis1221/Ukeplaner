@@ -24,6 +24,7 @@ import 'package:week_of_year/week_of_year.dart';
 import 'package:provider/provider.dart';
 
 DateTime now = DateTime.now();
+List<DateTime> tider = [];
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -334,19 +335,29 @@ class _KlasseFieldState extends State<KlasseField> {
       ),
       items: classes.map((ClassModel value) {
         return new DropdownMenuItem<String>(
-          value: value.className,
+          value: value.classFirestoreID,
           child: new Text(value.className),
         );
       }).toList(),
       onChanged: (String newValue) {
+        print(3);
         for (ClassModel klasse in classes) {
-          if (klasse.className == newValue) {
+          if (klasse.classFirestoreID == newValue) {
             chossenId = klasse.classFirestoreID;
+            for (ClassTime tid in klasse.times) {
+              DateTime date = now;
+              while (tid.dayIndex != date.weekday) {
+                date = date.add(Duration(days: 1));
+              }
+              tider.add(date);
+            }
+
+            setState(() {
+              this.hintText = DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
+                  .format(tider[0]);
+            });
           }
         }
-        setState(() {
-          this.hintText = newValue;
-        });
       },
     );
   }
