@@ -143,7 +143,7 @@ class HomeScreen extends StatelessWidget {
                                             List<Widget> columnOfRows = [];
                                             for (Widget widget
                                                 in snapshot.data) {
-                                              if (childsOnRow <= 2) {
+                                              if (childsOnRow <= 1) {
                                                 rowChildren.add(widget);
                                               } else {
                                                 print(childsOnRow);
@@ -157,18 +157,20 @@ class HomeScreen extends StatelessWidget {
                                               }
                                               childsOnRow++;
                                             }
-                                            columnOfRows.add(Row(
-                                              mainAxisAlignment: (() {
-                                                if (rowChildren.length == 1) {
-                                                  return MainAxisAlignment
-                                                      .start;
-                                                } else {
-                                                  return MainAxisAlignment
-                                                      .spaceEvenly;
-                                                }
-                                              }()),
-                                              children: rowChildren,
-                                            ));
+                                            if (childsOnRow != 1) {
+                                              columnOfRows.add(Row(
+                                                mainAxisAlignment: (() {
+                                                  if (rowChildren.length == 1) {
+                                                    return MainAxisAlignment
+                                                        .start;
+                                                  } else {
+                                                    return MainAxisAlignment
+                                                        .spaceEvenly;
+                                                  }
+                                                }()),
+                                                children: rowChildren,
+                                              ));
+                                            }
                                             print(
                                                 "columnOfRows: $columnOfRows");
                                             return Column(
