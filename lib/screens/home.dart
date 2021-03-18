@@ -308,27 +308,27 @@ class NewLekse extends StatelessWidget {
                                 ),
                               );
                             } else {
-                              lekseBeskController.clear();
-                              lekseTitleController.clear();
                               DocumentReference lekse = db
                                   .collection("classes")
                                   .doc(chossenId)
                                   .collection("classes")
                                   .doc(chossenTid);
-                              await lekse.get().then((value) {
-                                List lekser;
-                                try {
-                                  lekser = value["lekser"];
-                                } catch (e) {
-                                  lekser = [];
-                                }
+                              await lekse.get().then(
+                                (value) {
+                                  List lekser;
+                                  try {
+                                    lekser = value["lekser"];
+                                  } catch (e) {
+                                    lekser = [];
+                                  }
 
-                                lekser.add({
-                                  "tittel": lekseTitleController.text,
-                                  "desc": lekseBeskController.text
-                                });
-                                lekse.set({"lekser": lekser});
-                              });
+                                  lekser.add({
+                                    "tittel": lekseTitleController.text,
+                                    "desc": lekseBeskController.text
+                                  });
+                                  lekse.set({"lekser": lekser});
+                                },
+                              );
                               showDialog(
                                 context: context,
                                 builder: (context) => AlertDialog(
@@ -346,6 +346,8 @@ class NewLekse extends StatelessWidget {
                                   ],
                                 ),
                               );
+                              lekseBeskController.clear();
+                              lekseTitleController.clear();
                               print(
                                   "ValgtID: $chossenId, ValgtTid: $chossenTid, tittel: ${lekseTitleController.text}, besk: ${lekseBeskController.text}");
                             }
