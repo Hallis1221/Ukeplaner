@@ -1,4 +1,6 @@
 Map<String, dynamic> getDate({int addDays = 0, int addWeeks = 0}) {
+  DateTime now = DateTime.now();
+
   int skipDays = addDays;
   int skipWeeks = addWeeks;
   // TODO skip holidays
