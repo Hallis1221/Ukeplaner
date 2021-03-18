@@ -10,7 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
 import 'package:ukeplaner/icons/custom_icons.dart';
+import 'package:ukeplaner/logic/dates.dart';
+import 'package:ukeplaner/logic/getLekserWidgets.dart';
 import 'dayPlan.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
@@ -23,6 +26,9 @@ import 'package:ukeplaner/screens/login.dart';
 import '../logic/tekst.dart';
 import 'package:week_of_year/week_of_year.dart';
 import 'package:provider/provider.dart';
+
+import 'login.dart';
+import 'login.dart';
 
 DateTime now = DateTime.now();
 List<DateTime> tider = [];
@@ -140,12 +146,13 @@ class HomeScreen extends StatelessWidget {
                                               if (childsOnRow <= 2) {
                                                 rowChildren.add(widget);
                                               } else {
+                                                print(childsOnRow);
                                                 columnOfRows.add(Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.start,
                                                   children: rowChildren,
                                                 ));
-
+                                                childsOnRow = 0;
                                                 rowChildren = [];
                                               }
                                               childsOnRow++;
