@@ -1,3 +1,15 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../screens/dayPlan.dart';
+import 'package:week_of_year/week_of_year.dart';
+import 'tekst.dart';
+import 'dayClass.dart';
+import 'leske.dart';
+import 'package:ukeplaner/config/config.dart';
+import 'makeCompleteDayClass.dart';
+
 Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
   List<Widget> children = [];
   List brukteFarger = [];
