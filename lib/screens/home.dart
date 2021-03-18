@@ -59,6 +59,7 @@ class HomeScreen extends StatelessWidget {
             TopDecorationHalfCircle(
               title: "$firstName $lastName",
             ),
+            DrawerButton(),
           ],
         ),
       ),
@@ -202,6 +203,30 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DrawerButton extends StatelessWidget {
+  const DrawerButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 60.0, left: 15.0),
+        child: GestureDetector(
+          onTap: () => Scaffold.of(context).openDrawer(),
+          child: Icon(
+            Icons.menu,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
       ),
     );
   }
