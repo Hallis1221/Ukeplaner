@@ -1,4 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firestore_cache/firestore_cache.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animations/loading_animations.dart';
+import 'package:provider/provider.dart';
+import 'package:ukeplaner/config/config.dart';
+import 'firebase/auth_services.dart';
+import 'firebase/fcm.dart';
 
 class FutureValidateBuilder extends StatelessWidget {
   const FutureValidateBuilder({
@@ -22,7 +29,7 @@ class FutureValidateBuilder extends StatelessWidget {
           }
         });
 
-        DocumentReference _dcRef = config.db.collection("users").doc(uid);
+        DocumentReference _dcRef = db.collection("users").doc(uid);
         return FirestoreCache.getDocument(_dcRef);
       }()),
       builder: (context, snapshot) {
@@ -30,7 +37,7 @@ class FutureValidateBuilder extends StatelessWidget {
           DocumentSnapshot data = snapshot.data;
           analytics.logEvent(name: "get_classes");
           print("got_classes");
-          config.cloudClassesCodes = data.get("classes");
+          cloudClassesCodes = data.get("classes");
 
           return LocalMessageHandler(onDone: '/home');
         }
