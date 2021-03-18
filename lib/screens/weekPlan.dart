@@ -3,14 +3,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
 import 'package:ukeplaner/logic/class.dart';
+import 'package:ukeplaner/logic/dates.dart';
 import 'package:ukeplaner/logic/dayClass.dart';
+import 'package:ukeplaner/logic/getWeekDateDIfference.dart';
+import 'package:ukeplaner/logic/makeCompleteDayClass.dart';
 import 'package:ukeplaner/screens/dayPlan.dart';
 import 'package:ukeplaner/screens/login.dart';
+import 'dayPlan.dart';
 import 'home.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:week_of_year/week_of_year.dart';
 import '../logic/tekst.dart';
+import 'login.dart';
 
 int totalAmountOfDays = 0;
 
