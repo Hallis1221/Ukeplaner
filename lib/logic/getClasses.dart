@@ -1,3 +1,6 @@
+import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/logic/class.dart';
+
 Future<List<ClassModel>> getClasses() async {
-  return config.classes;
+  return classes;
 }
