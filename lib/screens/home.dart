@@ -26,6 +26,7 @@ import 'package:ukeplaner/screens/login.dart';
 import '../logic/tekst.dart';
 import 'package:week_of_year/week_of_year.dart';
 import 'package:provider/provider.dart';
+import 'package:ukeplaner/maindrawer.dart';
 
 import 'login.dart';
 import 'login.dart';
@@ -57,9 +58,12 @@ class HomeScreen extends StatelessWidget {
           children: [
             TopDecorationHalfCircle(
               title: "$firstName $lastName",
-            )
+            ),
           ],
         ),
+      ),
+      drawer: Drawer(
+        child: MainDrawer(),
       ),
       body: ListView(
         children: [

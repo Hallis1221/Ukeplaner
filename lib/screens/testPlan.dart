@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart' as config;
 import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
 import 'package:ukeplaner/logic/getTests.dart';
+import 'package:ukeplaner/screens/dayPlan.dart';
 import '../logic/test.dart';
 import 'login.dart';
 
@@ -20,7 +21,22 @@ class Testplan extends StatelessWidget {
           alignment: Alignment.topLeft,
           children: [
             TopDecorationHalfCircle(
-                colorOne: config.linearBlue, colorTwo: config.linearGreen)
+                colorOne: config.linearBlue, colorTwo: config.linearGreen),
+            Padding(
+              padding: const EdgeInsets.only(top: 60.0, left: 15.0),
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  height: 75,
+                  width: 75,
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -40,46 +56,14 @@ class Testplan extends StatelessWidget {
                     children: [
                       Column(
                         children: tests.map((test) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width / 1.25,
-                            decoration: BoxDecoration(
-                              color: config.rasmusBlue,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      test.title,
-                                      style: TextStyle(fontSize: 26),
-                                    ),
-                                    Expanded(
-                                      child: Container(),
-                                    ),
-                                    Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 50,
-                                        ),
-                                        Text(DateFormat(DateFormat
-                                                .ABBR_MONTH_WEEKDAY_DAY)
-                                            .format(test.date)),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                  ],
-                                ),
-                                Text(test.message),
-                              ],
-                            ),
+                          return TimeCard(
+                            startTid:
+                                DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
+                                    .format(test.date),
+                            sluttTid: "",
+                            klasseNavn: test.title,
+                            message: test.message,
+                            rom: "",
                           );
                         }).toList(),
                       ),
