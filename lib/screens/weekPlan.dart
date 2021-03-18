@@ -259,7 +259,7 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
       onTap: () {
         difference = getWeekDateDifference(widget.weekplanIndex, widget.week);
 
-        print(difference);
+        print("difference: $difference");
         if (difference.inDays < 0) {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Du kan bare se datoer i framtiden")));
@@ -267,11 +267,12 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
         }
         int tempWeeks;
         if (0 >= addWeeks) {
-          tempWeeks = 1;
+          tempWeeks = 0;
         } else {
-          tempWeeks = addWeeks + 1;
+          tempWeeks = addWeeks;
         }
-        currentPageSelected = widget.weekplanIndex + ((tempWeeks - 1) * 5) - 1;
+        currentPageSelected = widget.weekplanIndex + ((tempWeeks - 1) * 5);
+        print("currentpageselected: ${tempWeeks - 1}");
 // TODO denne feil beregner
         Navigator.of(context).pushNamed("/dayplan");
         print("cps: $currentPageSelected");
