@@ -1,3 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firestore_cache/firestore_cache.dart';
+import 'package:flutter/material.dart';
+import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/logic/tekst.dart';
+
+import 'class.dart';
+import 'classTimes.dart';
+import 'dayClass.dart';
+import 'leske.dart';
+
 Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
     {@required subjects, @required Map<String, dynamic> dateToShow}) async {
   //TODO implement cache
@@ -8,8 +19,8 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
   print(dateToShow["weekIndex"]);
   for (ClassModel klasse in subjects) {
     for (ClassTime tid in klasse.times) {
-      if ((config.currentWeek == "a" && tid.aWeeks) ||
-          (config.currentWeek == "b" && tid.bWeeks)) {
+      if ((currentWeek == "a" && tid.aWeeks) ||
+          (currentWeek == "b" && tid.bWeeks)) {
         if (tid.dayIndex == dateToShow["weekIndex"]) {
           daySubjects.add(new RoughDayClass(
             className: klasse.className,
@@ -47,7 +58,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
         );
 */
     if (klasse.classFirestoreID != null) {
-      DocumentReference documentReference = config.db
+      DocumentReference documentReference = db
           .collection("classes")
           .doc(klasse.classFirestoreID)
           .collection("classes")
@@ -55,22 +66,19 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
       String message;
       List<Lekse> lekser = [];
       try {
-        if (config.classMessagesCache["${klasse.classFirestoreID}.$dateId"] ==
-            null) {
+        if (classMessagesCache["${klasse.classFirestoreID}.$dateId"] == null) {
           print("object");
-          print(
-              config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]);
+          print(classMessagesCache["${klasse.classFirestoreID}.$dateId"]);
           throw FlutterError(message);
         }
-        message =
-            config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]
-                ["message"]["data"];
-        lekser = config.classMessagesCache["${klasse.classFirestoreID}.$dateId"]
+        message = classMessagesCache["${klasse.classFirestoreID}.$dateId"]
+            ["message"]["data"];
+        lekser = classMessagesCache["${klasse.classFirestoreID}.$dateId"]
             ["lekser"]["data"];
         continue;
       } catch (e) {
-        config.analytics
-            .logEvent(name: "get_class_${klasse.classFirestoreID}_$dateId");
+        analytics.logEvent(
+            name: "get_class_${klasse.classFirestoreID}_$dateId");
         print("got_${klasse.classFirestoreID}.$dateId");
 
         await FirestoreCache.getDocument(documentReference).then((value) {
@@ -87,7 +95,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
               );
             }
 
-            config.classMessagesCache[klasse.classFirestoreID.toString()] = {
+            classMessagesCache[klasse.classFirestoreID.toString()] = {
               "message": {
                 "data": message,
                 "stored": true,
