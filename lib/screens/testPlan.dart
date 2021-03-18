@@ -41,8 +41,7 @@ class Testplan extends StatelessWidget {
                       Column(
                         children: tests.map((test) {
                           return Container(
-                            height: 250,
-                            width: 230,
+                            width: MediaQuery.of(context).size.width / 1.25,
                             decoration: BoxDecoration(
                               color: config.rasmusBlue,
                               borderRadius: BorderRadius.all(
@@ -51,31 +50,34 @@ class Testplan extends StatelessWidget {
                             ),
                             child: Column(
                               children: [
-                                Row(children: [
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    test.title,
-                                    style: TextStyle(fontSize: 26),
-                                  ),
-                                  Expanded(
-                                    child: Container(),
-                                  ),
-                                  Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 50,
-                                      ),
-                                      Text(DateFormat(
-                                              DateFormat.ABBR_MONTH_WEEKDAY_DAY)
-                                          .format(test.date)),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                ]),
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      test.title,
+                                      style: TextStyle(fontSize: 26),
+                                    ),
+                                    Expanded(
+                                      child: Container(),
+                                    ),
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 50,
+                                        ),
+                                        Text(DateFormat(DateFormat
+                                                .ABBR_MONTH_WEEKDAY_DAY)
+                                            .format(test.date)),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                  ],
+                                ),
+                                Text(test.message),
                               ],
                             ),
                           );
