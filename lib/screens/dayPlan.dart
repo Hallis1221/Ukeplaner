@@ -6,12 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:ukeplaner/config/config.dart' as config;
+import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
 import 'package:ukeplaner/elements/daySelector.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
+import 'package:ukeplaner/logic/dates.dart';
 import 'package:ukeplaner/logic/dayClass.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/logic/leske.dart';
+import 'package:ukeplaner/logic/makeCompleteDayClass.dart';
 import 'package:ukeplaner/logic/tekst.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ukeplaner/screens/home.dart';
@@ -19,6 +22,7 @@ import 'package:week_of_year/week_of_year.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
 import 'package:provider/provider.dart';
 
+import 'home.dart';
 import 'login.dart';
 
 class DayPlan extends StatefulWidget {
