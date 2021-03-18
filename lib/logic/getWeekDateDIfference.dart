@@ -1,4 +1,7 @@
+import 'package:ukeplaner/logic/dates.dart';
+
 Duration getWeekDateDifference(weekplanIndex, week) {
+  DateTime now = DateTime.now();
   DateTime date = DateTime(now.year, 1, 1);
 
   date = findFirstDateOfTheWeek(date.add(Duration(days: (7 * week))))
