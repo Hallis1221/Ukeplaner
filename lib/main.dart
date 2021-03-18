@@ -95,98 +95,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class FindPage extends StatelessWidget {
-  const FindPage({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    startTime(context);
-    return Loading();
-  }
-}
-
-class FutureValidateBuilder extends StatelessWidget {
-  const FutureValidateBuilder({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: (() async {
-        String uid = "";
-
-        await context
-            .read<AuthenticationService>()
-            .getCurrentUser()
-            .then((value) {
-          try {
-            uid = value.uid;
-          } catch (e) {
-            return;
-          }
-        });
-
-        DocumentReference _dcRef = config.db.collection("users").doc(uid);
-        return FirestoreCache.getDocument(_dcRef);
-      }()),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          DocumentSnapshot data = snapshot.data;
-          analytics.logEvent(name: "get_classes");
-          print("got_classes");
-          config.cloudClassesCodes = data.get("classes");
-
-          return LocalMessageHandler(onDone: '/home');
-        }
-        return LoadingFlipping.circle();
-      },
-    );
-  }
-}
-
 void _portraitModeOnly() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-}
-
-startTime(context) async {
-  NativeSharedPreferences prefs = await NativeSharedPreferences.getInstance();
-  bool firstTime = prefs.getBool('first_time');
-
-  var _duration = new Duration(seconds: 0);
-
-  if (firstTime != null &&
-      !firstTime &&
-      !remoteConfig.getBool('alltid_vis_intro')) {
-    // Not first time
-    return new Timer(_duration,
-        () => Navigator.of(context).pushReplacementNamed('/validate'));
-  } else {
-    // First time
-    prefs.setBool('first_time', false);
-    return new Timer(_duration,
-        () => Navigator.of(context).pushReplacementNamed('/welcome'));
-  }
-}
-
-Future<List<ClassModel>> getClasses() async {
-  return config.classes;
-}
-
-Future<QuerySnapshot> getDocs() async {
-  final DocumentReference cacheDocRef = db.doc('status/status');
-  final String cacheField = 'updatedAt';
-  final Query query = db.collection('classes');
-  final QuerySnapshot snapshot = await FirestoreCache.getDocuments(
-    query: query,
-    cacheDocRef: cacheDocRef,
-    firestoreCacheField: cacheField,
-  );
-
-  return snapshot;
 }
