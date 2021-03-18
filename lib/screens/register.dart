@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'login.dart' as l;
 import 'verify.dart';
@@ -26,7 +27,7 @@ class RegisterPage extends StatelessWidget {
         preferredSize: Size.fromHeight(250),
         child: Stack(
           children: [
-            l.TopDecorationHalfCircle(),
+            TopDecorationHalfCircle(),
           ],
         ),
       ),
