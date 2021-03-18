@@ -26,9 +26,14 @@ service cloud.firestore {
    allow write, create, update: if isTeacher();
 
    }      
-   match /classes/{classId=**}{
+   match /classes/{classId}{
 
    allow read: if (isStudentOfClass(classId))
+
+   }   match /classes/{classId}/classes/{classes}{
+
+   allow read: if (isStudentOfClass(classId))
+   allow create, update: if (isTeacher())
 
    }
 
