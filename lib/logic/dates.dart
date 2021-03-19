@@ -44,9 +44,11 @@ Map<String, dynamic> getDate({int addDays = 0, int addWeeks = 0}) {
     currentDateSchool = skipWeekend(currentDateSchool)["dateTime"];
   }
 
-  weekIndex =
-      (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
-          1;
+  currentDateSchool = skipWeekend(currentDateSchool)["dateTime"];
+  weekIndex = currentDateSchool
+          .difference(findFirstDateOfTheWeek(currentDateSchool))
+          .inDays +
+      1;
 
   return {'weekIndex': weekIndex, 'dateTime': currentDateSchool};
 }
@@ -64,7 +66,6 @@ Map<String, dynamic> skipWeekend(currentDateSchool) {
   int weekIndex =
       (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
           1;
-
   if (weekIndex == 6) {
     // sett dagen til mandag
     weekIndex = 1;
@@ -96,7 +97,10 @@ Map<String, dynamic> skipWeekend(currentDateSchool) {
     );
     daysSkiped = 1;
   }
-
+  if (weekIndex <= 0) {
+    weekIndex = 1;
+  }
+  print("$currentDateSchool + $weekIndex");
   return {"dateTime": currentDateSchool, "daysSkiped": daysSkiped};
 }
 

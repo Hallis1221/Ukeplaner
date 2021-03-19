@@ -16,6 +16,7 @@ class DaySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int currentIndex = 0;
     return Container(
       height: 100,
       width: MediaQuery.of(context).size.width,
