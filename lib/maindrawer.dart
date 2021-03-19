@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/config/config.dart';
-import 'package:provider/provider.dart' as prov;
+import 'package:provider/provider.dart';
+import './logic/tekst.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -9,64 +10,75 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Container(
-        child: Padding(
-          padding: EdgeInsets.only(top: 50.0),
-          child: FutureBuilder(
-            future: _getUser(context),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                print(snapshot.data);
-                User user = snapshot.data;
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: NetworkImage(""),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    Text(
-                      "$firstName $lastName",
-                      style: TextStyle(
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.w800,
+    return Column(
+      children: [
+        Container(
+          child: Padding(
+            padding: EdgeInsets.only(top: 50.0),
+            child: FutureBuilder(
+              future: _getUser(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  print(snapshot.data);
+                  User user = snapshot.data;
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        radius: 50.0,
+                        backgroundImage: NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/kg-ukeplaner.appspot.com/o/Mikail%20hode.jpg?alt=media&token=348324c4-c7f1-4a73-9292-9f69208064b2"),
                       ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    Text(
-                      user.email,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
+                      SizedBox(
+                        height: 5.0,
                       ),
-                    ),
-                  ],
-                );
-              }
-              return Container();
-            },
+                      Text(
+                        "${firstName.capitalize()} ${lastName.capitalize()}",
+                        style: TextStyle(
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Text(
+                        user.email,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Container();
+              },
+            ),
           ),
         ),
-      ),
-      SizedBox(
-        height: 20.0,
-      ),
-      ListTile(
-        onTap: () {},
-        leading: Icon(
-          Icons.person,
-          color: Colors.black,
+        SizedBox(
+          height: 20.0,
         ),
-        title: Text("Your Profile"),
-      )
-    ]);
+        ListTile(
+          onTap: () {},
+          leading: Icon(
+            Icons.person,
+            color: Colors.black,
+          ),
+          title: Text("Din Profil"),
+        ),
+        ListTile(
+          onTap: () {},
+          leading: Icon(
+            Icons.person,
+            color: Colors.black,
+          ),
+          title: Text("Din Profil"),
+        ),
+      ],
+    );
   }
 
   Future<User> _getUser(
