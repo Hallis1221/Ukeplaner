@@ -8,8 +8,6 @@ import 'package:firestore_cache/firestore_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/config/config.dart';
-import 'package:ukeplaner/logic/firebase/auth_services.dart';
-import 'package:ukeplaner/screens/register.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
 import 'package:ukeplaner/screens/verifyEmail.dart';
 
