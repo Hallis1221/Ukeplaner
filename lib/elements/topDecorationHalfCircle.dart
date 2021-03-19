@@ -40,7 +40,7 @@ class TopDecorationHalfCircle extends StatelessWidget {
         child: Text(
           title,
           style: TextStyle(
-            color: Colors.white,
+            color: Theme.of(context).backgroundColor,
             fontSize: 30,
           ),
         ),
