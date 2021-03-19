@@ -1,12 +1,16 @@
+// Utvider string. Det gjør at vi kan skrive feks "".capitalize();
 extension StringExtension on String {
+  // gjør den første bokstaven i teksten stor
   String capitalize() {
     return "${this[0].toUpperCase()}${this.substring(1)}";
   }
 
+  // fjerner alle andre karakterer enn de tre første i teksten
   String onlyThreeFirst() {
     String newString = "";
 
     int ranTrough = 0;
+    // for hver karakter i teksten
     this.runes.forEach((char) {
       ranTrough += 1;
       String character = new String.fromCharCode(char);
