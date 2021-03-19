@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
           alignment: Alignment.topRight,
           children: [
             TopDecorationHalfCircle(
-              title: "$firstName $lastName",
+              title: "${firstName.capitalize()} ${lastName.capitalize()}",
             ),
             DrawerButton(),
           ],
