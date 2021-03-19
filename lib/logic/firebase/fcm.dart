@@ -106,13 +106,17 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(builder: (context, snapshot) {
-      Future.delayed(const Duration(milliseconds: 250),
-          () => Navigator.pushReplacementNamed(context, "/home"));
-      return LoadingFlipping.circle(
-        duration: Duration(milliseconds: 750),
-      );
-    });
+    return FutureBuilder(
+      builder: (context, snapshot) {
+        Future.delayed(
+          const Duration(milliseconds: 250),
+          () => Navigator.pushReplacementNamed(context, "/home"),
+        );
+        return LoadingFlipping.circle(
+          duration: Duration(milliseconds: 750),
+        );
+      },
+    );
   }
 }
 
@@ -123,10 +127,12 @@ saveDeviceToken(User user, _fcm, _db) async {
   if (fcmToken != null) {
     DocumentReference tokenRef =
         _db.collection("users").doc(uid).collection("FCMTokens").doc(fcmToken);
-    await tokenRef.set({
-      'token': fcmToken,
-      "createdAt": FieldValue.serverTimestamp(),
-      'platform': Platform.operatingSystem,
-    });
+    await tokenRef.set(
+      {
+        'token': fcmToken,
+        "createdAt": FieldValue.serverTimestamp(),
+        'platform': Platform.operatingSystem,
+      },
+    );
   }
 }
