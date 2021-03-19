@@ -1,4 +1,6 @@
 // Utvider string. Det gjør at vi kan skrive feks "".capitalize();
+import 'package:ukeplaner/screens/register.dart';
+
 extension StringExtension on String {
   // gjør den første bokstaven i teksten stor
   String capitalize() {
@@ -24,19 +26,22 @@ extension StringExtension on String {
   }
 }
 
+// Formater et semester utifra hvilket tall det er
 String semesterFormatted(semester) {
   switch (semester) {
     case 1:
-      return "Termin 1";
+      return "Termin en";
       break;
+
     case 2:
-      return "Termin 2";
+      return "Termin to";
 
     default:
       return "Du er ikke i en termin!";
   }
 }
 
+// converter et tall til menskelig
 String convertDoubleToTime(double _double) {
   String _string = _double.toString();
   String beforeResult = "";
