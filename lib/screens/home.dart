@@ -94,31 +94,37 @@ class HomeScreen extends StatelessWidget {
                             letterSpacing: 2,
                           ),
                         ),
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: RawMaterialButton(
-                              onPressed: () {
-                                tider = [];
-                                showMaterialModalBottomSheet(
-                                  context: context,
-                                  builder: (context) => NewLekse(),
-                                );
-                              },
-                              shape: CircleBorder(),
-                              child: Padding(
-                                padding: const EdgeInsets.all(2.5),
-                                child: Icon(
-                                  Icons.add,
-                                  size: 40,
-                                  color: Colors.white,
+                        (() {
+                          if (isTeacher) {
+                            return Expanded(
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    tider = [];
+                                    showMaterialModalBottomSheet(
+                                      context: context,
+                                      builder: (context) => NewLekse(),
+                                    );
+                                  },
+                                  shape: CircleBorder(),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.5),
+                                    child: Icon(
+                                      Icons.add,
+                                      size: 40,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  fillColor: mildBlue,
+                                  elevation: 0,
                                 ),
                               ),
-                              fillColor: mildBlue,
-                              elevation: 0,
-                            ),
-                          ),
-                        )
+                            );
+                          } else {
+                            return Container();
+                          }
+                        }())
                       ],
                     ),
                   ),
