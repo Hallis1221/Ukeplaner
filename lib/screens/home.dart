@@ -654,14 +654,14 @@ class _MenuButtonState extends State<MenuButton> {
                       child: Text(
                         widget.title,
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 38, 58, 80),
                         ),
                       ),
                     ),
                     Align(
-                      alignment: Alignment.bottomLeft,
+                      alignment: Alignment(-0.99, 1.00),
                       child: Text(
                         subTitle,
                         style: TextStyle(
