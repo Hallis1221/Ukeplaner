@@ -32,10 +32,10 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
   @override
   void initState() {
     super.initState();
+
+    // hvis ios, be om tilatelse
     if (Platform.isIOS) {
       _fcm.requestNotificationPermissions(IosNotificationSettings());
-    } else {
-      context.read<AuthenticationService>().getCurrentUser();
     }
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
@@ -67,10 +67,6 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
   }
 
   Future showNotificationDialog(Map<String, dynamic> message) {
-    if (message["data"]["google.message_id"] ==
-        '0:1612718485437491%629c5fec629c5fec') {
-      return null;
-    }
     if (message["notification"] == null ||
         message["notification"]["title"] == null ||
         message["notification"]["body"] == null) {
