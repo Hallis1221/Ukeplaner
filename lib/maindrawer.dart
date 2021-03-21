@@ -28,7 +28,7 @@ class MainDrawer extends StatelessWidget {
                           print(snapshot.data);
                           User user = snapshot.data;
                           return Container(
-                            color: lysOrange,
+                            color: Colors.transparent,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -70,26 +70,35 @@ class MainDrawer extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 20.0,
-          ),
-          ListTile(
-            onTap: () {},
-            leading: Icon(
-              Icons.person,
-              color: Colors.black,
+          Expanded(
+            child: Container(
+              color: Colors.pink,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  ListTile(
+                    onTap: () {},
+                    leading: Icon(
+                      Icons.person,
+                      color: Colors.black,
+                    ),
+                    title: Text("Din Profil"),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      launch(website);
+                    },
+                    leading: Icon(
+                      Icons.home_filled,
+                      color: Colors.black,
+                    ),
+                    title: Text("Ta meg til skolens nettside"),
+                  ),
+                ],
+              ),
             ),
-            title: Text("Din Profil"),
-          ),
-          ListTile(
-            onTap: () {
-              launch(website);
-            },
-            leading: Icon(
-              Icons.home_filled,
-              color: Colors.black,
-            ),
-            title: Text("Ta meg til skolens nettside"),
           ),
         ],
       ),
