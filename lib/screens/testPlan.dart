@@ -3,8 +3,10 @@ import 'package:firestore_cache/firestore_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart' as config;
+import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
 import 'package:ukeplaner/logic/getTests.dart';
+import 'package:ukeplaner/logic/tekst.dart';
 import 'package:ukeplaner/screens/dayPlan.dart';
 import '../logic/test.dart';
 import 'login.dart';
@@ -22,8 +24,26 @@ class Testplan extends StatelessWidget {
           children: [
             TopDecorationHalfCircle(
                 colorOne: config.linearBlue, colorTwo: config.linearGreen),
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 75, left: 5),
+                    child: Text(
+                      "Prøveplan ${semesterFormatted(getSemester(semesterEn, semesterTo))}",
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Padding(
-              padding: const EdgeInsets.only(top: 60.0, left: 15.0),
+              padding: const EdgeInsets.only(top: 40.0, left: 5.0),
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Container(
