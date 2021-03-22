@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
+import 'package:ukeplaner/screens/profile.dart';
 import 'package:ukeplaner/screens/register.dart';
 import 'package:ukeplaner/screens/home.dart';
 import 'package:ukeplaner/screens/login.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
             return LoadingFlipping.circle();
           },
         ),
+        '/profile': ProfilePage(),
         '/testPlan': Testplan(),
         '/weekPlan': FutureBuilder(
           future: getClasses(),
