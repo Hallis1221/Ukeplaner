@@ -64,9 +64,10 @@ DateTime findLastDateOfTheWeek(DateTime dateTime) {
 Map<String, dynamic> skipWeekend(DateTime currentDateSchool) {
   int daysSkiped = 0;
   print("current day: ${currentDateSchool.day} ");
-  int weekIndex =
-      (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
-          1;
+  int weekIndex = currentDateSchool
+          .difference(findFirstDateOfTheWeek(currentDateSchool))
+          .inDays +
+      1;
   print("weekindex1: $weekIndex");
   if (weekIndex == 6) {
     // sett dagen til mandag
