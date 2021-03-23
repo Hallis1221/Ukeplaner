@@ -98,6 +98,16 @@ class MainDrawer extends StatelessWidget {
                     ),
                     title: Text("Ta meg til skolens nettside"),
                   ),
+                  ListTile(
+                    onTap: () {
+                      launch(website);
+                    },
+                    leading: Icon(
+                      Icons.book,
+                      color: Colors.black,
+                    ),
+                    title: Text("Åpne onenote"),
+                  ),
                 ],
               ),
             ),
