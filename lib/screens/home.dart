@@ -26,7 +26,7 @@ import 'package:ukeplaner/screens/login.dart';
 import '../logic/tekst.dart';
 import 'package:week_of_year/week_of_year.dart';
 import 'package:provider/provider.dart';
-import 'package:ukeplaner/maindrawer.dart';
+import 'package:ukeplaner/elements/maindrawer.dart';
 
 import 'login.dart';
 import 'login.dart';
