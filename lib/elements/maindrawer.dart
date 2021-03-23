@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/config/config.dart';
 import 'package:provider/provider.dart';
-import './logic/tekst.dart';
+import '../logic/tekst.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 
