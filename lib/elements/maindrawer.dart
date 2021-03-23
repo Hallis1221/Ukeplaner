@@ -101,8 +101,6 @@ class MainDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     onTap: () async {
-                      print(await LaunchApp.isAppInstalled(
-                          androidPackageName: 'com.microsoft.office.onenote'));
                       await LaunchApp.openApp(
                         androidPackageName: 'com.microsoft.office.onenote',
                         openStore: true,
