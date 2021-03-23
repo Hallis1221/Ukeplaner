@@ -79,7 +79,9 @@ class MainDrawer extends StatelessWidget {
                     height: 20.0,
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).pushNamed("/profile");
+                    },
                     leading: Icon(
                       Icons.person,
                       color: Colors.black,
