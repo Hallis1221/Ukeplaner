@@ -45,11 +45,11 @@ Map<String, dynamic> getDate({int addDays = 0, int addWeeks = 0}) {
   }
 
   currentDateSchool = skipWeekend(currentDateSchool)["dateTime"];
+  print("thing: ${currentDateSchool.weekday}");
   weekIndex = currentDateSchool
           .difference(findFirstDateOfTheWeek(currentDateSchool))
           .inDays +
       1;
-
   return {'weekIndex': weekIndex, 'dateTime': currentDateSchool};
 }
 
@@ -61,11 +61,13 @@ DateTime findLastDateOfTheWeek(DateTime dateTime) {
   return dateTime.add(Duration(days: DateTime.daysPerWeek - dateTime.weekday));
 }
 
-Map<String, dynamic> skipWeekend(currentDateSchool) {
+Map<String, dynamic> skipWeekend(DateTime currentDateSchool) {
   int daysSkiped = 0;
+  print("current day: ${currentDateSchool.day} ");
   int weekIndex =
       (currentDateSchool.day - findFirstDateOfTheWeek(currentDateSchool).day) +
           1;
+  print("weekindex1: $weekIndex");
   if (weekIndex == 6) {
     // sett dagen til mandag
     weekIndex = 1;
@@ -81,7 +83,7 @@ Map<String, dynamic> skipWeekend(currentDateSchool) {
     );
     daysSkiped = 2;
   }
-
+  print("weekindex2: $weekIndex");
   if (weekIndex >= 7) {
     // sett dagen til mandag
     weekIndex = 1;
@@ -100,6 +102,16 @@ Map<String, dynamic> skipWeekend(currentDateSchool) {
   if (weekIndex <= 0) {
     weekIndex = 1;
   }
+
+  if (currentDateSchool.weekday == 6) {
+    currentDateSchool.add(Duration(days: 2, hours: 1));
+  }
+  if (currentDateSchool.weekday == 7) {
+    currentDateSchool.add(Duration(days: 1, hours: 1));
+  }
+
+  print(
+      "is equal? ${currentDateSchool.weekday == weekIndex}. weekday: ${currentDateSchool.weekday}");
   print("$currentDateSchool + $weekIndex");
   return {"dateTime": currentDateSchool, "daysSkiped": daysSkiped};
 }
