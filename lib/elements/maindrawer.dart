@@ -1,3 +1,4 @@
+import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/config/config.dart';
@@ -99,8 +100,13 @@ class MainDrawer extends StatelessWidget {
                     title: Text("Ta meg til skolens nettside"),
                   ),
                   ListTile(
-                    onTap: () {
-                      launch(website);
+                    onTap: () async {
+                      print(await LaunchApp.isAppInstalled(
+                          androidPackageName: 'com.microsoft.office.onenote'));
+                      await LaunchApp.openApp(
+                        androidPackageName: 'com.microsoft.office.onenote',
+                        openStore: true,
+                      );
                     },
                     leading: Icon(
                       Icons.book,
