@@ -26,6 +26,7 @@ dependencies:
   cloud_firestore: ^0.16.0
   cloud_functions: ^0.9.0
   cupertino_icons: ^1.0.0
+  external_app_launcher: ^0.0.1
   firebase_analytics: ^7.0.1
   firebase_auth: ^0.20.0+1
   firebase_core: ^0.7.0
