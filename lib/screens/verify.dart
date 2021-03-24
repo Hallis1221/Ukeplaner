@@ -7,7 +7,6 @@ import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/elements/bottomCircle.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
-import 'package:ukeplaner/logic/firebase/firebase.dart';
 
 int code;
 
