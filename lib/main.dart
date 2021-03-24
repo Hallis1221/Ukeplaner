@@ -4,22 +4,14 @@
 
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_cache/firestore_cache.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:loading/loading.dart';
 import 'package:loading_animations/loading_animations.dart';
-import 'package:native_shared_preferences/native_shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:ukeplaner/logic/class.dart';
-import 'package:ukeplaner/logic/classTimes.dart';
-import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/screens/profile.dart';
 import 'package:ukeplaner/screens/register.dart';
 import 'package:ukeplaner/screens/home.dart';
 import 'package:ukeplaner/screens/login.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'package:ukeplaner/screens/testPlan.dart';
 import 'package:ukeplaner/screens/verifyEmail.dart';
 import 'package:ukeplaner/screens/dayPlan.dart';
@@ -28,10 +20,8 @@ import 'config/config.dart';
 import 'logic/finPage.dart';
 import 'logic/firebase/authGuider.dart';
 import 'logic/firebase/firebase.dart';
-import 'logic/firebase/fcm.dart';
 import 'logic/futureValidateBuilder.dart';
 import 'logic/getClasses.dart';
-import 'logic/network.dart';
 import 'config/config.dart' as config;
 import 'screens/verify.dart';
 import 'screens/welcome_screen.dart';
