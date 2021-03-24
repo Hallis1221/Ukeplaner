@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_cache/firestore_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart' as config;
@@ -9,7 +7,6 @@ import 'package:ukeplaner/logic/getTests.dart';
 import 'package:ukeplaner/logic/tekst.dart';
 import 'package:ukeplaner/screens/dayPlan.dart';
 import '../logic/test.dart';
-import 'login.dart';
 
 class Testplan extends StatelessWidget {
   const Testplan({Key key}) : super(key: key);
