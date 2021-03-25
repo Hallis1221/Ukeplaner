@@ -73,14 +73,17 @@ class Testplan extends StatelessWidget {
                     children: [
                       Column(
                         children: tests.map((test) {
-                          return TimeCard(
-                            startTid:
-                                DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
-                                    .format(test.date),
-                            sluttTid: "",
-                            klasseNavn: test.title,
-                            message: test.message,
-                            rom: "",
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 15),
+                            child: TimeCard(
+                              startTid:
+                                  DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
+                                      .format(test.date),
+                              sluttTid: "",
+                              klasseNavn: test.title,
+                              message: test.message,
+                              rom: "",
+                            ),
                           );
                         }).toList(),
                       ),
