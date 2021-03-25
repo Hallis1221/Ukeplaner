@@ -10,7 +10,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:firestore_cache/firestore_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
@@ -58,72 +57,73 @@ class LocalFirebaseApp extends StatelessWidget {
           }
 
           return FutureBuilder(
-              future: null,
-              builder: (context, snapshot) {
-                if (true) {
-                  return MultiProvider(
-                    providers: [
-                      Provider<AuthenticationService>(
-                        create: (_) => AuthenticationService(
-                          FirebaseAuth.instance,
-                        ),
+            future: null,
+            builder: (context, snapshot) {
+              if (true) {
+                return MultiProvider(
+                  providers: [
+                    Provider<AuthenticationService>(
+                      create: (_) => AuthenticationService(
+                        FirebaseAuth.instance,
                       ),
-                      StreamProvider(
-                        create: (context) => context
-                            .read<AuthenticationService>()
-                            .authStateChanges,
+                    ),
+                    StreamProvider(
+                      create: (context) => context
+                          .read<AuthenticationService>()
+                          .authStateChanges,
+                    ),
+                  ],
+                  child: MaterialApp(
+                    title: 'Ukeplaner app',
+                    theme: theme,
+                    debugShowCheckedModeBanner: false,
+                    onGenerateRoute: (settings) {
+                      var page = routes[settings.name];
+
+                      if (settings.name == "/") {
+                        print(true);
+                      } else {
+                        print(settings.name);
+                      }
+                      return PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            page,
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          var begin = Offset(1.0, 0.0);
+                          var end = Offset.zero;
+                          var curve = Curves.ease;
+
+                          var tween = Tween(begin: begin, end: end)
+                              .chain(CurveTween(curve: curve));
+                          return SlideTransition(
+                            position: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      );
+                    },
+                    navigatorObservers: [
+                      FirebaseAnalyticsObserver(
+                        analytics: analytics,
                       ),
                     ],
-                    child: MaterialApp(
-                      title: 'Ukeplaner app',
-                      theme: theme,
-                      debugShowCheckedModeBanner: false,
-                      onGenerateRoute: (settings) {
-                        var page = routes[settings.name];
-
-                        if (settings.name == "/") {
-                          print(true);
-                        } else {
-                          print(settings.name);
-                        }
-                        return PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) => page,
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            var begin = Offset(1.0, 0.0);
-                            var end = Offset.zero;
-                            var curve = Curves.ease;
-
-                            var tween = Tween(begin: begin, end: end)
-                                .chain(CurveTween(curve: curve));
-                            return SlideTransition(
-                              position: animation.drive(tween),
-                              child: child,
-                            );
-                          },
+                    routes: {
+                      '/': (context) {
+                        return VerifyApp(
+                          route: '/findpage',
                         );
-                      },
-                      navigatorObservers: [
-                        FirebaseAnalyticsObserver(
-                          analytics: analytics,
-                        ),
-                      ],
-                      routes: {
-                        '/': (context) {
-                          return VerifyApp(
-                            route: '/findpage',
-                          );
-                        }
-                      },
-                      initialRoute: initialRoute,
-                    ),
-                  );
-                }
-                /*   return LoadingFlipping.circle(
+                      }
+                    },
+                    initialRoute: initialRoute,
+                  ),
+                );
+              }
+              /*   return LoadingFlipping.circle(
                   duration: Duration(milliseconds: 750),
                 );*/
-              });
+            },
+          );
         }
         return LoadingFlipping.circle(
           duration: Duration(milliseconds: 10000),
@@ -170,7 +170,7 @@ Future<void> getClassesFromFirebase(BuildContext context) async {
 
     analytics.logEvent(name: "get_class_$classId");
     print("got_$classId");
-    await FirestoreCache.getDocument(documentReference).then((value) async {
+    await documentReference.get().then((value) async {
       Map<String, dynamic> data = value.data();
 
       List<ClassTime> times = [];
