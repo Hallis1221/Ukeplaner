@@ -9,10 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
-import 'package:provider/provider.dart';
 import 'package:ukeplaner/config/config.dart';
-
-import 'auth_services.dart';
 
 class LocalMessageHandler extends StatefulWidget {
   const LocalMessageHandler({
