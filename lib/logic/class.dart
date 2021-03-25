@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
 
 class ClassModel {
