@@ -16,7 +16,6 @@ import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
-import 'package:ukeplaner/screens/dayPlan.dart';
 import '../network.dart';
 import 'auth_services.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
@@ -121,9 +120,9 @@ class LocalFirebaseApp extends StatelessWidget {
                     ),
                   );
                 }
-                return LoadingFlipping.circle(
+                /*   return LoadingFlipping.circle(
                   duration: Duration(milliseconds: 750),
-                );
+                );*/
               });
         }
         return LoadingFlipping.circle(
