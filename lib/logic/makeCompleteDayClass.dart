@@ -66,7 +66,6 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
       List<Lekse> lekser = [];
       try {
         if (classMessagesCache["${klasse.classFirestoreID}.$dateId"] == null) {
-          print("object");
           print(classMessagesCache["${klasse.classFirestoreID}.$dateId"]);
           throw FlutterError(message);
         }
