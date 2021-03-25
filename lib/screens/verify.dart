@@ -342,9 +342,13 @@ class _CodeInputterState extends State<CodeInputter>
   }
 
   void allreadyTriedCode(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-      content: Text("Du har allerede prøvd denne koden!"),
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      new SnackBar(
+        content: Text(
+          "Du har allerede prøvd denne koden!",
+        ),
+      ),
+    );
     animationController.forward(from: 0.0);
   }
 }
