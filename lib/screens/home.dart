@@ -23,6 +23,8 @@ import 'package:ukeplaner/elements/maindrawer.dart';
 
 import 'login.dart';
 
+List<Widget> rowChildrenController = [];
+
 DateTime now = DateTime.now();
 List<DateTime> tider = [];
 String chossenTid;
@@ -144,17 +146,34 @@ class HomeScreen extends StatelessWidget {
                                             List<Widget> columnOfRows = [];
                                             for (Widget widget
                                                 in snapshot.data) {
-                                              if (childsOnRow <= 1) {
+                                              if (childsOnRow <= 1 &&
+                                                  !(rowChildrenController
+                                                      .contains(widget))) {
+                                                print(
+                                                    "rowChildrenController: $rowChildrenController");
                                                 rowChildren.add(widget);
+                                                rowChildrenController
+                                                    .add(widget);
                                               } else {
-                                                print(childsOnRow);
-                                                columnOfRows.add(Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: rowChildren,
-                                                ));
-                                                childsOnRow = 0;
-                                                rowChildren = [];
+                                                if (!(columnOfRows.contains(
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: rowChildren,
+                                                  ),
+                                                ))) {
+                                                  print(childsOnRow);
+                                                  columnOfRows.add(
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: rowChildren,
+                                                    ),
+                                                  );
+                                                  childsOnRow = 0;
+                                                  rowChildren = [];
+                                                }
                                               }
                                               childsOnRow++;
                                             }
