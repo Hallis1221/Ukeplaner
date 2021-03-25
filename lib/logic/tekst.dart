@@ -1,6 +1,4 @@
 // Utvider string. Det gjør at vi kan skrive feks "".capitalize();
-import 'package:ukeplaner/screens/register.dart';
-
 extension StringExtension on String {
   // gjør den første bokstaven i teksten stor
   String capitalize() {
