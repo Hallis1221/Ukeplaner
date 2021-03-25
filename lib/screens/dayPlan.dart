@@ -203,7 +203,7 @@ class TimeCard extends StatelessWidget {
             35,
           ),
         ),
-        width: MediaQuery.of(context).size.width / 1.5,
+        width: MediaQuery.of(context).size.width / 1.25,
         child: Padding(
           padding:
               const EdgeInsets.only(top: 5, right: 10, left: 10, bottom: 15),
