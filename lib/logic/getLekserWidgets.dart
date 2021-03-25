@@ -89,7 +89,7 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
                     while (brukteFarger.contains(r)) {
                       r = min + rnd.nextInt(max - min);
                     }
-                    print("brukte: $brukteFarger");
+
                     brukteFarger.add(r);
                   }
 
