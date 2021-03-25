@@ -423,6 +423,7 @@ class _KlasseFieldState extends State<KlasseField> {
         );
       }).toList(),
       onChanged: (String newValue) {
+        tider = [];
         for (ClassModel klasse in classes) {
           if (klasse.classFirestoreID == newValue) {
             chossenId = klasse.classFirestoreID;
@@ -459,7 +460,6 @@ class _KlasseDatoFieldState extends State<KlasseDatoField> {
   String hintText = "Velg klasse";
   @override
   Widget build(BuildContext context) {
-    print(tider);
     return DropdownButton<String>(
       hint: Text(
         hintText,
