@@ -12,9 +12,6 @@ import 'package:loading/loading.dart';
 import 'package:intl/intl.dart';
 
 import '../config/config.dart';
-import 'firebase/auth_services.dart';
-import 'package:provider/provider.dart';
-import 'firebase/firebase.dart';
 
 class VerifyApp extends StatefulWidget {
   const VerifyApp({
