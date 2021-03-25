@@ -80,7 +80,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           body:
               "Ønsker du å lære mer om $schoolName? Denne appen er for $schoolName elever, du kan lære mer ved å klikke nedenfor.",
           image: _buildImage('logo'),
-          footer: RaisedButton(
+          footer: MaterialButton(
             onPressed: () {
               launch(website);
             },
