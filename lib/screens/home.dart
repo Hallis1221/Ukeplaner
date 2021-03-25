@@ -2,10 +2,7 @@
  You may not use, distribute and modify this code unless a license is granted. 
  If so use, distribution and modification can be done under the terms of the license.*/
 
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -14,21 +11,16 @@ import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
 import 'package:ukeplaner/icons/custom_icons.dart';
 import 'package:ukeplaner/logic/dates.dart';
 import 'package:ukeplaner/logic/getLekserWidgets.dart';
-import 'dayPlan.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
-import 'package:ukeplaner/logic/dayClass.dart';
 import 'package:ukeplaner/logic/firebase/auth_services.dart';
 import 'package:ukeplaner/logic/firebase/firebase.dart';
-import 'package:ukeplaner/logic/leske.dart';
-import 'package:ukeplaner/screens/dayPlan.dart';
 import 'package:ukeplaner/screens/login.dart';
 import '../logic/tekst.dart';
 import 'package:week_of_year/week_of_year.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/elements/maindrawer.dart';
 
-import 'login.dart';
 import 'login.dart';
 
 DateTime now = DateTime.now();
