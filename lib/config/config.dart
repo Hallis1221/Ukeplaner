@@ -4,12 +4,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/icons/custom_icons.dart';
 import 'package:ukeplaner/logic/class.dart';
-import 'package:ukeplaner/logic/classTimes.dart';
-import 'package:ukeplaner/logic/firebase/firebase.dart';
 
 // !! DEV
 FirebaseAnalytics analytics;
