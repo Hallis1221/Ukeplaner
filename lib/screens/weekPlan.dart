@@ -30,7 +30,6 @@ class _WeekPlanState extends State<WeekPlan> {
     List<Widget> widgets = [];
     for (var i = 1; i <= 5; i++) {
       if (getWeekDateDifference(i, now.weekOfYear + addWeeks).inDays < 0) {
-        print("week: ${now.weekOfYear + addWeeks}");
         continue;
       }
       widgets.add(WeekPlanColumn(
@@ -144,7 +143,6 @@ class WeekPlanColumn extends StatefulWidget {
 class _WeekPlanColumnState extends State<WeekPlanColumn> {
   @override
   Widget build(BuildContext context) {
-    print("daysleft: $daysLeft");
     List brukteFarger = [];
 
     if (getWeekDateDifference(widget.weekplanIndex, widget.week).inDays < 0) {}
@@ -171,11 +169,10 @@ class _WeekPlanColumnState extends State<WeekPlanColumn> {
                 addDays: (() {
                   if (addWeeks != 0) {
                     //TODO
-                    print("index: ${widget.weekplanIndex}");
+
                     return widget.weekplanIndex +
                         (5 - getDate()["dateTime"].weekday);
                   } else {
-                    print("ting uinder");
                     print(
                         getWeekDateDifference(widget.weekplanIndex, widget.week)
                             .inDays);
@@ -212,7 +209,7 @@ class _WeekPlanColumnState extends State<WeekPlanColumn> {
                             while (brukteFarger.contains(r)) {
                               r = min + rnd.nextInt(max - min);
                             }
-                            print("brukte: $brukteFarger");
+
                             brukteFarger.add(r);
                           }
 
@@ -252,11 +249,8 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
         getWeekDateDifference(widget.weekplanIndex, widget.week);
     return GestureDetector(
       onTap: () {
-        print(
-            "weekplanindex: ${widget.weekplanIndex} and week: ${widget.week}");
         difference = getWeekDateDifference(widget.weekplanIndex, widget.week);
 
-        print("difference: ${difference.inDays}");
         if (difference.inDays < 0) {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Du kan bare se datoer i framtiden")));
@@ -268,12 +262,11 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
         } else {
           tempWeeks = addWeeks;
         }
-        print("addweeks: $tempWeeks");
+
         currentPageSelected = difference.inDays + (tempWeeks * -2);
-        print("currentpageselected: ${tempWeeks - 1}");
+
 // TODO denne feil beregner
         Navigator.of(context).pushNamed("/dayplan");
-        print("cps: $currentPageSelected");
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
