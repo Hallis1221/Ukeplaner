@@ -267,7 +267,7 @@ class _CodeInputterState extends State<CodeInputter>
           padding:
               const EdgeInsets.only(top: 10, bottom: 25, right: 25, left: 25),
           child: Center(
-            child: RaisedButton(
+            child: MaterialButton(
               onPressed: (() {
                 if (buttonEnabled) {
                   return () async {
@@ -342,7 +342,7 @@ class _CodeInputterState extends State<CodeInputter>
   }
 
   void allreadyTriedCode(BuildContext context) {
-    Scaffold.of(context).showSnackBar(new SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
       content: Text("Du har allerede prøvd denne koden!"),
     ));
     animationController.forward(from: 0.0);
