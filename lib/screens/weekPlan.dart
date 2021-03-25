@@ -26,7 +26,7 @@ class WeekPlan extends StatefulWidget {
 class _WeekPlanState extends State<WeekPlan> {
   @override
   Widget build(BuildContext context) {
-    DateTime date = getDate(addDays: currentPageSelected)["dateTime"];
+    // DateTime date = getDate(addDays: currentPageSelected)["dateTime"];
     List<Widget> widgets = [];
     for (var i = 1; i <= 5; i++) {
       if (getWeekDateDifference(i, now.weekOfYear + addWeeks).inDays < 0) {
