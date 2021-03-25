@@ -4,8 +4,6 @@
 
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_cache/firestore_cache.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +52,6 @@ class MyApp extends StatelessWidget {
         '/home': FutureBuilder(
           future: getClasses(),
           builder: (context, snapshot) {
-            _getDocs();
             if (snapshot.connectionState == ConnectionState.done) {
               return HomeScreen(
                 subjects: snapshot.data,
