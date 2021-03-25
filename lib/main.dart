@@ -4,6 +4,8 @@
 
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firestore_cache/firestore_cache.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +37,18 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    _getDocs();
+  }
+
   @override
   Widget build(BuildContext context) {
     _portraitModeOnly();
@@ -87,6 +100,19 @@ class MyApp extends StatelessWidget {
         '/register': RegisterPage(),
       },
     );
+  }
+
+  Future<QuerySnapshot> _getDocs() async {
+    final DocumentReference cacheDocRef = db.doc('status/status');
+    final String cacheField = 'updatedAt';
+    final Query query = db.collection('classes');
+    final QuerySnapshot snapshot = await FirestoreCache.getDocuments(
+      query: query,
+      cacheDocRef: cacheDocRef,
+      firestoreCacheField: cacheField,
+    );
+
+    return snapshot;
   }
 }
 
