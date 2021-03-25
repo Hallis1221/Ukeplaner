@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_cache/firestore_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +29,7 @@ class FutureValidateBuilder extends StatelessWidget {
         });
 
         DocumentReference _dcRef = db.collection("users").doc(uid);
-        return FirestoreCache.getDocument(_dcRef);
+        return _dcRef.get();
       }()),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
