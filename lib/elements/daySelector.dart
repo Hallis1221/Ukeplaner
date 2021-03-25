@@ -4,7 +4,6 @@ import 'package:scroll_snap_list/scroll_snap_list.dart';
 import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/logic/dates.dart';
 import '../logic/tekst.dart';
-import '../screens/home.dart';
 
 class DaySelector extends StatelessWidget {
   const DaySelector({
@@ -16,7 +15,6 @@ class DaySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int currentIndex = 0;
     return Container(
       height: 100,
       width: MediaQuery.of(context).size.width,
