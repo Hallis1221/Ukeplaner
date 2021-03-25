@@ -38,8 +38,6 @@ class HomeScreen extends StatelessWidget {
   final List<ClassModel> subjects;
   @override
   Widget build(BuildContext context) {
-    print("HERE!");
-
     DateTime date = getDate()["dateTime"];
     return Scaffold(
       resizeToAvoidBottomInset: true,
