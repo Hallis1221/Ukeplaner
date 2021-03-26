@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/config/config.dart' as config;
@@ -13,6 +15,7 @@ class Testplan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List brukteFarger = [];
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(150),
@@ -76,14 +79,29 @@ class Testplan extends StatelessWidget {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 15),
                             child: TimeCard(
-                              startTid:
-                                  DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
-                                      .format(test.date),
-                              sluttTid: "",
-                              klasseNavn: test.title,
-                              message: test.message,
-                              rom: "",
-                            ),
+                                startTid: DateFormat(
+                                        DateFormat.ABBR_MONTH_WEEKDAY_DAY)
+                                    .format(test.date),
+                                sluttTid: "",
+                                klasseNavn: test.title,
+                                message: test.message,
+                                rom: "",
+                                color: (() {
+                                  Random rnd = new Random();
+                                  int min = 0, max = lekserColors.length;
+                                  int r = min + rnd.nextInt(max - min);
+                                  int maxColorsLen = brukteFarger.length;
+
+                                  if (maxColorsLen <= max) {
+                                    while (brukteFarger.contains(r)) {
+                                      r = min + rnd.nextInt(max - min);
+                                    }
+
+                                    brukteFarger.add(r);
+                                  }
+
+                                  return lekserColors[r];
+                                }())),
                           );
                         }).toList(),
                       ),
