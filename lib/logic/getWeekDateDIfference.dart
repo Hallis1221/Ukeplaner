@@ -11,7 +11,7 @@ Duration getWeekDateDifference(weekplanIndex, week) {
     getDate()["dateTime"].month,
     getDate()["dateTime"].day,
   );
-  print(skipWeekend(date)["daysSkiped"]);
+
   date = skipWeekend(date)["dateTime"];
   Duration difference = date.difference(now);
   return difference;
