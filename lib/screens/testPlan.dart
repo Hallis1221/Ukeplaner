@@ -66,7 +66,7 @@ class Testplan extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             List<Test> tests = snapshot.data;
             if (snapshot.hasError) {
-              print(snapshot.error);
+              print("error: ${snapshot.error}");
             }
             return Column(
               children: [
