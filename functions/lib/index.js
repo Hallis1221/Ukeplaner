@@ -5,7 +5,7 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
 const db = admin.firestore();
-const fcm = admin.messaging();
+// const fcm = admin.messaging();
 exports.checkcode = functions.https.onCall((argumentData) => {
     var valid = false;
     var type;
@@ -58,22 +58,7 @@ exports.checkcode = functions.https.onCall((argumentData) => {
         return valid;
     }));
 });
-exports.sendLekse = functions.firestore.document("classes/${classId}/classes{classTime}/").onWrite(async (snapshot) => {
-    const docRef = db.collection('classes').doc(classId);
-    const classData = docRef.get().then((doc) => {
-        if (!doc.exists) {
-            console.log('No such document!');
-            return null;
-        }
-        return doc.data();
-    });
-    const payload = {
-        notification: {
-            title: "${classData['name']} har blitt oppdatert. ",
-            body: "Timen ${classTime} har blitt oppdatert. Klikk for å åpne. .",
-            clickAction: "FLUTTER_NOTIFICATION_ACTION",
-        }
-    };
-    return fcm.sendToTopic(classId, payload);
+exports.sendLekse = functions.firestore.document("classes/{classId}/classes/{classTime}").onWrite(async (snapshot, context) => {
+    console.log(snapshot.data);
 });
 //# sourceMappingURL=index.js.map
