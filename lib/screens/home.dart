@@ -198,12 +198,14 @@ class HomeScreen extends StatelessWidget {
                                               children: columnOfRows,
                                             );
                                           }
+
                                           return Container();
                                         },
                                       ));
                                     }
                                   }
                                 }
+
                                 return Column(
                                   children: stuffToReturn,
                                 );
@@ -211,6 +213,7 @@ class HomeScreen extends StatelessWidget {
                           ],
                         );
                       }
+
                       return Container();
                     },
                   )
