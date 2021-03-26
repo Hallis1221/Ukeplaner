@@ -34,7 +34,6 @@ class FutureValidateBuilder extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           DocumentSnapshot data = snapshot.data;
-          analytics.logEvent(name: "get_classes");
 
           cloudClassesCodes = data.get("classes");
 
