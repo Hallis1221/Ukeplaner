@@ -75,10 +75,6 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
             ["lekser"]["data"];
         continue;
       } catch (e) {
-        analytics.logEvent(
-            name: "get_class_${klasse.classFirestoreID}_$dateId");
-        print("got_${klasse.classFirestoreID}.$dateId");
-
         await documentReference.get().then((value) {
           try {
             message = value.data()["message"];
