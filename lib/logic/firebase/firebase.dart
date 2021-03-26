@@ -145,17 +145,6 @@ Future<RemoteConfig> remote(RemoteConfig remoteConfig) async {
 
 List<String> doneIds = [];
 Future<void> getClassesFromFirebase(BuildContext context) async {
-  //TODO
-  /*User user;
-  await context.read<AuthenticationService>().getCurrentUser().then((value) {
-    user = value;
-    DocumentReference documentReference = db.collection("users").doc(user.uid);
-    documentReference.get().then((value) {
-      print(1);
-      cloudClassesCodes = value.data()["classes"];
-    });
-  });*/
-
   for (String classId in cloudClassesCodes) {
     print("doneId: $classId");
     if (fetchedClasses || doneIds.contains(classId)) {
