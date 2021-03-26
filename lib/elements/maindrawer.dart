@@ -26,7 +26,6 @@ class MainDrawer extends StatelessWidget {
                       future: _getUser(context),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
-                          print(snapshot.data);
                           User user = snapshot.data;
                           return Container(
                             color: Colors.transparent,
