@@ -147,6 +147,7 @@ List<String> doneIds = [];
 Future<void> getClassesFromFirebase(BuildContext context) async {
   for (String classId in cloudClassesCodes) {
     print("doneId: $classId");
+
     if (fetchedClasses || doneIds.contains(classId)) {
       return;
     }
@@ -185,5 +186,6 @@ Future<void> getClassesFromFirebase(BuildContext context) async {
     doneIds.add(classId);
   }
   fetchedClasses = true;
+
   return;
 }
