@@ -174,8 +174,7 @@ class _WeekPlanColumnState extends State<WeekPlanColumn> {
                         (5 - getDate()["dateTime"].weekday);
                   } else {
                     print(
-                        getWeekDateDifference(widget.weekplanIndex, widget.week)
-                            .inDays);
+                        "dif: ${getWeekDateDifference(widget.weekplanIndex, widget.week).inDays}");
                     return getWeekDateDifference(
                             widget.weekplanIndex, widget.week)
                         .inDays;
