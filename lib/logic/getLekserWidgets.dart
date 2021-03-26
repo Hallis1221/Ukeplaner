@@ -11,14 +11,15 @@ import 'package:ukeplaner/config/config.dart';
 import 'makeCompleteDayClass.dart';
 
 List<String> rowChildrenController = [];
-
+List brukteFarger = [];
 Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
   List<Widget> children = [];
-  List brukteFarger = [];
+
   await makeCompleteDayClass(context, subjects: subjects, dateToShow: date)
       .then((value) {
     for (CompleteDayClass completeDayClass in value) {
       for (Lekse lekse in completeDayClass.lekser) {
+        brukteFarger = [];
         String uid =
             "${lekse.tittel}.${lekse.fag}.${lekse.date}.${lekse.beskrivelse}";
         if (!rowChildrenController.contains(uid)) {
@@ -92,8 +93,10 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
                     int maxColorsLen = brukteFarger.length;
 
                     if (maxColorsLen <= max) {
-                      while (brukteFarger.contains(r)) {
+                      int i = 10;
+                      while (brukteFarger.contains(r) || i == 0) {
                         r = min + rnd.nextInt(max - min);
+                        i--;
                       }
 
                       brukteFarger.add(r);
