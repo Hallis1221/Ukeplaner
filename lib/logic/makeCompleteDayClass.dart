@@ -103,7 +103,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
             lekser = [];
           }
         }).onError((error, stackTrace) {
-          print(error);
+          print("error: $error");
           daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
               className: "Fri! ",
               startTime: "Hele ",
