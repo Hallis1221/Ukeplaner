@@ -81,9 +81,9 @@ class LocalFirebaseApp extends StatelessWidget {
                       var page = routes[settings.name];
 
                       if (settings.name == "/") {
-                        print(true);
+                        print("Route was defult");
                       } else {
-                        print(settings.name);
+                        print("route name: ${settings.name}");
                       }
                       return PageRouteBuilder(
                         pageBuilder: (context, animation, secondaryAnimation) =>
@@ -152,10 +152,10 @@ Future<void> getClassesFromFirebase(BuildContext context) async {
     }
 
     DocumentReference documentReference = db.collection("classes").doc(classId);
-    await context
+    /*   await context
         .read<AuthenticationService>()
         .getCurrentUser()
-        .then((User value) => print(value.uid));
+        .then((User value) => print("uid: ${value.uid}"));*/
     await documentReference.get().then((value) async {
       Map<String, dynamic> data = value.data();
 
