@@ -167,9 +167,6 @@ Future<void> getClassesFromFirebase(BuildContext context) async {
         .read<AuthenticationService>()
         .getCurrentUser()
         .then((User value) => print(value.uid));
-
-    analytics.logEvent(name: "get_class_$classId");
-    print("got_$classId");
     await documentReference.get().then((value) async {
       Map<String, dynamic> data = value.data();
 
