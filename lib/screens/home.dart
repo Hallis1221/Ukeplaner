@@ -162,7 +162,8 @@ class HomeScreen extends StatelessWidget {
                                                     children: rowChildren,
                                                   ),
                                                 ))) {
-                                                  print(childsOnRow);
+                                                  print(
+                                                      "childsOnRow: $childsOnRow");
                                                   columnOfRows.add(
                                                     Row(
                                                       mainAxisAlignment:
