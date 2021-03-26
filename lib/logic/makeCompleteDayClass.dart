@@ -15,7 +15,6 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
   List<DayClass> daySubjectsFormatted = [];
 
   List<CompleteDayClass> daySubjectsWithMessagesAndHomework = [];
-  print(dateToShow["weekIndex"]);
   for (ClassModel klasse in subjects) {
     for (ClassTime tid in klasse.times) {
       if ((currentWeek == "a" && tid.aWeeks) ||
