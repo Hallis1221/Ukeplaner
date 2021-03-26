@@ -134,7 +134,7 @@ class VerificationSerivice {
     //!! husk at det er et map
     final results = await callable.call({"code": input, "useLog": log});
     // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
-    print(results.data);
+    print("code result: ${results.data}");
     return results.data;
   }
 
