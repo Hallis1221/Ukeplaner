@@ -7,7 +7,7 @@ Future<List<Test>> getTests() async {
   for (String code in cloudClassesCodes) {
     var currentTest;
     DocumentReference documentReference = db.collection("classes").doc(code);
-    print(documentReference);
+
     await documentReference.get().then((value) {
       currentTest = value.data()["tests"];
       for (var test in currentTest) {
