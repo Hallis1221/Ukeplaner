@@ -41,7 +41,7 @@ class _DayPlanState extends State<DayPlan> {
           subjects: widget.subjects, dateToShow: dateToShow),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print(snapshot.error);
+          print("Error thrown: ${snapshot.error}");
           return ErrorPage();
         }
         if (snapshot.connectionState == ConnectionState.done) {
