@@ -8,25 +8,25 @@ Future<DocumentSnapshot> getDocument(
   DocumentReference documentReference,
   Duration timeTrigger,
 ) async {
-  print(documentReference.id);
+  print("got a document with the id: ${documentReference.path}");
   return documentReference.get();
 }
 
-Future<File> writeCounter(int counter) async {
-  final file = await _localFile;
+Future<File> writeCache(String filename, dynamic content) async {
+  final file = await _localFile(filename);
 
   // Write the file.
-  return file.writeAsString('$counter');
+  return file.writeAsString('$content');
 }
 
-Future<int> readCounter() async {
+Future<dynamic> readCounter(String filename) async {
   try {
-    final file = await _localFile;
+    final file = await _localFile(filename);
 
     // Read the file.
-    String contents = await file.readAsString();
+    dynamic contents = await file.readAsString();
 
-    return int.parse(contents);
+    return contents;
   } catch (e) {
     // If encountering an error, return 0.
     return 0;
@@ -39,7 +39,7 @@ Future<String> get _localPath async {
   return directory.path;
 }
 
-Future<File> get _localFile async {
+Future<File> _localFile(String name) async {
   final path = await _localPath;
-  return File('$path/counter.txt');
+  return File('$path/$name.up');
 }
