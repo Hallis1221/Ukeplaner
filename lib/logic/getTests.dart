@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/logic/firebase/firestore.dart';
 import 'package:ukeplaner/logic/test.dart';
 
 Future<List<Test>> getTests() async {
@@ -8,7 +9,7 @@ Future<List<Test>> getTests() async {
     var currentTest;
     DocumentReference documentReference = db.collection("classes").doc(code);
 
-    await documentReference.get().then((value) {
+    await getDocument(documentReference, Duration()).then((value) {
       currentTest = value.data()["tests"];
       for (var test in currentTest) {
         Timestamp timeStamp = test["date"];
