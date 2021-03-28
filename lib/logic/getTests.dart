@@ -10,7 +10,7 @@ Future<List<Test>> getTests() async {
     DocumentReference documentReference = db.collection("classes").doc(code);
 
     await getDocument(documentReference, Duration()).then((value) {
-      currentTest = value.data()["tests"];
+      currentTest = value["tests"];
       for (var test in currentTest) {
         Timestamp timeStamp = test["date"];
         tests.add(new Test(
