@@ -13,7 +13,7 @@ Future<Map> getDocument({
   dynamic cacheData = await readCache(documentReference.path);
   DateTime updatedAt;
   bool outDated = true;
-  bool error = false;
+  var error;
   try {
     updatedAt = cacheData["updatedAt"];
     outDated = now.difference(updatedAt) >= timeTrigger;
@@ -23,7 +23,7 @@ Future<Map> getDocument({
     print("error: $e");
     updatedAt = null;
     outDated = true;
-    error = true;
+    error = e;
   }
 
   if (cacheData == null || outDated || cacheData == []) {
@@ -125,25 +125,32 @@ Future<Map> readCache(String filename) async {
               _json[key] = DateTime.parse(value);
             }
             if (key == "tests" && value is List) {
-              List newList = [];
+              var newValue = [];
               print("test: $value");
-              value.forEach((element) {
-                if (element is Map) {
-                  Map newMap = element;
+              try {
+                value.forEach((element) {
+                  if (element is Map) {
+                    Map newMap = element;
 
-                  newMap.removeWhere((key, value) {
-                    if (key.toString().startsWith("TIMESTAMP_")) {
-                      newMap.addAll(
-                          {key.toString().replaceAll("TIMESTAMP_", ""): value});
-                      return true;
-                    }
-                    return false;
-                  });
-                  newList.add(newMap);
+                    newMap.removeWhere((key, value) {
+                      if (key.toString().startsWith("TIMESTAMP_")) {
+                        newMap.addAll({
+                          key.toString().replaceAll("TIMESTAMP_", ""): value
+                        });
+                        return true;
+                      }
+                      return false;
+                    });
+                    newValue.add(newMap);
+                  }
+                });
+              } catch (e) {
+                if (newValue == null) {
+                  newValue = value;
                 }
-              });
-              print("testelement: $newList");
-              _json[key] = newList;
+              }
+              print("testelement: $newValue");
+              _json[key] = newValue;
             }
           },
         );
@@ -156,9 +163,11 @@ Future<Map> readCache(String filename) async {
         // If encountering an error, return null
       }
     }
+    print("ERROR LEVEL 1");
     return null;
   } catch (e) {
     // If encountering an error, return 0.
+    print("ERROR LEVEL 0");
     return null;
   }
 }
