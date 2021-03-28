@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/screens/home.dart';
 
 Future<Map> getDocument({
@@ -37,7 +38,9 @@ Future<Map> getDocument({
 
     print("DID NOT USE CACHE");
     Map map = await documentReference.get().then((value) => value.data());
-    writeCache(filename: documentReference.path, content: map);
+    print(
+        "Trying to write to $documentReference with the following content: $map");
+    await writeCache(filename: documentReference.path, content: map);
     return map;
   } else {
     print("USED CACHE");
@@ -50,7 +53,15 @@ Future<void> writeCache({String filename, Map content}) async {
   Map<String, dynamic> _json = {};
   String _jsonString;
   Map<String, dynamic> _newJson;
-  if (content == null) return null;
+  if (content == null) {
+    Map nullMap = {
+      "value": content,
+      'updatedAt': now.toString(),
+    };
+    String nullValue = jsonEncode(nullMap);
+    file.writeAsString(nullValue);
+    return null;
+  }
   content.forEach(
     (key, value) {
       if (value is Timestamp) {
@@ -90,6 +101,8 @@ Future<void> writeCache({String filename, Map content}) async {
   print(_json);
   _jsonString = jsonEncode(_json);
   // Write the file.
+  print(
+      "Writing the jsonstring: $_jsonString to $file. The raw json was: $json");
   return file.writeAsString(_jsonString);
 }
 
@@ -115,6 +128,10 @@ Future<Map> readCache(String filename) async {
 
         //2. Update initialized _json by converting _jsonString<String>->_json<Map>
         _json = jsonDecode(_jsonString);
+        if (_json == null) {
+          print(
+              "JSON IS NULL and json string is: $_jsonString. The file path was: $file");
+        }
         _json.forEach(
           (key, value) {
             if (key.startsWith("TIMESTAMP_")) {
@@ -125,9 +142,10 @@ Future<Map> readCache(String filename) async {
               _json[key] = DateTime.parse(value);
             }
             if (value is List) {
+              List newList = [];
               value.forEach(
                 (element) {
-                  if (element is Map) {
+                  if (element is Map && element.isNotEmpty) {
                     List keysToRemove = [];
                     Map stuffToAdd = {};
                     element.forEach((deepKey, deepValue) {
@@ -144,9 +162,24 @@ Future<Map> readCache(String filename) async {
                         print("key: $deepKey");
                       }
                     });
+                    element.removeWhere(
+                        (key, value) => keysToRemove.contains(key));
+                    if (stuffToAdd.isNotEmpty) {
+                      stuffToAdd.forEach(
+                        (_key, _value) {
+                          element[_key] = _value;
+                        },
+                      );
+                    }
+                    newList.add(element);
                   }
                 },
               );
+              if (newList.isEmpty) {
+                newList = value;
+              }
+              print("newvalues: $newList, length: ${value.length}");
+              _json[key] = newList;
             }
           },
         );
