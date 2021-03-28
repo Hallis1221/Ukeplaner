@@ -12,7 +12,8 @@ Future<Map> getDocument({
 }) async {
   dynamic cacheData = await readCache(documentReference.path);
   DateTime updatedAt;
-  bool outDated;
+  bool outDated = true;
+  bool error = false;
   try {
     updatedAt = cacheData["updatedAt"];
     outDated = now.difference(updatedAt) >= timeTrigger;
@@ -22,23 +23,24 @@ Future<Map> getDocument({
     print("error: $e");
     updatedAt = null;
     outDated = true;
+    error = true;
   }
 
-  if (cacheData == null || outDated || cacheData == [] || true) {
+  if (cacheData == null || outDated || cacheData == []) {
     try {
-      print("""got: 
-        ${documentReference.path} beacuse cache was null? 
-        ${cacheData == null} it was outdated $outDated.
+      print(
+          """got:  ${documentReference.path} beacuse cache was null?   ${cacheData == null} it was outdated $outDated. was there an error? $error
          """);
     } catch (e) {
       print(e);
     }
 
-    print("fetched document");
+    print("DID NOT USE CACHE");
     Map map = await documentReference.get().then((value) => value.data());
     writeCache(filename: documentReference.path, content: map);
     return map;
   } else {
+    print("USED CACHE");
     return cacheData;
   }
 }
@@ -56,10 +58,28 @@ Future<void> writeCache({String filename, Map content}) async {
         value = timestamp.millisecondsSinceEpoch;
         key = "TIMESTAMP_$key";
       }
-      if (key == "tider" || value is Map) {
-        print("tider: $value");
-      }
+      if (key == "tests" && value is List) {
+        List newList = [];
 
+        for (Map element in value) {
+          List elementsToRemove = [];
+          Map elementsToAdd = {};
+          element.forEach((key, value) {
+            if (value is Timestamp) {
+              elementsToRemove.add(key);
+              elementsToAdd["TIMESTAMP_$key"] = value.millisecondsSinceEpoch;
+            }
+          });
+
+          element.removeWhere((key, value) => elementsToRemove.contains(key));
+          elementsToAdd.forEach((key, value) {
+            element[key] = value;
+          });
+          newList.add(element);
+        }
+        value = newList;
+        print("tests: $value");
+      }
       _newJson = {key: value};
       _json.addAll(_newJson);
     },
@@ -104,23 +124,26 @@ Future<Map> readCache(String filename) async {
             if (key == "updatedAt") {
               _json[key] = DateTime.parse(value);
             }
-            if (value is List) {
-              List _list = [];
-              value.forEach((listElement) {
-                Map<String, dynamic> _map = {};
-                if (listElement is Map) {
-                  listElement.forEach((deepKey, deepValue) {
-                    if (deepValue is Timestamp) {
-                      Timestamp timestamp = deepValue;
-                      deepValue = timestamp.millisecondsSinceEpoch;
-                      deepKey = "TIMESTAMP_$key";
+            if (key == "tests" && value is List) {
+              List newList = [];
+              print("test: $value");
+              value.forEach((element) {
+                if (element is Map) {
+                  Map newMap = element;
+
+                  newMap.removeWhere((key, value) {
+                    if (key.toString().startsWith("TIMESTAMP_")) {
+                      newMap.addAll(
+                          {key.toString().replaceAll("TIMESTAMP_", ""): value});
+                      return true;
                     }
-                    _map.addAll({deepKey: deepValue});
+                    return false;
                   });
+                  newList.add(newMap);
                 }
-                _list.add(_map);
               });
-              _json[key] = _list;
+              print("testelement: $newList");
+              _json[key] = newList;
             }
           },
         );
