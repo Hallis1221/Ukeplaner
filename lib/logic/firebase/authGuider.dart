@@ -29,12 +29,14 @@ class AuthenticatonWrapper extends StatelessWidget {
           return VerifyEmailPage();
         }
         DocumentReference _dcr = db.collection("users").doc(firebaseUser.uid);
-        getDocument(_dcr, Duration()).then((value) {
+        getDocument(documentReference: _dcr, timeTrigger: new Duration(days: 1))
+            .then((value) {
           firstName = value["firstname"];
           lastName = value["lastname"];
         });
         _dcr = _dcr.collection("sensetive").doc("nowrite");
-        getDocument(_dcr, Duration()).then(
+        getDocument(documentReference: _dcr, timeTrigger: new Duration(days: 3))
+            .then(
           (value) {
             if (value["role"] == "teacher") {
               isTeacher = true;

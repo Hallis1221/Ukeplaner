@@ -9,7 +9,10 @@ Future<List<Test>> getTests() async {
     var currentTest;
     DocumentReference documentReference = db.collection("classes").doc(code);
 
-    await getDocument(documentReference, Duration()).then((value) {
+    await getDocument(
+            documentReference: documentReference,
+            timeTrigger: new Duration(hours: 1))
+        .then((value) {
       currentTest = value["tests"];
       for (var test in currentTest) {
         Timestamp timeStamp = test["date"];

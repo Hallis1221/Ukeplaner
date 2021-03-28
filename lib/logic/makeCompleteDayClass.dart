@@ -75,7 +75,12 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
             ["lekser"]["data"];
         continue;
       } catch (e) {
-        await getDocument(documentReference, Duration()).then((value) {
+        await getDocument(
+          documentReference: documentReference,
+          timeTrigger: new Duration(
+            minutes: 30,
+          ),
+        ).then((value) {
           try {
             message = value["message"];
             for (var lekse in value["lekser"]) {

@@ -30,7 +30,8 @@ class FutureValidateBuilder extends StatelessWidget {
         });
 
         DocumentReference _dcRef = db.collection("users").doc(uid);
-        return getDocument(_dcRef, Duration());
+        return getDocument(
+            documentReference: _dcRef, timeTrigger: new Duration(days: 1));
       }()),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
