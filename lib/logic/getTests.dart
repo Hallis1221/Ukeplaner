@@ -23,5 +23,6 @@ Future<List<Test>> getTests() async {
       }
     });
   }
+
   return tests;
 }
