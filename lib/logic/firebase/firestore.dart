@@ -4,14 +4,30 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:ukeplaner/screens/home.dart';
 
-Future<Map> getDocument(
+Future<Map> getDocument({
   DocumentReference documentReference,
   Duration timeTrigger,
-) async {
-  dynamic cacheData = readCache(documentReference.path);
-  if (cacheData == null) {
-    print("got a document with the id: ${documentReference.path}");
+}) async {
+  dynamic cacheData = await readCache(documentReference.path);
+  DateTime updatedAt;
+  bool outDated;
+  try {
+    updatedAt = cacheData["updatedAt"];
+    outDated = now.difference(updatedAt) >= timeTrigger;
+    print(
+        "differnece: ${now.difference(updatedAt)} and timeTrigger is at $timeTrigger. Now is $now and updatedAt is $updatedAt");
+  } catch (e) {
+    print("error: $e");
+    updatedAt = null;
+    outDated = true;
+  }
+
+  if (cacheData == null || outDated) {
+    print(
+        "got: ${documentReference.path} beacuse cache was null? ${cacheData == null} and the difference was ${now.difference(updatedAt)} ");
+    print("fetched document");
     Map map = await documentReference.get().then((value) => value.data());
     writeCache(filename: documentReference.path, content: map);
     return map;
@@ -36,6 +52,9 @@ Future<void> writeCache({String filename, Map content}) async {
       _newJson = {key: value};
       _json.addAll(_newJson);
     },
+  );
+  _json.addAll(
+    {'updatedAt': now.toString()},
   );
   _jsonString = jsonEncode(_json);
   // Write the file.
@@ -69,6 +88,9 @@ Future<Map> readCache(String filename) async {
             if (key.startsWith("TIMESTAMP_")) {
               _json[key] = new Timestamp.fromMillisecondsSinceEpoch(value);
               key = key.replaceAll("TIMESTAMP_", "");
+            }
+            if (key == "updatedAt") {
+              _json[key] = DateTime.parse(value);
             }
           },
         );
