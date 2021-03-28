@@ -124,33 +124,29 @@ Future<Map> readCache(String filename) async {
             if (key == "updatedAt") {
               _json[key] = DateTime.parse(value);
             }
-            if (key == "tests" && value is List) {
-              var newValue = [];
-              print("test: $value");
-              try {
-                value.forEach((element) {
+            if (value is List) {
+              value.forEach(
+                (element) {
                   if (element is Map) {
-                    Map newMap = element;
-
-                    newMap.removeWhere((key, value) {
-                      if (key.toString().startsWith("TIMESTAMP_")) {
-                        newMap.addAll({
-                          key.toString().replaceAll("TIMESTAMP_", ""): value
-                        });
-                        return true;
+                    List keysToRemove = [];
+                    Map stuffToAdd = {};
+                    element.forEach((deepKey, deepValue) {
+                      if (deepKey.startsWith("TIMESTAMP_")) {
+                        keysToRemove.add(deepKey);
+                        stuffToAdd.addAll(
+                          {
+                            deepKey.toString().replaceAll("TIMESTAMP_", ""):
+                                new Timestamp.fromMillisecondsSinceEpoch(
+                                    deepValue),
+                          },
+                        );
+                      } else {
+                        print("key: $deepKey");
                       }
-                      return false;
                     });
-                    newValue.add(newMap);
                   }
-                });
-              } catch (e) {
-                if (newValue == null) {
-                  newValue = value;
-                }
-              }
-              print("testelement: $newValue");
-              _json[key] = newValue;
+                },
+              );
             }
           },
         );
