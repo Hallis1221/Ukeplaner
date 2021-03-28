@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/logic/firebase/firestore.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
 import 'package:ukeplaner/screens/verifyEmail.dart';
 
@@ -28,12 +29,12 @@ class AuthenticatonWrapper extends StatelessWidget {
           return VerifyEmailPage();
         }
         DocumentReference _dcr = db.collection("users").doc(firebaseUser.uid);
-        _dcr.get().then((value) {
+        getDocument(_dcr, Duration()).then((value) {
           firstName = value.data()["firstname"];
           lastName = value.data()["lastname"];
         });
         _dcr = _dcr.collection("sensetive").doc("nowrite");
-        _dcr.get().then(
+        getDocument(_dcr, Duration()).then(
           (value) {
             if (value.data()["role"] == "teacher") {
               isTeacher = true;
