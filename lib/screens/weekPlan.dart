@@ -248,6 +248,7 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
         getWeekDateDifference(widget.weekplanIndex, widget.week);
     return GestureDetector(
       onTap: () {
+        print("weekplanindex: ${widget.weekplanIndex}");
         difference = getWeekDateDifference(widget.weekplanIndex, widget.week);
 
         if (difference.inDays < 0) {
@@ -261,8 +262,10 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
         } else {
           tempWeeks = addWeeks;
         }
+        print("temp: $tempWeeks");
+// denne formelen funker for søndager: difference.inDays + ((tempWeeks - 1) * -2);
 
-        currentPageSelected = difference.inDays + (tempWeeks * -2);
+        currentPageSelected = difference.inDays + ((tempWeeks - 1) * -2);
 
 // TODO denne feil beregner
         Navigator.of(context).pushNamed("/dayplan");
