@@ -10,6 +10,7 @@ import 'package:ukeplaner/config/config.dart';
 import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
 import 'package:ukeplaner/icons/custom_icons.dart';
 import 'package:ukeplaner/logic/dates.dart';
+import 'package:ukeplaner/logic/firebase/firestore.dart';
 import 'package:ukeplaner/logic/getLekserWidgets.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
@@ -370,7 +371,12 @@ class NewLekse extends StatelessWidget {
                                   .doc(chossenId)
                                   .collection("classes")
                                   .doc(chossenTid);
-                              await lekse.get().then(
+                              await getDocument(
+                                documentReference: lekse,
+                                timeTrigger: Duration(
+                                  minutes: 30,
+                                ),
+                              ).then(
                                 (value) {
                                   List lekser;
                                   try {
