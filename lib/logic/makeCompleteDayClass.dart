@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/logic/firebase/firestore.dart';
 import 'package:ukeplaner/logic/tekst.dart';
 
 import 'class.dart';
@@ -74,7 +75,7 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
             ["lekser"]["data"];
         continue;
       } catch (e) {
-        await documentReference.get().then((value) {
+        await getDocument(documentReference, Duration()).then((value) {
           try {
             message = value.data()["message"];
             for (var lekse in value.data()["lekser"]) {
