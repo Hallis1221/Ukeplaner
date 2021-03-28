@@ -24,12 +24,11 @@ Future<Map> getDocument({
     outDated = true;
   }
 
-  if (cacheData == null || outDated || cacheData == []) {
+  if (cacheData == null || outDated || cacheData == [] || true) {
     try {
       print("""got: 
         ${documentReference.path} beacuse cache was null? 
-        ${cacheData == null} and the difference was 
-        ${now.difference(updatedAt)}
+        ${cacheData == null} it was outdated $outDated.
          """);
     } catch (e) {
       print(e);
@@ -57,6 +56,10 @@ Future<void> writeCache({String filename, Map content}) async {
         value = timestamp.millisecondsSinceEpoch;
         key = "TIMESTAMP_$key";
       }
+      if (key == "tider" || value is Map) {
+        print("tider: $value");
+      }
+
       _newJson = {key: value};
       _json.addAll(_newJson);
     },
@@ -64,6 +67,7 @@ Future<void> writeCache({String filename, Map content}) async {
   _json.addAll(
     {'updatedAt': now.toString()},
   );
+  print(_json);
   _jsonString = jsonEncode(_json);
   // Write the file.
   return file.writeAsString(_jsonString);
@@ -99,6 +103,24 @@ Future<Map> readCache(String filename) async {
             }
             if (key == "updatedAt") {
               _json[key] = DateTime.parse(value);
+            }
+            if (value is List) {
+              List _list = [];
+              value.forEach((listElement) {
+                Map<String, dynamic> _map = {};
+                if (listElement is Map) {
+                  listElement.forEach((deepKey, deepValue) {
+                    if (deepValue is Timestamp) {
+                      Timestamp timestamp = deepValue;
+                      deepValue = timestamp.millisecondsSinceEpoch;
+                      deepKey = "TIMESTAMP_$key";
+                    }
+                    _map.addAll({deepKey: deepValue});
+                  });
+                }
+                _list.add(_map);
+              });
+              _json[key] = _list;
             }
           },
         );
