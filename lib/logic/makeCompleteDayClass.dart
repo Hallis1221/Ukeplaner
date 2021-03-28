@@ -77,8 +77,8 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
       } catch (e) {
         await getDocument(documentReference, Duration()).then((value) {
           try {
-            message = value.data()["message"];
-            for (var lekse in value.data()["lekser"]) {
+            message = value["message"];
+            for (var lekse in value["lekser"]) {
               lekser.add(
                 new Lekse(
                   tittel: lekse["tittel"],
