@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/config/config.dart';
+import 'package:ukeplaner/logic/firebase/firestore.dart';
 import 'firebase/auth_services.dart';
 import 'firebase/fcm.dart';
 
@@ -29,7 +30,7 @@ class FutureValidateBuilder extends StatelessWidget {
         });
 
         DocumentReference _dcRef = db.collection("users").doc(uid);
-        return _dcRef.get();
+        return getDocument(_dcRef, Duration());
       }()),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
