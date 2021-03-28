@@ -30,13 +30,13 @@ class AuthenticatonWrapper extends StatelessWidget {
         }
         DocumentReference _dcr = db.collection("users").doc(firebaseUser.uid);
         getDocument(_dcr, Duration()).then((value) {
-          firstName = value.data()["firstname"];
-          lastName = value.data()["lastname"];
+          firstName = value["firstname"];
+          lastName = value["lastname"];
         });
         _dcr = _dcr.collection("sensetive").doc("nowrite");
         getDocument(_dcr, Duration()).then(
           (value) {
-            if (value.data()["role"] == "teacher") {
+            if (value["role"] == "teacher") {
               isTeacher = true;
             }
           },
