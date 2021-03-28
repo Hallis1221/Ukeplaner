@@ -24,9 +24,17 @@ Future<Map> getDocument({
     outDated = true;
   }
 
-  if (cacheData == null || outDated) {
-    print(
-        "got: ${documentReference.path} beacuse cache was null? ${cacheData == null} and the difference was ${now.difference(updatedAt)} ");
+  if (cacheData == null || outDated || cacheData == []) {
+    try {
+      print("""got: 
+        ${documentReference.path} beacuse cache was null? 
+        ${cacheData == null} and the difference was 
+        ${now.difference(updatedAt)}
+         """);
+    } catch (e) {
+      print(e);
+    }
+
     print("fetched document");
     Map map = await documentReference.get().then((value) => value.data());
     writeCache(filename: documentReference.path, content: map);
