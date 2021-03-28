@@ -15,6 +15,7 @@ import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:ukeplaner/logic/class.dart';
 import 'package:ukeplaner/logic/classTimes.dart';
+import 'package:ukeplaner/logic/firebase/firestore.dart';
 import '../network.dart';
 import 'auth_services.dart';
 import 'package:ukeplaner/screens/temp/error.dart';
@@ -157,8 +158,11 @@ Future<void> getClassesFromFirebase(BuildContext context) async {
         .read<AuthenticationService>()
         .getCurrentUser()
         .then((User value) => print("uid: ${value.uid}"));*/
-    await documentReference.get().then((value) async {
-      Map<String, dynamic> data = value.data();
+    await getDocument(
+            documentReference: documentReference,
+            timeTrigger: Duration(days: 2))
+        .then((value) async {
+      Map<String, dynamic> data = value;
 
       List<ClassTime> times = [];
       for (var time in data["tider"]) {
