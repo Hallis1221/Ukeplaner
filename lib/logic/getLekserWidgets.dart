@@ -6,7 +6,7 @@ import '../screens/dayPlan.dart';
 import 'package:week_of_year/week_of_year.dart';
 import 'tekst.dart';
 import 'dayClass.dart';
-import 'leske.dart';
+import 'lekse.dart';
 import '../config/config.dart';
 import 'makeCompleteDayClass.dart';
 
