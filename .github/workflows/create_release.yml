@@ -12,6 +12,8 @@ on:
     paths:
       - /build/app/outputs/flutter-apk/app-release.apk
       - build/app/outputs/flutter-apk/app-release.apk
+  workflow_dispatch:
+
 jobs:
 
   release:
