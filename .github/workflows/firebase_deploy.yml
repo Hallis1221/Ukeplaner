@@ -7,7 +7,6 @@ on:
       - /build/app/outputs/flutter-apk/app-release.apk
       - build/app/outputs/flutter-apk/app-release.apk
       - '**.apk'
-
   push:
     branches: [ main ]
     paths:
