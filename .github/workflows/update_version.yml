@@ -1,0 +1,20 @@
+name: Upgrade Version
+on:
+  push:
+    branches: [ main ]
+    
+  workflow_dispatch:
+
+
+jobs:
+  upgrade-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pocket-apps/action-update-version@v1
+        with:
+          files: "pubspec.yaml"
+          version-regexp: '\d+.\d+.\d+'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          author-name: CD/CI version updater
+          author-email: halvorvivelstad@gmail.com
