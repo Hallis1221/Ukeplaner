@@ -4,14 +4,17 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - /build/app/outputs/flutter-apk/app-release.apk
       - build/app/outputs/flutter-apk/app-release.apk
       - '**.apk'
+      - 'pubspec.yaml'
+      -  lib/**
   push:
     branches: [ main ]
     paths:
-      - /build/app/outputs/flutter-apk/app-release.apk
       - build/app/outputs/flutter-apk/app-release.apk
+      - '**.apk'
+      - 'pubspec.yaml'
+      -  lib/**
   workflow_dispatch:
 
 jobs:
