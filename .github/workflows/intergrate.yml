@@ -1,9 +1,12 @@
 name: Flutter Continuous Intergration
 
 on: 
+  pull_request:
+    branches: [ main ]
+    paths:
+      - lib/**
   push:
-    branches:
-      - master
+    branches: [ main ]
     paths:
       - lib/**
 
