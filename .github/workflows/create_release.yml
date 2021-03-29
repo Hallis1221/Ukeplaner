@@ -20,6 +20,7 @@ jobs:
         artifacts: "/build/app/outputs/flutter-apk/app-release.apk"
         bodyFile: "release-notes.txt"
         token: ${{ secrets.GITHUB_TOKEN }}
+        tag: CD
   deploy:
       runs-on: ubuntu-latest
       steps:
