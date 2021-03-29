@@ -2,10 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
-import '../config/config.dart';
-import '../logic/firebase/firestore.dart';
 import 'firebase/auth_services.dart';
 import 'firebase/fcm.dart';
+
+import '../config/config.dart';
+import '../logic/firebase/firestore.dart';
 
 class FutureValidateBuilder extends StatelessWidget {
   const FutureValidateBuilder({
