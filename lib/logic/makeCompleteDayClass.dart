@@ -7,7 +7,7 @@ import '../logic/tekst.dart';
 import 'class.dart';
 import 'classTimes.dart';
 import 'dayClass.dart';
-import 'leske.dart';
+import 'lekse.dart';
 
 Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
     {@required subjects, @required Map<String, dynamic> dateToShow}) async {
