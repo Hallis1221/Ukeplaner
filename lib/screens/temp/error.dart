@@ -3,7 +3,7 @@
  If so use, distribution and modification can be done under the terms of the license.*/
 
 import 'package:flutter/material.dart';
-import 'package:ukeplaner/logic/firebase/auth_services.dart';
+import '../../logic/firebase/auth_services.dart';
 import 'package:provider/provider.dart';
 
 class ErrorPage extends StatelessWidget {

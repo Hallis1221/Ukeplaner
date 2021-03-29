@@ -3,9 +3,9 @@
  If so use, distribution and modification can be done under the terms of the license.*/
 
 import 'package:flutter/material.dart';
-import 'package:ukeplaner/config/config.dart';
-import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
-import 'package:ukeplaner/logic/firebase/auth_services.dart';
+import '../config/config.dart';
+import '../elements/TopDecorationHalfCircle.dart';
+import '../logic/firebase/auth_services.dart';
 import 'login.dart' as l;
 import 'verify.dart';
 
