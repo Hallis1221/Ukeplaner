@@ -32,15 +32,6 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-void initApp() {
-  WidgetsFlutterBinding.ensureInitialized();
-  initializeDateFormatting("nb_NO");
-
-  remote(remoteConfig).then((value) {
-    config.remoteConfig = value;
-  });
-}
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -101,4 +92,13 @@ void _portraitModeOnly() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+}
+
+void initApp() {
+  WidgetsFlutterBinding.ensureInitialized();
+  initializeDateFormatting("nb_NO");
+
+  remote(remoteConfig).then((value) {
+    config.remoteConfig = value;
+  });
 }
