@@ -1,13 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:ukeplaner/config/config.dart';
-import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
-import 'package:ukeplaner/logic/class.dart';
-import 'package:ukeplaner/logic/dates.dart';
-import 'package:ukeplaner/logic/dayClass.dart';
-import 'package:ukeplaner/logic/getWeekDateDIfference.dart';
-import 'package:ukeplaner/logic/makeCompleteDayClass.dart';
+import '../config/config.dart';
+import '../elements/TopDecorationHalfCircle.dart';
+import '../logic/class.dart';
+import '../logic/dates.dart';
+import '../logic/dayClass.dart';
+import '../logic/getWeekDateDIfference.dart';
+import '../logic/makeCompleteDayClass.dart';
 import 'home.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:week_of_year/week_of_year.dart';
