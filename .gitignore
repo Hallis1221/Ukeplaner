@@ -5,6 +5,8 @@
 # Files and directories created by pub
 .dart_tool/
 .packages
+
+# Include android app release apk
 !/build/
 /build/*
 !/build/app/
