@@ -4,11 +4,14 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - "build/app/outputs/flutter-apk/app-release.apk"
+      - /build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/flutter-apk/app-release.apk
+
   push:
     branches: [ main ]
     paths:
-      - "build/app/outputs/flutter-apk/app-release.apk"
+      - /build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/flutter-apk/app-release.apk
 jobs:
 
   release:
