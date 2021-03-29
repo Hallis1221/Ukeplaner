@@ -8,8 +8,8 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:ukeplaner/config/config.dart';
-import 'package:ukeplaner/logic/firebase/fcm.dart';
+import '../../config/config.dart';
+import '../../logic/firebase/fcm.dart';
 import 'package:provider/provider.dart';
 
 String tempPassword;

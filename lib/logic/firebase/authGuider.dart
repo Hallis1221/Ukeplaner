@@ -6,10 +6,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ukeplaner/config/config.dart';
-import 'package:ukeplaner/logic/firebase/firestore.dart';
-import 'package:ukeplaner/screens/temp/error.dart';
-import 'package:ukeplaner/screens/verifyEmail.dart';
+import '../../config/config.dart';
+import '../../logic/firebase/firestore.dart';
+import '../../screens/temp/error.dart';
+import '../../screens/verifyEmail.dart';
 
 class AuthenticatonWrapper extends StatelessWidget {
   const AuthenticatonWrapper({
