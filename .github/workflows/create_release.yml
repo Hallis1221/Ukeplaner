@@ -18,5 +18,5 @@ jobs:
     - uses: ncipollo/release-action@v1
       with:
         artifacts: "/build/app/outputs/flutter-apk/app-release.apk"
-        bodyFile: "/deployment/release-notes.txt"
+        bodyFile: "release-notes.txt"
         token: ${{ secrets.GITHUB_TOKEN }}
