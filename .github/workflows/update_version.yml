@@ -17,5 +17,6 @@ jobs:
           version-regexp: '\d+.\d+.\d+'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           branch-name: main
+          spacing-level: 0
           author-name: CD/CI version updater
           author-email: halvorvivelstad@gmail.com
