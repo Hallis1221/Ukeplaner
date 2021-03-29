@@ -11,7 +11,6 @@ import 'lekse.dart';
 
 Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
     {@required subjects, @required Map<String, dynamic> dateToShow}) async {
-  //TODO implement cache
   List<RoughDayClass> daySubjects = [];
   List<DayClass> daySubjectsFormatted = [];
 
