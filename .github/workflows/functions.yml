@@ -1,0 +1,16 @@
+name: Firebase Cloud Functions
+
+on: 
+  pull_request:
+    branches: [ main ]
+    paths:
+      - functions
+  push:
+    branches: [ main ]
+    paths:
+      - functions
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
