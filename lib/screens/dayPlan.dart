@@ -2,17 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ukeplaner/config/config.dart' as config;
-import 'package:ukeplaner/elements/TopDecorationHalfCircle.dart';
-import 'package:ukeplaner/elements/daySelector.dart';
-import 'package:ukeplaner/logic/class.dart';
-import 'package:ukeplaner/logic/dates.dart';
-import 'package:ukeplaner/logic/dayClass.dart';
-import 'package:ukeplaner/logic/leske.dart';
-import 'package:ukeplaner/logic/makeCompleteDayClass.dart';
-import 'package:ukeplaner/logic/tekst.dart';
+import '../config/config.dart' as config;
+import '../elements/TopDecorationHalfCircle.dart';
+import '../elements/daySelector.dart';
+import '../logic/class.dart';
+import '../logic/dates.dart';
+import '../logic/dayClass.dart';
+import '../logic/leske.dart';
+import '../logic/makeCompleteDayClass.dart';
+import '../logic/tekst.dart';
 import 'package:week_of_year/week_of_year.dart';
-import 'package:ukeplaner/screens/temp/error.dart';
+import '../screens/temp/error.dart';
 
 class DayPlan extends StatefulWidget {
   const DayPlan({Key key, @required this.subjects}) : super(key: key);

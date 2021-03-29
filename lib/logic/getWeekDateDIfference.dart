@@ -1,4 +1,4 @@
-import 'package:ukeplaner/logic/dates.dart';
+import '../logic/dates.dart';
 
 Duration getWeekDateDifference(weekplanIndex, week) {
   DateTime now = DateTime.now();
