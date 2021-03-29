@@ -84,7 +84,6 @@ class ConnectionAttemptionScreen extends StatelessWidget {
       },
       child: Stack(
         children: [
-          // TODO implement solution to connect offline
           Container(
             color: Colors.lightBlue,
             child: Column(
