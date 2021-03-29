@@ -2,7 +2,7 @@ name: Upgrade Version
 on:
   push:
     branches: [ main ]
-    
+
   workflow_dispatch:
 
 
@@ -16,5 +16,6 @@ jobs:
           files: "pubspec.yaml"
           version-regexp: '\d+.\d+.\d+'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          branch-name: main
           author-name: CD/CI version updater
           author-email: halvorvivelstad@gmail.com
