@@ -1,4 +1,4 @@
-import '../logic/leske.dart';
+import 'lekse.dart';
 
 class CompleteDayClass {
   String className;
