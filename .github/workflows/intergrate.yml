@@ -11,7 +11,7 @@ on:
       - lib/**
 
 jobs:
-  build_android_version:
+  test_flutter_app_with_build:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
@@ -23,3 +23,7 @@ jobs:
             flutter-version: '2.0.3'
         - run: flutter pub get
         - run: flutter build apk
+  deploy_android_app:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
