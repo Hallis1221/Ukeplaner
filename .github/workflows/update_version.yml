@@ -1,7 +1,9 @@
 name: Upgrade Version
 on:
   release:
-    types: [created, prereleased, published, released]
+  push:
+   tags:
+     - "CD"
 
 
 jobs:
