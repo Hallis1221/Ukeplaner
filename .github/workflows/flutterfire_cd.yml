@@ -30,4 +30,4 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         with: 
-          args: firebase appdistribution:distribute "build/app/outputs/flutter-apk/app-release.apk" --app 1:113842149906:android:67d8ced2378cce6e6d96cb --token "$FIREBASE_TOKEN" --release-notes-file "release-notes.txt" --groups "devs"
+          args: appdistribution:distribute "build/app/outputs/flutter-apk/app-release.apk" --app 1:113842149906:android:67d8ced2378cce6e6d96cb --token "$FIREBASE_TOKEN" --release-notes-file "release-notes.txt" --groups "devs"
