@@ -8,7 +8,7 @@ import '../elements/daySelector.dart';
 import '../logic/class.dart';
 import '../logic/dates.dart';
 import '../logic/dayClass.dart';
-import '../logic/leske.dart';
+import '../logic/lekse.dart';
 import '../logic/makeCompleteDayClass.dart';
 import '../logic/tekst.dart';
 import 'package:week_of_year/week_of_year.dart';
