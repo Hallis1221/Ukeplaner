@@ -27,14 +27,18 @@ import 'screens/verify.dart';
 import 'screens/welcome_screen.dart';
 
 Future<void> main() async {
+  initApp();
+
+  runApp(MyApp());
+}
+
+void initApp() {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting("nb_NO");
 
   remote(remoteConfig).then((value) {
     config.remoteConfig = value;
   });
-
-  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
