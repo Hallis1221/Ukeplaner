@@ -1,11 +1,11 @@
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ukeplaner/config/config.dart';
+import '../config/config.dart';
 import 'package:provider/provider.dart';
 import '../logic/tekst.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:ukeplaner/logic/firebase/auth_services.dart';
+import '../logic/firebase/auth_services.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key key}) : super(key: key);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
-import 'package:ukeplaner/config/config.dart';
-import 'package:ukeplaner/logic/dates.dart';
+import '../config/config.dart';
+import '../logic/dates.dart';
 import '../logic/tekst.dart';
 
 class DaySelector extends StatelessWidget {

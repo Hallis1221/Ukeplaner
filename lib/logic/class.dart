@@ -1,4 +1,4 @@
-import 'package:ukeplaner/logic/classTimes.dart';
+import '../logic/classTimes.dart';
 
 class ClassModel {
   String className;

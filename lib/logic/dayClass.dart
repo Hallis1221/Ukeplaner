@@ -1,4 +1,4 @@
-import 'package:ukeplaner/logic/leske.dart';
+import '../logic/leske.dart';
 
 class CompleteDayClass {
   String className;
