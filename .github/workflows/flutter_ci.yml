@@ -5,10 +5,13 @@ on:
     branches: [ main ]
     paths:
       - lib/**
+      - pubspec.yaml
   push:
     branches: [ main ]
     paths:
       - lib/**
+      - pubspec.yaml
+  workflow_dispatch:
 
 jobs:
   build_apk:
