@@ -2,8 +2,9 @@ name: Upgrade Version
 on:
   release:
   push:
-   tags:
-     - "CD"
+    paths:
+      - "pubspec.yaml"
+      - "lib/*"
 
 
 jobs:
