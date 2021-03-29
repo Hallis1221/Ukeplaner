@@ -373,9 +373,7 @@ class NewLekse extends StatelessWidget {
                                   .doc(chossenTid);
                               await getDocument(
                                 documentReference: lekse,
-                                timeTrigger: Duration(
-                                  minutes: 0,
-                                ),
+                                timeTrigger: Duration(),
                               ).then(
                                 (value) {
                                   List lekser;
