@@ -1,0 +1,22 @@
+name: Releases
+
+on: 
+  pull_request:
+    branches: [ main ]
+    paths:
+      - build/app/outputs/flutter-apk/**
+  push:
+    branches: [ main ]
+    paths:
+      - build/app/outputs/flutter-apk/**
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ncipollo/release-action@v1
+      with:
+        artifacts: "/build/app/outputs/flutter-apk/app-release.apk"
+        bodyFile: "/deployment/release-notes.txt"
+        token: ${{ secrets.GITHUB_TOKEN }}
