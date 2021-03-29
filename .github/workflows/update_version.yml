@@ -15,7 +15,7 @@ jobs:
         with:
           files: pubspec.yaml
           version-regexp: '\d+.\d+.\d+'
-          repo-token: ${{secrets.REPO_TOKEN}}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           branch-name: main
           spacing-level: 0
           author-name: CD/CI version updater
