@@ -28,7 +28,6 @@ import 'screens/welcome_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   initializeDateFormatting("nb_NO");
 
   remote(remoteConfig).then((value) {
