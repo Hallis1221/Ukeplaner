@@ -1,5 +1,5 @@
 name: ukeplaner
-description: ukeplaner for skoler. En elev fokusert ukeplan
+description: Ukeplaner for skoler. En elev fokusert ukeplan.
 
 # When something is changed in this pubspec.yaml file it will be built and uploaded to firebase app distrobution
 
