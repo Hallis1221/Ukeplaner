@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ukeplaner/config/config.dart';
-import 'package:ukeplaner/logic/firebase/firestore.dart';
-import 'package:ukeplaner/logic/test.dart';
+import '../config/config.dart';
+import '../logic/firebase/firestore.dart';
+import '../logic/test.dart';
 
 Future<List<Test>> getTests() async {
   List<Test> tests = [];

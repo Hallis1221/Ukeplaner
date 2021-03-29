@@ -2,10 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:ukeplaner/config/config.dart';
-import 'package:ukeplaner/screens/home.dart';
+import '../../screens/home.dart';
 
 Future<Map> getDocument({
   DocumentReference documentReference,

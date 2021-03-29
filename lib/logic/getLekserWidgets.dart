@@ -7,7 +7,7 @@ import 'package:week_of_year/week_of_year.dart';
 import 'tekst.dart';
 import 'dayClass.dart';
 import 'leske.dart';
-import 'package:ukeplaner/config/config.dart';
+import '../config/config.dart';
 import 'makeCompleteDayClass.dart';
 
 List<String> rowChildrenController = [];

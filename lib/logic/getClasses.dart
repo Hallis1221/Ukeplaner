@@ -1,5 +1,5 @@
-import 'package:ukeplaner/config/config.dart';
-import 'package:ukeplaner/logic/class.dart';
+import '../config/config.dart';
+import '../logic/class.dart';
 
 Future<List<ClassModel>> getClasses() async {
   print("classes: $classes");
