@@ -35,3 +35,10 @@ jobs:
         name: Get flutter packages from pubspec.yaml
       - run: flutter build apk
         name: Build apk (android) version of the app
+      - uses: EndBug/add-and-commit@v7.1.0
+        name: Add & Commit
+        with:
+          author_name: Flutterfire CD
+          author_email: halvorvivelstad@gmail.com
+          message: 'Github action upload created apk'
+          add: '/build/app/outputs/flutter-apk/app-release.apk'
