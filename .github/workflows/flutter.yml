@@ -33,6 +33,6 @@ jobs:
            author_name: Flutterfire CD
            author_email: halvorvivelstad@gmail.com
            message: 'Github action upload created apk'
-           add: 'build/app/outputs/flutter-apk/app-release.apk'
+           add: 'build/app/outputs/flutter-apk/app-release.apk --force'
 
             
