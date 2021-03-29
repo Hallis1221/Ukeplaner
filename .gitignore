@@ -5,9 +5,23 @@
 # Files and directories created by pub
 .dart_tool/
 .packages
-!/build
-/build/**
-!/build/app/**
+!/build/
+/build/*
+!/build/app/
+
+/build/app/*
+!/build/app/outputs
+
+/build/app/outputs/*
+!/build/app/outputs/flutter-apk
+
+app-debug.apk
+app.apk
+
+
+
+
+
 # If you're building an application, you may want to check-in your pubspec.lock
 pubspec.lock
 
