@@ -16,17 +16,6 @@ on:
   workflow_dispatch:
 
 jobs:
-
-  release:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: ncipollo/release-action@v1
-      with:
-        artifacts: "build/app/outputs/flutter-apk/app-release.apk"
-        bodyFile: "release-notes.txt"
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: CD
   deploy:
       runs-on: ubuntu-latest
       steps:
