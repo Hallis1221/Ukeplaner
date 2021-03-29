@@ -34,6 +34,5 @@ jobs:
            author_email: halvorvivelstad@gmail.com
            message: 'Github action upload created apk'
            add: 'build/app/outputs/flutter-apk/app-release.apk --force'
-           tag: 'CD'
 
             
