@@ -1,0 +1,26 @@
+name: Firebase Cloud Functions
+
+on: 
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'functions/src/**'
+  push:
+    branches: [ main ]
+    paths:
+      - 'functions/src/**'
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Set up repo files
+      - uses: stepek/tsc-action@master
+        name: Set up typescript compiler
+        with:
+          project: functions
+      - run: tsc
+        name: Run typescript compiler
+
