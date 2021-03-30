@@ -58,7 +58,8 @@ exports.checkcode = functions.https.onCall((argumentData) => {
         return valid;
     }));
 });
-exports.sendLekse = functions.firestore.document("classes/{classId}/classes/{classTime}").onWrite(async (snapshot, context) => {
+exports.sendLekse = functions.firestore.document("classes/{classId}/classes/{classTime}").
+    onWrite(async (snapshot, context) => {
     console.log(snapshot.data);
 });
 //# sourceMappingURL=index.js.map
