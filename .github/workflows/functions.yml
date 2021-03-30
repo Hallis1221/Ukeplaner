@@ -15,16 +15,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        name: Set up repo files
-      - uses: actions/setup-node@v1
-        name: Set up node
-        with:
-          node-version: 12
-      - uses: iCrawl/action-tsc@v1
-        name: Set up typescript compiler
-        with:
-          project: functions
-      - run: tsc
-        name: Run typescript compiler
-
+    - uses: actions/checkout@v1
+    - name: install node v12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: yarn install
+      run: yarn install
+    - name: tsc
+      uses: icrawl/action-tsc@v1
