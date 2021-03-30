@@ -15,5 +15,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run: cd
-        name: temp
+      - uses: actions/checkout@v2
+        name: Set up repo files
+      - uses: iCrawl/action-tsc@v1
+        name: tsc compile
+        with:
+          project: functions
+      - run: tsc
+        name: Run typescript compiler
+
