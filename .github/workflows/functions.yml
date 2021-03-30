@@ -17,6 +17,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: Set up repo files
+      - uses: actions/setup-node@v1
+        name: Set up node
+        with:
+          node-version: 12
       - uses: iCrawl/action-tsc@v1
         name: Set up typescript compiler
         with:
