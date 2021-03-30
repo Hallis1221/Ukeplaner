@@ -25,4 +25,4 @@ jobs:
     - name: tsc
       uses: icrawl/action-tsc@v1
       with:
-        project: subdirectorywith_tsconfig
+        project: 'functions'
