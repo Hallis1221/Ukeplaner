@@ -4,11 +4,11 @@ on:
   pull_request:
     branches: [ main ]
     paths:
-      - functions
+      - 'functions/src/**'
   push:
     branches: [ main ]
     paths:
-      - functions
+      - 'functions/src/**'
   workflow_dispatch:
   
 jobs:
@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
         name: Set up repo files
       - uses: iCrawl/action-tsc@v1
-        name: tsc compile
+        name: Set up typescript compiler
         with:
           project: functions
       - run: tsc
