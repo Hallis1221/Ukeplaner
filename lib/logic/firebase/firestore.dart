@@ -13,6 +13,8 @@ Future<Map> getDocument({
   DateTime updatedAt;
   bool outDated = true;
   var error;
+
+  // prøv å bruke cache til å finne ut når dokumentet ble sist oppdatert. Hvis den failer (feks fordi cacheData er null)
   try {
     updatedAt = cacheData["updatedAt"];
     outDated = now.difference(updatedAt) >= timeTrigger;
