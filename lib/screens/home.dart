@@ -21,7 +21,8 @@ import '../logic/tekst.dart';
 import 'package:week_of_year/week_of_year.dart';
 import 'package:provider/provider.dart';
 import '../elements/maindrawer.dart';
-
+import 'package:lottie/lottie.dart';
+import 'package:flutter/widgets.dart';
 import 'login.dart';
 
 List<Widget> rowChildrenController = [];
