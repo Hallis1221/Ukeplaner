@@ -42,7 +42,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print("heihgt: ${size.height}");
+    print("height: ${size.height}");
+    print("width: ${size.width}");
     DateTime date = getDate()["dateTime"];
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -72,10 +73,10 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
+                    padding: EdgeInsets.only(
                       top: 0,
-                      left: 25,
-                      bottom: 10,
+                      left: size.width / 12,
+                      bottom: size.width / 30,
                       right: 0,
                     ),
                     child: Row(
