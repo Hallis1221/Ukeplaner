@@ -41,11 +41,13 @@ class HomeScreen extends StatelessWidget {
   final List<ClassModel> subjects;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    print("heihgt: ${size.height}");
     DateTime date = getDate()["dateTime"];
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(150),
+        preferredSize: Size.fromHeight(size.height / 5),
         child: Stack(
           alignment: Alignment.topRight,
           children: [
