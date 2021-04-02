@@ -139,73 +139,79 @@ class HomeScreen extends StatelessWidget {
                                     var date = getDate(addDays: i);
                                     if (date["dateTime"].weekday ==
                                         time.dayIndex) {
-                                      stuffToReturn.add(FutureBuilder(
-                                        future: getLekserWidgets(
-                                            context, subjects, date),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                                  ConnectionState.done &&
-                                              snapshot.hasData) {
-                                            List<Widget> rowChildren = [];
-                                            List<Widget> columnOfRows = [];
-                                            for (Widget widget
-                                                in snapshot.data) {
-                                              if (childsOnRow <= 1 &&
-                                                  !(rowChildrenController
-                                                      .contains(widget))) {
-                                                print(
-                                                    "rowChildrenController: $rowChildrenController");
-                                                rowChildren.add(widget);
-                                                rowChildrenController
-                                                    .add(widget);
-                                              } else {
-                                                if (!(columnOfRows.contains(
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: rowChildren,
-                                                  ),
-                                                ))) {
+                                      stuffToReturn.add(
+                                        FutureBuilder(
+                                          future: getLekserWidgets(
+                                              context, subjects, date),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                    ConnectionState.done &&
+                                                snapshot.hasData) {
+                                              List<Widget> rowChildren = [];
+                                              List<Widget> columnOfRows = [];
+                                              for (Widget widget
+                                                  in snapshot.data) {
+                                                if (childsOnRow <= 1 &&
+                                                    !(rowChildrenController
+                                                        .contains(widget))) {
                                                   print(
-                                                      "childsOnRow: $childsOnRow");
-                                                  columnOfRows.add(
+                                                      "rowChildrenController: $rowChildrenController");
+                                                  rowChildren.add(widget);
+                                                  rowChildrenController
+                                                      .add(widget);
+                                                } else {
+                                                  if (!(columnOfRows.contains(
                                                     Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .start,
                                                       children: rowChildren,
                                                     ),
-                                                  );
-                                                  childsOnRow = 0;
-                                                  rowChildren = [];
-                                                }
-                                              }
-                                              childsOnRow++;
-                                            }
-                                            if (childsOnRow != 1) {
-                                              columnOfRows.add(Row(
-                                                mainAxisAlignment: (() {
-                                                  if (rowChildren.length == 1) {
-                                                    return MainAxisAlignment
-                                                        .start;
-                                                  } else {
-                                                    return MainAxisAlignment
-                                                        .spaceEvenly;
+                                                  ))) {
+                                                    print(
+                                                        "childsOnRow: $childsOnRow");
+                                                    columnOfRows.add(
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: rowChildren,
+                                                      ),
+                                                    );
+                                                    childsOnRow = 0;
+                                                    rowChildren = [];
                                                   }
-                                                }()),
-                                                children: rowChildren,
-                                              ));
+                                                }
+                                                childsOnRow++;
+                                              }
+                                              if (childsOnRow != 1) {
+                                                columnOfRows.add(
+                                                  Row(
+                                                    mainAxisAlignment: (() {
+                                                      if (rowChildren.length ==
+                                                          1) {
+                                                        return MainAxisAlignment
+                                                            .start;
+                                                      } else {
+                                                        return MainAxisAlignment
+                                                            .spaceEvenly;
+                                                      }
+                                                    }()),
+                                                    children: rowChildren,
+                                                  ),
+                                                );
+                                              }
+                                              print(
+                                                  "columnOfRows: $columnOfRows");
+                                              return Column(
+                                                children: columnOfRows,
+                                              );
                                             }
-                                            print(
-                                                "columnOfRows: $columnOfRows");
-                                            return Column(
-                                              children: columnOfRows,
-                                            );
-                                          }
 
-                                          return Container();
-                                        },
-                                      ));
+                                            return Container();
+                                          },
+                                        ),
+                                      );
                                     }
                                   }
                                 }
@@ -213,14 +219,14 @@ class HomeScreen extends StatelessWidget {
                                 return Column(
                                   children: stuffToReturn,
                                 );
-                              }())
+                              }()),
                           ],
                         );
                       }
 
                       return Container();
                     },
-                  )
+                  ),
                 ],
               ),
             ],
