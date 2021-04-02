@@ -48,7 +48,7 @@ Color linearGreen = Color.fromARGB(255, 34, 219, 58);
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
 
 Map<String, IconData> iconIndex = {
-  "Samf": CustomIcons.globe_alt_outline,
+  "UTV": CustomIcons.globe_alt_outline,
   "default": CustomIcons.book,
 };
 List<Color> cardColors = [
