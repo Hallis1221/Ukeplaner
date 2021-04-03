@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/screens/skoleFactsPage.dart';
 import './screens/profile.dart';
 import './screens/register.dart';
 import './screens/home.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           },
         ),
         '/profile': ProfilePage(),
+        '/skoleFacts': SkoleFacts(),
         '/testPlan': Testplan(),
         '/weekPlan': FutureBuilder(
           future: getClasses(),
