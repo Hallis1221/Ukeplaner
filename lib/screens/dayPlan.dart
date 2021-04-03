@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import '../config/config.dart' as config;
 import '../elements/TopDecorationHalfCircle.dart';
 import '../elements/daySelector.dart';
@@ -207,7 +208,10 @@ class TimeCard extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) {
-              return Container(color: Colors.red);
+              return Container(
+                child: LottieBuilder.asset('assets/Animations/StaySafe.json'),
+                height: 300,
+              );
             },
           );
         }
