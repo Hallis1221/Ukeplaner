@@ -113,6 +113,16 @@ class MainDrawer extends StatelessWidget {
                     ),
                     title: Text("Åpne onenote"),
                   ),
+                  ListTile(
+                    onTap: () {
+                      Navigator.of(context).pushNamed("/skoleFacts");
+                    },
+                    leading: Icon(
+                      Icons.person,
+                      color: Colors.black,
+                    ),
+                    title: Text("Skole Facts"),
+                  ),
                 ],
               ),
             ),
