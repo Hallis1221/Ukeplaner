@@ -5,6 +5,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import '../icons/custom_icons.dart';
 import '../logic/class.dart';
 
@@ -48,10 +49,10 @@ Color linearGreen = Color.fromARGB(255, 34, 219, 58);
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
 
 Map<String, Widget> iconIndex = {
-  "UTV": Icon(
-    CustomIcons.globe_alt_outline,
-    color: Colors.white,
-    size: 90,
+  "UTV": Container(
+    height: 50,
+    width: 40,
+    child: LottieBuilder.asset('assets/Animations/UtvAnimasjon.jason'),
   ),
   "default": Icon(
     CustomIcons.book,
