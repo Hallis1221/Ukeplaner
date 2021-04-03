@@ -47,9 +47,17 @@ Color linearGreen = Color.fromARGB(255, 34, 219, 58);
 // ?? https://material.io/design/color
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
 
-Map<String, IconData> iconIndex = {
-  "UTV": CustomIcons.globe_alt_outline,
-  "default": CustomIcons.book,
+Map<String, Widget> iconIndex = {
+  "UTV": Icon(
+    CustomIcons.globe_alt_outline,
+    color: Colors.white,
+    size: 90,
+  ),
+  "default": Icon(
+    CustomIcons.book,
+    color: Colors.white,
+    size: 90,
+  )
 };
 List<Color> cardColors = [
   Color.fromARGB(255, 254, 216, 176),
