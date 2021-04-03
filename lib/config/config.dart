@@ -50,15 +50,17 @@ Color linearGreen = Color.fromARGB(255, 34, 219, 58);
 
 Map<String, Widget> iconIndex = {
   "UTV": Container(
-    height: 50,
-    width: 40,
-    child: LottieBuilder.asset('assets/Animations/UtvAnimasjon.jason'),
+    child: LottieBuilder.asset(
+      'assets/Animations/UtvAnimasjon.json',
+      height: 15,
+    ),
   ),
-  "default": Icon(
-    CustomIcons.book,
-    color: Colors.white,
-    size: 90,
-  )
+  "default": Container(
+    child: LottieBuilder.asset(
+      'assets/Animations/UtvAnimasjon.json',
+      height: 125,
+    ),
+  ),
 };
 List<Color> cardColors = [
   Color.fromARGB(255, 254, 216, 176),
