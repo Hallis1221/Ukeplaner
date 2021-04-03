@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:lottie/lottie.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
