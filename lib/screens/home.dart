@@ -130,14 +130,17 @@ class HomeScreen extends StatelessWidget {
                   FutureBuilder(
                     future: getClassesFromFirebase(context),
                     builder: (context, snapshot) {
+                      print("classes: $classes");
                       if (snapshot.connectionState == ConnectionState.done) {
                         return Column(
                           children: [
                             for (ClassModel classe in classes)
                               (() {
+                                print("class: $classe");
                                 int childsOnRow = 0;
                                 List<Widget> stuffToReturn = [];
                                 for (ClassTime time in classe.times) {
+                                  print("class time: $time");
                                   for (var i = 0; i < 21; i++) {
                                     var date = getDate(addDays: i);
                                     if (date["dateTime"].weekday ==
@@ -149,7 +152,11 @@ class HomeScreen extends StatelessWidget {
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
                                                     ConnectionState.done &&
-                                                snapshot.hasData) {
+                                                snapshot.hasData &&
+                                                snapshot.data != [] &&
+                                                snapshot.data.isNotEmpty) {
+                                              print(
+                                                  "got lekser widgets: ${snapshot.data}");
                                               List<Widget> rowChildren = [];
                                               List<Widget> columnOfRows = [];
                                               for (Widget widget
@@ -190,16 +197,18 @@ class HomeScreen extends StatelessWidget {
                                               if (childsOnRow != 1) {
                                                 columnOfRows.add(
                                                   Row(
-                                                    mainAxisAlignment: (() {
-                                                      if (rowChildren.length ==
-                                                          1) {
-                                                        return MainAxisAlignment
-                                                            .start;
-                                                      } else {
-                                                        return MainAxisAlignment
-                                                            .spaceEvenly;
-                                                      }
-                                                    }()),
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: rowChildren,
+                                                  ),
+                                                );
+                                              } else {
+                                                // TODO fix so they dont appear on different lines
+                                                columnOfRows.add(
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
                                                     children: rowChildren,
                                                   ),
                                                 );
