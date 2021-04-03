@@ -10,15 +10,17 @@ import 'lekse.dart';
 import '../config/config.dart';
 import 'makeCompleteDayClass.dart';
 
-List<String> rowChildrenController = [];
 List brukteFarger = [];
 Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
   List<Widget> children = [];
 
   await makeCompleteDayClass(context, subjects: subjects, dateToShow: date)
       .then((value) {
+    print("classv: $value");
+    List<String> rowChildrenController = [];
     for (CompleteDayClass completeDayClass in value) {
       for (Lekse lekse in completeDayClass.lekser) {
+        print("lekse: $lekse");
         brukteFarger = [];
         String uid =
             "${lekse.tittel}.${lekse.fag}.${lekse.date}.${lekse.beskrivelse}";
