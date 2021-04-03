@@ -3,7 +3,6 @@
  If so use, distribution and modification can be done under the terms of the license.*/
 
 import 'dart:async';
-
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:flutter/material.dart';
