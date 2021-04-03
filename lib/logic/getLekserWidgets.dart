@@ -53,15 +53,13 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
                     SizedBox(
                       height: 20,
                     ),
-                    Icon(
-                      (() {
+                    Container(
+                      child: (() {
                         if (iconIndex[lekse.tittel] != null) {
                           return iconIndex[lekse.tittel];
                         } else
                           return iconIndex["default"];
                       }()),
-                      color: Colors.white,
-                      size: 90,
                     ),
                     SizedBox(
                       height: 20,
