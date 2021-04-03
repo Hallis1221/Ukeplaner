@@ -20,6 +20,11 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
     List<String> rowChildrenController = [];
     for (CompleteDayClass completeDayClass in value) {
       for (Lekse lekse in completeDayClass.lekser) {
+        // ignore: unrelated_type_equality_checks
+        if (lekse == "free") {
+          print("free");
+          return;
+        }
         print("lekse: $lekse");
         brukteFarger = [];
         String uid =
