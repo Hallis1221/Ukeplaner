@@ -208,9 +208,12 @@ class TimeCard extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) {
-              return Container(
-                child: LottieBuilder.asset('assets/Animations/StaySafe.json'),
-                height: 300,
+              return GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Container(
+                  child: LottieBuilder.asset('assets/Animations/StaySafe.json'),
+                  height: 300,
+                ),
               );
             },
           );
