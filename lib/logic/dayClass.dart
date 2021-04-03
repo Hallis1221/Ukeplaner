@@ -5,6 +5,7 @@ class CompleteDayClass {
   String rom;
   String message;
   List homework;
+  bool isFree;
 
   String startTime;
   String endTime;
@@ -12,6 +13,7 @@ class CompleteDayClass {
   List<Lekse> lekser;
 
   CompleteDayClass({
+    this.isFree = false,
     this.startTime,
     this.endTime,
     this.className,
