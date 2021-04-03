@@ -109,23 +109,30 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
           }
         }).onError((error, stackTrace) {
           print("error: $error");
-          daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
+          daySubjectsWithMessagesAndHomework.add(
+            new CompleteDayClass(
               className: "Fri! ",
               startTime: "Hele ",
               endTime: "Dagen",
-              homework: [],
+              isFree: true,
+              homework: ["free"],
               message: "Det er ingen timer satt opp i dag!",
-              rom: "Verden!"));
+              rom: "Verden :D",
+            ),
+          );
         });
       }
 
-      daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
+      daySubjectsWithMessagesAndHomework.add(
+        new CompleteDayClass(
           className: klasse.className,
           rom: klasse.rom,
           startTime: klasse.startTime,
           endTime: klasse.endTime,
           message: message,
-          lekser: lekser));
+          lekser: lekser,
+        ),
+      );
     } else if (klasse.classFirestoreID == null) {
       continue;
     }
@@ -134,10 +141,11 @@ Future<List<CompleteDayClass>> makeCompleteDayClass(BuildContext context,
     daySubjectsWithMessagesAndHomework.add(new CompleteDayClass(
         className: "Fri! ",
         startTime: "Hele ",
+        isFree: true,
         endTime: "Dagen",
-        homework: [],
+        homework: ["free", "free"],
         message: "Det er ingen timer satt opp i dag!",
-        rom: "Verden!"));
+        rom: "Verden :D"));
   }
   return daySubjectsWithMessagesAndHomework;
 }
