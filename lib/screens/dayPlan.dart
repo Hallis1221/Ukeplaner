@@ -91,6 +91,7 @@ class _DayPlanState extends State<DayPlan> {
                               scrollDirection: Axis.vertical,
                               children: daySubjectsFormatted
                                   .map((CompleteDayClass klasse) {
+                                print("lekser: ${klasse.isFree}");
                                 return Padding(
                                   padding: const EdgeInsets.all(25 / 2),
                                   child: TimeCard(
@@ -100,6 +101,7 @@ class _DayPlanState extends State<DayPlan> {
                                     sluttTid: klasse.endTime,
                                     message: klasse.message,
                                     lekser: klasse.lekser,
+                                    isFree: klasse.isFree,
                                     color: (() {
                                       Random rnd = new Random();
                                       int min = 0,
@@ -148,6 +150,7 @@ class TimeCard extends StatelessWidget {
     this.startTid = "Right now",
     this.sluttTid = "Who knows",
     this.message = " ",
+    this.isFree = false,
     this.color = Colors.redAccent,
     this.lekser,
   }) : super(key: key);
@@ -158,13 +161,17 @@ class TimeCard extends StatelessWidget {
   final String sluttTid;
   final String message;
   final Color color;
-  final List<Lekse> lekser;
+  final List lekser;
+  final bool isFree;
 
   @override
   Widget build(BuildContext context) {
-    List<Lekse> lekserToUse;
+    bool free = isFree;
+    List lekserToUse;
     if (lekser == null) {
+      print("lekse is empty");
       lekserToUse = [];
+      // ignore: unrelated_type_equality_checks
     } else {
       lekserToUse = lekser;
     }
@@ -194,7 +201,16 @@ class TimeCard extends StatelessWidget {
                 .toList()));
     return GestureDetector(
       onTap: () {
-        showLekse(context, lekseTekst);
+        if (!free) {
+          showLekse(context, lekseTekst);
+        } else {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Container(color: Colors.red);
+            },
+          );
+        }
       },
       child: Container(
         decoration: BoxDecoration(
