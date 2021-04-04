@@ -55,7 +55,7 @@ class DecorationClipper extends CustomClipper<Rect> {
 
   Rect getClip(Size size) {
     double width = MediaQuery.of(context).size.width * 1.5;
-    return Rect.fromLTWH(0 - width * 0.15, -50, width, 250);
+    return Rect.fromLTWH(0 - width * 0.15, -100, width, 300);
   }
 
   bool shouldReclip(CustomClipper<Rect> oldClipper) {
