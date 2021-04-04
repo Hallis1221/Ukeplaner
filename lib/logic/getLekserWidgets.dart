@@ -11,13 +11,14 @@ import '../config/config.dart';
 import 'makeCompleteDayClass.dart';
 
 List brukteFarger = [];
+List<String> rowChildrenController = [];
 Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
   List<Widget> children = [];
 
   await makeCompleteDayClass(context, subjects: subjects, dateToShow: date)
       .then((value) {
     print("classv: $value");
-    List<String> rowChildrenController = [];
+
     for (CompleteDayClass completeDayClass in value) {
       for (Lekse lekse in completeDayClass.lekser) {
         // ignore: unrelated_type_equality_checks
@@ -30,6 +31,7 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
         String uid =
             "${lekse.tittel}.${lekse.fag}.${lekse.date}.${lekse.beskrivelse}";
         if (!rowChildrenController.contains(uid)) {
+          print("does not contain");
           rowChildrenController.add(uid);
           children.add(Padding(
             padding: const EdgeInsets.only(left: 7.5, right: 7.5, bottom: 25),
@@ -116,6 +118,13 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
               ),
             ),
           ));
+        } else if (rowChildrenController.length >=
+            completeDayClass.lekser.length) {
+          rowChildrenController = [];
+          getLekserWidgets(context, subjects, date);
+        } else {
+          print(
+              "No homework, controller: $rowChildrenController and lekser: ${completeDayClass.lekser}");
         }
       }
     }
