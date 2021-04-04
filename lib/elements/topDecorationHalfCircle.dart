@@ -12,39 +12,53 @@ class TopDecorationHalfCircle extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            colorOne,
-            colorTwo,
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            blurRadius: 10,
-            color: Theme.of(context).shadowColor,
-          )
-        ],
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.elliptical(
-            MediaQuery.of(context).size.width * 3,
-            250,
+    return ClipOval(
+      clipper: DecorationClipper(context: context),
+      child: Container(
+        height: 200,
+        width: MediaQuery.of(context).size.width * 2,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              colorOne,
+              colorTwo,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              blurRadius: 10,
+              color: Theme.of(context).shadowColor,
+            )
+          ],
         ),
-      ),
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: Theme.of(context).backgroundColor,
-            fontSize: 30,
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: Theme.of(context).backgroundColor,
+              fontSize: 30,
+            ),
           ),
         ),
       ),
     );
+  }
+}
+
+class DecorationClipper extends CustomClipper<Rect> {
+  DecorationClipper({
+    @required this.context,
+  });
+  final BuildContext context;
+
+  Rect getClip(Size size) {
+    double width = MediaQuery.of(context).size.width * 1.5;
+    return Rect.fromLTWH(0 - width * 0.15, -50, width, 250);
+  }
+
+  bool shouldReclip(CustomClipper<Rect> oldClipper) {
+    return true;
   }
 }
