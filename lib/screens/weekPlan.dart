@@ -41,7 +41,7 @@ class _WeekPlanState extends State<WeekPlan> {
     totalAmountOfDays = widgets.length;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(125),
+        preferredSize: Size.fromHeight(175),
         child: Stack(
           alignment: Alignment.topLeft,
           children: [
@@ -53,7 +53,7 @@ class _WeekPlanState extends State<WeekPlan> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 50,
+                    height: 0,
                   ),
                   Text(
                     "Uke ${now.weekOfYear + addWeeks}",
