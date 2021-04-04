@@ -2,7 +2,6 @@ name: ukeplaner
 description: Ukeplaner for skoler. En elev fokusert ukeplan.
 
 # When something is changed in this pubspec.yaml file it will be built and uploaded to firebase app distrobution
-
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -17,7 +16,6 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-
 version: 0.8.43
 
 environment:
@@ -39,11 +37,13 @@ dependencies:
   firebase_performance: ^0.5.0+1
   firebase_remote_config: ^0.6.0
   flutter_pin_code_fields: ^1.1.0
+  flutter_svg: ^0.19.3
   google_fonts: ^1.1.1
   intl: ^0.16.0
   introduction_screen: ^1.0.9
   loading: ^1.0.2
   loading_animations: ^2.1.0
+  lottie: ^1.0.1
   modal_bottom_sheet: ^2.0.0
   native_shared_preferences: ^1.0.5
   provider: ^4.3.3
@@ -51,8 +51,6 @@ dependencies:
   swipedetector: ^1.2.0
   url_launcher: ^5.7.0
   week_of_year: ^1.0.1
-  lottie: ^1.0.1
-
 
 dev_dependencies:
   flutter_test:
