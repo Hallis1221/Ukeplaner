@@ -51,7 +51,7 @@ class _DayPlanState extends State<DayPlan> {
 
           return Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(120.0),
+              preferredSize: Size.fromHeight(150.0),
               child: _AppBar(onTap: () {
                 setState(() {});
               }),
@@ -61,7 +61,7 @@ class _DayPlanState extends State<DayPlan> {
                 Column(
                   children: [
                     SizedBox(
-                      height: 25,
+                      height: 0,
                     ),
                     DaySelector(
                       onTap: () {
