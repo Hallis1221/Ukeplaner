@@ -69,9 +69,6 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 50,
-              ),
               MinePlaner(date: date),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
