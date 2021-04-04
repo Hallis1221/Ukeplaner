@@ -52,7 +52,7 @@ Map<String, Widget> iconIndex = {
   "UTV": Container(
     child: LottieBuilder.asset(
       'assets/Animations/UtvAnimasjon.json',
-      height: 15,
+      height: 125,
     ),
   ),
   "default": Container(
