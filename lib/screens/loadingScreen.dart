@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class LoadingPage extends StatelessWidget {
-  const LoadingPage({
-    Key key,
-  }) : super(key: key);
+  const LoadingPage();
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +19,14 @@ class LoadingPage extends StatelessWidget {
 }
 
 class LoadingAnimation extends StatelessWidget {
-  const LoadingAnimation({Key key}) : super(key: key);
+  const LoadingAnimation({Key key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: LottieBuilder.asset(
         'assets/animations/booksLoading.json',
-        height: 125,
+        height: 250,
       ),
     );
   }
