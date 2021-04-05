@@ -212,7 +212,7 @@ class TimeCard extends StatelessWidget {
               return GestureDetector(
                 onTap: () => Navigator.of(context).pop(),
                 child: Container(
-                  child: LottieBuilder.asset('assets/Animations/StaySafe.json'),
+                  child: LottieBuilder.asset('assets/animations/StaySafe.json'),
                   height: 300,
                 ),
               );
