@@ -84,20 +84,23 @@ class ConnectionAttemptionScreen extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            color: Colors.lightBlue,
+            color: Theme.of(context).backgroundColor,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AlertDialog(
-                  backgroundColor: Colors.blueAccent,
-                  title: Text(
-                    "Prøver å koble til internett... Trykk hvor som helst på skjermen for å fortsette uten nett",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                  backgroundColor: Colors.transparent,
+                  title: Center(
+                    child: Text(
+                      "Prøver å koble til internett... Trykk hvor som helst på skjermen for å fortsette uten nett",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
+                  elevation: 0,
                 ),
                 Center(child: LoadingAnimation()),
               ],
