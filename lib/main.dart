@@ -27,10 +27,12 @@ import 'config/config.dart' as config;
 import 'screens/loadingScreen.dart';
 import 'screens/verify.dart';
 import 'screens/welcome_screen.dart';
+import 'package:native_shared_preferences/native_shared_preferences.dart';
 
+NativeSharedPreferences prefs;
 Future<void> main() async {
   initApp();
-
+  prefs = await NativeSharedPreferences.getInstance();
   runApp(MyApp());
 }
 
@@ -40,7 +42,15 @@ class MyApp extends StatelessWidget {
     _portraitModeOnly();
     return LocalFirebaseApp(
       initialRoute: '/',
-      theme: config.theme,
+      theme: (() {
+        print('preset: ${prefs.getString("color_preset")}');
+        String colorPreset = prefs.getString("color_preset");
+        if (colorPreset == "maaz") {
+          return config.maazTheme;
+        } else if (colorPreset == "halvor") {
+          return config.halvorTheme;
+        }
+      }()),
       routes: {
         '/findpage': FindPage(),
         '/welcome': OnBoardingPage(),
