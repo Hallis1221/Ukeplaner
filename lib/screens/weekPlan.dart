@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/screens/loadingScreen.dart';
 import '../config/config.dart';
 import '../elements/TopDecorationHalfCircle.dart';
 import '../logic/class.dart';
@@ -218,7 +219,7 @@ class _WeekPlanColumnState extends State<WeekPlanColumn> {
                   ]),
                 );
               }
-              return Container();
+              return LoadingAnimation();
             },
           )
         ],
