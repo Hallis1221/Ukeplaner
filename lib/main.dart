@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/logic/getLekserWidgets.dart';
 import 'package:ukeplaner/logic/oss_license.dart';
 import 'package:ukeplaner/screens/settings.dart';
 import 'package:ukeplaner/screens/skoleFactsPage.dart';
@@ -47,6 +48,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     parent = this;
     _portraitModeOnly();
+    rowChildrenController = [];
     return LocalFirebaseApp(
       initialRoute: '/',
       theme: (() {
