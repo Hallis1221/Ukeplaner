@@ -11,8 +11,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:ukeplaner/screens/loadingScreen.dart';
 
 import 'auth_services.dart';
 import '../../logic/class.dart';
@@ -127,9 +127,7 @@ class LocalFirebaseApp extends StatelessWidget {
             },
           );
         }
-        return LoadingFlipping.circle(
-          duration: Duration(milliseconds: 10000),
-        );
+        return LoadingPage();
       },
     );
   }
