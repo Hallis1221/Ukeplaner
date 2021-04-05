@@ -9,7 +9,9 @@ startTime(context) async {
   bool firstTime = prefs.getBool('first_time');
 
   var _duration = new Duration(seconds: 0);
-
+  if (prefs.getString("color_preset") == null) {
+    prefs.setString("color_preset", "maaz");
+  }
   if (firstTime != null &&
       !firstTime &&
       !remoteConfig.getBool('alltid_vis_intro')) {
@@ -18,6 +20,7 @@ startTime(context) async {
         () => Navigator.of(context).pushReplacementNamed('/validate'));
   } else {
     // First time
+
     prefs.setBool('first_time', false);
     return new Timer(_duration,
         () => Navigator.of(context).pushReplacementNamed('/welcome'));
