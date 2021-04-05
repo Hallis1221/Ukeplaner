@@ -264,11 +264,22 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
           tempWeeks = addWeeks;
         }
         print("temp: $tempWeeks");
+
+        int multiplier = 1;
+        switch (now.weekday) {
+          case 1:
+            multiplier = 0;
+            break;
+          case 5:
+            multiplier = 1;
+            break;
+          default:
+            multiplier = 0;
+        }
 // denne formelen funker for søndager: difference.inDays + ((tempWeeks - 1) * -2);
+        currentPageSelected =
+            difference.inDays + ((tempWeeks - multiplier) * -2);
 
-        currentPageSelected = difference.inDays + ((tempWeeks - 1) * -2);
-
-// TODO denne feil beregner
         Navigator.of(context).pushNamed("/dayplan");
       },
       child: Row(
