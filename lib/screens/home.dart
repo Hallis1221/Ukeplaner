@@ -160,7 +160,7 @@ class Lekser extends StatelessWidget {
           builder: (context, snapshot) {
             print("classes: $classes");
             if (snapshot.connectionState == ConnectionState.done) {
-              return Column(
+              Row alleLekserWidgets = Row(
                 children: [
                   // for class
 
@@ -169,13 +169,20 @@ class Lekser extends StatelessWidget {
                       future: getClassLekser(classe, context, subjects),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
-                          return Column(children: snapshot.data);
+                          return Row(children: snapshot.data);
                         }
                         return Container();
                       },
                     )
                 ],
               );
+              List alleLekser = [];
+              alleLekserWidgets.children.forEach((Widget element) {
+                if (element is FutureBuilder) {
+                  FutureBuilder futureBuilder = element;
+                }
+              });
+              print("allelekser: ${alleLekser}");
             }
 
             return LoadingAnimation();
@@ -199,9 +206,9 @@ Future<List<Widget>> getClassLekser(
       if (dateTime.weekday == classTime.dayIndex) {
         await getLekserWidgets(context, subjects, date).then((snapshot) {
           print("has data");
-          widgets.add(Column(
-            children: snapshot,
-          ));
+          snapshot.forEach((element) {
+            widgets.add(element);
+          });
         });
       }
     }
