@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
+import 'package:ukeplaner/screens/loadingScreen.dart';
 import 'firebase/auth_services.dart';
 import 'firebase/fcm.dart';
 
@@ -42,7 +42,7 @@ class FutureValidateBuilder extends StatelessWidget {
 
           return LocalMessageHandler(onDone: '/home');
         }
-        return LoadingFlipping.circle();
+        return LoadingPage();
       },
     );
   }
