@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:loading_animations/loading_animations.dart';
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/screens/skoleFactsPage.dart';
 import './screens/profile.dart';
@@ -23,6 +22,7 @@ import 'logic/firebase/firebase.dart';
 import 'logic/futureValidateBuilder.dart';
 import 'logic/getClasses.dart';
 import 'config/config.dart' as config;
+import 'screens/loadingScreen.dart';
 import 'screens/verify.dart';
 import 'screens/welcome_screen.dart';
 
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
                 subjects: snapshot.data,
               );
             }
-            return LoadingFlipping.circle();
+            return LoadingPage();
           },
         ),
         '/profile': ProfilePage(),
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
                 subjects: snapshot.data,
               );
             }
-            return LoadingFlipping.circle();
+            return LoadingPage();
           },
         ),
         '/dayplan': FutureBuilder(
@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.done) {
               return DayPlan(subjects: snapshot.data);
             }
-            return LoadingFlipping.circle();
+            return LoadingPage();
           },
         ),
         '/verify': VerifyPage(),
