@@ -99,7 +99,7 @@ class ConnectionAttemptionScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Center(child: LoadingPage()),
+                Center(child: LoadingAnimation()),
               ],
             ),
           ),
