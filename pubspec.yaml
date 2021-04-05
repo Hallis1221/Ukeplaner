@@ -41,8 +41,6 @@ dependencies:
   google_fonts: ^1.1.1
   intl: ^0.16.0
   introduction_screen: ^1.0.9
-  loading: ^1.0.2
-  loading_animations: ^2.1.0
   lottie: ^1.0.1
   modal_bottom_sheet: ^2.0.0
   native_shared_preferences: ^1.0.5
@@ -93,6 +91,7 @@ flutter:
     - assets/images/logo.png
     - assets/Animations/UtvAnimasjon.json
     - assets/Animations/StaySafe.json
+    - assets/Animations/booksLoading.json
 
   fonts:
     - family: NirmalaUI
