@@ -123,6 +123,16 @@ class MainDrawer extends StatelessWidget {
                     ),
                     title: Text("Skole Facts"),
                   ),
+                  ListTile(
+                    onTap: () {
+                      Navigator.of(context).pushNamed("/settings");
+                    },
+                    leading: Icon(
+                      Icons.settings,
+                      color: Colors.black,
+                    ),
+                    title: Text("Innstilinger"),
+                  )
                 ],
               ),
             ),
