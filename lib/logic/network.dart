@@ -7,9 +7,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:loading/indicator/pacman_indicator.dart';
-import 'package:loading/loading.dart';
 import 'package:intl/intl.dart';
+import 'package:ukeplaner/screens/loadingScreen.dart';
 
 import '../config/config.dart';
 
@@ -100,13 +99,7 @@ class ConnectionAttemptionScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Center(
-                  child: Loading(
-                    indicator: PacmanIndicator(),
-                    size: 100.0,
-                    color: Colors.pink,
-                  ),
-                ),
+                Center(child: LoadingPage()),
               ],
             ),
           ),
