@@ -2,6 +2,7 @@ import 'package:lottie/lottie.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/screens/loadingScreen.dart';
 import '../config/config.dart';
 import 'package:provider/provider.dart';
 import '../logic/tekst.dart';
@@ -67,7 +68,7 @@ class MainDrawer extends StatelessWidget {
                             ),
                           );
                         }
-                        return Container();
+                        return LoadingAnimation();
                       },
                     ),
                   ),
