@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ukeplaner/screens/loadingScreen.dart';
 import '../config/config.dart' as config;
 import '../config/config.dart';
 import '../elements/TopDecorationHalfCircle.dart';
@@ -63,7 +64,8 @@ class Testplan extends StatelessWidget {
       body: FutureBuilder(
         future: getTests(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.connectionState == ConnectionState.done &&
+              snapshot.hasData) {
             List<Test> tests = snapshot.data;
             if (snapshot.hasError) {
               print("error: ${snapshot.error}");
@@ -111,7 +113,7 @@ class Testplan extends StatelessWidget {
               ],
             );
           }
-          return Container();
+          return LoadingAnimation();
         },
       ),
     );
