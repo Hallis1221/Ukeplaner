@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:ukeplaner/screens/loadingScreen.dart';
 import '../config/config.dart' as config;
 import '../elements/TopDecorationHalfCircle.dart';
 import '../elements/daySelector.dart';
@@ -308,7 +309,9 @@ class TimeCard extends StatelessWidget {
                         height: 15,
                       ),
                       (() {
-                        if (lekser.length <= 1) {
+                        if (lekser.length <= 0) {
+                          return Text("Du har ingen lekser!");
+                        } else if (lekser.length <= 1) {
                           return Text(
                               "Du har ${lekser.length} lekse. Trykk for å se den");
                         } else {
