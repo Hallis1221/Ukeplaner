@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/logic/oss_license.dart';
 import 'package:ukeplaner/screens/settings.dart';
 import 'package:ukeplaner/screens/skoleFactsPage.dart';
 import './screens/profile.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
         '/settings': SettingsMenu(),
         '/skoleFacts': SkoleFacts(),
         '/testPlan': Testplan(),
+        '/licenses': OssLicensesPage(),
         '/weekPlan': FutureBuilder(
           future: getClasses(),
           builder: (context, snapshot) {
