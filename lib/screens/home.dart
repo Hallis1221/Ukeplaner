@@ -23,6 +23,7 @@ import 'package:provider/provider.dart';
 import '../elements/maindrawer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/widgets.dart';
+import 'loadingScreen.dart';
 import 'login.dart';
 
 List<Widget> _rowChildrenController = [];
@@ -119,7 +120,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             );
                           } else {
-                            return Container();
+                            return LoadingAnimation();
                           }
                         }())
                       ],
@@ -234,7 +235,7 @@ class HomeScreen extends StatelessWidget {
                         );
                       }
 
-                      return Container();
+                      return LoadingAnimation();
                     },
                   ),
                 ],
