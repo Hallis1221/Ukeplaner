@@ -30,15 +30,22 @@ import 'screens/welcome_screen.dart';
 import 'package:native_shared_preferences/native_shared_preferences.dart';
 
 NativeSharedPreferences prefs;
+_MyAppState parent;
 Future<void> main() async {
   initApp();
   prefs = await NativeSharedPreferences.getInstance();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    parent = this;
     _portraitModeOnly();
     return LocalFirebaseApp(
       initialRoute: '/',
