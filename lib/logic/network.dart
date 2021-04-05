@@ -59,12 +59,6 @@ class _VerifyAppState extends State<VerifyApp> {
       }
 
       tryToConnect();
-      print("ran for: ${stopwatch.elapsed}");
-      if (stopwatch.elapsed >= Duration(seconds: 5)) {
-        return ConnectionAttemptionScreen(route: widget.route);
-      } else {
-        return LoadingPage();
-      }
     }()));
   }
 }
@@ -79,8 +73,7 @@ class ConnectionAttemptionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Stopwatch stopwatch = new Stopwatch()..start();
-    return new GestureDetector(
+    return GestureDetector(
       onTap: () {
         Navigator.pushReplacementNamed(
           context,
