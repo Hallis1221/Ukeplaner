@@ -42,7 +42,6 @@ class MyApp extends StatelessWidget {
       routes: {
         '/findpage': FindPage(),
         '/welcome': OnBoardingPage(),
-        '/loading': LoadingPage(),
         '/validate': AuthenticatonWrapper(
           loggedin: FutureValidateBuilder(),
           login: LoginScreen(),
