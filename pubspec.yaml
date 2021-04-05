@@ -51,6 +51,7 @@ dependencies:
   week_of_year: ^1.0.1
 
 dev_dependencies:
+  flutter_oss_licenses: ^1.0.1
   flutter_test:
     sdk: flutter
 
