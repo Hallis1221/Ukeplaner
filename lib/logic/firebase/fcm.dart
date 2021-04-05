@@ -8,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animations/loading_animations.dart';
+import 'package:ukeplaner/screens/loadingScreen.dart';
 import '../../config/config.dart';
 
 class LocalMessageHandler extends StatefulWidget {
@@ -109,9 +109,7 @@ class _LocalMessageHandlerState extends State<LocalMessageHandler> {
           const Duration(milliseconds: 250),
           () => Navigator.pushReplacementNamed(context, "/home"),
         );
-        return LoadingFlipping.circle(
-          duration: Duration(milliseconds: 750),
-        );
+        return LoadingPage();
       },
     );
   }
