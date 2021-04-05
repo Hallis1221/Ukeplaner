@@ -25,7 +25,7 @@ import 'package:lottie/lottie.dart';
 import 'package:flutter/widgets.dart';
 import 'login.dart';
 
-List<Widget> rowChildrenController = [];
+List<Widget> _rowChildrenController = [];
 
 DateTime now = DateTime.now();
 List<DateTime> tider = [];
@@ -160,12 +160,12 @@ class HomeScreen extends StatelessWidget {
                                               for (Widget widget
                                                   in snapshot.data) {
                                                 if (childsOnRow <= 1 &&
-                                                    !(rowChildrenController
+                                                    !(_rowChildrenController
                                                         .contains(widget))) {
                                                   print(
-                                                      "rowChildrenController: $rowChildrenController");
+                                                      "rowChildrenController: $_rowChildrenController");
                                                   rowChildren.add(widget);
-                                                  rowChildrenController
+                                                  _rowChildrenController
                                                       .add(widget);
                                                 } else {
                                                   if (!(columnOfRows.contains(
