@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
             return LoadingPage();
           },
         ),
-        '/home/beta': PlaylistScreen(),
+        '/home/beta': BetaHomeScreen(),
         '/profile': ProfilePage(),
         '/settings': SettingsMenu(),
         '/skoleFacts': SkoleFacts(),
