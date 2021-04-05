@@ -17,6 +17,7 @@ import '../logic/getLekserWidgets.dart';
 import '../logic/class.dart';
 import '../logic/classTimes.dart';
 import '../logic/firebase/auth_services.dart';
+import 'package:ukeplaner/main.dart';
 import '../logic/firebase/firebase.dart';
 import '../screens/login.dart';
 import '../logic/tekst.dart';
@@ -612,7 +613,9 @@ class MinePlaner extends StatelessWidget {
                 ),
                 MaterialButton(
                   onPressed: () {
-                    context.read<AuthenticationService>().signOut();
+                    parent.setState(() {
+                      context.read<AuthenticationService>().signOut();
+                    });
                   },
                   child: Text('logg ut'),
                 ),
@@ -728,7 +731,7 @@ class _MenuButtonState extends State<MenuButton> {
   }
 }
 
-class PlaylistScreen extends StatelessWidget {
+class BetaHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
