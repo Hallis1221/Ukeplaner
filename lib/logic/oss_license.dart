@@ -29,34 +29,43 @@ class OssLicensesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: FutureBuilder<List<String>>(
-        future: _licenses,
-        builder: (context, snapshot) {
-          return ListView.separated(
-              padding: const EdgeInsets.all(0),
-              itemCount: snapshot.data?.length ?? 0,
-              itemBuilder: (context, index) {
-                final key = snapshot.data[index];
-                final ossl = ossLicenses[key];
-                final version = ossl['version'];
-                final desc = ossl['description'];
-                return ListTile(
-                  title: Text('$key ${version ?? ''}'),
-                  subtitle: desc != null ? Text(desc) : null,
-                  trailing: Icon(Icons.chevron_right),
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => MiscOssLicenseSingle(
-                        name: key,
-                        json: ossl,
-                      ),
-                    ),
-                  ),
-                );
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Åpen kildekode lisenser"),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: FutureBuilder<List<String>>(
+              future: _licenses,
+              builder: (context, snapshot) {
+                return ListView.separated(
+                    padding: const EdgeInsets.all(0),
+                    itemCount: snapshot.data?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      final key = snapshot.data[index];
+                      final ossl = ossLicenses[key];
+                      final version = ossl['version'];
+                      final desc = ossl['description'];
+                      return ListTile(
+                        title: Text('$key ${version ?? ''}'),
+                        subtitle: desc != null ? Text(desc) : null,
+                        trailing: Icon(Icons.chevron_right),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => MiscOssLicenseSingle(
+                              name: key,
+                              json: ossl,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) => const Divider());
               },
-              separatorBuilder: (context, index) => const Divider());
-        },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -86,7 +95,7 @@ class MiscOssLicenseSingle extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('$name ${version ?? ''}')),
       body: Container(
-          color: Theme.of(context).canvasColor,
+          color: Theme.of(context).backgroundColor,
           child: ListView(children: <Widget>[
             if (description != null)
               Padding(
