@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loading/loading.dart';
+import 'package:ukeplaner/screens/loadingScreen.dart';
 import '../logic/startTime.dart';
 
 class FindPage extends StatelessWidget {
@@ -10,6 +10,6 @@ class FindPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     startTime(context);
-    return Loading();
+    return LoadingPage();
   }
 }
