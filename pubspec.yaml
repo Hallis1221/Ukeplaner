@@ -89,9 +89,9 @@ flutter:
   assets:
     - assets/images/logo1.png
     - assets/images/logo.png
-    - assets/Animations/UtvAnimasjon.json
-    - assets/Animations/StaySafe.json
-    - assets/Animations/booksLoading.json
+    - assets/animations/UtvAnimasjon.json
+    - assets/animations/StaySafe.json
+    - assets/animations/booksLoading.json
 
   fonts:
     - family: NirmalaUI
