@@ -51,13 +51,13 @@ Color linearGreen = Color.fromARGB(255, 34, 219, 58);
 Map<String, Widget> iconIndex = {
   "UTV": Container(
     child: LottieBuilder.asset(
-      'assets/Animations/UtvAnimasjon.json',
+      'assets/animations/UtvAnimasjon.json',
       height: 125,
     ),
   ),
   "default": Container(
     child: LottieBuilder.asset(
-      'assets/Animations/UtvAnimasjon.json',
+      'assets/animations/UtvAnimasjon.json',
       height: 125,
     ),
   ),
