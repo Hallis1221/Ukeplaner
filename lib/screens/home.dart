@@ -6,8 +6,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:sliver_fab/sliver_fab.dart';
 import '../config/config.dart';
 import '../elements/TopDecorationHalfCircle.dart';
+import '../elements/maindrawer.dart';
 import '../icons/custom_icons.dart';
 import '../logic/dates.dart';
 import '../logic/firebase/firestore.dart';
@@ -65,6 +67,7 @@ class HomeScreen extends StatelessWidget {
         child: MainDrawer(),
       ),
       body: ListView(
+        physics: ScrollPhysics(),
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -721,6 +724,89 @@ class _MenuButtonState extends State<MenuButton> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class PlaylistScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: MainDrawer(),
+      body: NewTopAppBar(),
+    );
+  }
+}
+
+class NewTopAppBar extends StatelessWidget {
+  const NewTopAppBar({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverFab(
+      floatingWidget: Container(),
+      expandedHeight: MediaQuery.of(context).size.height * 0.2,
+      slivers: [
+        SliverAppBar(
+          expandedHeight: MediaQuery.of(context).size.height * 0.2,
+          backgroundColor: Colors.transparent,
+          pinned: true,
+          floating: true,
+          leading: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+          actions: [IconButton(icon: Icon(Icons.more_vert), onPressed: () {})],
+          flexibleSpace: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(50),
+                ),
+              ),
+              child: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.none,
+                  centerTitle: true,
+                  title: Text('A Synthwave Mix'))),
+        ),
+        SliverList(
+            delegate: SliverChildListDelegate([
+          Column(
+            children: [
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+              ListTile(),
+            ],
+          )
+        ]))
+      ],
     );
   }
 }
