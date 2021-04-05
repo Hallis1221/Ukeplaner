@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ukeplaner/logic/oss_license.dart';
 
 class SettingsMenu extends StatelessWidget {
   const SettingsMenu({Key key}) : super(key: key);
@@ -18,6 +19,7 @@ class SettingsMenu extends StatelessWidget {
                 title: Text(
                   "Lisenser",
                 ),
+                onTap: () => Navigator.of(context).pushNamed('/licenses'),
               ),
             ],
           ),
