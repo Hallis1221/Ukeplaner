@@ -28,10 +28,9 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
         }
         print("lekse: $lekse");
         brukteFarger = [];
-        String uid =
-            "${lekse.tittel}.${lekse.fag}.${lekse.date}.${lekse.beskrivelse}";
+        String uid = "${lekse.tittel}.${lekse.fag}.${lekse.date}}";
         if (!rowChildrenController.contains(uid)) {
-          print("does not contain");
+          print("does not contain $uid");
           rowChildrenController.add(uid);
           children.add(Padding(
             padding: const EdgeInsets.only(left: 7.5, right: 7.5, bottom: 25),
@@ -118,8 +117,9 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
               ),
             ),
           ));
-        } else if (rowChildrenController.length >=
+        } else if (rowChildrenController.length >
             completeDayClass.lekser.length) {
+          print("reset controller");
           rowChildrenController = [];
           getLekserWidgets(context, subjects, date);
         } else {
