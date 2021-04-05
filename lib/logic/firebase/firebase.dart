@@ -127,7 +127,7 @@ class LocalFirebaseApp extends StatelessWidget {
             },
           );
         }
-        return LoadingPage();
+        return LoadingAnimation();
       },
     );
   }
