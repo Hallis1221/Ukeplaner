@@ -15,7 +15,7 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
+      color: Theme.of(context).primaryColor,
       child: Column(
         children: [
           Row(
@@ -60,6 +60,9 @@ class MainDrawer extends StatelessWidget {
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
+                                SizedBox(
+                                  height: 30.0,
+                                ),
                               ],
                             ),
                           );
@@ -74,7 +77,7 @@ class MainDrawer extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              color: Colors.pink,
+              color: Theme.of(context).backgroundColor,
               child: Column(
                 children: [
                   SizedBox(
