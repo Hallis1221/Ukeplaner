@@ -9,11 +9,14 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        Container(),
-      ],
-    ));
+      body: Column(
+        children: [
+          Expanded(
+            child: LoadingAnimation(),
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -23,7 +26,10 @@ class LoadingAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: LottieBuilder.file('assets/animations/booksLoading.json'),
+      child: LottieBuilder.asset(
+        'assets/animations/booksLoading.json',
+        height: 125,
+      ),
     );
   }
 }
