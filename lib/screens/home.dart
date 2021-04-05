@@ -11,6 +11,9 @@ import '../config/config.dart';
 import '../elements/TopDecorationHalfCircle.dart';
 import '../elements/maindrawer.dart';
 import '../icons/custom_icons.dart';
+import '../logic/class.dart';
+import '../logic/class.dart';
+import '../logic/dates.dart';
 import '../logic/dates.dart';
 import '../logic/firebase/firestore.dart';
 import '../logic/getLekserWidgets.dart';
@@ -19,6 +22,7 @@ import '../logic/classTimes.dart';
 import '../logic/firebase/auth_services.dart';
 import 'package:ukeplaner/main.dart';
 import '../logic/firebase/firebase.dart';
+import '../logic/getLekserWidgets.dart';
 import '../screens/login.dart';
 import '../logic/tekst.dart';
 import 'package:week_of_year/week_of_year.dart';
@@ -75,132 +79,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               MinePlaner(date: date),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 0,
-                      left: size.width / 12,
-                      bottom: size.width / 30,
-                      right: 0,
-                    ),
-                    child: Lekser(),
-                  ),
-                  FutureBuilder(
-                    future: getClassesFromFirebase(context),
-                    builder: (context, snapshot) {
-                      print("classes: $classes");
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return Column(
-                          children: [
-                            for (ClassModel classe in classes)
-                              (() {
-                                print("class: $classe");
-                                int childsOnRow = 0;
-                                List<Widget> stuffToReturn = [];
-                                for (ClassTime time in classe.times) {
-                                  print("class time: $time");
-                                  for (var i = 0; i < 21; i++) {
-                                    var date = getDate(addDays: i);
-                                    if (date["dateTime"].weekday ==
-                                        time.dayIndex) {
-                                      stuffToReturn.add(
-                                        FutureBuilder(
-                                          future: getLekserWidgets(
-                                              context, subjects, date),
-                                          builder: (context, snapshot) {
-                                            if (snapshot.connectionState ==
-                                                    ConnectionState.done &&
-                                                snapshot.hasData &&
-                                                snapshot.data != [] &&
-                                                snapshot.data.isNotEmpty) {
-                                              print(
-                                                  "got lekser widgets: ${snapshot.data}");
-                                              List<Widget> rowChildren = [];
-                                              List<Widget> columnOfRows = [];
-                                              for (Widget widget
-                                                  in snapshot.data) {
-                                                if (childsOnRow <= 1 &&
-                                                    !(_rowChildrenController
-                                                        .contains(widget))) {
-                                                  print(
-                                                      "rowChildrenController: $_rowChildrenController");
-                                                  rowChildren.add(widget);
-                                                  _rowChildrenController
-                                                      .add(widget);
-                                                } else {
-                                                  if (!(columnOfRows.contains(
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: rowChildren,
-                                                    ),
-                                                  ))) {
-                                                    print(
-                                                        "childsOnRow: $childsOnRow");
-                                                    columnOfRows.add(
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: rowChildren,
-                                                      ),
-                                                    );
-                                                    childsOnRow = 0;
-                                                    rowChildren = [];
-                                                  }
-                                                }
-                                                childsOnRow++;
-                                              }
-                                              if (childsOnRow != 1) {
-                                                columnOfRows.add(
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: rowChildren,
-                                                  ),
-                                                );
-                                              } else {
-                                                // TODO fix so they dont appear on different lines
-                                                columnOfRows.add(
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: rowChildren,
-                                                  ),
-                                                );
-                                              }
-                                              print(
-                                                  "columnOfRows: $columnOfRows");
-                                              return Column(
-                                                children: columnOfRows,
-                                              );
-                                            }
-
-                                            return Container();
-                                          },
-                                        ),
-                                      );
-                                    }
-                                  }
-                                }
-
-                                return Column(
-                                  children: stuffToReturn,
-                                );
-                              }()),
-                          ],
-                        );
-                      }
-
-                      return LoadingAnimation();
-                    },
-                  ),
-                ],
-              ),
+              Lekser(size: size, subjects: subjects),
             ],
           ),
         ],
@@ -212,55 +91,122 @@ class HomeScreen extends StatelessWidget {
 class Lekser extends StatelessWidget {
   const Lekser({
     Key key,
+    @required this.size,
+    @required this.subjects,
   }) : super(key: key);
+
+  final Size size;
+  final List<ClassModel> subjects;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Lekser',
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 38, 58, 80),
-            letterSpacing: 2,
+        Padding(
+          padding: EdgeInsets.only(
+            top: 0,
+            left: size.width / 12,
+            bottom: size.width / 30,
+            right: 0,
           ),
-        ),
-        (() {
-          if (isTeacher) {
-            return Expanded(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: RawMaterialButton(
-                  onPressed: () {
-                    tider = [];
-                    showMaterialModalBottomSheet(
-                      context: context,
-                      builder: (context) => NewLekse(),
-                    );
-                  },
-                  shape: CircleBorder(),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.5),
-                    child: Icon(
-                      Icons.add,
-                      size: 40,
-                      color: Colors.white,
-                    ),
-                  ),
-                  fillColor: mildBlue,
-                  elevation: 0,
+          child: Row(
+            children: [
+              Text(
+                'Lekser',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 38, 58, 80),
+                  letterSpacing: 2,
                 ),
               ),
-            );
-          } else {
+              (() {
+                if (isTeacher) {
+                  return Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: RawMaterialButton(
+                        onPressed: () {
+                          tider = [];
+                          showMaterialModalBottomSheet(
+                            context: context,
+                            builder: (context) => NewLekse(),
+                          );
+                        },
+                        shape: CircleBorder(),
+                        child: Padding(
+                          padding: const EdgeInsets.all(2.5),
+                          child: Icon(
+                            Icons.add,
+                            size: 40,
+                            color: Colors.white,
+                          ),
+                        ),
+                        fillColor: mildBlue,
+                        elevation: 0,
+                      ),
+                    ),
+                  );
+                } else {
+                  return LoadingAnimation();
+                }
+              }())
+            ],
+          ),
+        ),
+        FutureBuilder(
+          future: getClassesFromFirebase(context),
+          builder: (context, snapshot) {
+            print("classes: $classes");
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Column(
+                children: [
+                  // for class
+
+                  for (ClassModel classe in classes)
+                    FutureBuilder(
+                      future: getClassLekser(classe, context, subjects),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return Column(children: snapshot.data);
+                        }
+                        return Container();
+                      },
+                    )
+                ],
+              );
+            }
+
             return LoadingAnimation();
-          }
-        }())
+          },
+        ),
       ],
     );
   }
+}
+
+Future<List<Widget>> getClassLekser(
+  ClassModel classe,
+  BuildContext context,
+  List<ClassModel> subjects,
+) async {
+  final List<Widget> widgets = [];
+  for (ClassTime classTime in classe.times) {
+    for (int day = 0; day < 21; day++) {
+      var date = getDate(addDays: day);
+      DateTime dateTime = date["dateTime"];
+      if (dateTime.weekday == classTime.dayIndex) {
+        await getLekserWidgets(context, subjects, date).then((snapshot) {
+          print("has data");
+          widgets.add(Column(
+            children: snapshot,
+          ));
+        });
+      }
+    }
+  }
+  return widgets;
 }
 
 class DrawerButton extends StatelessWidget {
