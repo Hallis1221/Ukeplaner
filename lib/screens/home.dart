@@ -159,30 +159,20 @@ class Lekser extends StatelessWidget {
           future: getClassesFromFirebase(context),
           builder: (context, snapshot) {
             print("classes: $classes");
-            if (snapshot.connectionState == ConnectionState.done) {
-              Row alleLekserWidgets = Row(
-                children: [
-                  // for class
 
-                  for (ClassModel classe in classes)
-                    FutureBuilder(
-                      future: getClassLekser(classe, context, subjects),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Row(children: snapshot.data);
-                        }
-                        return Container();
-                      },
-                    )
-                ],
+            if (snapshot.connectionState == ConnectionState.done) {
+              return FutureBuilder(
+                future: _getLekser(context, subjects),
+                builder: (context, snapshot) {
+                  print("data: ${snapshot.data}");
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData &&
+                      !snapshot.hasError) {
+                    return Row(children: snapshot.data);
+                  }
+                  return LoadingAnimation();
+                },
               );
-              List alleLekser = [];
-              alleLekserWidgets.children.forEach((Widget element) {
-                if (element is FutureBuilder) {
-                  FutureBuilder futureBuilder = element;
-                }
-              });
-              print("allelekser: ${alleLekser}");
             }
 
             return LoadingAnimation();
@@ -193,7 +183,18 @@ class Lekser extends StatelessWidget {
   }
 }
 
-Future<List<Widget>> getClassLekser(
+Future<List<Widget>> _getLekser(BuildContext context, subjects) async {
+  List<Widget> alleLekser = [];
+  for (ClassModel classe in classes) {
+    List<Widget> lekseList = await _getClassLekser(classe, context, subjects);
+    lekseList.forEach((element) {
+      alleLekser.add(element);
+    });
+  }
+  return alleLekser;
+}
+
+Future<List<Widget>> _getClassLekser(
   ClassModel classe,
   BuildContext context,
   List<ClassModel> subjects,
