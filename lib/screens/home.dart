@@ -54,6 +54,72 @@ class HomeScreen extends StatelessWidget {
     print("height: ${size.height}");
     print("width: ${size.width}");
     DateTime date = getDate()["dateTime"];
+    String themePreset = prefs.getString("theme_preset");
+    if (themePreset == "maaz") {
+      return MaazScaffold(size: size, date: date, subjects: subjects);
+    } else if (themePreset == "halvor") {
+      return HalvorScaffold(size: size, date: date, subjects: subjects);
+    } else {
+      return MaazScaffold(size: size, date: date, subjects: subjects);
+    }
+  }
+}
+
+class HalvorScaffold extends StatelessWidget {
+  const HalvorScaffold({
+    Key key,
+    @required this.size,
+    @required this.date,
+    @required this.subjects,
+  }) : super(key: key);
+
+  final Size size;
+  final DateTime date;
+  final List<ClassModel> subjects;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      drawer: MainDrawer(),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            snap: false,
+            floating: false,
+            expandedHeight: 160.0,
+            flexibleSpace: const FlexibleSpaceBar(
+              title: Text('SliverAppBar'),
+              background: FlutterLogo(),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: HomeMeat(
+              date: date,
+              size: size,
+              subjects: subjects,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MaazScaffold extends StatelessWidget {
+  const MaazScaffold({
+    Key key,
+    @required this.size,
+    @required this.date,
+    @required this.subjects,
+  }) : super(key: key);
+
+  final Size size;
+  final DateTime date;
+  final List<ClassModel> subjects;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: PreferredSize(
@@ -72,18 +138,33 @@ class HomeScreen extends StatelessWidget {
         child: MainDrawer(),
       ),
       body: ListView(
-        physics: ScrollPhysics(),
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              MinePlaner(date: date),
-              Lekser(size: size, subjects: subjects),
-            ],
-          ),
-        ],
+        children: [HomeMeat(date: date, size: size, subjects: subjects)],
       ),
+    );
+  }
+}
+
+class HomeMeat extends StatelessWidget {
+  const HomeMeat({
+    Key key,
+    @required this.date,
+    @required this.size,
+    @required this.subjects,
+  }) : super(key: key);
+
+  final DateTime date;
+  final Size size;
+  final List<ClassModel> subjects;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        MinePlaner(date: date),
+        Lekser(size: size, subjects: subjects),
+      ],
     );
   }
 }
