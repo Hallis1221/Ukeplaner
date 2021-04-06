@@ -298,3 +298,4 @@ int addWeeks = 0;
 String firstName;
 String lastName;
 bool isTeacher = false;
+List<String> rowChildrenController = [];
