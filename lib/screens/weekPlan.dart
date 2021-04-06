@@ -145,108 +145,9 @@ class _WeekPlanColumnState extends State<WeekPlanColumn> {
   @override
   Widget build(BuildContext context) {
     List brukteFarger = [];
-
-    if (getWeekDateDifference(widget.weekplanIndex, widget.week).inDays < 0) {}
-    return Container(
-      width: MediaQuery.of(context).size.width / 5,
-      child: Column(
-        children: [
-          SizedBox(
-            height: 15,
-          ),
-          Container(
-            child: WeekPlanerTitle(
-              week: widget.week,
-              weekplanIndex: widget.weekplanIndex,
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          FutureBuilder(
-            future: makeCompleteDayClass(
-              context,
-              dateToShow: getDate(
-                addDays: (() {
-                  if (addWeeks != 0) {
-                    //TODO
-
-                    return widget.weekplanIndex +
-                        (5 - getDate()["dateTime"].weekday);
-                  } else {
-                    print(
-                        "dif: ${getWeekDateDifference(widget.weekplanIndex, widget.week).inDays}");
-                    return getWeekDateDifference(
-                            widget.weekplanIndex, widget.week)
-                        .inDays;
-                  }
-                }()),
-                addWeeks: 0,
-              ),
-              subjects: widget.subjects,
-            ),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                List<CompleteDayClass> classes = snapshot.data;
-
-                print(
-                    "weekindex: ${widget.weekplanIndex}, length: ${classes.length}");
-                return Expanded(
-                  child: ListView(children: [
-                    for (CompleteDayClass classe in classes)
-                      WeekPlanBox(
-                        title: classe.className,
-                        rom: classe.rom,
-                        startTime: classe.startTime,
-                        endTime: classe.endTime,
-                        color: (() {
-                          Random rnd = new Random();
-                          int min = 0, max = cardColors.length;
-                          int r = min + rnd.nextInt(max - min);
-                          int maxColorsLen = brukteFarger.length;
-
-                          if (maxColorsLen <= max) {
-                            while (brukteFarger.contains(r)) {
-                              r = min + rnd.nextInt(max - min);
-                            }
-
-                            brukteFarger.add(r);
-                          }
-
-                          return cardColors[r];
-                        }()),
-                      )
-                  ]),
-                );
-              }
-              return LoadingAnimation();
-            },
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class WeekPlanerTitle extends StatefulWidget {
-  const WeekPlanerTitle({
-    Key key,
-    @required this.week,
-    @required this.weekplanIndex,
-  }) : super(key: key);
-
-  final int week;
-  final int weekplanIndex;
-
-  @override
-  _WeekPlanerTitleState createState() => _WeekPlanerTitleState();
-}
-
-class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
-  @override
-  Widget build(BuildContext context) {
     Duration difference =
         getWeekDateDifference(widget.weekplanIndex, widget.week);
+    if (getWeekDateDifference(widget.weekplanIndex, widget.week).inDays < 0) {}
     return GestureDetector(
       onTap: () {
         print("weekplanindex: ${widget.weekplanIndex}");
@@ -282,29 +183,129 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
 
         Navigator.of(context).pushNamed("/dayplan");
       },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            getWeekIndexName(widget.weekplanIndex).capitalize(),
-            style: TextStyle(
-              fontSize: double.parse((() {
-                if (difference.inDays == 0) {
-                  return 23;
-                } else
-                  return 22;
-              }())
-                  .toString()),
-              color: (() {
-                if (difference.inDays == 0) {
-                  return Color.fromARGB(255, 113, 137, 255);
-                } else
-                  return Color.fromARGB(255, 126, 126, 126);
-              }()),
+      child: Container(
+        width: MediaQuery.of(context).size.width / 5,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 15,
             ),
-          ),
-        ],
+            Container(
+              child: WeekPlanerTitle(
+                week: widget.week,
+                weekplanIndex: widget.weekplanIndex,
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            FutureBuilder(
+              future: makeCompleteDayClass(
+                context,
+                dateToShow: getDate(
+                  addDays: (() {
+                    if (addWeeks != 0) {
+                      //TODO
+
+                      return widget.weekplanIndex +
+                          (5 - getDate()["dateTime"].weekday);
+                    } else {
+                      print(
+                          "dif: ${getWeekDateDifference(widget.weekplanIndex, widget.week).inDays}");
+                      return getWeekDateDifference(
+                              widget.weekplanIndex, widget.week)
+                          .inDays;
+                    }
+                  }()),
+                  addWeeks: 0,
+                ),
+                subjects: widget.subjects,
+              ),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  List<CompleteDayClass> classes = snapshot.data;
+
+                  print(
+                      "weekindex: ${widget.weekplanIndex}, length: ${classes.length}");
+                  return Expanded(
+                    child: ListView(children: [
+                      for (CompleteDayClass classe in classes)
+                        WeekPlanBox(
+                          title: classe.className,
+                          rom: classe.rom,
+                          startTime: classe.startTime,
+                          endTime: classe.endTime,
+                          color: (() {
+                            Random rnd = new Random();
+                            int min = 0, max = cardColors.length;
+                            int r = min + rnd.nextInt(max - min);
+                            int maxColorsLen = brukteFarger.length;
+
+                            if (maxColorsLen <= max) {
+                              while (brukteFarger.contains(r)) {
+                                r = min + rnd.nextInt(max - min);
+                              }
+
+                              brukteFarger.add(r);
+                            }
+
+                            return cardColors[r];
+                          }()),
+                        )
+                    ]),
+                  );
+                }
+                return LoadingAnimation();
+              },
+            )
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class WeekPlanerTitle extends StatefulWidget {
+  const WeekPlanerTitle({
+    Key key,
+    @required this.week,
+    @required this.weekplanIndex,
+  }) : super(key: key);
+
+  final int week;
+  final int weekplanIndex;
+
+  @override
+  _WeekPlanerTitleState createState() => _WeekPlanerTitleState();
+}
+
+class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
+  @override
+  Widget build(BuildContext context) {
+    Duration difference =
+        getWeekDateDifference(widget.weekplanIndex, widget.week);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text(
+          getWeekIndexName(widget.weekplanIndex).capitalize(),
+          style: TextStyle(
+            fontSize: double.parse((() {
+              if (difference.inDays == 0) {
+                return 23;
+              } else
+                return 22;
+            }())
+                .toString()),
+            color: (() {
+              if (difference.inDays == 0) {
+                return Color.fromARGB(255, 113, 137, 255);
+              } else
+                return Color.fromARGB(255, 126, 126, 126);
+            }()),
+          ),
+        ),
+      ],
     );
   }
 }
