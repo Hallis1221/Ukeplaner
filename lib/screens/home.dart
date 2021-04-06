@@ -168,7 +168,33 @@ class Lekser extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.done &&
                       snapshot.hasData &&
                       !snapshot.hasError) {
-                    return Row(children: snapshot.data);
+                    List<Widget> rows = [];
+                    int controllNumber = 0;
+                    for (var i = 0; i < snapshot.data.length; i++) {
+                      if (controllNumber == 0) {
+                        controllNumber = 1;
+                        try {
+                          rows.add(Row(
+                            children: [
+                              snapshot.data[i],
+                              snapshot.data[i + 1],
+                            ],
+                          ));
+                        } catch (e) {
+                          rows.add(Row(
+                            children: [
+                              snapshot.data[i],
+                            ],
+                          ));
+                        }
+                      } else {
+                        controllNumber = 0;
+                      }
+                    }
+
+                    return Column(
+                      children: rows,
+                    );
                   }
                   return LoadingAnimation();
                 },
