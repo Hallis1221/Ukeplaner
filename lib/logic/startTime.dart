@@ -9,8 +9,8 @@ startTime(context) async {
   bool firstTime = prefs.getBool('first_time');
 
   var _duration = new Duration(seconds: 0);
-  if (prefs.getString("color_preset") == null) {
-    prefs.setString("color_preset", "maaz");
+  if (prefs.getString("theme_preset") == null) {
+    prefs.setString("theme_preset", "maaz");
   }
   if (firstTime != null &&
       !firstTime &&
