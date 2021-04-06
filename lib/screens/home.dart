@@ -2,6 +2,8 @@
  You may not use, distribute and modify this code unless a license is granted. 
  If so use, distribution and modification can be done under the terms of the license.*/
 
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -252,22 +254,23 @@ class Lekser extends StatelessWidget {
                       snapshot.hasData &&
                       !snapshot.hasError) {
                     List<Widget> rows = [];
-
+                    List<Widget> data = snapshot.data;
+                    data.shuffle();
                     int controllNumber = 0;
-                    for (var i = 0; i < snapshot.data.length; i++) {
+                    for (var i = 0; i < data.length; i++) {
                       if (controllNumber == 0) {
                         controllNumber = 1;
                         try {
                           rows.add(Row(
                             children: [
-                              snapshot.data[i],
-                              snapshot.data[i + 1],
+                              data[i],
+                              data[i + 1],
                             ],
                           ));
                         } catch (e) {
                           rows.add(Row(
                             children: [
-                              snapshot.data[i],
+                              data[i],
                             ],
                           ));
                         }
@@ -889,4 +892,27 @@ class NewTopAppBar extends StatelessWidget {
       ],
     );
   }
+}
+
+List shuffle(List items) {
+// https://stackoverflow.com/questions/13554129/list-shuffle-in-dart
+  var random = new Random();
+
+  // Go through all elements.
+  for (var i = items.length - 1; i > 0; i--) {
+    // Pick a pseudorandom number according to the list length
+    var n = random.nextInt(i + 1);
+
+    var temp = items[i];
+    items[i] = items[n];
+    items[n] = temp;
+  }
+
+  return items;
+}
+
+main() {
+  var items = ['foo', 'bar', 'baz', 'qux'];
+
+  print(shuffle(items));
 }
