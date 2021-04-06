@@ -52,11 +52,10 @@ class _MyAppState extends State<MyApp> {
     return LocalFirebaseApp(
       initialRoute: '/',
       theme: (() {
-        print('preset: ${prefs.getString("color_preset")}');
-        String colorPreset = prefs.getString("color_preset");
-        if (colorPreset == "maaz") {
+        String themePreset = prefs.getString("theme_preset");
+        if (themePreset == "maaz") {
           return config.maazTheme;
-        } else if (colorPreset == "halvor") {
+        } else if (themePreset == "halvor") {
           return config.halvorTheme;
         }
       }()),
