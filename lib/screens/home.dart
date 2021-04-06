@@ -251,6 +251,7 @@ class Lekser extends StatelessWidget {
                       snapshot.hasData &&
                       !snapshot.hasError) {
                     List<Widget> rows = [];
+
                     int controllNumber = 0;
                     for (var i = 0; i < snapshot.data.length; i++) {
                       if (controllNumber == 0) {
@@ -299,6 +300,7 @@ Future<List<Widget>> _getLekser(BuildContext context, subjects) async {
       alleLekser.add(element);
     });
   }
+  print("_getLekser length: ${alleLekser.length}");
   return alleLekser;
 }
 
@@ -322,6 +324,7 @@ Future<List<Widget>> _getClassLekser(
       }
     }
   }
+  print("_getClassLekser length: ${widgets.length}");
   return widgets;
 }
 
