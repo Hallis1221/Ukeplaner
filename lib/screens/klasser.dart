@@ -18,20 +18,30 @@ class Klasser extends StatelessWidget {
               title: Text(
                 classe.className,
               ),
-              onTap: () => AlertDialog(
-                content: Column(
-                  children: [
-                    Text("Navn: ${classe.className}"),
-                    Text("Rom: ${classe.rom}"),
-                    Text("Lærer: ${classe.teacher}"),
-                  ],
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text("ok"),
-                    onPressed: () => Navigator.of(context).pop(),
-                  )
-                ],
+              onTap: () => showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    content: Container(
+                      height: 75,
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Text("Navn: ${classe.className}"),
+                            Text("Rom: ${classe.rom}"),
+                            Text("Lærer: ${classe.teacher}"),
+                          ],
+                        ),
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text("ok"),
+                        onPressed: () => Navigator.of(context).pop(),
+                      )
+                    ],
+                  );
+                },
               ),
             ),
         ],
