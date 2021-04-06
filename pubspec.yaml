@@ -94,6 +94,7 @@ flutter:
     - assets/animations/UtvAnimasjon.json
     - assets/animations/StaySafe.json
     - assets/animations/booksLoading.json
+    - assets/animations/krleAnimasjon.json
 
   fonts:
     - family: NirmalaUI
