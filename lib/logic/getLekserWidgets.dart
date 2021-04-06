@@ -11,7 +11,7 @@ import '../config/config.dart';
 import 'makeCompleteDayClass.dart';
 
 List brukteFarger = [];
-List<String> rowChildrenController = [];
+
 Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
   List<Widget> children = [];
 
@@ -28,7 +28,7 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
         }
         print("lekse: $lekse");
         brukteFarger = [];
-        String uid = "${lekse.tittel}.${lekse.fag}.${lekse.date}}";
+        String uid = "${lekse.tittel}.${lekse.fag}.${lekse.date.day}}";
         if (!rowChildrenController.contains(uid)) {
           print("does not contain $uid");
           rowChildrenController.add(uid);
@@ -117,11 +117,6 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
               ),
             ),
           ));
-        } else if (rowChildrenController.length >
-            completeDayClass.lekser.length) {
-          print("reset controller");
-          rowChildrenController = [];
-          getLekserWidgets(context, subjects, date);
         } else {
           print(
               "No homework, controller: $rowChildrenController and lekser: ${completeDayClass.lekser}");
