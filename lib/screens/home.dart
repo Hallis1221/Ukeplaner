@@ -87,10 +87,11 @@ class HalvorScaffold extends StatelessWidget {
             pinned: true,
             snap: false,
             floating: false,
-            expandedHeight: 160.0,
-            flexibleSpace: const FlexibleSpaceBar(
-              title: Text('SliverAppBar'),
-              background: FlutterLogo(),
+            expandedHeight: 125,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text("${firstName.capitalize()} ${lastName.capitalize()}"),
+              centerTitle: true,
+              collapseMode: CollapseMode.pin,
             ),
           ),
           SliverToBoxAdapter(
