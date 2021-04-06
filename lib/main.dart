@@ -25,6 +25,7 @@ import 'logic/firebase/firebase.dart';
 import 'logic/futureValidateBuilder.dart';
 import 'logic/getClasses.dart';
 import 'config/config.dart' as config;
+import 'screens/klasser.dart';
 import 'screens/loadingScreen.dart';
 import 'screens/verify.dart';
 import 'screens/welcome_screen.dart';
@@ -80,9 +81,10 @@ class _MyAppState extends State<MyApp> {
         '/home/beta': BetaHomeScreen(),
         '/profile': ProfilePage(),
         '/settings': SettingsMenu(),
+        '/settings/klasser': Klasser(),
         '/skoleFacts': SkoleFacts(),
         '/testPlan': Testplan(),
-        '/licenses': OssLicensesPage(),
+        '/settings/licenses': OssLicensesPage(),
         '/weekPlan': FutureBuilder(
           future: getClasses(),
           builder: (context, snapshot) {
