@@ -137,11 +137,13 @@ class MainDrawer extends StatelessWidget {
                     ),
                     title: Text("Innstilinger"),
                   ),
+                  /*
                   ListTile(
                     leading: Icon(Icons.report_problem_outlined),
                     title: Text("Beta hjem"),
                     onTap: () => Navigator.of(context).pushNamed("/home/beta"),
                   )
+                  */
                 ],
               ),
             ),
