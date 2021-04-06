@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ukeplaner/logic/oss_license.dart';
 import 'package:ukeplaner/main.dart';
+import '../logic/tekst.dart';
 
 class SettingsMenu extends StatelessWidget {
   const SettingsMenu({Key key}) : super(key: key);
@@ -24,16 +25,16 @@ class SettingsMenu extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.color_lens),
-                title: Text(prefs.getString('color_preset') +
-                    " farge palet. Trykk for å bytte."),
+                title: Text(prefs.getString('theme_preset').capitalize() +
+                    " Tema. Trykk for å bytte."),
                 onTap: () {
                   parent.setState(() {
-                    switch (prefs.getString('color_preset')) {
+                    switch (prefs.getString('theme_preset')) {
                       case "halvor":
-                        prefs.setString('color_preset', "maaz");
+                        prefs.setString('theme_preset', "maaz");
                         break;
                       case "maaz":
-                        prefs.setString('color_preset', "halvor");
+                        prefs.setString('theme_preset', "halvor");
                         break;
                       default:
                     }
