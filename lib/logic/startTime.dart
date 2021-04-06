@@ -12,16 +12,21 @@ startTime(context) async {
   if (prefs.getString("theme_preset") == null) {
     prefs.setString("theme_preset", "maaz");
   }
-  if (firstTime != null &&
-      !firstTime &&
-      !remoteConfig.getBool('alltid_vis_intro')) {
-    // Not first time
-    return new Timer(_duration,
-        () => Navigator.of(context).pushReplacementNamed('/validate'));
-  } else {
-    // First time
+  try {
+    if (firstTime != null &&
+        !firstTime &&
+        !remoteConfig.getBool('alltid_vis_intro')) {
+      // Not first time
+      return new Timer(_duration,
+          () => Navigator.of(context).pushReplacementNamed('/validate'));
+    } else {
+      // First time
 
-    prefs.setBool('first_time', false);
+      prefs.setBool('first_time', false);
+      return new Timer(_duration,
+          () => Navigator.of(context).pushReplacementNamed('/welcome'));
+    }
+  } catch (e) {
     return new Timer(_duration,
         () => Navigator.of(context).pushReplacementNamed('/welcome'));
   }
