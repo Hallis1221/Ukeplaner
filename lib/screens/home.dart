@@ -41,6 +41,7 @@ String chossenTid;
 String chossenId;
 TextEditingController lekseTitleController = TextEditingController();
 TextEditingController lekseBeskController = TextEditingController();
+Map doneDates = {};
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -316,7 +317,7 @@ Future<List<Widget>> _getClassLekser(
       DateTime dateTime = date["dateTime"];
       if (dateTime.weekday == classTime.dayIndex) {
         await getLekserWidgets(context, subjects, date).then((snapshot) {
-          print("has data");
+          print("got $date: $snapshot for ${classe.className}");
           snapshot.forEach((element) {
             widgets.add(element);
           });
@@ -324,7 +325,7 @@ Future<List<Widget>> _getClassLekser(
       }
     }
   }
-  print("_getClassLekser length: ${widgets.length}");
+  print("${classe.className} length: ${widgets.length}");
   return widgets;
 }
 
