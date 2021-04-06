@@ -61,8 +61,8 @@ Future<List<Widget>> getLekserWidgets(context, subjects, date) async {
                     ),
                     Container(
                       child: (() {
-                        if (iconIndex[lekse.tittel] != null) {
-                          return iconIndex[lekse.tittel];
+                        if (iconIndex[lekse.fag.toLowerCase()] != null) {
+                          return iconIndex[lekse.fag.toLowerCase()];
                         } else
                           return iconIndex["default"];
                       }()),
