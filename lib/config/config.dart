@@ -49,9 +49,15 @@ Color linearGreen = Color.fromARGB(255, 34, 219, 58);
 // forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
 
 Map<String, Widget> iconIndex = {
-  "UTV": Container(
+  "utv": Container(
     child: LottieBuilder.asset(
       'assets/animations/UtvAnimasjon.json',
+      height: 125,
+    ),
+  ),
+  "krle": Container(
+    child: LottieBuilder.asset(
+      'assets/animations/krleAnimasjon.json',
       height: 125,
     ),
   ),
