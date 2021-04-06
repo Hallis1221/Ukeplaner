@@ -17,11 +17,20 @@ class SettingsMenu extends StatelessWidget {
           Column(
             children: <ListTile>[
               ListTile(
+                leading: Icon(Icons.person_pin_outlined),
+                title: Text(
+                  "Klasser",
+                ),
+                onTap: () =>
+                    Navigator.of(context).pushNamed('/settings/klasser'),
+              ),
+              ListTile(
                 leading: Icon(Icons.file_present),
                 title: Text(
                   "Lisenser",
                 ),
-                onTap: () => Navigator.of(context).pushNamed('/licenses'),
+                onTap: () =>
+                    Navigator.of(context).pushNamed('/settings/licenses'),
               ),
               ListTile(
                 leading: Icon(Icons.color_lens),
