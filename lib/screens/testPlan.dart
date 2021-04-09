@@ -64,9 +64,11 @@ class Testplan extends StatelessWidget {
       body: FutureBuilder(
         future: getTests(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done 
-              ) {
-                if (snapshot.hasData == false){return LoadingAnimation();}
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData == false) {
+              print("snapshot: $snapshot");
+              return LoadingAnimation();
+            }
             List<Test> tests = snapshot.data;
 
             return Column(
