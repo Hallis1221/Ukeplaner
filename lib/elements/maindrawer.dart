@@ -16,7 +16,7 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: lysOrange,
       child: Column(
         children: [
           Row(
