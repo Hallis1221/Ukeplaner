@@ -298,7 +298,7 @@ class _WeekPlanerTitleState extends State<WeekPlanerTitle> {
             }())
                 .toString()),
             color: (() {
-              if (difference.inDays == 0) {
+              if (difference.inHours == 0) {
                 return Color.fromARGB(255, 113, 137, 255);
               } else
                 return Color.fromARGB(255, 126, 126, 126);
