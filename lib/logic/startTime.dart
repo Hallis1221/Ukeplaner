@@ -10,7 +10,7 @@ startTime(context) async {
 
   var _duration = new Duration(seconds: 0);
   if (prefs.getString("theme_preset") == null) {
-    prefs.setString("theme_preset", "maaz");
+    prefs.setString("theme_preset", "2");
   }
   try {
     if (firstTime != null &&
