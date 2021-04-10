@@ -9,10 +9,9 @@ Future<List<Test>> getTests() async {
   return tests;
 }
 
-
 Future<List<Test>> _getList() async {
-  List tests = [];
-   for (String code in cloudClassesCodes) {
+  List<Test> tests = [];
+  for (String code in cloudClassesCodes) {
     print(2);
     DocumentReference documentReference = db.collection("classes").doc(code);
 

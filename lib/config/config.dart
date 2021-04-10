@@ -305,3 +305,4 @@ String firstName;
 String lastName;
 bool isTeacher = false;
 List<String> rowChildrenController = [];
+bool gottenTopics = false;

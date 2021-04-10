@@ -128,10 +128,11 @@ class VerificationSerivice {
   Future<bool> checkCode(int input, {bool log = false}) async {
     /* FirebaseFunctions.instance
         .useFunctionsEmulator(origin: 'http://localhost:5001');*/
-
+    print("entered checkcode");
     HttpsCallable callable =
         FirebaseFunctions.instance.httpsCallable('checkcode');
     //!! husk at det er et map
+    print("entered results");
     final results = await callable.call({"code": input, "useLog": log});
     // planen var egt å bare hente alle kodene, men da ville appen vært enkel å bryte seg inn i
     print("code result: ${results.data}");

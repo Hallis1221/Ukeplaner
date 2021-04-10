@@ -54,9 +54,9 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       theme: (() {
         String themePreset = prefs.getString("theme_preset");
-        if (themePreset == "maaz") {
+        if (themePreset == "1") {
           return config.maazTheme;
-        } else if (themePreset == "halvor") {
+        } else if (themePreset == "2") {
           return config.halvorTheme;
         }
       }()),

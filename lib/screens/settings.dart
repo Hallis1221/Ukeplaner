@@ -39,13 +39,14 @@ class SettingsMenu extends StatelessWidget {
                 onTap: () {
                   parent.setState(() {
                     switch (prefs.getString('theme_preset')) {
-                      case "halvor":
-                        prefs.setString('theme_preset', "maaz");
+                      case "1":
+                        prefs.setString('theme_preset', "2");
                         break;
-                      case "maaz":
-                        prefs.setString('theme_preset', "halvor");
+                      case "2":
+                        prefs.setString('theme_preset', "1");
                         break;
                       default:
+                        prefs.setString('theme_preset', "1");
                     }
                   });
                 },
