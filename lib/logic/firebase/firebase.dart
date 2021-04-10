@@ -135,7 +135,7 @@ class LocalFirebaseApp extends StatelessWidget {
   }
 }
 
-Future<RemoteConfig> remote(RemoteConfig remoteConfig) async {
+Future<RemoteConfig> remote() async {
   var remoteConfigInstance = await RemoteConfig.instance;
   final defaults = fcmDefaults;
   await remoteConfigInstance.setDefaults(defaults);
