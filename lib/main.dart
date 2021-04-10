@@ -34,7 +34,7 @@ import 'package:native_shared_preferences/native_shared_preferences.dart';
 NativeSharedPreferences prefs;
 _MyAppState parent;
 Future<void> main() async {
-  initApp();
+  await initApp();
   prefs = await NativeSharedPreferences.getInstance();
   runApp(MyApp());
 }
@@ -120,11 +120,11 @@ void _portraitModeOnly() {
   ]);
 }
 
-void initApp() {
+Future<void> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting("nb_NO");
 
-  remote(remoteConfig).then((value) {
+  await remote().then((value) {
     config.remoteConfig = value;
   });
 }
