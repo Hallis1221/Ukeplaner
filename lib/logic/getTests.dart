@@ -5,7 +5,7 @@ import '../logic/test.dart';
 
 Future<List<Test>> getTests() async {
   List<Test> tests = await _getList();
-  print("4");
+  print("returning tests");
   return tests;
 }
 
@@ -24,9 +24,9 @@ Future<List<Test>> _getList() async {
     print("tests;  $currentTest");
     for (var test in currentTest) {
       print("test; $test");
-      int timeStamp = test["TIMESTAMP_date"];
+      Timestamp timeStamp = test["date"];
       tests.add(new Test(
-          date: Timestamp.fromMicrosecondsSinceEpoch(timeStamp).toDate(),
+          date: timeStamp.toDate(),
           message: test["message"],
           title: test["title"]));
       print("tests list: $tests");
