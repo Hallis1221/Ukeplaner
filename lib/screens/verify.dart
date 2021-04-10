@@ -208,25 +208,27 @@ class _CodeInputterState extends State<CodeInputter>
                     length: 4,
                     controller: codeInputController,
                     onComplete: (input) async {
+                      print("input!");
                       if (attemptedCodes.contains(input)) {
+                        print("TRIED");
                         allreadyTriedCode(context);
                         return;
                       }
                       try {
-                        await VerificationSerivice()
-                            .checkCode(int.parse(input))
-                            .then((value) {
-                          setState(() {
-                            validCode = value;
-                            inputEnabled = !value;
-                            buttonEnabled = !value;
-                            attemptedCodes.add(input);
-                            if (value == false) {
-                              animationController.forward(from: 0.0);
-                            }
-                          });
+                        var value = await VerificationSerivice()
+                            .checkCode(int.parse(input));
+                        setState(() {
+                          validCode = value;
+                          inputEnabled = !value;
+                          buttonEnabled = !value;
+                          attemptedCodes.add(input);
+                          if (value == false) {
+                            animationController.forward(from: 0.0);
+                          }
                         });
                       } catch (e) {
+                        print("entered exception, $e");
+
                         animationController.forward(from: 0.0);
                         codeInputController.clear();
                       }
