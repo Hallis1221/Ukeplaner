@@ -27,7 +27,7 @@ Future<Map> getDocument({
     error = e;
   }
 
-  if (cacheData == null || outDated || cacheData == []||true) {
+  if (cacheData == null || outDated || cacheData == []) {
     try {
       print(
           """got:  ${documentReference.path} beacuse cache was null?   ${cacheData == null} it was outdated $outDated. was there an error? $error
