@@ -43,9 +43,10 @@ class SettingsMenu extends StatelessWidget {
                         prefs.setString('theme_preset', "2");
                         break;
                       case "2":
-                        prefs.setString('theme_preset', "halvor");
+                        prefs.setString('theme_preset', "1");
                         break;
                       default:
+                        prefs.setString('theme_preset', "1");
                     }
                   });
                 },
