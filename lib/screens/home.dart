@@ -691,14 +691,6 @@ class MinePlaner extends StatelessWidget {
                       semesterFormatted(getSemester(semesterEn, semesterTo)),
                   icon: CustomIcons.checklist,
                 ),
-                MaterialButton(
-                  onPressed: () {
-                    parent.setState(() {
-                      context.read<AuthenticationService>().signOut();
-                    });
-                  },
-                  child: Text('logg ut'),
-                ),
               ],
             ),
           ),
