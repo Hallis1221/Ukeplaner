@@ -10,6 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../logic/firebase/auth_services.dart';
 import 'package:flutter/widgets.dart';
 
+import '../main.dart';
+
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key key}) : super(key: key);
 
@@ -137,6 +139,15 @@ class MainDrawer extends StatelessWidget {
                     ),
                     title: Text("Innstilinger"),
                   ),
+                  ListTile(
+                    leading: Icon(Icons.exit_to_app),
+                    title: Text("Logg ut"),
+                    onTap: () {
+                      parent.setState(() {
+                        context.read<AuthenticationService>().signOut();
+                      });
+                    },
+                  )
                   /*
                   ListTile(
                     leading: Icon(Icons.report_problem_outlined),
