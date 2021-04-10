@@ -58,9 +58,9 @@ class HomeScreen extends StatelessWidget {
     print("width: ${size.width}");
     DateTime date = getDate()["dateTime"];
     String themePreset = prefs.getString("theme_preset");
-    if (themePreset == "2") {
+    if (themePreset == "1") {
       return MaazScaffold(size: size, date: date, subjects: subjects);
-    } else if (themePreset == "1") {
+    } else if (themePreset == "2") {
       return HalvorScaffold(size: size, date: date, subjects: subjects);
     } else {
       return MaazScaffold(size: size, date: date, subjects: subjects);
