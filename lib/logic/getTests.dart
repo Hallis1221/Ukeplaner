@@ -31,9 +31,7 @@ Future<List<Test>> _getList() async {
           title: test["title"]));
       print("tests list: $tests");
     }
-    print(3);
-    print("KOM HIT");
   }
-  print("KOMER HIT");
+
   return tests;
 }
