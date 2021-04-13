@@ -691,11 +691,15 @@ class MinePlaner extends StatelessWidget {
                   size: 25,
                   title: "Dagsplan",
                   subTitle: DateFormat("EEEE")
-                      .format(getDate(addDays: 0)["dateTime"])
+                      .format(
+                        getDate(addDays: 0)["dateTime"],
+                      )
                       .capitalize(),
                   subTitleOnLong:
                       DateFormat(DateFormat.YEAR_ABBR_MONTH_WEEKDAY_DAY)
-                          .format(getDate()["dateTime"])
+                          .format(
+                            getDate()["dateTime"],
+                          )
                           .capitalize(),
                 ),
                 MenuButton(
