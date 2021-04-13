@@ -631,14 +631,43 @@ class MinePlaner extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 5, left: 25),
-          child: Text(
-            'Mine Planer',
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 38, 58, 80),
-              letterSpacing: 2,
-            ),
+          child: Row(
+            children: [
+              Text(
+                'Mine Planer',
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 38, 58, 80),
+                  letterSpacing: 2,
+                ),
+              ),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      tider = [];
+                      showMaterialModalBottomSheet(
+                        context: context,
+                        builder: (context) => NewLekse(),
+                      );
+                    },
+                    shape: CircleBorder(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.5),
+                      child: Icon(
+                        Icons.notifications,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                    ),
+                    fillColor: mildBlue,
+                    elevation: 0,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         SizedBox(
