@@ -720,8 +720,12 @@ class MinePlaner extends StatelessWidget {
                   size: 25,
                   color: Colors.yellow,
                   title: 'Prøveplan',
-                  subTitle:
-                      semesterFormatted(getSemester(semesterEn, semesterTo)),
+                  subTitle: semesterFormatted(
+                    getSemester(
+                      semesterEn,
+                      semesterTo,
+                    ),
+                  ),
                   icon: CustomIcons.checklist,
                 ),
               ],
