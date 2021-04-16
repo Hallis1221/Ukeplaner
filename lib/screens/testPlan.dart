@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:ukeplaner/screens/loadingScreen.dart';
 import '../config/config.dart' as config;
@@ -73,7 +74,7 @@ class Testplan extends StatelessWidget {
 
             return Column(
               children: [
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -82,7 +83,12 @@ class Testplan extends StatelessWidget {
                         child: Text(
                           'Termin 1',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 30),
+                          style: GoogleFonts.roboto(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 30,
+                            letterSpacing: 1.5,
+                            color: Color.fromARGB(255, 113, 137, 255),
+                          ),
                         ),
                       ),
                     ),
@@ -92,12 +98,18 @@ class Testplan extends StatelessWidget {
                         child: Text(
                           'Termin 2',
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 30),
+                          style: GoogleFonts.roboto(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 30,
+                            letterSpacing: 1.5,
+                            color: Color.fromARGB(255, 126, 126, 126),
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
+                SizedBox(height: 100),
                 Expanded(
                   child: ListView(
                     children: [
