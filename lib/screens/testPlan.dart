@@ -13,6 +13,8 @@ import '../logic/tekst.dart';
 import '../screens/dayPlan.dart';
 import '../logic/test.dart';
 
+_TestWidgetsState testWidgetsState;
+
 class Testplan extends StatelessWidget {
   const Testplan({Key key}) : super(key: key);
 
@@ -83,8 +85,10 @@ class Testplan extends StatelessWidget {
 }
 
 int selectedTermin = 1;
+List<Widget> testWidgetsTerminEn = [];
+List<Widget> testWidgetsTerminTo = [];
 
-class Terminer extends StatefulWidget {
+class Terminer extends StatelessWidget {
   const Terminer({
     Key key,
     @required this.tests,
@@ -94,105 +98,166 @@ class Terminer extends StatefulWidget {
   final List<Test> tests;
   final List brukteFarger;
 
-  @override
-  _TerminerState createState() => _TerminerState();
-}
-
-class _TerminerState extends State<Terminer> {
-  @override
   Widget build(BuildContext context) {
+    List listDoneTests = [];
+    testWidgetsTerminEn = [];
+    testWidgetsTerminTo = [];
+    tests.forEach((test) {
+      if (!listDoneTests.contains(test)) {
+        Widget widget = Padding(
+          padding: const EdgeInsets.only(bottom: 15),
+          child: TimeCard(
+              startTid: DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
+                  .format(test.date),
+              sluttTid: "",
+              klasseNavn: test.title,
+              message: test.message,
+              rom: "",
+              color: (() {
+                Random rnd = new Random();
+                int min = 0, max = lekserColors.length;
+                int r = min + rnd.nextInt(max - min);
+                int maxColorsLen = brukteFarger.length;
+
+                if (maxColorsLen <= max) {
+                  while (brukteFarger.contains(r)) {
+                    r = min + rnd.nextInt(max - min);
+                  }
+
+                  brukteFarger.add(r);
+                }
+
+                return lekserColors[r];
+              }())),
+        );
+        if (test.date.isBefore(config.sEnStart)) {
+          testWidgetsTerminEn.add(widget);
+        } else {
+          print("tests termin to added");
+          testWidgetsTerminTo.add(widget);
+        }
+        listDoneTests.add(test);
+      }
+    });
     return Column(
       children: [
         SizedBox(height: 20),
-        Row(
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                // TODO crashes on set state
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(left: 58),
-                child: Text(
-                  'Termin 1',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.roboto(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 30,
-                    letterSpacing: 1.5,
-                    color: (() {
-                      if (selectedTermin == 1) {
-                        return Color.fromARGB(255, 113, 137, 255);
-                      } else {
-                        return Color.fromARGB(255, 126, 126, 126);
-                      }
-                    }()),
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                // TODO crashes on set state
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 58),
-                child: Text(
-                  'Termin 2',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.roboto(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 30,
-                    letterSpacing: 1.5,
-                    color: (() {
-                      if (selectedTermin == 2) {
-                        return Color.fromARGB(255, 113, 137, 255);
-                      } else {
-                        return Color.fromARGB(255, 126, 126, 126);
-                      }
-                    }()),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        Termins(),
         SizedBox(height: 100),
         Expanded(
           child: ListView(
             children: [
-              Column(
-                children: widget.tests.map((test) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 15),
-                    child: TimeCard(
-                        startTid: DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
-                            .format(test.date),
-                        sluttTid: "",
-                        klasseNavn: test.title,
-                        message: test.message,
-                        rom: "",
-                        color: (() {
-                          Random rnd = new Random();
-                          int min = 0, max = lekserColors.length;
-                          int r = min + rnd.nextInt(max - min);
-                          int maxColorsLen = widget.brukteFarger.length;
-
-                          if (maxColorsLen <= max) {
-                            while (widget.brukteFarger.contains(r)) {
-                              r = min + rnd.nextInt(max - min);
-                            }
-
-                            widget.brukteFarger.add(r);
-                          }
-
-                          return lekserColors[r];
-                        }())),
-                  );
-                }).toList(),
-              ),
+              TestWidgets(),
             ],
           ),
         )
+      ],
+    );
+  }
+}
+
+class TestWidgets extends StatefulWidget {
+  const TestWidgets({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _TestWidgetsState createState() => _TestWidgetsState();
+}
+
+class _TestWidgetsState extends State<TestWidgets> {
+  @override
+  Widget build(BuildContext context) {
+    testWidgetsState = this;
+    List<Widget> testWidgets = [];
+    if (selectedTermin == 1) {
+      testWidgets = testWidgetsTerminEn;
+    } else if (selectedTermin == 2) {
+      testWidgets = testWidgetsTerminTo;
+    }
+    print("tests widgets: $testWidgets and termin: $selectedTermin");
+    return Container(
+      color: Colors.transparent,
+      child: Column(
+        children: testWidgets,
+      ),
+    );
+  }
+}
+
+class Termins extends StatefulWidget {
+  const Termins({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _TerminsState createState() => _TerminsState();
+}
+
+class _TerminsState extends State<Termins> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              selectedTermin = 1;
+            });
+            testWidgetsState.setState(() {
+              selectedTermin = 1;
+            });
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 58),
+            child: Text(
+              'Termin 1',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.roboto(
+                fontStyle: FontStyle.normal,
+                fontSize: 30,
+                letterSpacing: 1.5,
+                color: (() {
+                  if (selectedTermin == 1) {
+                    return Color.fromARGB(255, 113, 137, 255);
+                  } else {
+                    return Color.fromARGB(255, 126, 126, 126);
+                  }
+                }()),
+              ),
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            // TODO crashes on set state
+            setState(() {
+              selectedTermin = 2;
+            });
+            testWidgetsState.setState(() {
+              selectedTermin = 2;
+            });
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 58),
+            child: Text(
+              'Termin 2',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.roboto(
+                fontStyle: FontStyle.normal,
+                fontSize: 30,
+                letterSpacing: 1.5,
+                color: (() {
+                  if (selectedTermin == 2) {
+                    return Color.fromARGB(255, 113, 137, 255);
+                  } else {
+                    return Color.fromARGB(255, 126, 126, 126);
+                  }
+                }()),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
