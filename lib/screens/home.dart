@@ -945,7 +945,7 @@ main() {
 
   print(shuffle(items));
 }
-//jeg vi ha tusen linjer
+//jeg ville ha tusen linjer
 //
 //
 //
