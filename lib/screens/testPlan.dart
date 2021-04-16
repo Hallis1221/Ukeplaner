@@ -106,57 +106,45 @@ class _TerminerState extends State<Terminer> {
         Row(
           children: <Widget>[
             GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedTermin = 1;
-                });
-              },
-              child: Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 58),
-                  child: Text(
-                    'Termin 1',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.roboto(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 30,
-                      letterSpacing: 1.5,
-                      color: (() {
-                        if (selectedTermin == 1) {
-                          return Color.fromARGB(255, 113, 137, 255);
-                        } else {
-                          return Color.fromARGB(255, 126, 126, 126);
-                        }
-                      }()),
-                    ),
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.only(left: 58),
+                child: Text(
+                  'Termin 1',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.roboto(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 30,
+                    letterSpacing: 1.5,
+                    color: (() {
+                      if (selectedTermin == 1) {
+                        return Color.fromARGB(255, 113, 137, 255);
+                      } else {
+                        return Color.fromARGB(255, 126, 126, 126);
+                      }
+                    }()),
                   ),
                 ),
               ),
             ),
             GestureDetector(
-              onTap: () {
-                setState(() {
-                  selectedTermin = 2;
-                });
-              },
-              child: Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 58),
-                  child: Text(
-                    'Termin 2',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.roboto(
-                      fontStyle: FontStyle.normal,
-                      fontSize: 30,
-                      letterSpacing: 1.5,
-                      color: (() {
-                        if (selectedTermin == 2) {
-                          return Color.fromARGB(255, 113, 137, 255);
-                        } else {
-                          return Color.fromARGB(255, 126, 126, 126);
-                        }
-                      }()),
-                    ),
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.only(right: 58),
+                child: Text(
+                  'Termin 2',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.roboto(
+                    fontStyle: FontStyle.normal,
+                    fontSize: 30,
+                    letterSpacing: 1.5,
+                    color: (() {
+                      if (selectedTermin == 2) {
+                        return Color.fromARGB(255, 113, 137, 255);
+                      } else {
+                        return Color.fromARGB(255, 126, 126, 126);
+                      }
+                    }()),
                   ),
                 ),
               ),
