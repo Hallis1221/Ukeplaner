@@ -126,8 +126,8 @@ class AuthenticationService {
 
 class VerificationSerivice {
   Future<bool> checkCode(int input, {bool log = false}) async {
-    /* FirebaseFunctions.instance
-        .useFunctionsEmulator(origin: 'http://localhost:5001');*/
+    FirebaseFunctions.instance
+        .useFunctionsEmulator(origin: 'http://localhost:5001');
     print("entered checkcode");
     HttpsCallable callable =
         FirebaseFunctions.instance.httpsCallable('checkcode');
