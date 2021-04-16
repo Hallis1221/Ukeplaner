@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -106,7 +107,9 @@ class _TerminerState extends State<Terminer> {
         Row(
           children: <Widget>[
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                // TODO crashes on set state
+              },
               child: Padding(
                 padding: const EdgeInsets.only(left: 58),
                 child: Text(
@@ -128,7 +131,9 @@ class _TerminerState extends State<Terminer> {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                // TODO crashes on set state
+              },
               child: Padding(
                 padding: const EdgeInsets.only(right: 58),
                 child: Text(
