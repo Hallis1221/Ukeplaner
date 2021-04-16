@@ -13,8 +13,6 @@ import '../logic/tekst.dart';
 import '../screens/dayPlan.dart';
 import '../logic/test.dart';
 
-var testsWidget;
-
 class Testplan extends StatelessWidget {
   const Testplan({Key key}) : super(key: key);
 
@@ -85,6 +83,7 @@ class Testplan extends StatelessWidget {
 }
 
 int selectedTermin = 1;
+List<Widget> testWidgets = [];
 
 class Terminer extends StatelessWidget {
   const Terminer({
@@ -97,39 +96,11 @@ class Terminer extends StatelessWidget {
   final List brukteFarger;
 
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 20),
-        Termins(),
-        SizedBox(height: 100),
-        Expanded(
-          child: ListView(
-            children: [
-              Tests(tests: tests, brukteFarger: brukteFarger),
-            ],
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class Tests extends StatelessWidget {
-  const Tests({
-    Key key,
-    @required this.tests,
-    @required this.brukteFarger,
-  }) : super(key: key);
-
-  final List<Test> tests;
-  final List brukteFarger;
-
-  @override
-  Widget build(BuildContext context) {
-    testsWidget = this;
-    return Column(
-      children: tests.map((test) {
-        return Padding(
+    List listDoneTests = [];
+    testWidgets = [];
+    tests.forEach((test) {
+      if (!listDoneTests.contains(test)) {
+        testWidgets.add(Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: TimeCard(
               startTid: DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
@@ -154,8 +125,52 @@ class Tests extends StatelessWidget {
 
                 return lekserColors[r];
               }())),
-        );
-      }).toList(),
+        ));
+        listDoneTests.add(test);
+      }
+    });
+    return Column(
+      children: [
+        SizedBox(height: 20),
+        Termins(),
+        SizedBox(height: 100),
+        Expanded(
+          child: ListView(
+            children: [
+              TestWidgets(),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class TestWidgets extends StatefulWidget {
+  const TestWidgets({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _TestWidgetsState createState() => _TestWidgetsState();
+}
+
+class _TestWidgetsState extends State<TestWidgets> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        print("HEYYYY");
+        setState(() {
+          testWidgets = [];
+        });
+      },
+      child: Container(
+        color: Colors.transparent,
+        child: Column(
+          children: testWidgets,
+        ),
+      ),
     );
   }
 }
