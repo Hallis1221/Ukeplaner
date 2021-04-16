@@ -204,6 +204,9 @@ class _TerminsState extends State<Termins> {
             setState(() {
               selectedTermin = 1;
             });
+            testWidgetsState.setState(() {
+              selectedTermin = 1;
+            });
           },
           child: Padding(
             padding: const EdgeInsets.only(left: 58),
@@ -229,6 +232,9 @@ class _TerminsState extends State<Termins> {
           onTap: () {
             // TODO crashes on set state
             setState(() {
+              selectedTermin = 2;
+            });
+            testWidgetsState.setState(() {
               selectedTermin = 2;
             });
           },
