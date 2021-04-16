@@ -13,6 +13,7 @@ import 'home.dart';
 import 'package:swipedetector/swipedetector.dart';
 import 'package:week_of_year/week_of_year.dart';
 import '../logic/tekst.dart';
+import 'package:google_fonts/google_fonts.dart' as gf;
 
 int totalAmountOfDays = 0;
 
