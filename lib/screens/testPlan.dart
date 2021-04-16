@@ -13,6 +13,8 @@ import '../logic/tekst.dart';
 import '../screens/dayPlan.dart';
 import '../logic/test.dart';
 
+_TestWidgetsState testWidgetsState;
+
 class Testplan extends StatelessWidget {
   const Testplan({Key key}) : super(key: key);
 
@@ -83,7 +85,8 @@ class Testplan extends StatelessWidget {
 }
 
 int selectedTermin = 1;
-List<Widget> testWidgets = [];
+List<Widget> testWidgetsTerminEn = [];
+List<Widget> testWidgetsTerminTo = [];
 
 class Terminer extends StatelessWidget {
   const Terminer({
@@ -97,10 +100,11 @@ class Terminer extends StatelessWidget {
 
   Widget build(BuildContext context) {
     List listDoneTests = [];
-    testWidgets = [];
+    testWidgetsTerminEn = [];
+    testWidgetsTerminTo = [];
     tests.forEach((test) {
       if (!listDoneTests.contains(test)) {
-        testWidgets.add(Padding(
+        Widget widget = Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: TimeCard(
               startTid: DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
@@ -125,7 +129,13 @@ class Terminer extends StatelessWidget {
 
                 return lekserColors[r];
               }())),
-        ));
+        );
+        if (test.date.isBefore(config.sEnStart)) {
+          testWidgetsTerminEn.add(widget);
+        } else {
+          print("tests termin to added");
+          testWidgetsTerminTo.add(widget);
+        }
         listDoneTests.add(test);
       }
     });
@@ -158,18 +168,18 @@ class TestWidgets extends StatefulWidget {
 class _TestWidgetsState extends State<TestWidgets> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        print("HEYYYY");
-        setState(() {
-          testWidgets = [];
-        });
-      },
-      child: Container(
-        color: Colors.transparent,
-        child: Column(
-          children: testWidgets,
-        ),
+    testWidgetsState = this;
+    List<Widget> testWidgets = [];
+    if (selectedTermin == 1) {
+      testWidgets = testWidgetsTerminEn;
+    } else if (selectedTermin == 2) {
+      testWidgets = testWidgetsTerminTo;
+    }
+    print("tests widgets: $testWidgets and termin: $selectedTermin");
+    return Container(
+      color: Colors.transparent,
+      child: Column(
+        children: testWidgets,
       ),
     );
   }
