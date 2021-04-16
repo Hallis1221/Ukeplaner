@@ -25,11 +25,19 @@ Future<List<Test>> _getList() async {
     for (var test in currentTest) {
       print("test; $test");
       Timestamp timeStamp = test["date"];
-      tests.add(new Test(
-          date: timeStamp.toDate(),
-          message: test["message"],
-          title: test["title"]));
-      print("tests list: $tests");
+      try {
+        tests.add(new Test(
+            date: timeStamp.toDate(),
+            message: test["message"],
+            title: test["title"]));
+        print("tests list: $tests");
+      } catch (e) {
+        print("timestamp failed: $timeStamp");
+        tests.add(new Test(
+            date: DateTime.now(),
+            message: test["message"],
+            title: test["title"]));
+      }
     }
   }
 
