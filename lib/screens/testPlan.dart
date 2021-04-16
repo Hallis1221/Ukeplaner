@@ -32,9 +32,9 @@ class Testplan extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 75, left: 5),
                     child: Text(
-                      "Prøveplan ${semesterFormatted(getSemester(semesterEn, semesterTo))}",
+                      'Prøveplan',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 35,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -73,7 +73,31 @@ class Testplan extends StatelessWidget {
 
             return Column(
               children: [
-                SizedBox(height: 150),
+                SizedBox(height: 10),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 58),
+                        child: Text(
+                          'Termin 1',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 58),
+                        child: Text(
+                          'Termin 2',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Expanded(
                   child: ListView(
                     children: [
