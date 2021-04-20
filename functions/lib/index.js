@@ -60,7 +60,7 @@ exports.checkcode = functions.https.onCall((argumentData) => {
 });
 exports.sendLekse = functions.firestore.document("classes/{classId}/classes/{classTime}").
     onWrite(async (snapshot, context) => {
-    var parent = await snapshot.ref.parent;
-    console.log("parent is " + parent);
+    var parent = snapshot.data.ref.parent;
+    console.log("parent is now " + parent);
 });
 //# sourceMappingURL=index.js.map
