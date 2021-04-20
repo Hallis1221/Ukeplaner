@@ -1,6 +1,5 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { debug } from "firebase-functions/lib/logger";
 
 admin.initializeApp();
 const db = admin.firestore();
