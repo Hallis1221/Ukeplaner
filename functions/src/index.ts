@@ -68,7 +68,8 @@ exports.checkcode = functions.https.onCall((argumentData: any,
 
 export const sendLekse = functions.firestore.document("classes/{classId}/classes/{classTime}").
     onWrite(async (snapshot: any, context: any,) => {
-        var parent = await snapshot.ref.parent;
-        console.log("parent is " + parent);
+        var parent = snapshot.data.ref.parent;
+        console.log("parent is now " + parent);
+    
     });
 
