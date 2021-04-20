@@ -1,5 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
+import { debug } from "firebase-functions/lib/logger";
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -68,6 +69,7 @@ exports.checkcode = functions.https.onCall((argumentData: any,
 
 export const sendLekse = functions.firestore.document("classes/{classId}/classes/{classTime}").
     onWrite(async (snapshot: any, context: any,) => {
-        console.log("parent: " + snapshot.ref);
+        var parent = await snapshot.ref.parent;
+        console.log("parent is " + parent);
     });
 
