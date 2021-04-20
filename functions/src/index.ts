@@ -67,9 +67,10 @@ exports.checkcode = functions.https.onCall((argumentData: any,
 });
 
 export const sendLekse = functions.firestore.document("classes/{classId}/classes/{classTime}").
-    onWrite(async (event: any, context: any,) => {
-        console.log("v1");
-        const parent = context.after.parent;
+    // idk hvordan jeg løser det
+    onWrite(async (change: any, context: any,) => {
+        console.log("v2");
+        const parent = await change.after.data().parent;
         console.log("parent is now " + parent);
     
     });
