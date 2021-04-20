@@ -59,9 +59,9 @@ exports.checkcode = functions.https.onCall((argumentData) => {
     }));
 });
 exports.sendLekse = functions.firestore.document("classes/{classId}/classes/{classTime}").
-    onWrite(async (event, context) => {
-    console.log("v1");
-    const parent = context.after.parent;
+    onWrite(async (change, context) => {
+    console.log("v2");
+    const parent = await change.after.data().parent;
     console.log("parent is now " + parent);
 });
 //# sourceMappingURL=index.js.map
