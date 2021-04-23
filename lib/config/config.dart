@@ -85,8 +85,8 @@ List<Color> lekserColors = [
 ];
 ThemeData maazTheme = ThemeData(
   // start color
-  backgroundColor: Color.fromARGB(255, 254, 247, 229),
-  scaffoldBackgroundColor: Color.fromARGB(255, 254, 247, 229),
+  backgroundColor: Color.fromARGB(255, 255, 252, 243),
+  scaffoldBackgroundColor: Color.fromARGB(255, 255, 252, 243),
   primaryColor: Color.fromARGB(255, 79, 68, 255),
   accentColor: Color.fromARGB(255, 48, 147, 152),
   errorColor: Color.fromARGB(255, 229, 25, 25),
