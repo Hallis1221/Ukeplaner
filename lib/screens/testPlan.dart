@@ -10,6 +10,8 @@ import '../elements/TopDecorationHalfCircle.dart';
 import '../logic/getTests.dart';
 import '../screens/dayPlan.dart';
 import '../logic/test.dart';
+import 'home.dart';
+import 'package:week_of_year/week_of_year.dart';
 
 _TestWidgetsState testWidgetsState;
 
@@ -51,6 +53,7 @@ class Testplan extends StatelessWidget {
                     endIndent: 130,
                     indent: 130,
                   ),
+                  Text('Uke i dag: ${now.weekOfYear + addWeeks}')
                 ],
               ),
             ),
