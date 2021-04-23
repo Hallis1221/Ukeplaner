@@ -228,7 +228,6 @@ class _TerminsState extends State<Termins> {
         ),
         GestureDetector(
           onTap: () {
-            // TODO crashes on set state
             setState(() {
               selectedTermin = 2;
             });
