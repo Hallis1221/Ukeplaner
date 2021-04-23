@@ -42,12 +42,15 @@ class Testplan extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 2,
+                  ),
                   Divider(
                     color: Colors.white,
                     thickness: 2,
                     endIndent: 130,
                     indent: 130,
-                  )
+                  ),
                 ],
               ),
             ),
