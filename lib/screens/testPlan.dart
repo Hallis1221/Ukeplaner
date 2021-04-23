@@ -39,7 +39,7 @@ class Testplan extends StatelessWidget {
                       'Prøveplan',
                       style: TextStyle(
                         fontFamily: "Verdana",
-                        fontSize: 39,
+                        fontSize: 35,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
