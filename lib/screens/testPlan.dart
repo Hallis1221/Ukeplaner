@@ -38,7 +38,8 @@ class Testplan extends StatelessWidget {
                     child: Text(
                       'Prøveplan',
                       style: TextStyle(
-                        fontSize: 35,
+                        fontFamily: "Verdana",
+                        fontSize: 39,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
@@ -56,6 +57,7 @@ class Testplan extends StatelessWidget {
                   Text(
                     'Uke i dag: ${now.weekOfYear + addWeeks}',
                     style: TextStyle(
+                        fontFamily: "Verdana",
                         fontSize: 25,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
