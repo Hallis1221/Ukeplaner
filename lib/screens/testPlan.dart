@@ -213,7 +213,7 @@ class _TerminsState extends State<Termins> {
               textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
                 fontStyle: FontStyle.normal,
-                fontSize: 30,
+                fontSize: 28,
                 letterSpacing: 1.5,
                 color: (() {
                   if (selectedTermin == 1) {
@@ -243,7 +243,7 @@ class _TerminsState extends State<Termins> {
               textAlign: TextAlign.center,
               style: GoogleFonts.roboto(
                 fontStyle: FontStyle.normal,
-                fontSize: 30,
+                fontSize: 28,
                 letterSpacing: 1.5,
                 color: (() {
                   if (selectedTermin == 2) {
