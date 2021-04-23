@@ -26,7 +26,7 @@ class Testplan extends StatelessWidget {
           alignment: Alignment.topLeft,
           children: [
             TopDecorationHalfCircle(
-                colorOne: config.linearBlue, colorTwo: config.linearGreen),
+                colorOne: config.linearGreen, colorTwo: config.linearBlue),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -44,6 +44,9 @@ class Testplan extends StatelessWidget {
                   ),
                   Divider(
                     color: Colors.white,
+                    thickness: 2,
+                    endIndent: 130,
+                    indent: 130,
                   )
                 ],
               ),
