@@ -42,6 +42,9 @@ class Testplan extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Divider(
+                    color: Colors.white,
+                  )
                 ],
               ),
             ),
@@ -197,65 +200,69 @@ class _TerminsState extends State<Termins> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedTermin = 1;
-            });
-            testWidgetsState.setState(() {
-              selectedTermin = 1;
-            });
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 58),
-            child: Text(
-              'Termin 1',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                fontStyle: FontStyle.normal,
-                fontSize: 28,
-                letterSpacing: 1.5,
-                color: (() {
-                  if (selectedTermin == 1) {
-                    return Color.fromARGB(255, 113, 137, 255);
-                  } else {
-                    return Color.fromARGB(255, 126, 126, 126);
-                  }
-                }()),
-              ),
-            ),
+        SizedBox(
+          width: 45,
+        ),
+        Expanded(
+          child: TerminWidget(
+            parent: this,
+            termin: 1,
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedTermin = 2;
-            });
-            testWidgetsState.setState(() {
-              selectedTermin = 2;
-            });
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(right: 58),
-            child: Text(
-              'Termin 2',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                fontStyle: FontStyle.normal,
-                fontSize: 28,
-                letterSpacing: 1.5,
-                color: (() {
-                  if (selectedTermin == 2) {
-                    return Color.fromARGB(255, 113, 137, 255);
-                  } else {
-                    return Color.fromARGB(255, 126, 126, 126);
-                  }
-                }()),
-              ),
-            ),
+        Expanded(
+          child: TerminWidget(
+            parent: this,
+            termin: 2,
           ),
         ),
+        SizedBox(
+          width: 45,
+        )
       ],
+    );
+  }
+}
+
+class TerminWidget extends StatelessWidget {
+  const TerminWidget({
+    Key key,
+    @required this.parent,
+    @required this.termin,
+  }) : super(key: key);
+  final _TerminsState parent;
+  final int termin;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // ignore: invalid_use_of_protected_member
+        parent.setState(() {
+          selectedTermin = termin;
+        });
+        // ignore: invalid_use_of_protected_member
+        testWidgetsState.setState(() {
+          selectedTermin = termin;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 0, right: 0),
+        child: Text(
+          'Termin ' + termin.toString(),
+          textAlign: TextAlign.center,
+          style: GoogleFonts.roboto(
+            fontStyle: FontStyle.normal,
+            fontSize: 28,
+            letterSpacing: 1.5,
+            color: (() {
+              if (selectedTermin == termin) {
+                return Color.fromARGB(255, 113, 137, 255);
+              } else {
+                return Color.fromARGB(255, 126, 126, 126);
+              }
+            }()),
+          ),
+        ),
+      ),
     );
   }
 }
