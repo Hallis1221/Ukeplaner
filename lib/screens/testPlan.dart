@@ -53,7 +53,13 @@ class Testplan extends StatelessWidget {
                     endIndent: 130,
                     indent: 130,
                   ),
-                  Text('Uke i dag: ${now.weekOfYear + addWeeks}')
+                  Text(
+                    'Uke i dag: ${now.weekOfYear + addWeeks}',
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             ),
