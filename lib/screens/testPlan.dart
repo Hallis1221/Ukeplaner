@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ import '../config/config.dart' as config;
 import '../config/config.dart';
 import '../elements/TopDecorationHalfCircle.dart';
 import '../logic/getTests.dart';
-import '../logic/tekst.dart';
 import '../screens/dayPlan.dart';
 import '../logic/test.dart';
 
