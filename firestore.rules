@@ -35,6 +35,11 @@ service cloud.firestore {
    allow read: if (isStudentOfClass(classId))
    allow create, update: if (isTeacher())
 
+   }match /messages/termins{
+
+   allow read: true
+   allow create, update: if (isTeacher())
+
    }
 
    function isStudentOfClass(classId){
