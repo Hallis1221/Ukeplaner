@@ -122,28 +122,14 @@ class Terminer extends StatelessWidget {
         Widget widget = Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: TimeCard(
-              startTid: DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY)
-                  .format(test.date),
-              sluttTid: 'Uke ' + (now.weekOfYear + config.addWeeks).toString(),
-              klasseNavn: test.title,
-              message: test.message,
-              rom: "",
-              color: (() {
-                Random rnd = new Random();
-                int min = 0, max = lekserColors.length;
-                int r = min + rnd.nextInt(max - min);
-                int maxColorsLen = brukteFarger.length;
-
-                if (maxColorsLen <= max) {
-                  while (brukteFarger.contains(r)) {
-                    r = min + rnd.nextInt(max - min);
-                  }
-
-                  brukteFarger.add(r);
-                }
-
-                return lekserColors[r];
-              }())),
+            startTid:
+                DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY).format(test.date),
+            sluttTid: 'Uke ' + (now.weekOfYear + config.addWeeks).toString(),
+            klasseNavn: test.title,
+            message: test.message,
+            rom: "",
+            color: Color.fromARGB(255, 254, 216, 176),
+          ),
         );
         if (test.date.isBefore(config.sEnStart)) {
           testWidgetsTerminEn.add(widget);
