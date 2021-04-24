@@ -77,8 +77,8 @@ List<Color> cardColors = [
   Color.fromARGB(255, 212, 228, 254),
 ];
 List<Color> lekserColors = [
-  Color.fromARGB(255, 48, 147, 152),
-  Color.fromARGB(255, 238, 107, 120),
+  Color.fromARGB(245, 48, 147, 152),
+  Color.fromARGB(255, 201, 252, 205),
   Color.fromARGB(255, 249, 190, 124),
   Color.fromARGB(255, 101, 135, 227),
   Color.fromARGB(255, 0, 50, 155),
