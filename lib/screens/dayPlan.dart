@@ -269,7 +269,8 @@ class TimeCard extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Expanded(
+                              Container(
+                                width: 15,
                                 child: Text(
                                   "$startTid - $sluttTid",
                                   style: TextStyle(
