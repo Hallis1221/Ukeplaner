@@ -166,12 +166,25 @@ class _WeekPlanColumnState extends State<WeekPlanColumn> {
         }
         print("temp: $tempWeeks");
 
+// Pga hvordan dagsplanen fungerer må vi regne ut antall dager datoen som ble
+// klikket er fra dagen i dag, korrigert for helg. Det må også korriges for
+// hvilke uke som blir vist. Å ta forskjelen i dager pluss antall uker som skal
+// bli lagt på ganget med minus to fungerer, for det meste. I helgene er man
+// fortsatt teknisk sett i feks uke 16, men man er i skole uke 17. Derfor må vi
+// ta antall uker frem i tid minus en hvis dagen i dag er en helgedag.
+
         int multiplier = 1;
         switch (now.weekday) {
           case 1:
             multiplier = 0;
             break;
           case 5:
+            multiplier = 1;
+            break;
+          case 6:
+            multiplier = 1;
+            break;
+          case 7:
             multiplier = 1;
             break;
           default:
