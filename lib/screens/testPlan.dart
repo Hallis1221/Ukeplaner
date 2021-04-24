@@ -124,7 +124,7 @@ class Terminer extends StatelessWidget {
           child: TimeCard(
             startTid:
                 DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY).format(test.date),
-            sluttTid: 'Uke ' + (now.weekOfYear + config.addWeeks).toString(),
+            sluttTid: 'Uke ' + test.date.weekOfYear.toString(),
             klasseNavn: test.title,
             message: test.message,
             rom: "",
