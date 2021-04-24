@@ -177,7 +177,6 @@ class _WeekPlanColumnState extends State<WeekPlanColumn> {
           default:
             multiplier = 0;
         }
-// denne formelen funker for søndager: difference.inDays + ((tempWeeks - 1) * -2);
         currentPageSelected =
             difference.inDays + ((tempWeeks - multiplier) * -2);
 
