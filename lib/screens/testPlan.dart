@@ -128,7 +128,8 @@ class Terminer extends StatelessWidget {
             klasseNavn: test.title,
             message: test.message,
             colorCornerText: skoleGreen,
-            romColor: Color.fromARGB(255, 0, 0, 0),
+            romColor: Color.fromARGB(255, 0, 0, 0), // denne koden endrer fargen på teksten som viser hvilken uke det er
+            colorMainText: ,
             color: Color.fromARGB(255, 252, 206, 159),
             sluttTid: "",
           ),
