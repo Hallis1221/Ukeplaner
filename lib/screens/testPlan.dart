@@ -128,6 +128,7 @@ class Terminer extends StatelessWidget {
             klasseNavn: test.title,
             message: test.message,
             colorCornerText: skoleGreen,
+            romColor: Color.fromARGB(255, 0, 0, 0),
             color: Color.fromARGB(255, 252, 206, 159),
             sluttTid: "",
           ),
