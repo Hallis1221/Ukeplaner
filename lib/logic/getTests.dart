@@ -22,9 +22,12 @@ Future<List<Test>> _getList() async {
     print("VERID ER $value");
     List currentTest = value["tests"];
     print("tests;  $currentTest");
-    for (var test in currentTest) {
+    for (Map test in currentTest) {
       print("test; $test");
       Timestamp timeStamp = test["date"];
+      test.forEach((key, value) {
+        print("$key: $value");
+      });
       try {
         tests.add(new Test(
             date: timeStamp.toDate(),
