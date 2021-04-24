@@ -35,7 +35,7 @@ Future<List<Test>> _getList() async {
         print("timestamp failed: $timeStamp");
         tests.add(
           new Test(
-            date: DateTime.now(),
+            date: test["TIMESTAMP_date"],
             message: test["message"],
             title: test["title"],
           ),
