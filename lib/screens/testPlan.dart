@@ -51,13 +51,16 @@ class Testplan extends StatelessWidget {
                     endIndent: 130,
                     indent: 130,
                   ),
-                  Text(
-                    'Uke i dag: ${now.weekOfYear + addWeeks}',
-                    style: TextStyle(
-                        fontFamily: "Verdana",
-                        fontSize: 25,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 75, left: 5),
+                    child: Text(
+                      'Uke i dag: ${now.weekOfYear + addWeeks}',
+                      style: TextStyle(
+                          fontFamily: "Verdana",
+                          fontSize: 25,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
