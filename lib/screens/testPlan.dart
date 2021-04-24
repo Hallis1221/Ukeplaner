@@ -40,7 +40,7 @@ class Testplan extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: "Verdana",
                         fontSize: 35,
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 255, 255, 255),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
