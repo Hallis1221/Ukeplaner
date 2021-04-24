@@ -234,7 +234,7 @@ class Lekser extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return LoadingAnimation();
+                  return Container();
                 }
               }())
             ],
