@@ -124,11 +124,12 @@ class Terminer extends StatelessWidget {
           child: TimeCard(
             startTid:
                 DateFormat(DateFormat.ABBR_MONTH_WEEKDAY_DAY).format(test.date),
-            sluttTid: 'Uke ' + test.date.weekOfYear.toString(),
+            rom: 'Uke ' + test.date.weekOfYear.toString(),
             klasseNavn: test.title,
             message: test.message,
-            rom: "",
+            colorCornerText: skoleGreen,
             color: Color.fromARGB(255, 252, 206, 159),
+            sluttTid: "",
           ),
         );
         if (test.date.isBefore(config.sEnStart)) {
