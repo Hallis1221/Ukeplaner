@@ -59,6 +59,7 @@ exports.checkcode = functions.https.onCall((argumentData) => {
     }));
 });
 exports.sendLekse = functions.firestore.document("classes/{classId}/classes/{classTime}").
+    // idk hvordan jeg løser det
     onWrite(async (change, context) => {
     console.log("v2");
     const parent = await change.after.data().parent;
