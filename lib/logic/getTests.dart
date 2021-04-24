@@ -33,13 +33,23 @@ Future<List<Test>> _getList() async {
         print("tests list: $tests");
       } catch (e) {
         print("timestamp failed: $timeStamp");
-        tests.add(
-          new Test(
-            date: test["TIMESTAMP_date"],
-            message: test["message"],
-            title: test["title"],
-          ),
-        );
+        try {
+          tests.add(
+            new Test(
+              date: test["TIMESTAMP_date"],
+              message: test["message"],
+              title: test["title"],
+            ),
+          );
+        } catch (e) {
+          tests.add(
+            new Test(
+              date: DateTime.now(),
+              message: test["message"],
+              title: test["title"],
+            ),
+          );
+        }
       }
     }
   }
