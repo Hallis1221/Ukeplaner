@@ -39,7 +39,8 @@ Future<List<Test>> _getList() async {
         try {
           tests.add(
             new Test(
-              date: test["TIMESTAMP_date"],
+              date: DateTime.fromMicrosecondsSinceEpoch(
+                  int.parse(test["TIMESTAMP_date"])),
               message: test["message"],
               title: test["title"],
             ),
