@@ -156,6 +156,8 @@ class TimeCard extends StatelessWidget {
     this.message = " ",
     this.isFree = false,
     this.color = Colors.redAccent,
+    this.colorCornerText = Colors.grey,
+    this.colorMainText = Colors.grey,
     this.lekser,
   }) : super(key: key);
 
@@ -165,6 +167,9 @@ class TimeCard extends StatelessWidget {
   final String sluttTid;
   final String message;
   final Color color;
+  final Color colorCornerText;
+  final Color colorMainText;
+
   final List lekser;
   final bool isFree;
 
@@ -276,7 +281,7 @@ class TimeCard extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 15.0,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.grey,
+                                    color: colorCornerText,
                                   ),
                                 ),
                               ),
@@ -298,7 +303,7 @@ class TimeCard extends StatelessWidget {
                     child: Text(
                       message,
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: colorMainText,
                       ),
                     ),
                   );
