@@ -89,7 +89,7 @@ class Testplan extends StatelessWidget {
               return LoadingAnimation();
             }
             List<Test> tests = snapshot.data;
-
+            // her starter kodene for prøvene som dukker opp i prøveplanen.
             return Terminer(tests: tests, brukteFarger: brukteFarger);
           }
           return LoadingAnimation();
@@ -128,8 +128,9 @@ class Terminer extends StatelessWidget {
             klasseNavn: test.title,
             message: test.message,
             colorCornerText: skoleGreen,
-            romColor: Color.fromARGB(255, 0, 0, 0), // denne koden endrer fargen på teksten som viser hvilken uke det er
-            colorMainText: ,
+            romColor: Color.fromARGB(255, 0, 0, 0),
+            // denne koden endrer fargen på teksten som viser hvilken uke det er
+            colorMainText: Color.fromARGB(255, 12, 37, 63),
             color: Color.fromARGB(255, 252, 206, 159),
             sluttTid: "",
           ),
