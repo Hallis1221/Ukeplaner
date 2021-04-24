@@ -159,6 +159,8 @@ class TimeCard extends StatelessWidget {
     this.colorCornerText = Colors.grey,
     this.colorMainText = Colors.grey,
     this.romColor = Colors.grey,
+    this.colorDesc = Colors.grey,
+    this.colorTitle,
     this.lekser,
   }) : super(key: key);
 
@@ -168,8 +170,10 @@ class TimeCard extends StatelessWidget {
   final String sluttTid;
   final String message;
   final Color color;
+  final Color colorTitle;
   final Color colorCornerText;
   final Color colorMainText;
+  final Color colorDesc;
   final Color romColor;
 
   final List lekser;
@@ -202,8 +206,18 @@ class TimeCard extends StatelessWidget {
                       ),
                       Center(
                         child: ListTile(
-                          title: Text(e.tittel),
-                          subtitle: Text(e.beskrivelse),
+                          title: Text(
+                            e.tittel,
+                            style: TextStyle(
+                              color: colorTitle,
+                            ),
+                          ),
+                          subtitle: Text(
+                            e.beskrivelse,
+                            style: TextStyle(
+                              color: colorDesc,
+                            ),
+                          ),
                         ),
                       ),
                     ],
