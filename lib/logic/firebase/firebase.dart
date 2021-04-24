@@ -140,7 +140,10 @@ Future<RemoteConfig> remote() async {
   final defaults = fcmDefaults;
   await remoteConfigInstance.setDefaults(defaults);
 // For utvikling den er micro sekunder, bør være en time eller lignende i produksjon
-  await remoteConfigInstance.fetch(expiration: const Duration(hours: 1));
+  try {
+    await remoteConfigInstance.fetch(expiration: const Duration(hours: 1));
+  } catch (e) {}
+
   await remoteConfigInstance.activateFetched();
   return remoteConfigInstance;
 }
