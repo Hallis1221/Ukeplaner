@@ -160,7 +160,8 @@ class TimeCard extends StatelessWidget {
     this.colorMainText = Colors.grey,
     this.romColor = Colors.grey,
     this.colorDesc = Colors.grey,
-    this.colorTitle,
+    this.colorTitle = Colors.grey,
+    this.colorKlasseNavn = Colors.grey,
     this.lekser,
   }) : super(key: key);
 
@@ -171,6 +172,7 @@ class TimeCard extends StatelessWidget {
   final String message;
   final Color color;
   final Color colorTitle;
+  final Color colorKlasseNavn;
   final Color colorCornerText;
   final Color colorMainText;
   final Color colorDesc;
@@ -268,9 +270,9 @@ class TimeCard extends StatelessWidget {
                           child: Text(
                             klasseNavn,
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: colorKlasseNavn),
                           ),
                         ),
                       ),
