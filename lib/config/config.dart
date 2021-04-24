@@ -36,7 +36,7 @@ String semesterToSluttDag = remoteConfig.getString("semester_to_slutt_dag");
 
 //TODO
 List<Map<String, DateTime>> ferier = [];
-// !! DESIGN
+// !! DESIGN av Mazaz!!!!!!! og Hallllllllis!!!!!!!
 Color deiligRed = Color.fromARGB(255, 238, 107, 120);
 Color mildBlue = Color.fromARGB(255, 101, 135, 227);
 Color lysOrange = Color.fromARGB(255, 249, 190, 124);
