@@ -158,6 +158,7 @@ class TimeCard extends StatelessWidget {
     this.color = Colors.redAccent,
     this.colorCornerText = Colors.grey,
     this.colorMainText = Colors.grey,
+    this.romColor = Colors.grey,
     this.lekser,
   }) : super(key: key);
 
@@ -169,6 +170,7 @@ class TimeCard extends StatelessWidget {
   final Color color;
   final Color colorCornerText;
   final Color colorMainText;
+  final Color romColor;
 
   final List lekser;
   final bool isFree;
@@ -270,9 +272,9 @@ class TimeCard extends StatelessWidget {
                               Text(
                                 rom,
                                 style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    color: romColor),
                               ),
                               Container(
                                 width: 90,
