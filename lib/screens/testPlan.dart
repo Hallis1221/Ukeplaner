@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -9,9 +8,10 @@ import '../config/config.dart' as config;
 import '../config/config.dart';
 import '../elements/TopDecorationHalfCircle.dart';
 import '../logic/getTests.dart';
-import '../logic/tekst.dart';
 import '../screens/dayPlan.dart';
 import '../logic/test.dart';
+import 'home.dart';
+import 'package:week_of_year/week_of_year.dart';
 
 _TestWidgetsState testWidgetsState;
 
@@ -28,7 +28,7 @@ class Testplan extends StatelessWidget {
           alignment: Alignment.topLeft,
           children: [
             TopDecorationHalfCircle(
-                colorOne: config.linearBlue, colorTwo: config.linearGreen),
+                colorOne: config.linearGreen, colorTwo: config.linearBlue),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -38,11 +38,29 @@ class Testplan extends StatelessWidget {
                     child: Text(
                       'Prøveplan',
                       style: TextStyle(
+                        fontFamily: "Verdana",
                         fontSize: 35,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 2,
+                  ),
+                  Divider(
+                    color: Colors.white,
+                    thickness: 2,
+                    endIndent: 130,
+                    indent: 130,
+                  ),
+                  Text(
+                    'Uke i dag: ${now.weekOfYear + addWeeks}',
+                    style: TextStyle(
+                        fontFamily: "Verdana",
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -199,66 +217,69 @@ class _TerminsState extends State<Termins> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedTermin = 1;
-            });
-            testWidgetsState.setState(() {
-              selectedTermin = 1;
-            });
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 58),
-            child: Text(
-              'Termin 1',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                fontStyle: FontStyle.normal,
-                fontSize: 30,
-                letterSpacing: 1.5,
-                color: (() {
-                  if (selectedTermin == 1) {
-                    return Color.fromARGB(255, 113, 137, 255);
-                  } else {
-                    return Color.fromARGB(255, 126, 126, 126);
-                  }
-                }()),
-              ),
-            ),
+        SizedBox(
+          width: 45,
+        ),
+        Expanded(
+          child: TerminWidget(
+            parent: this,
+            termin: 1,
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            // TODO crashes on set state
-            setState(() {
-              selectedTermin = 2;
-            });
-            testWidgetsState.setState(() {
-              selectedTermin = 2;
-            });
-          },
-          child: Padding(
-            padding: const EdgeInsets.only(right: 58),
-            child: Text(
-              'Termin 2',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.roboto(
-                fontStyle: FontStyle.normal,
-                fontSize: 30,
-                letterSpacing: 1.5,
-                color: (() {
-                  if (selectedTermin == 2) {
-                    return Color.fromARGB(255, 113, 137, 255);
-                  } else {
-                    return Color.fromARGB(255, 126, 126, 126);
-                  }
-                }()),
-              ),
-            ),
+        Expanded(
+          child: TerminWidget(
+            parent: this,
+            termin: 2,
           ),
         ),
+        SizedBox(
+          width: 45,
+        )
       ],
+    );
+  }
+}
+
+class TerminWidget extends StatelessWidget {
+  const TerminWidget({
+    Key key,
+    @required this.parent,
+    @required this.termin,
+  }) : super(key: key);
+  final _TerminsState parent;
+  final int termin;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // ignore: invalid_use_of_protected_member
+        parent.setState(() {
+          selectedTermin = termin;
+        });
+        // ignore: invalid_use_of_protected_member
+        testWidgetsState.setState(() {
+          selectedTermin = termin;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(left: 0, right: 0),
+        child: Text(
+          'Termin ' + termin.toString(),
+          textAlign: TextAlign.center,
+          style: GoogleFonts.roboto(
+            fontStyle: FontStyle.normal,
+            fontSize: 28,
+            letterSpacing: 1.5,
+            color: (() {
+              if (selectedTermin == termin) {
+                return Color.fromARGB(255, 113, 137, 255);
+              } else {
+                return Color.fromARGB(255, 126, 126, 126);
+              }
+            }()),
+          ),
+        ),
+      ),
     );
   }
 }
