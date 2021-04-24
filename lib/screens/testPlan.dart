@@ -128,7 +128,7 @@ class Terminer extends StatelessWidget {
             klasseNavn: test.title,
             message: test.message,
             rom: "",
-            color: Color.fromARGB(255, 254, 216, 176),
+            color: Color.fromARGB(255, 252, 206, 159),
           ),
         );
         if (test.date.isBefore(config.sEnStart)) {
