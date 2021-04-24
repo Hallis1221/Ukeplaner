@@ -54,9 +54,9 @@ class Testplan extends StatelessWidget {
                   Text(
                     'Uke i dag: ${now.weekOfYear + addWeeks}',
                     style: TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 255),
                         fontFamily: "Verdana",
                         fontSize: 25,
-                        color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
                 ],
