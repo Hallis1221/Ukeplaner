@@ -29,19 +29,15 @@ Future<List<Test>> _getList() async {
       test.forEach((key, value) {
         print("$key: $value");
       });
+
+      Test testToAdd = new Test(message: test["message"], title: test["title"]);
+      print("tests list: $tests");
       try {
-        tests.add(new Test(
-            date: timeStamp, message: test["message"], title: test["title"]));
-        print("tests list: $tests");
+        testToAdd.date = timeStamp;
       } catch (e) {
-        tests.add(
-          new Test(
-            date: DateTime.now(),
-            message: test["message"],
-            title: test["title"],
-          ),
-        );
+        testToAdd.date = DateTime.now();
       }
+      tests.add(testToAdd);
     }
   }
 
