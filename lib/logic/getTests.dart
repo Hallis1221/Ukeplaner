@@ -24,11 +24,17 @@ Future<List<Test>> _getList() async {
     print("tests;  $currentTest");
     for (Map test in currentTest) {
       print("test; $test");
-      DateTime timeStamp =
-          DateTime.fromMillisecondsSinceEpoch(test["TIMESTAMP_date"]);
+
       test.forEach((key, value) {
         print("$key: $value");
       });
+      DateTime timeStamp;
+      try {
+        timeStamp = DateTime.fromMillisecondsSinceEpoch(test["TIMESTAMP_date"]);
+      } catch (e) {
+        timeStamp = DateTime.fromMillisecondsSinceEpoch(
+            test["date"].millisecondsSinceEpoch);
+      }
 
       Test testToAdd = new Test(message: test["message"], title: test["title"]);
       print("tests list: $tests");
