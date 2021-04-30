@@ -11,10 +11,10 @@ class SkoleFacts extends StatelessWidget {
     List<Fact> faktaer = <Fact>[
       new Fact(
         question: 'Hva er meningen i livet?',
-        answear: 'text',
+        answear: 'Siden du er elev er meningen med livet skole',
         animation: LottieBuilder.asset(
           'assets/animations/UtvAnimasjon.json',
-          height: 125,
+          height: 300,
         ),
       ),
       new Fact(
@@ -22,7 +22,7 @@ class SkoleFacts extends StatelessWidget {
         answear: 'text',
         animation: LottieBuilder.asset(
           'assets/animations/UtvAnimasjon.json',
-          height: 125,
+          height: 300,
         ),
       ),
       new Fact(
@@ -30,7 +30,7 @@ class SkoleFacts extends StatelessWidget {
         answear: 'text',
         animation: LottieBuilder.asset(
           'assets/animations/UtvAnimasjon.json',
-          height: 125,
+          height: 300,
         ),
       ),
     ];
@@ -76,8 +76,32 @@ class FactPage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          SizedBox(
+            height: 50,
+          ),
           Container(
-            child: fakta.animation,
+            child: Center(child: fakta.animation),
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+              ),
+              child: Text(
+                fakta.answear,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Verdana',
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           )
         ],
       ),
