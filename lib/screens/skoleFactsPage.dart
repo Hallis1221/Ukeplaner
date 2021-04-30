@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ukeplaner/logic/facts.dart';
@@ -67,9 +68,8 @@ class FactPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Container(
-          child: Text(
+          child: AutoSizeText(
             fakta.question,
-            style: TextStyle(fontSize: 500 - fakta.question.length * 10.0),
           ),
         ),
       ),
