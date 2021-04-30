@@ -67,12 +67,10 @@ class FactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Expanded(
-          child: Container(
-            child: AutoSizeText(
-              fakta.question,
-              maxLines: 1,
-            ),
+        title: Container(
+          child: AutoSizeText(
+            fakta.question,
+            maxLines: 1,
           ),
         ),
       ),
