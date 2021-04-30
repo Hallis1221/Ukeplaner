@@ -40,14 +40,18 @@ class SkoleFacts extends StatelessWidget {
       body: Container(
         child: ListView(
           children: faktaer
-              .map((Fact fakta) => ListTile(
-                    title: Text(fakta.question),
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              .map(
+                (Fact fakta) => ListTile(
+                  title: Text(fakta.question),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
                       builder: (context) => FactPage(
                         fakta: fakta,
                       ),
-                    )),
-                  ))
+                    ),
+                  ),
+                ),
+              )
               .toList(),
         ),
       ),
@@ -63,7 +67,10 @@ class FactPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Container(
-          child: Text(fakta.question),
+          child: Text(
+            fakta.question,
+            style: TextStyle(fontSize: 500 - fakta.question.length * 10.0),
+          ),
         ),
       ),
     );
