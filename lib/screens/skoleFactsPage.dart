@@ -41,35 +41,35 @@ class SkoleFacts extends StatelessWidget {
       body: Container(
         child: ListView(
           children: faktaer
-              .map(
-                (Fact fakta) => ListTile(
-                  title: Text(fakta.question),
-                  onTap: () => PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        FactPage(
-                      fakta: fakta,
-                    ),
-                    transitionsBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      var begin = Offset(1.0, 0.0);
-                      var end = Offset.zero;
-                      var curve = Curves.ease;
-
-                      var tween = Tween(begin: begin, end: end)
-                          .chain(CurveTween(curve: curve));
-                      return SlideTransition(
-                        position: animation.drive(tween),
-                        child: child,
-                      );
-                    },
-                  ),
-                ),
-              )
+              .map((Fact fakta) => ListTile(
+                    title: Text(fakta.question),
+                    onTap: () =>
+                        Navigator.of(context).push(_createRoute(fakta)),
+                  ))
               .toList(),
         ),
       ),
     );
   }
+}
+
+Route _createRoute(Fact fact) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => FactPage(
+      fakta: fact,
+    ),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(1.0, 0.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
 
 class FactPage extends StatelessWidget {
