@@ -42,6 +42,11 @@ class SkoleFacts extends StatelessWidget {
           children: faktaer
               .map((Fact fakta) => ListTile(
                     title: Text(fakta.question),
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => FactPage(
+                        fakta: fakta,
+                      ),
+                    )),
                   ))
               .toList(),
         ),
@@ -51,8 +56,8 @@ class SkoleFacts extends StatelessWidget {
 }
 
 class FactPage extends StatelessWidget {
-  const FactPage({Key key}) : super(key: key);
-
+  const FactPage({Key key, @required this.fakta}) : super(key: key);
+  final Fact fakta;
   @override
   Widget build(BuildContext context) {
     return Scaffold();
