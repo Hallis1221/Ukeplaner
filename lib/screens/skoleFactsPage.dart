@@ -62,7 +62,9 @@ class FactPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(child: Text(fakta.question)),
+        title: Container(
+          child: Text(fakta.question),
+        ),
       ),
     );
   }
