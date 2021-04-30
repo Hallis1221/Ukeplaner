@@ -13,7 +13,7 @@ class SkoleFacts extends StatelessWidget {
         question: 'Hva er meningen i livet?',
         answear: 'Siden du er elev er meningen med livet skole',
         animation: LottieBuilder.asset(
-          'assets/animations/UtvAnimasjon.json',
+          'assets/animations/livetsAnimasjon.json',
           height: 300,
         ),
       ),
