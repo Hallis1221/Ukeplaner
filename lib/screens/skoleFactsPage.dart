@@ -74,6 +74,13 @@ class FactPage extends StatelessWidget {
           ),
         ),
       ),
+      body: Column(
+        children: [
+          Container(
+            child: fakta.animation,
+          )
+        ],
+      ),
     );
   }
 }
