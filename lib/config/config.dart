@@ -71,7 +71,7 @@ Map<String, Widget> iconIndex = {
 List<Color> cardColors = [
   Color.fromARGB(255, 254, 216, 176),
   Color.fromARGB(255, 112, 217, 82),
-  Color.fromARGB(255, 255, 135, 147),
+  Color.fromARGB(255, 236, 140, 149),
   Color.fromARGB(255, 255, 242, 125),
   Color.fromARGB(255, 105, 237, 243),
   Color.fromARGB(255, 212, 228, 254),
