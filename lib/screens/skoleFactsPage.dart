@@ -9,13 +9,29 @@ class SkoleFacts extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Fact> faktaer = <Fact>[
       new Fact(
-        question: 'text',
+        question: 'Hva er meningen i livet?',
         answear: 'text',
         animation: LottieBuilder.asset(
           'assets/animations/UtvAnimasjon.json',
           height: 125,
         ),
-      )
+      ),
+      new Fact(
+        question: 'Hva er meningen med skole?',
+        answear: 'text',
+        animation: LottieBuilder.asset(
+          'assets/animations/UtvAnimasjon.json',
+          height: 125,
+        ),
+      ),
+      new Fact(
+        question: 'Hvorfor har staten ansvaret for utdanningen din?',
+        answear: 'text',
+        animation: LottieBuilder.asset(
+          'assets/animations/UtvAnimasjon.json',
+          height: 125,
+        ),
+      ),
     ];
     return Scaffold(
       appBar: AppBar(
