@@ -23,7 +23,11 @@ class SkoleFacts extends StatelessWidget {
       ),
       body: Container(
         child: ListView(
-          children: faktaer.map((Fact fakta) => Text(fakta.question)).toList(),
+          children: faktaer
+              .map((Fact fakta) => ListTile(
+                    title: Text(fakta.question),
+                  ))
+              .toList(),
         ),
       ),
     );
