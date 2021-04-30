@@ -7,7 +7,7 @@ class SkoleFacts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Fact> fakta = <Fact>[
+    List<Fact> faktaer = <Fact>[
       new Fact(
         question: 'text',
         answear: 'text',
@@ -23,7 +23,7 @@ class SkoleFacts extends StatelessWidget {
       ),
       body: Container(
         child: ListView(
-          children: fakta.map((e) => Text(e.question)).toList(),
+          children: faktaer.map((Fact fakta) => Text(fakta.question)).toList(),
         ),
       ),
     );
