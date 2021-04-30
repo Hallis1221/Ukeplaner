@@ -21,6 +21,11 @@ class SkoleFacts extends StatelessWidget {
       appBar: AppBar(
         title: Text("Skole Facts"),
       ),
+      body: Container(
+        child: ListView(
+          children: fakta.map((e) => Text(e.question)).toList(),
+        ),
+      ),
     );
   }
 }
