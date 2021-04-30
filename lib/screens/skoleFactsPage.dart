@@ -60,6 +60,10 @@ class FactPage extends StatelessWidget {
   final Fact fakta;
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Container(child: Text(fakta.question)),
+      ),
+    );
   }
 }
