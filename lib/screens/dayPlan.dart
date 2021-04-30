@@ -104,6 +104,11 @@ class _DayPlanState extends State<DayPlan> {
                                     message: klasse.message,
                                     lekser: klasse.lekser,
                                     isFree: klasse.isFree,
+                                    colorMainText: Colors.black,
+                                    colorTitle: Colors.black,
+                                    colorDesc: Colors.black,
+                                    colorKlasseNavn: Colors.black,
+                                    romColor: Colors.black,
                                     color: (() {
                                       Random rnd = new Random();
                                       int min = 0,
