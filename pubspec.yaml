@@ -123,7 +123,7 @@ flutter:
           weight: 500
           style: italic
         - asset: assets/fonts/verdana-bold.ttf
-          weight: 300
+          weight: 400
     - family: CustomIcons
       fonts:
         - asset: assets/icons/CustomIcons.ttf
