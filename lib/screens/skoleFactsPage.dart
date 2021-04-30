@@ -69,7 +69,7 @@ class FactPage extends StatelessWidget {
         title: Container(
           child: Text(
             fakta.question,
-            style: TextStyle(fontSize: 500 - fakta.question.length * 10.0),
+            style: TextStyle(fontSize: 120 - fakta.question.length * 2.0),
           ),
         ),
       ),
