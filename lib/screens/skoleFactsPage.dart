@@ -49,3 +49,12 @@ class SkoleFacts extends StatelessWidget {
     );
   }
 }
+
+class FactPage extends StatelessWidget {
+  const FactPage({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}
