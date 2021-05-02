@@ -10,8 +10,8 @@ class SkoleFacts extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Fact> faktaer = <Fact>[
       new Fact(
-        question: 'Hva er meningen i livet?',
-        answear: 'Siden du er elev er meningen med livet skole',
+        question: 'Hva er meningen med livet?',
+        answear: 'Siden du er elev, er meningen med livet skole',
         animation: LottieBuilder.asset(
           'assets/animations/livetsAnimasjon.json',
           height: 300,
@@ -19,7 +19,8 @@ class SkoleFacts extends StatelessWidget {
       ),
       new Fact(
         question: 'Hva er meningen med skole?',
-        answear: 'text',
+        answear:
+            'Meningen med skole er at du kan få jobb og leve ulykkelig resten av livet ditt.',
         animation: LottieBuilder.asset(
           'assets/animations/UtvAnimasjon.json',
           height: 300,
