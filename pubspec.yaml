@@ -101,7 +101,7 @@ flutter:
     - assets/animations/krleAnimasjon.json
     - assets/animations/livetsAnimasjon.json
     - assets/animations/skolemening.json
-    
+    - assets/animations/staten.json
 
   fonts:
     - family: NirmalaUI
