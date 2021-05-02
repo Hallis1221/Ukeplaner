@@ -22,7 +22,7 @@ class SkoleFacts extends StatelessWidget {
         answear:
             'Meningen med skole er at du kan få jobb og leve ulykkelig resten av livet ditt.',
         animation: LottieBuilder.asset(
-          'assets/animations/UtvAnimasjon.json',
+          'assets/animations/skolemening.json',
           height: 300,
         ),
       ),
