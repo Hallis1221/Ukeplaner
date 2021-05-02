@@ -40,7 +40,7 @@ class SkoleFacts extends StatelessWidget {
         answear:
             'Du gjorde det for at vi kan spionere på deg. Du aksepterte vilkårene og betingelsene uten å lese dem. Vi kan gjøre hva vi vil med deg. Vi ser på deg akkurat nå gjennom kameraet ditt!',
         animation: LottieBuilder.asset(
-          'assets/animations/staten.json',
+          'assets/animations/seeyou.json',
           height: 300,
         ),
       ),
