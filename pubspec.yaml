@@ -102,6 +102,7 @@ flutter:
     - assets/animations/livetsAnimasjon.json
     - assets/animations/skolemening.json
     - assets/animations/staten.json
+    - assets/animations/seeyou.json
 
   fonts:
     - family: NirmalaUI
