@@ -31,7 +31,7 @@ class SkoleFacts extends StatelessWidget {
         answear:
             'På papir har de ikke ansvar for det, men i virkeligheten er de inni hjernen din. Det er ikke du som studerer, det er de som studerer deg!',
         animation: LottieBuilder.asset(
-          'assets/animations/UtvAnimasjon.json',
+          'assets/animations/staten.json',
           height: 300,
         ),
       ),
@@ -61,7 +61,7 @@ Route _createRoute(Fact fact) {
       fakta: fact,
     ),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      var begin = Offset(1.0, -1.0);
+      var begin = Offset(0.0, 1.0);
       var end = Offset.zero;
       var curve = Curves.easeOutCubic;
 
