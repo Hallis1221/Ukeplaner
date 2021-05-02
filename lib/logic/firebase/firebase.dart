@@ -81,30 +81,56 @@ class LocalFirebaseApp extends StatelessWidget {
                     debugShowCheckedModeBanner: false,
                     onGenerateRoute: (settings) {
                       var page = routes[settings.name];
-                      if (settings.name == "/") {
-                        return PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) => page,
-                        );
-                      } else {
-                        print("route name: ${settings.name}");
-                        return PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) => page,
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            var begin = Offset(1.0, 0.0);
-                            var end = Offset.zero;
-                            var curve = Curves.ease;
+                      switch (settings.name) {
+                        case '/':
+                          return PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    page,
+                          );
 
-                            var tween = Tween(begin: begin, end: end)
-                                .chain(CurveTween(curve: curve));
-                            return SlideTransition(
-                              position: animation.drive(tween),
-                              child: child,
-                            );
-                          },
-                        );
+                          break;
+                        case '/testPlan':
+                          print("route name: ${settings.name}");
+                          return PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    page,
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              var begin = Offset(1.0, 0.0);
+                              var end = Offset.zero;
+                              var curve = Curves.ease;
+
+                              var tween = Tween(begin: begin, end: end)
+                                  .chain(CurveTween(curve: curve));
+                              return SlideTransition(
+                                position: animation.drive(tween),
+                                child: child,
+                              );
+                            },
+                          );
+                          break;
+                        default:
+                          print("route name: ${settings.name}");
+                          return PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    page,
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              var begin = Offset(1.0, 0.0);
+                              var end = Offset.zero;
+                              var curve = Curves.ease;
+
+                              var tween = Tween(begin: begin, end: end)
+                                  .chain(CurveTween(curve: curve));
+                              return SlideTransition(
+                                position: animation.drive(tween),
+                                child: child,
+                              );
+                            },
+                          );
                       }
                     },
                     navigatorObservers: [
