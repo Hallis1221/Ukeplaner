@@ -35,6 +35,15 @@ class SkoleFacts extends StatelessWidget {
           height: 300,
         ),
       ),
+      new Fact(
+        question: 'Hvorfor lastet du ned denne appen?',
+        answear:
+            'Du gjorde det for at vi kan spionere på deg. Du aksepterte vilkårene og betingelsene uten å lese dem. Vi kan gjøre hva vi vil med deg. Vi ser på deg akkurat nå gjennom kameraet ditt!',
+        animation: LottieBuilder.asset(
+          'assets/animations/staten.json',
+          height: 300,
+        ),
+      ),
     ];
     return Scaffold(
       appBar: AppBar(
