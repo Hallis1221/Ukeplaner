@@ -28,7 +28,8 @@ class SkoleFacts extends StatelessWidget {
       ),
       new Fact(
         question: 'Hvorfor har staten ansvaret for utdanningen din?',
-        answear: 'text',
+        answear:
+            'På papir har de ikke ansvar for det, men i virkeligheten er de inni hjernen din. Det er ikke du som studerer, det er de som studerer deg!',
         animation: LottieBuilder.asset(
           'assets/animations/UtvAnimasjon.json',
           height: 300,
