@@ -52,6 +52,15 @@ class SkoleFacts extends StatelessWidget {
           height: 300,
         ),
       ),
+      new Fact(
+        question: 'Trykk her',
+        answear:
+            'Hahahahah! Du ga oss nettop rett til å se alt du gjør på mobilen uansett om du sletter appen!',
+        animation: LottieBuilder.asset(
+          'assets/animations/lekser.json',
+          height: 300,
+        ),
+      ),
     ];
     return Scaffold(
       appBar: AppBar(
