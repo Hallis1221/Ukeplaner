@@ -48,7 +48,7 @@ class SkoleFacts extends StatelessWidget {
         question: 'Hvorfor får dere lekser?',
         answear: 'Dere får lekser fordi du ikke fortjener fritiden din!',
         animation: LottieBuilder.asset(
-          'assets/animations/seeyou.json',
+          'assets/animations/lekser.json',
           height: 300,
         ),
       ),
