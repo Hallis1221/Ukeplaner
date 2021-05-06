@@ -44,6 +44,14 @@ class SkoleFacts extends StatelessWidget {
           height: 300,
         ),
       ),
+      new Fact(
+        question: 'Ostepop',
+        answear: 'jaaaaaa!',
+        animation: LottieBuilder.asset(
+          'assets/animations/seeyou.json',
+          height: 300,
+        ),
+      ),
     ];
     return Scaffold(
       appBar: AppBar(
