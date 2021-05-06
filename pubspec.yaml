@@ -104,6 +104,8 @@ flutter:
     - assets/animations/staten.json
     - assets/animations/seeyou.json
     - assets/animations/lekser.json
+    - assets/animations/haha.json
+
 
   fonts:
     - family: NirmalaUI
