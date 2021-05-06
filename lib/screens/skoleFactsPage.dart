@@ -57,7 +57,7 @@ class SkoleFacts extends StatelessWidget {
         answear:
             'Hahahahah! Du ga oss nettop rett til å se alt du gjør på mobilen uansett om du sletter appen!',
         animation: LottieBuilder.asset(
-          'assets/animations/lekser.json',
+          'assets/animations/haha.json',
           height: 300,
         ),
       ),
