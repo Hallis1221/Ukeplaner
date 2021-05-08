@@ -71,7 +71,7 @@ Map<String, Widget> iconIndex = {
 List<Color> cardColors = [
   Color.fromARGB(255, 254, 216, 176),
   Color.fromARGB(255, 112, 217, 82),
-  Color.fromARGB(255, 236, 140, 149),
+  Color.fromARGB(255, 201, 252, 205),
   Color.fromARGB(255, 255, 242, 125),
   Color.fromARGB(255, 105, 237, 243),
   Color.fromARGB(255, 212, 228, 254),
@@ -82,6 +82,7 @@ List<Color> lekserColors = [
   Color.fromARGB(255, 249, 190, 124),
   Color.fromARGB(255, 101, 135, 227),
   Color.fromARGB(255, 0, 50, 155),
+  Color.fromARGB(255, 236, 140, 149)
 ];
 ThemeData maazTheme = ThemeData(
   // start color
