@@ -47,8 +47,8 @@ class _WeekPlanState extends State<WeekPlan> {
           alignment: Alignment.topLeft,
           children: [
             TopDecorationHalfCircle(
-              colorOne: Color.fromARGB(255, 10, 113, 205),
-              colorTwo: Color.fromARGB(255, 196, 113, 245),
+              colorOne: Color.fromARGB(255, 75, 10, 205),
+              colorTwo: Color.fromARGB(255, 113, 209, 245),
             ),
             Center(
               child: Column(
