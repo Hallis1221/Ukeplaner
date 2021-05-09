@@ -36,7 +36,7 @@ String semesterToSluttDag = remoteConfig.getString("semester_to_slutt_dag");
 
 //TODO
 List<Map<String, DateTime>> ferier = [];
-// !! DESIGN av Mazaz!!!!!!! og Hallllllllis!!!!!!!
+// !! DESIGN av Maaaz!!!!!!! og Hallllllllis!!!!!!!
 Color deiligRed = Color.fromARGB(255, 238, 107, 120);
 Color mildBlue = Color.fromARGB(255, 101, 135, 227);
 Color lysOrange = Color.fromARGB(255, 249, 190, 124);
@@ -46,7 +46,7 @@ Color linearBlue = Color.fromARGB(255, 13, 174, 200);
 Color linearGreen = Color.fromARGB(255, 34, 219, 58);
 
 // ?? https://material.io/design/color
-// forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55
+// forholdet mellom 0-100 synlighet og alpha 0-255 er 2,55.
 
 Map<String, Widget> iconIndex = {
   "utv": Container(
@@ -71,7 +71,7 @@ Map<String, Widget> iconIndex = {
 List<Color> cardColors = [
   Color.fromARGB(255, 254, 216, 176),
   Color.fromARGB(255, 112, 217, 82),
-  Color.fromARGB(255, 236, 140, 149),
+  Color.fromARGB(255, 201, 252, 205),
   Color.fromARGB(255, 255, 242, 125),
   Color.fromARGB(255, 105, 237, 243),
   Color.fromARGB(255, 212, 228, 254),
@@ -82,6 +82,7 @@ List<Color> lekserColors = [
   Color.fromARGB(255, 249, 190, 124),
   Color.fromARGB(255, 101, 135, 227),
   Color.fromARGB(255, 0, 50, 155),
+  Color.fromARGB(255, 236, 140, 149)
 ];
 ThemeData maazTheme = ThemeData(
   // start color
