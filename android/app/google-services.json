@@ -22,7 +22,7 @@
           }
         },
         {
-          "client_id": "113842149906-v0qf90l5cvsi2o069bmcnegc248c2hku.apps.googleusercontent.com",
+          "client_id": "113842149906-9ntpg94nc8fpgsjo9srhgc1ptkf27di2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,8 +35,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "113842149906-v0qf90l5cvsi2o069bmcnegc248c2hku.apps.googleusercontent.com",
+              "client_id": "113842149906-9ntpg94nc8fpgsjo9srhgc1ptkf27di2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "113842149906-jnugpl5nc31lr4jf1jnstojre1n4ufmh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "no.vgs.kg.ukeplaner"
+              }
             }
           ]
         }
