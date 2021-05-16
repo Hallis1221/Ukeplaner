@@ -61,6 +61,74 @@ class SkoleFacts extends StatelessWidget {
           height: 300,
         ),
       ),
+      new Fact(
+        question: 'Hvorfor får dere Helger?',
+        answear:
+            'Dere får helgen til å jobbe med skole. Det får 48 timer av oss til å jobbe med skole. Vær takknemlig!!!',
+        animation: LottieBuilder.asset(
+          'assets/animations/haha.json',
+          height: 300,
+        ),
+      ),
+      new Fact(
+        question: 'Betyr stemmen din noe?',
+        answear:
+            'Nei!! Skolen er et Diktatur. Du er irrelevant! Du betalte oss for å være irrelevant. ',
+        animation: LottieBuilder.asset(
+          'assets/animations/haha.json',
+          height: 300,
+        ),
+      ),
+      new Fact(
+        question: 'Hva står KG for?',
+        answear: 'Det står for KiloGram din idiot!',
+        animation: LottieBuilder.asset(
+          'assets/animations/haha.json',
+          height: 300,
+        ),
+      ),
+      new Fact(
+        question: 'Hvorfor får dere gratis internett av oss?',
+        answear:
+            'Når en bruker er koblet til nettet vårt kontrolerer vi hjernen Hans/hennes #feminisme',
+        animation: LottieBuilder.asset(
+          'assets/animations/haha.json',
+          height: 300,
+        ),
+      ),
+      new Fact(
+        question: 'Hvis du vil få 5G, trykk her!',
+        answear: 'Hah! 5G står for 5 garanterte måter å miste IQ',
+        animation: LottieBuilder.asset(
+          'assets/animations/haha.json',
+          height: 300,
+        ),
+      ),
+      new Fact(
+        question: 'Hvorfor finnes hester',
+        answear: 'De finnes for at de kan bli til Lim. Bare søk det opp.',
+        animation: LottieBuilder.asset(
+          'assets/animations/haha.json',
+          height: 300,
+        ),
+      ),
+      new Fact(
+        question: 'Hvorfor finnes læreverelse?',
+        answear: 'Det er der de øver på å kontrolere deres hjerner',
+        animation: LottieBuilder.asset(
+          'assets/animations/haha.json',
+          height: 300,
+        ),
+      ),
+      new Fact(
+        question: 'Hvorfor har vi Nynorsk?',
+        answear:
+            'Det er i pensumet fitt fordi folk som hater verden må ha et fag de er gode i. Nynorsk elskere er de som er preget av grådighet og hat',
+        animation: LottieBuilder.asset(
+          'assets/animations/haha.json',
+          height: 300,
+        ),
+      ),
     ];
     return Scaffold(
       appBar: AppBar(
