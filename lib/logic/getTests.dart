@@ -20,31 +20,35 @@ Future<List<Test>> _getList() async {
         timeTrigger: new Duration(hours: 1));
 
     print("VERID ER $value");
-    List currentTest = value["tests"];
-    print("tests;  $currentTest");
-    for (Map test in currentTest) {
-      print("test; $test");
+    try {
+      List currentTest = value["tests"];
+      print("tests;  $currentTest");
+      for (Map test in currentTest) {
+        print("test; $test");
 
-      test.forEach((key, value) {
-        print("$key: $value");
-      });
-      DateTime timeStamp;
-      try {
-        timeStamp = DateTime.fromMillisecondsSinceEpoch(test["TIMESTAMP_date"]);
-      } catch (e) {
-        timeStamp = DateTime.fromMillisecondsSinceEpoch(
-            test["date"].millisecondsSinceEpoch);
-      }
+        test.forEach((key, value) {
+          print("$key: $value");
+        });
+        DateTime timeStamp;
+        try {
+          timeStamp =
+              DateTime.fromMillisecondsSinceEpoch(test["TIMESTAMP_date"]);
+        } catch (e) {
+          timeStamp = DateTime.fromMillisecondsSinceEpoch(
+              test["date"].millisecondsSinceEpoch);
+        }
 
-      Test testToAdd = new Test(message: test["message"], title: test["title"]);
-      print("tests list: $tests");
-      try {
-        testToAdd.date = timeStamp;
-      } catch (e) {
-        testToAdd.date = DateTime.now();
+        Test testToAdd =
+            new Test(message: test["message"], title: test["title"]);
+        print("tests list: $tests");
+        try {
+          testToAdd.date = timeStamp;
+        } catch (e) {
+          testToAdd.date = DateTime.now();
+        }
+        tests.add(testToAdd);
       }
-      tests.add(testToAdd);
-    }
+    } catch (e) {}
   }
 
   return tests;
